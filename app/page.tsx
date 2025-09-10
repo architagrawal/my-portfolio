@@ -12,6 +12,7 @@ import Skills from "@/components/sections/Skills";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -60,6 +61,7 @@ export default function Home() {
           <Skills />
           {/* <Achievements /> */}
           <Contact />
+          <Analytics />
         </main>
         <Footer />
       </div>
