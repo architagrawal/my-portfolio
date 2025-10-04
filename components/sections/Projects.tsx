@@ -215,9 +215,12 @@ export default function Projects() {
                     </h4>
                     <ul className="space-y-1">
                       {project.achievements.map((achievement, achIndex) => (
-                        <li key={achIndex} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 flex-shrink-0" />
-                          <span className="text-xs text-muted-foreground leading-relaxed">
+                        <li
+                          key={achIndex}
+                          className="flex items-start gap-2 experience-bullet-item group"
+                        >
+                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 flex-shrink-0 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/50" />
+                          <span className="text-xs text-muted-foreground leading-relaxed transition-all duration-300 group-hover:text-white group-hover:drop-shadow-md">
                             {achievement}
                           </span>
                         </li>
