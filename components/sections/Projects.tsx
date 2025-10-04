@@ -87,7 +87,17 @@ const projects = [
       "Implemented responsive front-end using React.js and back-end using Django REST framework",
       "Integrated PostgreSQL database with Redis caching for optimized performance.",
     ],
-    technologies: [],
+    technologies: [
+      "React",
+      "Django",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Stripe",
+      "GCP",
+      "GitHub Actions",
+      "Jest",
+    ],
     demoUrl: "",
     githubUrl: "",
     award: undefined,
@@ -103,7 +113,7 @@ const projects = [
       "Built RESTful API with Flask and SQL Alchemy ORM for database interactions",
       "Designed intuitive UI with React.js and implemented JWT authentication",
     ],
-    technologies: [],
+    technologies: ["React", "Flask", "SQL Alchemy", "JWT", "Docker", "AWS"],
     demoUrl: "",
     githubUrl: "",
     award: undefined,
@@ -119,7 +129,15 @@ const projects = [
       "Utilized Django Channels for WebSocket connections and Redis for message queuing",
       "Implemented geolocation features and interactive data visualizations with Plotly to visualize the location of users.",
     ],
-    technologies: [],
+    technologies: [
+      "Django",
+      "Django Channels",
+      "Redis",
+      "React",
+      "Plotly",
+      "Docker",
+      "AWS",
+    ],
     demoUrl: "",
     githubUrl: "",
     award: undefined,
@@ -207,19 +225,27 @@ export default function Projects() {
                     </ul>
                   </div>
 
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm text-foreground">
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">
                       Tech Stack
                     </h4>
                     <div className="flex flex-wrap gap-1">
-                      {project.technologies.map((tech, index) => (
-                        <Badge
-                          key={index}
-                          variant="secondary"
-                          className="text-xs bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+                      {project.technologies.map((tech, techIndex) => (
+                        <motion.div
+                          key={techIndex}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{
+                            duration: 0.5,
+                            delay: techIndex * 0.05,
+                          }}
+                          viewport={{ once: true }}
+                          className="animated-skill animated-skill-small"
                         >
-                          {tech}
-                        </Badge>
+                          <div className="animated-skill-inner">
+                            <span className="animated-skill-text">{tech}</span>
+                          </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>

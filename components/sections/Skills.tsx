@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Code, Wrench, Cloud, Database } from "lucide-react";
 
 // Define the allowed color values as a union type
@@ -89,15 +88,6 @@ const iconColorVariants: Record<SkillCategoryColor, string> = {
   orange: "text-orange-600 bg-orange-100 dark:bg-orange-900/20",
 };
 
-const badgeColorVariants: Record<SkillCategoryColor, string> = {
-  blue: "bg-blue-50/50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300",
-  teal: "bg-teal-50/50 text-teal-700 dark:bg-teal-900/20 dark:text-teal-300",
-  purple:
-    "bg-purple-50/50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300",
-  orange:
-    "bg-orange-50/50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-300",
-};
-
 export default function Skills() {
   return (
     <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -144,7 +134,7 @@ export default function Skills() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1">
                     {category.skills.map((skill, skillIndex) => (
                       <motion.div
                         key={skillIndex}
@@ -152,16 +142,11 @@ export default function Skills() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: skillIndex * 0.05 }}
                         viewport={{ once: true }}
-                        whileHover={{ scale: 1.05 }}
+                        className="animated-skill"
                       >
-                        <Badge
-                          variant="secondary"
-                          className={`${
-                            badgeColorVariants[category.color]
-                          } hover:shadow-md transition-all duration-200 cursor-default backdrop-blur-sm`}
-                        >
-                          {skill}
-                        </Badge>
+                        <div className="animated-skill-inner">
+                          <span className="animated-skill-text">{skill}</span>
+                        </div>
                       </motion.div>
                     ))}
                   </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
@@ -51,7 +52,12 @@ export default function Home() {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-      <div className="min-h-screen bg-background text-foreground">
+      <motion.div
+        className="min-h-screen bg-background text-foreground"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <Header activeSection={activeSection} />
         <main className="relative">
           <Hero />
@@ -64,7 +70,13 @@ export default function Home() {
           <Analytics />
         </main>
         <Footer />
-      </div>
+      </motion.div>
+
+      {/* External Script */}
+      <Script
+        src="https://www.noupe.com/embed/019936c521a870d98ce210cbb3ccea9a5879.js"
+        strategy="afterInteractive"
+      />
     </ThemeProvider>
   );
 }

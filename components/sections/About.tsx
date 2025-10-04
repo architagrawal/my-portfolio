@@ -6,8 +6,22 @@ import { GraduationCap, Heart, Zap } from "lucide-react";
 
 export default function About() {
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section
+      id="about"
+      className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+    >
+      {/* Grid Effect Background for entire section */}
+      {/* <div className="card-with-grid absolute inset-0 opacity-20">
+        <div className="card__img h-full">
+          <div className="card__grid-effect">
+            {Array.from({ length: 100 }, (_, i) => (
+              <div key={i} className="card__grid-effect-tile"></div>
+            ))}
+          </div>
+        </div>
+      </div> */}
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,8 +78,8 @@ export default function About() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <Card className="border-2 border-blue-100 dark:border-blue-900/20 hover:border-blue-300 dark:hover:border-blue-700 transition-colors bg-background/50 backdrop-blur-sm">
-              <CardContent className="p-6">
+            <Card className="card-animated border-2 border-blue-100 dark:border-blue-900/20 hover:border-blue-300 dark:hover:border-blue-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden">
+              <CardContent className="p-6 relative z-10">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
                     <Zap className="w-5 h-5 text-blue-600" />
@@ -79,10 +93,32 @@ export default function About() {
                   streamline complex workflows and enhance user experiences.
                 </p>
               </CardContent>
+              <div className="card-shine"></div>
+              <div className="card-background">
+                <div className="card-tiles">
+                  <div className="card-tile card-tile-1"></div>
+                  <div className="card-tile card-tile-2"></div>
+                  <div className="card-tile card-tile-3"></div>
+                  <div className="card-tile card-tile-4"></div>
+                  <div className="card-tile card-tile-5"></div>
+                  <div className="card-tile card-tile-6"></div>
+                  <div className="card-tile card-tile-7"></div>
+                  <div className="card-tile card-tile-8"></div>
+                  <div className="card-tile card-tile-9"></div>
+                  <div className="card-tile card-tile-10"></div>
+                  <div className="card-tile card-tile-11"></div>
+                  <div className="card-tile card-tile-12"></div>
+                  <div className="card-tile card-tile-13"></div>
+                  <div className="card-tile card-tile-14"></div>
+                  <div className="card-tile card-tile-15"></div>
+                  <div className="card-tile card-tile-16"></div>
+                </div>
+                <div className="card-grid-lines"></div>
+              </div>
             </Card>
 
-            <Card className="border-2 border-teal-100 dark:border-teal-900/20 hover:border-teal-300 dark:hover:border-teal-700 transition-colors bg-background/50 backdrop-blur-sm">
-              <CardContent className="p-6">
+            <Card className="card-animated border-2 border-teal-100 dark:border-teal-900/20 hover:border-teal-300 dark:hover:border-teal-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden">
+              <CardContent className="p-6 relative z-10">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="p-2 bg-teal-100 dark:bg-teal-900/20 rounded-lg">
                     <Heart className="w-5 h-5 text-teal-600" />
@@ -97,10 +133,32 @@ export default function About() {
                   technology.
                 </p>
               </CardContent>
+              <div className="card-shine"></div>
+              <div className="card-background">
+                <div className="card-tiles">
+                  <div className="card-tile card-tile-1"></div>
+                  <div className="card-tile card-tile-2"></div>
+                  <div className="card-tile card-tile-3"></div>
+                  <div className="card-tile card-tile-4"></div>
+                  <div className="card-tile card-tile-5"></div>
+                  <div className="card-tile card-tile-6"></div>
+                  <div className="card-tile card-tile-7"></div>
+                  <div className="card-tile card-tile-8"></div>
+                  <div className="card-tile card-tile-9"></div>
+                  <div className="card-tile card-tile-10"></div>
+                  <div className="card-tile card-tile-11"></div>
+                  <div className="card-tile card-tile-12"></div>
+                  <div className="card-tile card-tile-13"></div>
+                  <div className="card-tile card-tile-14"></div>
+                  <div className="card-tile card-tile-15"></div>
+                  <div className="card-tile card-tile-16"></div>
+                </div>
+                <div className="card-grid-lines"></div>
+              </div>
             </Card>
 
-            <Card className="border-2 border-purple-100 dark:border-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 transition-colors bg-background/50 backdrop-blur-sm">
-              <CardContent className="p-6">
+            <Card className="card-animated border-2 border-purple-100 dark:border-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden">
+              <CardContent className="p-6 relative z-10">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
                     <GraduationCap className="w-5 h-5 text-purple-600" />
@@ -114,6 +172,28 @@ export default function About() {
                   the forefront of AI/ML and software development.
                 </p>
               </CardContent>
+              <div className="card-shine"></div>
+              <div className="card-background">
+                <div className="card-tiles">
+                  <div className="card-tile card-tile-1"></div>
+                  <div className="card-tile card-tile-2"></div>
+                  <div className="card-tile card-tile-3"></div>
+                  <div className="card-tile card-tile-4"></div>
+                  <div className="card-tile card-tile-5"></div>
+                  <div className="card-tile card-tile-6"></div>
+                  <div className="card-tile card-tile-7"></div>
+                  <div className="card-tile card-tile-8"></div>
+                  <div className="card-tile card-tile-9"></div>
+                  <div className="card-tile card-tile-10"></div>
+                  <div className="card-tile card-tile-11"></div>
+                  <div className="card-tile card-tile-12"></div>
+                  <div className="card-tile card-tile-13"></div>
+                  <div className="card-tile card-tile-14"></div>
+                  <div className="card-tile card-tile-15"></div>
+                  <div className="card-tile card-tile-16"></div>
+                </div>
+                <div className="card-grid-lines"></div>
+              </div>
             </Card>
           </motion.div>
         </div>

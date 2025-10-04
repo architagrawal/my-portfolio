@@ -20,7 +20,7 @@ export default function Contact() {
             Get In Touch
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Let's collaborate on your next project or discuss opportunities
+            Let&apos;s collaborate on your next project or discuss opportunities
           </p>
         </motion.div>
 
@@ -85,9 +85,8 @@ export default function Contact() {
                   asChild
                 >
                   <a
-                    href="https://drive.google.com/file/d/1S1zcEHA_JoC5-1vRWfdOzW6_JfP9-QQw/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/Archit_Agrawal_Resume.pdf"
+                    download="Archit_Agrawal_Resume.pdf"
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Download Resume

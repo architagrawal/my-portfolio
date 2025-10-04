@@ -7,6 +7,28 @@ import { Building, MapPin, Calendar, TrendingUp } from "lucide-react";
 
 const experiences = [
   {
+    company: "MyStage Music Inc",
+    role: "AI/ML Engineer",
+    location: "Remote",
+    period: "July 2025 - Present",
+    achievements: [
+      "Designed and deployed RESTful APIs, enabling scalable, low-latency integrations across cloud-based services.",
+      "Built scalable web scraping pipelines using Playwright with proxy rotation, deployed on Compute Engine with automated scheduling via Cron jobs to ensure reliable data collection.",
+      "Developed data pipelines with location and event deduplication logic, ensuring high-quality, clean datasets for downstream analytics and applications.",
+    ],
+    technologies: [
+      "Python",
+      "FastAPI",
+      "Playwright",
+      "GCP",
+      "Gemini Vertex AI",
+      "Log fire",
+      "Algolia",
+      "Google Firestore",
+    ],
+    color: "teal",
+  },
+  {
     company: "Edplus, Arizona State University",
     role: "Student Software Developer",
     location: "Tempe, AZ",
@@ -30,7 +52,7 @@ const experiences = [
       "SQL",
       "Pandas",
     ],
-    color: "teal",
+    color: "blue",
   },
   {
     company: "Knowledge Exchange for Resilience,Arizona State University",
@@ -188,15 +210,25 @@ export default function Experience() {
                       <h4 className="font-semibold text-foreground">
                         Technologies Used
                       </h4>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1">
                         {exp.technologies.map((tech, techIndex) => (
-                          <Badge
+                          <motion.div
                             key={techIndex}
-                            variant="secondary"
-                            className="bg-muted/50 hover:bg-muted/80 transition-colors backdrop-blur-sm"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{
+                              duration: 0.5,
+                              delay: techIndex * 0.05,
+                            }}
+                            viewport={{ once: true }}
+                            className="animated-skill animated-skill-small"
                           >
-                            {tech}
-                          </Badge>
+                            <div className="animated-skill-inner">
+                              <span className="animated-skill-text">
+                                {tech}
+                              </span>
+                            </div>
+                          </motion.div>
                         ))}
                       </div>
                     </div>

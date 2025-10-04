@@ -80,3 +80,572 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Flipping Text Animation */
+.flip-container {
+  display: inline-block;
+  position: relative;
+}
+
+#flip {
+  height: 2rem;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#flip > div > div {
+  color: inherit;
+  padding: 2px 8px;
+  height: 1.8rem;
+  margin-bottom: 1.8rem;
+  display: inline-block;
+  border-radius: 4px;
+  font-weight: 600;
+  line-height: 1.8rem;
+  text-align: center;
+}
+
+#flip div:first-child {
+  animation: show 8s linear infinite;
+}
+
+/* Removed background colors for cleaner look */
+
+@keyframes show {
+  0% {
+    margin-top: 0rem;
+  }
+  5% {
+    margin-top: -3.6rem;
+  }
+  20% {
+    margin-top: -3.6rem;
+  }
+  25% {
+    margin-top: -7.2rem;
+  }
+  40% {
+    margin-top: -7.2rem;
+  }
+  45% {
+    margin-top: -10.8rem;
+  }
+  60% {
+    margin-top: -10.8rem;
+  }
+  65% {
+    margin-top: -14.4rem;
+  }
+  80% {
+    margin-top: -14.4rem;
+  }
+  85% {
+    margin-top: -18rem;
+  }
+  99.99% {
+    margin-top: -18rem;
+  }
+  100% {
+    margin-top: 0rem;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  #flip > div > div {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Grid Effect Animation */
+.card-with-grid {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+  box-shadow: 0 0 10rem -5rem rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.card__img {
+  position: relative;
+  height: 30rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__grid-effect {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.card__grid-effect-tile {
+  position: relative;
+  cursor: pointer;
+}
+
+.card__grid-effect-tile:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 0.3rem;
+  width: 0.3rem;
+  border-radius: 50%;
+  background: #a9c9ff;
+  transition: 500ms linear all;
+  box-shadow: 0 0 0, 3rem 0 0 -0.3rem, -3rem 0 0 -0.3rem, 0 -3rem 0 -0.3rem,
+    0 3rem 0 -0.3rem, 3rem 3rem 0 -0.45rem, 3rem -3rem 0 -0.45rem,
+    -3rem 3rem 0 -0.45rem, -3rem -3rem 0 -0.45rem, 6rem 0 0 -0.6rem,
+    -6rem 0 0 -0.6rem, 0 -6rem 0 -0.6rem, 0 6rem 0 -0.6rem, 6rem 6rem 0 -0.9rem,
+    6rem -6rem 0 -0.9rem, -6rem 6rem 0 -0.9rem, -6rem -6rem 0 -0.9rem,
+    9rem 0 0 -0.9rem, -9rem 0 0 -0.9rem, 0 -9rem 0 -0.9rem, 0 9rem 0 -0.9rem;
+}
+
+.card__grid-effect-tile:hover:before {
+  height: 3rem;
+  width: 3rem;
+  transition: 70ms linear all;
+}
+
+/* Dark mode adjustments for grid effect */
+@media (prefers-color-scheme: dark) {
+  .card-with-grid {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .card__grid-effect-tile:before {
+    background: #7c3aed;
+  }
+}
+
+/* Sparkle Animation */
+.sparkle-button {
+  position: relative;
+}
+
+.sparkle-button .sparkle {
+  position: absolute;
+  z-index: 3;
+  width: 0.6rem;
+  aspect-ratio: 1;
+  color: hsl(0 0% 100% / 0.75);
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.sparkle-button:hover .sparkle {
+  animation: sparkle 0.75s calc(var(--d) * 0.15s) both;
+}
+
+@keyframes sparkle {
+  50% {
+    transform: translate(-50%, -50%) scale(var(--s, 1));
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+.sparkle-button .sparkle:nth-of-type(1) {
+  --x: 0%;
+  --y: 20%;
+  --s: 1.1;
+  --d: 1;
+}
+
+.sparkle-button .sparkle:nth-of-type(2) {
+  --x: 15%;
+  --y: 80%;
+  --s: 1.25;
+  --d: 2;
+}
+
+.sparkle-button .sparkle:nth-of-type(3) {
+  --x: 45%;
+  --y: 40%;
+  --s: 1.1;
+  --d: 3;
+}
+
+.sparkle-button .sparkle:nth-of-type(4) {
+  --x: 75%;
+  --y: 60%;
+  --s: 0.9;
+  --d: 2;
+}
+
+.sparkle-button .sparkle:nth-of-type(5) {
+  --x: 100%;
+  --y: 30%;
+  --s: 0.8;
+  --d: 4;
+}
+
+/* Advanced Card Animation Effects */
+.card-animated {
+  cursor: pointer;
+  transition: box-shadow 0.25s ease;
+}
+
+.card-animated:hover {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.05), 0px 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-shine {
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.card-shine:before {
+  content: "";
+  width: 150%;
+  padding-bottom: 150%;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  bottom: 55%;
+  filter: blur(35px);
+  opacity: 0.1;
+  transform: translateX(-50%);
+  background-image: conic-gradient(
+    from 205deg at 50% 50%,
+    rgba(59, 130, 246, 0) 0deg,
+    #3b82f6 25deg,
+    rgba(147, 197, 253, 0.18) 295deg,
+    rgba(59, 130, 246, 0) 360deg
+  );
+}
+
+.card-background {
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.card-tiles {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card-tile {
+  position: absolute;
+  background-color: rgba(59, 130, 246, 0.08);
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  opacity: 0;
+  border-radius: 2px;
+}
+
+.card-tile.card-tile-2,
+.card-tile.card-tile-5,
+.card-tile.card-tile-9,
+.card-tile.card-tile-13 {
+  animation-delay: -1s;
+}
+
+.card-tile.card-tile-3,
+.card-tile.card-tile-6,
+.card-tile.card-tile-10,
+.card-tile.card-tile-14 {
+  animation-delay: -2s;
+}
+
+.card-tile.card-tile-4,
+.card-tile.card-tile-7,
+.card-tile.card-tile-11,
+.card-tile.card-tile-15 {
+  animation-delay: -3s;
+}
+
+.card-tile.card-tile-8,
+.card-tile.card-tile-12,
+.card-tile.card-tile-16 {
+  animation-delay: -4s;
+}
+
+.card-tile.card-tile-1 {
+  top: 0;
+  left: 0;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-2 {
+  top: 0;
+  left: 25%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-3 {
+  top: 0;
+  left: 50%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-4 {
+  top: 0;
+  left: 75%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-5 {
+  top: 25%;
+  left: 0;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-6 {
+  top: 25%;
+  left: 25%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-7 {
+  top: 25%;
+  left: 50%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-8 {
+  top: 25%;
+  left: 75%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-9 {
+  top: 50%;
+  left: 0;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-10 {
+  top: 50%;
+  left: 25%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-11 {
+  top: 50%;
+  left: 50%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-12 {
+  top: 50%;
+  left: 75%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-13 {
+  top: 75%;
+  left: 0%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-14 {
+  top: 75%;
+  left: 25%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-15 {
+  top: 75%;
+  left: 50%;
+  height: 25%;
+  width: 25%;
+}
+
+.card-tile.card-tile-16 {
+  top: 75%;
+  left: 75%;
+  height: 25%;
+  width: 25%;
+}
+
+@keyframes card-tile-animation {
+  0%,
+  12.5%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  82.5% {
+    opacity: 0;
+  }
+}
+
+.card-grid-lines {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background-image: linear-gradient(
+      to right,
+      rgba(59, 130, 246, 0.2) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.2) 1px, transparent 1px);
+  background-size: 45px 45px;
+  background-position: 0 0, 0 0;
+  transform: scale(0.8);
+  transform-origin: center;
+  transition: all 0.35s ease;
+  -webkit-mask-image: radial-gradient(
+    ellipse 60% 40% at 50% 50%,
+    transparent 20%,
+    black 60%
+  );
+  mask-image: radial-gradient(
+    ellipse 60% 40% at 50% 50%,
+    transparent 20%,
+    black 60%
+  );
+}
+
+/* Hover Effects */
+.card-animated:hover .card-shine {
+  opacity: 1;
+  transition-duration: 0.5s;
+  transition-delay: 0s;
+}
+
+.card-animated:hover .card-tiles {
+  opacity: 1;
+  transition-delay: 0.25s;
+}
+
+.card-animated:hover .card-tile {
+  animation-name: card-tile-animation;
+}
+
+.card-animated:hover .card-grid-lines {
+  opacity: 1;
+  transform: scale(1);
+  transition-duration: 0.4s;
+}
+
+/* Different colors for different card types */
+.card-animated:has(.text-teal-600) .card-shine:before {
+  background-image: conic-gradient(
+    from 205deg at 50% 50%,
+    rgba(20, 184, 166, 0) 0deg,
+    #14b8a6 25deg,
+    rgba(153, 246, 228, 0.18) 295deg,
+    rgba(20, 184, 166, 0) 360deg
+  );
+}
+
+.card-animated:has(.text-teal-600) .card-tile {
+  background-color: rgba(20, 184, 166, 0.05);
+}
+
+.card-animated:has(.text-teal-600) .card-grid-lines {
+  background-image: linear-gradient(
+      to right,
+      rgba(20, 184, 166, 0.2) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(20, 184, 166, 0.2) 1px, transparent 1px);
+}
+
+.card-animated:has(.text-purple-600) .card-shine:before {
+  background-image: conic-gradient(
+    from 205deg at 50% 50%,
+    rgba(147, 51, 234, 0) 0deg,
+    #9333ea 25deg,
+    rgba(196, 181, 253, 0.18) 295deg,
+    rgba(147, 51, 234, 0) 360deg
+  );
+}
+
+.card-animated:has(.text-purple-600) .card-tile {
+  background-color: rgba(147, 51, 234, 0.05);
+}
+
+.card-animated:has(.text-purple-600) .card-grid-lines {
+  background-image: linear-gradient(
+      to right,
+      rgba(147, 51, 234, 0.2) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(147, 51, 234, 0.2) 1px, transparent 1px);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .card-animated:hover {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.4), 0px 15px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-shine:before {
+    opacity: 0.3;
+  }
+
+  .card-tile {
+    background-color: rgba(59, 130, 246, 0.12);
+  }
+
+  .card-grid-lines {
+    background-image: linear-gradient(
+        to right,
+        rgba(59, 130, 246, 0.3) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.3) 1px, transparent 1px);
+  }
+
+  .card-animated:has(.text-teal-600) .card-tile {
+    background-color: rgba(20, 184, 166, 0.12);
+  }
+
+  .card-animated:has(.text-teal-600) .card-grid-lines {
+    background-image: linear-gradient(
+        to right,
+        rgba(20, 184, 166, 0.3) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(20, 184, 166, 0.3) 1px, transparent 1px);
+  }
+
+  .card-animated:has(.text-purple-600) .card-tile {
+    background-color: rgba(147, 51, 234, 0.12);
+  }
+
+  .card-animated:has(.text-purple-600) .card-grid-lines {
+    background-image: linear-gradient(
+        to right,
+        rgba(147, 51, 234, 0.3) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(147, 51, 234, 0.3) 1px, transparent 1px);
+  }
+}

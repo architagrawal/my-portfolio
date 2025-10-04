@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BackgroundPaths } from "@/components/ui/background-paths";
+import Sparkle from "@/components/ui/Sparkle";
+import Image from "next/image";
 
 export default function Hero() {
   const scrollToAbout = () => {
@@ -44,10 +46,16 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="mx-auto w-32 h-32 rounded-full bg-gradient-to-br from-blue-600 to-teal-600 p-1"
           >
-            <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-              <span className="text-4xl font-bold bg-gradient-to-br from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                AA
-              </span>
+            <div className="w-full h-full rounded-full overflow-hidden">
+              <Image
+                src="/archit-profile.png"
+                alt="Archit Agrawal"
+                width={128}
+                height={128}
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "40% center" }}
+                priority
+              />
             </div>
           </motion.div>
 
@@ -102,7 +110,28 @@ export default function Hero() {
               }}
             >
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-3">
-                Software Engineer & AI/ML Enthusiast
+                <div className="flip-container">
+                  <div id="flip">
+                    <div>
+                      <div>Software Engineer</div>
+                    </div>
+                    <div>
+                      <div>ML Engineer</div>
+                    </div>
+                    <div>
+                      <div>AI Engineer</div>
+                    </div>
+                    <div>
+                      <div>LLM Engineer</div>
+                    </div>
+                    <div>
+                      <div>Data Engineer</div>
+                    </div>
+                    <div>
+                      <div>Software Engineer</div>
+                    </div>
+                  </div>
+                </div>
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Building intelligent solutions and automating the future, one
@@ -122,7 +151,7 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-900/20"
+              className="group hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-900/20 sparkle-button"
             >
               <a
                 href="https://www.linkedin.com/in/agrawal-archit"
@@ -130,6 +159,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2"
               >
+                <Sparkle />
                 <Linkedin className="w-5 h-5 group-hover:text-blue-600" />
                 <span>LinkedIn</span>
                 <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -140,7 +170,7 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group hover:bg-gray-50 hover:border-gray-300 dark:hover:bg-gray-800"
+              className="group hover:bg-gray-50 hover:border-gray-300 dark:hover:bg-gray-800 sparkle-button"
             >
               <a
                 href="https://github.com/architagrawal"
@@ -148,6 +178,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2"
               >
+                <Sparkle />
                 <Github className="w-5 h-5" />
                 <span>GitHub</span>
                 <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -158,7 +189,7 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group hover:bg-orange-50 hover:border-orange-300 dark:hover:bg-orange-900/20"
+              className="group hover:bg-orange-50 hover:border-orange-300 dark:hover:bg-orange-900/20 sparkle-button"
             >
               <a
                 href="https://leetcode.com/architagrawal000"
@@ -166,6 +197,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2"
               >
+                <Sparkle />
                 <Code className="w-5 h-5 group-hover:text-orange-600" />
                 <span>LeetCode</span>
                 <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
