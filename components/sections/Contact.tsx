@@ -1,11 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, MapPin, Download } from "lucide-react";
+import { Mail, MapPin, Download, Copy, Check } from "lucide-react";
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+  const email = "ARCHITAGRAWAL000@GMAIL.COM";
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -37,7 +51,20 @@ export default function Contact() {
                 Contact Information
               </h3>
               <div className="grid sm:grid-cols-2 gap-6">
-                <Card className="border-2 hover:border-blue-200 dark:hover:border-blue-800 transition-colors bg-background/50 backdrop-blur-sm">
+                <Card className="border-2 hover:border-blue-200 dark:hover:border-blue-800 transition-colors bg-background/50 backdrop-blur-sm relative">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={copyToClipboard}
+                    className="absolute top-2 right-2 h-8 w-8 hover:bg-blue-100 dark:hover:bg-blue-900/20"
+                    title="Copy email to clipboard"
+                  >
+                    {copied ? (
+                      <Check className="w-4 h-4 text-green-600" />
+                    ) : (
+                      <Copy className="w-4 h-4 text-blue-600" />
+                    )}
+                  </Button>
                   <CardContent className="p-6 text-center">
                     <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                       <Mail className="w-6 h-6 text-blue-600" />
@@ -46,10 +73,10 @@ export default function Contact() {
                       Email
                     </h4>
                     <a
-                      href="mailto:ARCHITAGRAWAL000@GMAIL.COM"
+                      href={`mailto:${email}`}
                       className="text-muted-foreground hover:text-blue-600 transition-colors"
                     >
-                      ARCHITAGRAWAL000@GMAIL.COM
+                      {email}
                     </a>
                   </CardContent>
                 </Card>
