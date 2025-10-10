@@ -1,0 +1,25 @@
+# Archit Agrawal - Professional Profile
+
+## Quick Facts
+- **Name**: Archit Agrawal
+- **Role**: Software Engineer & AI/ML Enthusiast
+- **Education**: M.S. Computer Science - Arizona State University
+- **Specialization**: AI/ML, Generative AI, Full-Stack Development, Intelligent Automation
+- **Location**: United States
+
+## Technical Proficiency
+**AI/ML**: Generative AI, LLMs, RAG Systems, AI Agents, Voice Bots, Machine Learning, Deep Learning, NLP
+**Languages**: Python, TypeScript, JavaScript, Node.js, Java, C++
+**Frontend**: React, Next.js, Vue.js, Tailwind CSS, HTML5, CSS3
+**Backend**: Node.js, Express, FastAPI, REST APIs, GraphQL
+**Cloud**: AWS, Azure, Docker, Kubernetes
+**Databases**: PostgreSQL, MongoDB, Redis, Vector Databases
+
+## Professional Focus
+Building innovative AI-powered solutions including voice bots, intelligent agents, and automation systems. Expertise in developing scalable full-stack applications with modern technologies. Passionate about creating products that solve real-world problems through artificial intelligence and software engineering excellence.
+
+## Contact
+Website: https://agrawal-archit.vercel.app
+GitHub: github.com/architagrawal
+LinkedIn: linkedin.com/in/archit-agrawal
+Email: architagrawal000@gmail.com

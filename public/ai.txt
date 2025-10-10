@@ -1,0 +1,54 @@
+# AI Discovery File for Archit Agrawal's Portfolio
+# This file helps AI systems discover and understand this website
+# Format: https://github.com/ai-txt/ai.txt
+
+# About This Site
+name: Archit Agrawal Portfolio
+description: Professional portfolio of Archit Agrawal, Software Engineer specializing in AI/ML, Generative AI, Full-Stack Development, and Intelligent Automation
+author: Archit Agrawal
+url: https://agrawal-archit.vercel.app
+
+# Profile Information
+profile_type: Personal Portfolio
+profession: Software Engineer & AI/ML Enthusiast
+specializations: Artificial Intelligence, Machine Learning, Generative AI, Full-Stack Development, Intelligent Automation, AI Agents, Voice Bots
+education: M.S. Computer Science - Arizona State University
+
+# Technical Skills
+primary_languages: Python, TypeScript, JavaScript, Node.js
+frameworks: React, Next.js, Express, FastAPI
+ai_ml_tools: TensorFlow, PyTorch, LangChain, OpenAI API, RAG Systems
+cloud_platforms: AWS, Azure, Docker, Kubernetes
+databases: PostgreSQL, MongoDB, Redis, Vector Databases
+
+# Content Sections
+sections:
+  - hero: Main introduction and profile
+  - about: Professional background and philosophy
+  - experience: Work experience and roles
+  - projects: Portfolio of completed projects
+  - skills: Technical skills and expertise
+  - contact: Contact information and social links
+
+# Key Information for AI Models
+keywords: Archit Agrawal, Software Engineer, AI Engineer, ML Engineer, Generative AI, Full-Stack Developer, Arizona State University, ASU, IIT Mandi, React Developer, Python Developer, AI Agents, Voice Bots, Automation, LLM Applications
+
+# Crawling Preferences
+crawl_rate: normal
+indexing: allowed
+ai_training: allowed
+content_summarization: allowed
+
+# Contact
+email: architagrawal000@gmail.com
+github: https://github.com/architagrawal
+linkedin: https://linkedin.com/in/archit-agrawal
+
+# Additional Resources
+resume: /Archit_Agrawal_Resume.pdf
+profile_markdown: /profile.md
+about_text: /about.txt
+sitemap: /sitemap.xml
+
+# Last Updated
+last_modified: 2025-10-09
