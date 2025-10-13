@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, Wrench, Cloud, Database } from "lucide-react";
+import SkillCardScroll from "@/components/skill-card-scroll";
 
 // Define the allowed color values as a union type
 type SkillCategoryColor = "blue" | "teal" | "purple" | "orange";
@@ -109,12 +110,10 @@ export default function Skills() {
 
         <div className="grid md:grid-cols-2 gap-8">
           {skillCategories.map((category, index) => (
-            <motion.div
+            <SkillCardScroll
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              index={index}
+              totalCards={skillCategories.length}
             >
               <Card
                 className={`h-full border-2 transition-all duration-300 hover:shadow-lg bg-background/50 backdrop-blur-sm ${
@@ -152,7 +151,7 @@ export default function Skills() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </SkillCardScroll>
           ))}
         </div>
       </div>

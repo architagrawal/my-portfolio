@@ -11,6 +11,7 @@ import {
   TrendingUp,
   Calendar,
 } from "lucide-react";
+import ProjectsCarousel from "@/components/projects-carousel";
 
 const projects = [
   {
@@ -153,7 +154,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
             Projects
@@ -164,130 +165,123 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <ProjectsCarousel totalCards={projects.length}>
           {projects.map((project, index) => (
-            <motion.div
+            <Card
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              viewport={{ once: true }}
+              className="flex-shrink-0 w-[400px] overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 bg-card"
             >
-              <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow duration-200 border bg-card">
-                <div className="relative">
-                  <div className="aspect-video bg-gradient-to-br from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="absolute top-4 left-4">
-                    <Badge variant="secondary" className="bg-background/90">
-                      <Calendar className="w-3 h-3 mr-1" />
-                      {project.date}
+              <div className="relative">
+                <div className="aspect-video bg-gradient-to-br from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute top-4 left-4">
+                  <Badge variant="secondary" className="bg-background/90">
+                    <Calendar className="w-3 h-3 mr-1" />
+                    {project.date}
+                  </Badge>
+                </div>
+                {project.award && (
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
+                      <Award className="w-3 h-3 mr-1" />
+                      {project.award}
                     </Badge>
                   </div>
-                  {project.award && (
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
-                        <Award className="w-3 h-3 mr-1" />
-                        {project.award}
-                      </Badge>
-                    </div>
-                  )}
+                )}
+              </div>
+
+              <CardHeader>
+                <CardTitle className="text-xl flex items-center gap-2 text-foreground">
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
+                  {project.title}
+                </CardTitle>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  {project.description}
+                </p>
+              </CardHeader>
+
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-sm text-foreground">
+                    Key Achievements
+                  </h4>
+                  <ul className="space-y-1">
+                    {project.achievements.map((achievement, achIndex) => (
+                      <li
+                        key={achIndex}
+                        className="flex items-start gap-2 experience-bullet-item group"
+                      >
+                        <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 flex-shrink-0 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/50" />
+                        <span className="text-xs text-muted-foreground leading-relaxed transition-all duration-300 group-hover:text-white group-hover:drop-shadow-md">
+                          {achievement}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <CardHeader>
-                  <CardTitle className="text-xl flex items-center gap-2 text-foreground">
-                    <TrendingUp className="w-5 h-5 text-blue-600" />
-                    {project.title}
-                  </CardTitle>
-                  <p className="text-muted-foreground leading-relaxed text-sm">
-                    {project.description}
-                  </p>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm text-foreground">
-                      Key Achievements
-                    </h4>
-                    <ul className="space-y-1">
-                      {project.achievements.map((achievement, achIndex) => (
-                        <li
-                          key={achIndex}
-                          className="flex items-start gap-2 experience-bullet-item group"
-                        >
-                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 flex-shrink-0 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/50" />
-                          <span className="text-xs text-muted-foreground leading-relaxed transition-all duration-300 group-hover:text-white group-hover:drop-shadow-md">
-                            {achievement}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-foreground">
-                      Tech Stack
-                    </h4>
-                    <div className="flex flex-wrap gap-1">
-                      {project.technologies.map((tech, techIndex) => (
-                        <motion.div
-                          key={techIndex}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            duration: 0.5,
-                            delay: techIndex * 0.05,
-                          }}
-                          viewport={{ once: true }}
-                          className="animated-skill animated-skill-small"
-                        >
-                          <div className="animated-skill-inner">
-                            <span className="animated-skill-text">{tech}</span>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2 pt-2">
-                    {project.demoUrl && (
-                      <Button
-                        size="sm"
-                        className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white"
-                        asChild
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-foreground">Tech Stack</h4>
+                  <div className="flex flex-wrap gap-1">
+                    {project.technologies.map((tech, techIndex) => (
+                      <motion.div
+                        key={techIndex}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          duration: 0.5,
+                          delay: techIndex * 0.05,
+                        }}
+                        viewport={{ once: true }}
+                        className="animated-skill animated-skill-small"
                       >
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <ExternalLink className="w-3 h-3 mr-2" />
-                          View Live Demo
-                        </a>
-                      </Button>
-                    )}
-                    {project.githubUrl && (
-                      <Button variant="outline" size="sm" asChild>
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="w-3 h-3 mr-2" />
-                          View Source
-                        </a>
-                      </Button>
-                    )}
+                        <div className="animated-skill-inner">
+                          <span className="animated-skill-text">{tech}</span>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                </div>
+
+                <div className="flex flex-col gap-2 pt-2">
+                  {project.demoUrl && (
+                    <Button
+                      size="sm"
+                      className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white"
+                      asChild
+                    >
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-3 h-3 mr-2" />
+                        View Live Demo
+                      </a>
+                    </Button>
+                  )}
+                  {project.githubUrl && (
+                    <Button variant="outline" size="sm" asChild>
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="w-3 h-3 mr-2" />
+                        View Source
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
           ))}
-        </div>
+        </ProjectsCarousel>
       </div>
     </section>
   );
