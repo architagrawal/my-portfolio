@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import InteractiveCard from "@/components/interactive-card";
 import { Button } from "@/components/ui/button";
 import { Mail, MapPin, Download, Copy, Check } from "lucide-react";
 
@@ -51,7 +52,10 @@ export default function Contact() {
                 Contact Information
               </h3>
               <div className="grid sm:grid-cols-2 gap-6">
-                <Card className="border-2 hover:border-blue-200 dark:hover:border-blue-800 transition-colors bg-background/50 backdrop-blur-sm relative">
+                <InteractiveCard
+                  InteractiveColor="#02327a" /* very light neon-cyan */
+                  className="border-2 hover:border-blue-200 dark:hover:border-blue-800 transition-colors bg-background/50 backdrop-blur-sm relative"
+                >
                   <Button
                     variant="ghost"
                     size="icon"
@@ -65,7 +69,7 @@ export default function Contact() {
                       <Copy className="w-4 h-4 text-blue-600" />
                     )}
                   </Button>
-                  <CardContent className="p-6 text-center">
+                  <div className="p-6 text-center">
                     <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                       <Mail className="w-6 h-6 text-blue-600" />
                     </div>
@@ -78,11 +82,14 @@ export default function Contact() {
                     >
                       {email}
                     </a>
-                  </CardContent>
-                </Card>
+                  </div>
+                </InteractiveCard>
 
-                <Card className="border-2 hover:border-purple-200 dark:hover:border-purple-800 transition-colors bg-background/50 backdrop-blur-sm">
-                  <CardContent className="p-6 text-center">
+                <InteractiveCard
+                  InteractiveColor="#5c014b" /* very light lavender */
+                  className="border-2 hover:border-purple-200 dark:hover:border-purple-800 transition-colors bg-background/50 backdrop-blur-sm"
+                >
+                  <div className="p-6 text-center">
                     <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                       <MapPin className="w-6 h-6 text-purple-600" />
                     </div>
@@ -90,19 +97,22 @@ export default function Contact() {
                       Location
                     </h4>
                     <p className="text-muted-foreground">USA</p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </InteractiveCard>
               </div>
             </div>
 
-            <Card className="border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-colors bg-background/50 backdrop-blur-sm">
+            <InteractiveCard
+              InteractiveColor="#6342f5"
+              className="border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-colors bg-background/50 backdrop-blur-sm"
+            >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 justify-center text-foreground">
                   <Download className="w-5 h-5" />
                   Resume
                 </CardTitle>
               </CardHeader>
-              <CardContent className="text-center">
+              <div className="text-center p-6">
                 <p className="text-sm text-muted-foreground mb-4">
                   Download my latest resume to learn more about my experience
                   and skills.
@@ -119,8 +129,8 @@ export default function Contact() {
                     Download Resume
                   </a>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </InteractiveCard>
           </motion.div>
         </div>
       </div>
