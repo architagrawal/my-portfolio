@@ -96,10 +96,10 @@ export default function Home() {
         </motion.div>
 
         {/* External Script */}
-        <Script
+        {/* <Script
           src="https://www.noupe.com/embed/019936c521a870d98ce210cbb3ccea9a5879.js"
           strategy="afterInteractive"
-        />
+        /> */}
       </SmoothScroll>
     </ThemeProvider>
   );
