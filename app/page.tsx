@@ -14,6 +14,7 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import SmoothScroll from "@/components/smooth-scroll";
 
 export default function Home() {
@@ -95,10 +96,10 @@ export default function Home() {
         </motion.div>
 
         {/* External Script */}
-        {/* <Script
+        <Script
           src="https://www.noupe.com/embed/019936c521a870d98ce210cbb3ccea9a5879.js"
           strategy="afterInteractive"
-        /> */}
+        />
       </SmoothScroll>
     </ThemeProvider>
   );
