@@ -91,6 +91,7 @@ export default function Home() {
             {/* <Achievements /> */}
             <Contact />
             <Analytics />
+            <SpeedInsights />
           </main>
           <Footer />
         </motion.div>
