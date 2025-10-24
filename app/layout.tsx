@@ -10,7 +10,11 @@ import {
   professionalServiceSchema,
 } from "./metadata";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: {
@@ -108,6 +112,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Performance optimizations */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://vercel.live" />
+        <link rel="preload" href="/archit-profile.png" as="image" type="image/png" />
+        
         {/* Structured Data for AI and Search Engines */}
         <Script
           id="person-schema"

@@ -10,9 +10,15 @@ import {
   Instagram,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BackgroundPaths } from "@/components/ui/background-paths";
 import Sparkle from "@/components/ui/Sparkle";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+// Lazy load heavy background animation
+const BackgroundPaths = dynamic(
+  () => import("@/components/ui/background-paths").then((mod) => ({ default: mod.BackgroundPaths })),
+  { ssr: false }
+);
 
 export default function Hero() {
   const scrollToAbout = () => {
@@ -41,9 +47,9 @@ export default function Hero() {
         >
           {/* Profile Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4 }}
             className="mx-auto w-32 h-32 rounded-full bg-gradient-to-br from-blue-600 to-teal-600 p-1"
           >
             <div className="w-full h-full rounded-full overflow-hidden">
@@ -55,40 +61,20 @@ export default function Hero() {
                 className="w-full h-full object-cover"
                 style={{ objectPosition: "40% center" }}
                 priority
+                quality={85}
               />
             </div>
           </motion.div>
 
           {/* Animated Name - positioned just below icon */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 0.4 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-4"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter">
-              {"ARCHIT AGRAWAL".split(" ").map((word, wordIndex) => (
-                <span key={wordIndex} className="inline-block mr-4 last:mr-0">
-                  {word.split("").map((letter, letterIndex) => (
-                    <motion.span
-                      key={`${wordIndex}-${letterIndex}`}
-                      initial={{ y: 100, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{
-                        delay: 0.6 + wordIndex * 0.1 + letterIndex * 0.03,
-                        type: "spring",
-                        stiffness: 150,
-                        damping: 25,
-                      }}
-                      className="inline-block text-transparent bg-clip-text 
-                      bg-gradient-to-r from-neutral-900 to-neutral-700/80 
-                      dark:from-white dark:to-white/80"
-                    >
-                      {letter}
-                    </motion.span>
-                  ))}
-                </span>
-              ))}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-700/80 dark:from-white dark:to-white/80">
+              ARCHIT AGRAWAL
             </h1>
           </motion.div>
 
@@ -96,7 +82,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             className="mx-auto max-w-2xl"
             style={{ margin: "10px" }}
           >
@@ -144,7 +130,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.6 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
             className="flex justify-center flex-wrap gap-4"
           >
             <Button
@@ -209,7 +195,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.8 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           >
             <div
               className="inline-block group relative bg-gradient-to-b from-black/10 to-white/10 
@@ -239,7 +225,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
         className="absolute bottom-8 right-8 z-20"
       >
         <motion.div

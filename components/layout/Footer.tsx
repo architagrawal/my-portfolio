@@ -92,9 +92,31 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center">
-          <p className="text-muted-foreground flex items-center justify-center gap-2">
-            Made with <Heart className="w-4 h-4 text-red-500" /> by Archit
-            Agrawal
+          <p className="text-muted-foreground flex items-center justify-center gap-2 flex-wrap">
+            Made with{" "}
+            <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />{" "}
+            using
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gradient-to-r from-cyan-400/10 to-cyan-600/10 border border-cyan-400/20 text-cyan-600 dark:text-cyan-400 font-medium">
+              React
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 font-medium">
+              Next.js
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gradient-to-r from-blue-600/10 to-blue-400/10 border border-blue-600/20 text-blue-700 dark:text-blue-300 font-medium">
+              TypeScript
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-medium">
+              Tailwind
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gradient-to-r from-slate-500/10 to-slate-600/10 border border-slate-500/20 text-slate-600 dark:text-slate-400 font-medium">
+              Radix UI
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 font-medium">
+              Framer Motion
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-medium">
+              Lenis
+            </span>
           </p>
         </div>
       </div>

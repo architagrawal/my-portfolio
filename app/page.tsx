@@ -1,21 +1,37 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Experience from "@/components/sections/Experience";
-import Projects from "@/components/sections/Projects";
-import Skills from "@/components/sections/Skills";
-// import Achievements from '@/components/sections/Achievements';
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import SmoothScroll from "@/components/smooth-scroll";
+import dynamic from "next/dynamic";
+
+// Lazy load heavy sections that are below the fold
+const About = dynamic(() => import("@/components/sections/About"), {
+  loading: () => <div className="min-h-screen" />,
+});
+const Experience = dynamic(() => import("@/components/sections/Experience"), {
+  loading: () => <div className="min-h-screen" />,
+});
+const Projects = dynamic(() => import("@/components/sections/Projects"), {
+  loading: () => <div className="min-h-screen" />,
+});
+const Skills = dynamic(() => import("@/components/sections/Skills"), {
+  loading: () => <div className="min-h-screen" />,
+});
+const Contact = dynamic(() => import("@/components/sections/Contact"), {
+  loading: () => <div className="min-h-screen" />,
+});
+
+// Lazy load SmoothScroll only after initial render
+const SmoothScroll = dynamic(() => import("@/components/smooth-scroll"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -75,12 +91,7 @@ export default function Home() {
           </p>
         </div>
 
-        <motion.div
-          className="min-h-screen bg-background text-foreground"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="min-h-screen bg-background text-foreground">
           <Header activeSection={activeSection} />
           <main className="relative" role="main" aria-label="Main content">
             <Hero />
@@ -94,7 +105,7 @@ export default function Home() {
             <SpeedInsights />
           </main>
           <Footer />
-        </motion.div>
+        </div>
 
         {/* External Script */}
         {/* <Script
