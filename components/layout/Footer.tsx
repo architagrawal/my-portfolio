@@ -2,11 +2,21 @@
 
 import { motion } from "framer-motion";
 import { Heart, Github, Linkedin, Code, Instagram } from "lucide-react";
+import { FireworksBackground } from "@/components/animate-ui/components/backgrounds/fireworks";
 
 export default function Footer() {
   return (
-    <footer className="bg-background border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-background border-t border-border relative overflow-hidden">
+      <FireworksBackground
+        className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20"
+        color="white"
+        population={5}
+        fireworkSpeed={{ min: 2, max: 4 }}
+        fireworkSize={{ min: 2, max: 6 }}
+        particleSpeed={{ min: 1, max: 5}}
+        particleSize={{ min: 1, max: 4 }}
+      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="grid md:grid-cols-2 gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

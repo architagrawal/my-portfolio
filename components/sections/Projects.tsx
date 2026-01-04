@@ -12,6 +12,7 @@ import {
   Calendar,
 } from "lucide-react";
 import ProjectsCarousel from "@/components/projects-carousel";
+import { HexagonBackground } from "@/components/animate-ui/components/backgrounds/hexagon";
 
 const projects = [
   {
@@ -169,116 +170,123 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="flex-shrink-0 w-[400px] overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 bg-card"
+              className="flex-shrink-0 w-[400px] overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative h-full group"
             >
-              <div className="relative">
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 overflow-hidden">
+              <HexagonBackground
+                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
+                hexagonProps={{
+                  className:
+                    "hover:before:bg-sky-200 dark:hover:before:bg-sky-900 hover:after:bg-sky-100 dark:hover:after:bg-sky-950",
+                }}
+              />
+              <div className="relative z-10">
+                <div className="aspect-video bg-gradient-to-br from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 overflow-hidden relative">
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
-                </div>
-                <div className="absolute top-4 left-4">
-                  <Badge variant="secondary" className="bg-background/90">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {project.date}
-                  </Badge>
-                </div>
-                {project.award && (
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
-                      <Award className="w-3 h-3 mr-1" />
-                      {project.award}
+                  <div className="absolute top-4 left-4">
+                    <Badge variant="secondary" className="bg-background/90">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {project.date}
                     </Badge>
                   </div>
-                )}
-              </div>
-
-              <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2 text-foreground">
-                  <TrendingUp className="w-5 h-5 text-blue-600" />
-                  {project.title}
-                </CardTitle>
-                <p className="text-muted-foreground leading-relaxed text-sm">
-                  {project.description}
-                </p>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-sm text-foreground">
-                    Key Achievements
-                  </h4>
-                  <ul className="space-y-1">
-                    {project.achievements.map((achievement, achIndex) => (
-                      <li
-                        key={achIndex}
-                        className="flex items-start gap-2 experience-bullet-item group"
-                      >
-                        <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 flex-shrink-0 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/50" />
-                        <span className="text-xs text-muted-foreground leading-relaxed transition-all duration-300 group-hover:text-white group-hover:drop-shadow-md">
-                          {achievement}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  {project.award && (
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
+                        <Award className="w-3 h-3 mr-1" />
+                        {project.award}
+                      </Badge>
+                    </div>
+                  )}
                 </div>
 
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-foreground">Tech Stack</h4>
-                  <div className="flex flex-wrap gap-1">
-                    {project.technologies.map((tech, techIndex) => (
-                      <motion.div
-                        key={techIndex}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{
-                          duration: 0.5,
-                          delay: techIndex * 0.05,
-                        }}
-                        viewport={{ once: true }}
-                        className="animated-skill animated-skill-small"
-                      >
-                        <div className="animated-skill-inner">
-                          <span className="animated-skill-text">{tech}</span>
-                        </div>
-                      </motion.div>
-                    ))}
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center gap-2 text-foreground">
+                    <TrendingUp className="w-5 h-5 text-blue-600" />
+                    {project.title}
+                  </CardTitle>
+                  <p className="text-muted-foreground leading-relaxed text-sm">
+                    {project.description}
+                  </p>
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-sm text-foreground">
+                      Key Achievements
+                    </h4>
+                    <ul className="space-y-1">
+                      {project.achievements.map((achievement, achIndex) => (
+                        <li
+                          key={achIndex}
+                          className="flex items-start gap-2 experience-bullet-item group"
+                        >
+                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 flex-shrink-0 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/50" />
+                          <span className="text-xs text-muted-foreground leading-relaxed transition-all duration-300 group-hover:text-white group-hover:drop-shadow-md">
+                            {achievement}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
 
-                <div className="flex flex-col gap-2 pt-2">
-                  {project.demoUrl && (
-                    <Button
-                      size="sm"
-                      className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white"
-                      asChild
-                    >
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">Tech Stack</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {project.technologies.map((tech, techIndex) => (
+                        <motion.div
+                          key={techIndex}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{
+                            duration: 0.5,
+                            delay: techIndex * 0.05,
+                          }}
+                          viewport={{ once: true }}
+                          className="animated-skill animated-skill-small"
+                        >
+                          <div className="animated-skill-inner">
+                            <span className="animated-skill-text">{tech}</span>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2 pt-2">
+                    {project.demoUrl && (
+                      <Button
+                        size="sm"
+                        className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white"
+                        asChild
                       >
-                        <ExternalLink className="w-3 h-3 mr-2" />
-                        View Live Demo
-                      </a>
-                    </Button>
-                  )}
-                  {project.githubUrl && (
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github className="w-3 h-3 mr-2" />
-                        View Source
-                      </a>
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="w-3 h-3 mr-2" />
+                          View Live Demo
+                        </a>
+                      </Button>
+                    )}
+                    {project.githubUrl && (
+                      <Button variant="outline" size="sm" asChild>
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github className="w-3 h-3 mr-2" />
+                          View Source
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </div>
             </Card>
           ))}
         </ProjectsCarousel>

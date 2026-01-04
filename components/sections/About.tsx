@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { GraduationCap, Heart, Zap } from "lucide-react";
+import { HexagonBackground } from "@/components/animate-ui/components/backgrounds/hexagon";
 
 export default function About() {
   return (
@@ -78,7 +79,14 @@ export default function About() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <Card className="card-animated border-2 border-blue-100 dark:border-blue-900/20 hover:border-blue-300 dark:hover:border-blue-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden">
+            <Card className="card-animated border-2 border-blue-100 dark:border-blue-900/20 hover:border-blue-300 dark:hover:border-blue-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden h-full group">
+              <HexagonBackground
+                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
+                hexagonProps={{
+                  className:
+                    "hover:before:bg-blue-200 dark:hover:before:bg-blue-900 hover:after:bg-blue-100 dark:hover:after:bg-blue-950",
+                }}
+              />
               <CardContent className="p-6 relative z-10">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
@@ -93,31 +101,16 @@ export default function About() {
                   streamline complex workflows and enhance user experiences.
                 </p>
               </CardContent>
-              <div className="card-shine"></div>
-              <div className="card-background">
-                <div className="card-tiles">
-                  <div className="card-tile card-tile-1"></div>
-                  <div className="card-tile card-tile-2"></div>
-                  <div className="card-tile card-tile-3"></div>
-                  <div className="card-tile card-tile-4"></div>
-                  <div className="card-tile card-tile-5"></div>
-                  <div className="card-tile card-tile-6"></div>
-                  <div className="card-tile card-tile-7"></div>
-                  <div className="card-tile card-tile-8"></div>
-                  <div className="card-tile card-tile-9"></div>
-                  <div className="card-tile card-tile-10"></div>
-                  <div className="card-tile card-tile-11"></div>
-                  <div className="card-tile card-tile-12"></div>
-                  <div className="card-tile card-tile-13"></div>
-                  <div className="card-tile card-tile-14"></div>
-                  <div className="card-tile card-tile-15"></div>
-                  <div className="card-tile card-tile-16"></div>
-                </div>
-                <div className="card-grid-lines"></div>
-              </div>
             </Card>
 
-            <Card className="card-animated border-2 border-teal-100 dark:border-teal-900/20 hover:border-teal-300 dark:hover:border-teal-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden">
+            <Card className="card-animated border-2 border-teal-100 dark:border-teal-900/20 hover:border-teal-300 dark:hover:border-teal-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden h-full group">
+              <HexagonBackground
+                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
+                hexagonProps={{
+                  className:
+                    "hover:before:bg-teal-200 dark:hover:before:bg-teal-900 hover:after:bg-teal-100 dark:hover:after:bg-teal-950",
+                }}
+              />
               <CardContent className="p-6 relative z-10">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="p-2 bg-teal-100 dark:bg-teal-900/20 rounded-lg">
@@ -133,31 +126,16 @@ export default function About() {
                   technology.
                 </p>
               </CardContent>
-              <div className="card-shine"></div>
-              <div className="card-background">
-                <div className="card-tiles">
-                  <div className="card-tile card-tile-1"></div>
-                  <div className="card-tile card-tile-2"></div>
-                  <div className="card-tile card-tile-3"></div>
-                  <div className="card-tile card-tile-4"></div>
-                  <div className="card-tile card-tile-5"></div>
-                  <div className="card-tile card-tile-6"></div>
-                  <div className="card-tile card-tile-7"></div>
-                  <div className="card-tile card-tile-8"></div>
-                  <div className="card-tile card-tile-9"></div>
-                  <div className="card-tile card-tile-10"></div>
-                  <div className="card-tile card-tile-11"></div>
-                  <div className="card-tile card-tile-12"></div>
-                  <div className="card-tile card-tile-13"></div>
-                  <div className="card-tile card-tile-14"></div>
-                  <div className="card-tile card-tile-15"></div>
-                  <div className="card-tile card-tile-16"></div>
-                </div>
-                <div className="card-grid-lines"></div>
-              </div>
             </Card>
 
-            <Card className="card-animated border-2 border-purple-100 dark:border-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden">
+            <Card className="card-animated border-2 border-purple-100 dark:border-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden h-full group">
+              <HexagonBackground
+                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
+                hexagonProps={{
+                  className:
+                    "hover:before:bg-purple-200 dark:hover:before:bg-purple-900 hover:after:bg-purple-100 dark:hover:after:bg-purple-950",
+                }}
+              />
               <CardContent className="p-6 relative z-10">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
@@ -172,28 +150,6 @@ export default function About() {
                   the forefront of AI/ML and software development.
                 </p>
               </CardContent>
-              <div className="card-shine"></div>
-              <div className="card-background">
-                <div className="card-tiles">
-                  <div className="card-tile card-tile-1"></div>
-                  <div className="card-tile card-tile-2"></div>
-                  <div className="card-tile card-tile-3"></div>
-                  <div className="card-tile card-tile-4"></div>
-                  <div className="card-tile card-tile-5"></div>
-                  <div className="card-tile card-tile-6"></div>
-                  <div className="card-tile card-tile-7"></div>
-                  <div className="card-tile card-tile-8"></div>
-                  <div className="card-tile card-tile-9"></div>
-                  <div className="card-tile card-tile-10"></div>
-                  <div className="card-tile card-tile-11"></div>
-                  <div className="card-tile card-tile-12"></div>
-                  <div className="card-tile card-tile-13"></div>
-                  <div className="card-tile card-tile-14"></div>
-                  <div className="card-tile card-tile-15"></div>
-                  <div className="card-tile card-tile-16"></div>
-                </div>
-                <div className="card-grid-lines"></div>
-              </div>
             </Card>
           </motion.div>
         </div>
