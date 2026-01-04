@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
+import { GravityStarsBackground } from "@/components/animate-ui/components/backgrounds/gravity-stars";
 
 // Lazy load heavy sections that are below the fold
 const About = dynamic(() => import("@/components/sections/About"), {
@@ -95,14 +96,23 @@ export default function Home() {
           <Header activeSection={activeSection} />
           <main className="relative" role="main" aria-label="Main content">
             <Hero />
-            <About />
-            <Experience />
-            <Projects />
-            <Skills />
-            {/* <Achievements /> */}
-            <Contact />
-            <Analytics />
-            <SpeedInsights />
+            <div className="relative">
+              <GravityStarsBackground
+                className="absolute inset-0"
+                starsCount={1000}
+                gravityStrength={150}
+                movementSpeed={0.8}
+                starsSize={2.3}
+              />
+              <About />
+              <Experience />
+              <Projects />
+              <Skills />
+              {/* <Achievements /> */}
+              <Contact />
+              <Analytics />
+              <SpeedInsights />
+            </div>
           </main>
           <Footer />
         </div>
