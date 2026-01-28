@@ -695,3 +695,75 @@
 .highlighted-tech.animated-skill-small .animated-skill-inner {
   font-size: 13px;
 }
+
+/* ===== Hero Section Animations ===== */
+
+/* Profile Image Glow Animation */
+@keyframes profile-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5),
+                0 0 40px rgba(59, 130, 246, 0.3),
+                0 0 60px rgba(20, 184, 166, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.7),
+                0 0 60px rgba(59, 130, 246, 0.4),
+                0 0 80px rgba(20, 184, 166, 0.3);
+  }
+}
+
+.animate-profile-glow {
+  animation: profile-glow 3s ease-in-out infinite;
+}
+
+/* Profile Ring Spin Animation */
+@keyframes profile-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-profile-spin {
+  animation: profile-spin 8s linear infinite;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(59, 130, 246, 0.8) 60deg,
+    rgba(14, 165, 233, 0.8) 120deg,
+    rgba(20, 184, 166, 0.8) 180deg,
+    transparent 240deg,
+    transparent 360deg
+  );
+}
+
+/* Typewriter Cursor Blink Animation */
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+/* CTA Button Gradient Glow Animation */
+@keyframes gradient-glow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-glow {
+  background-size: 200% 200%;
+  animation: gradient-glow 3s ease infinite;
+}

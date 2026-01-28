@@ -114,6 +114,7 @@ export default function Header({ activeSection }: HeaderProps) {
               size="sm"
               className="md:hidden w-9 h-9 p-0"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? (
                 <X className="h-4 w-4" />
@@ -126,30 +127,42 @@ export default function Header({ activeSection }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <motion.div
-            className="md:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-background/90 backdrop-blur-lg border-t border-border">
-              {navigation.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className={cn(
-                    "block w-full text-left px-3 py-2 text-base font-medium rounded-md transition-colors",
-                    activeSection === item.href.substring(1)
-                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  )}
-                >
-                  {item.name}
-                </button>
-              ))}
-            </div>
-          </motion.div>
+          <>
+            {/* Blur overlay */}
+            <motion.div
+              className="fixed inset-0 bg-background/60 backdrop-blur-md z-40 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              className="md:hidden relative z-50"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-xl border-t border-border shadow-lg">
+                {navigation.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => scrollToSection(item.href)}
+                    className={cn(
+                      "block w-full text-left px-3 py-2 text-base font-medium rounded-md transition-all duration-200",
+                      activeSection === item.href.substring(1)
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted hover:translate-x-1"
+                    )}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          </>
         )}
       </div>
     </motion.header>

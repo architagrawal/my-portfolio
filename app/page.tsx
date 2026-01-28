@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
 import { GravityStarsBackground } from "@/components/animate-ui/components/backgrounds/gravity-stars";
+import { ProjectsSkeleton } from "@/components/skeletons/projects-skeleton";
 
 // Lazy load heavy sections that are below the fold
 const About = dynamic(() => import("@/components/sections/About"), {
@@ -20,7 +21,7 @@ const Experience = dynamic(() => import("@/components/sections/Experience"), {
   loading: () => <div className="min-h-screen" />,
 });
 const Projects = dynamic(() => import("@/components/sections/Projects"), {
-  loading: () => <div className="min-h-screen" />,
+  loading: () => <ProjectsSkeleton />,
 });
 const Skills = dynamic(() => import("@/components/sections/Skills"), {
   loading: () => <div className="min-h-screen" />,

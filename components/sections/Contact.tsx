@@ -62,6 +62,7 @@ export default function Contact() {
                     onClick={copyToClipboard}
                     className="absolute top-2 right-2 h-8 w-8 hover:bg-blue-100 dark:hover:bg-blue-900/20"
                     title="Copy email to clipboard"
+                    aria-label={copied ? "Email copied" : "Copy email to clipboard"}
                   >
                     {copied ? (
                       <Check className="w-4 h-4 text-green-600" />
