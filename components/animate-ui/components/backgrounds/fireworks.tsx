@@ -224,7 +224,7 @@ function FireworksBackground({
 }: FireworksBackgroundProps) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
-  React.useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
+  React.useImperativeHandle(ref as React.Ref<HTMLDivElement>, () => containerRef.current as HTMLDivElement);
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
