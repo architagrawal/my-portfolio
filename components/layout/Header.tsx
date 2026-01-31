@@ -63,7 +63,7 @@ export default function Header({ activeSection }: HeaderProps) {
           >
             <button
               onClick={() => scrollToSection("#hero")}
-              className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent"
+              className="text-xl font-bold text-primary font-heading tracking-tighter hover:text-primary/80 transition-colors"
             >
               AA
             </button>
@@ -76,16 +76,16 @@ export default function Header({ activeSection }: HeaderProps) {
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
                 className={cn(
-                  "px-3 py-2 text-sm font-medium transition-colors relative",
+                  "px-3 py-2 text-sm font-medium transition-colors relative font-heading tracking-wide",
                   activeSection === item.href.substring(1)
-                    ? "text-blue-600 dark:text-blue-400"
+                    ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {item.name}
                 {activeSection === item.href.substring(1) && (
                   <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
                     layoutId="activeTab"
                     initial={false}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
@@ -107,6 +107,17 @@ export default function Header({ activeSection }: HeaderProps) {
               <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button> */}
+
+            {/* Desktop Resume Button */}
+            <Button
+              asChild
+              className="hidden md:inline-flex bg-primary hover:bg-primary/90 text-primary-foreground font-medium tracking-wide"
+              size="sm"
+            >
+              <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                Resume
+              </a>
+            </Button>
 
             {/* Mobile menu button */}
             <Button
@@ -153,13 +164,22 @@ export default function Header({ activeSection }: HeaderProps) {
                     className={cn(
                       "block w-full text-left px-3 py-2 text-base font-medium rounded-md transition-all duration-200",
                       activeSection === item.href.substring(1)
-                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        ? "text-primary bg-primary/10"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted hover:translate-x-1"
                     )}
                   >
                     {item.name}
                   </button>
                 ))}
+                {/* Mobile Resume Button */}
+                <a
+                  href="/Archit_Agrawal_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-left px-3 py-2 text-base font-medium rounded-md text-primary bg-primary/10 hover:bg-primary/20 transition-all duration-200"
+                >
+                  Resume
+                </a>
               </div>
             </motion.div>
           </>

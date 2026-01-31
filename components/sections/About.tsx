@@ -1,64 +1,105 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { GraduationCap, Heart, Zap } from "lucide-react";
-import { HexagonBackground } from "@/components/animate-ui/components/backgrounds/hexagon";
+import { GraduationCap, Heart, Zap, Code, Terminal, Cpu } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+// Technical Corner Marker Component
+const CornerMarkers = () => (
+  <>
+    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
+    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
+    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
+    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
+  </>
+);
+
+const TechBlock = ({ 
+  icon: Icon, 
+  title, 
+  description, 
+  delay 
+}: { 
+  icon: any, 
+  title: string, 
+  description: string, 
+  delay: number 
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay }}
+      viewport={{ once: true }}
+      className="group relative h-full bg-background/50 backdrop-blur-md border border-border/50 p-6 transition-all duration-300 hover:bg-background/80"
+    >
+      <CornerMarkers />
+      
+      <div className="relative z-10 space-y-4">
+        <div className="flex items-center space-x-4">
+          <div className="p-2 bg-primary/10 border border-primary/20">
+            <Icon className="w-5 h-5 text-primary" />
+          </div>
+          <h4 className="font-heading uppercase tracking-wider text-lg font-bold text-foreground">
+            {title}
+          </h4>
+        </div>
+        
+        <p className="font-tech text-sm text-muted-foreground leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      {/* Hover visual effect line */}
+      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-500 group-hover:w-full" />
+    </motion.div>
+  );
+};
 
 export default function About() {
   return (
     <section
       id="about"
-      className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-background"
     >
-      {/* Grid Effect Background for entire section */}
-      {/* <div className="card-with-grid absolute inset-0 opacity-20">
-        <div className="card__img h-full">
-          <div className="card__grid-effect">
-            {Array.from({ length: 100 }, (_, i) => (
-              <div key={i} className="card__grid-effect-tile"></div>
-            ))}
-          </div>
-        </div>
-      </div> */}
+      {/* Structural Guidelines Background */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
+        <div className="h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
-            About Me
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Driven by curiosity, powered by code, aiming to create impactful
-            products
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left Column: Narrative */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="lg:col-span-5 space-y-8 sticky top-24"
           >
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-foreground">
-                One word which drives me - &quot;Curiosity&quot;
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
+            <div className="space-y-2">
+              <span className="font-tech text-primary text-sm uppercase tracking-[0.2em]">
+                01 // Identity
+              </span>
+              <h2 className="text-4xl sm:text-5xl font-bold font-heading uppercase tracking-tighter text-foreground">
+                About Me
+              </h2>
+            </div>
+            
+            <div className="space-y-6 text-muted-foreground">
+              <p className="text-lg font-light leading-relaxed border-l-2 border-primary/30 pl-4">
+                Driven by <span className="text-foreground font-medium">curiosity</span>, powered by <span className="text-foreground font-medium">code</span>.
+              </p>
+              
+              <p className="leading-relaxed">
                 I&apos;m a software engineer recently graduated with MSCS from
                 Arizona State University. With a strong foundation in full-stack
                 development, applied machine learning and Generative AI, I
-                thrive on building real-world applications that make a
-                difference.
+                thrive on building real-world applications that make a difference.
               </p>
-              <p className="text-muted-foreground leading-relaxed">
+              
+              <p className="leading-relaxed">
                 From voice bots to AI agents, I enjoy creating intelligent
                 solutions that solve complex problems. My passion for automation
                 drives me to build systems that not only work efficiently but
@@ -66,92 +107,51 @@ export default function About() {
               </p>
             </div>
 
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <GraduationCap className="w-4 h-4" />
-              <span>Arizona State University — M.S. Computer Science</span>
+            <div className="pt-4">
+              <div className="inline-flex items-center space-x-3 px-4 py-2 border border-border bg-muted/20">
+                <GraduationCap className="w-5 h-5 text-primary" />
+                <span className="font-tech text-sm">MSCS @ Arizona State University</span>
+              </div>
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <Card className="card-animated border-2 border-blue-100 dark:border-blue-900/20 hover:border-blue-300 dark:hover:border-blue-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden h-full group">
-              <HexagonBackground
-                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
-                hexagonProps={{
-                  className:
-                    "hover:before:bg-blue-200 dark:hover:before:bg-blue-900 hover:after:bg-blue-100 dark:hover:after:bg-blue-950",
-                }}
+          {/* Right Column: Technical Specs */}
+          <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6 pt-8 lg:pt-0">
+            
+            <motion.div className="sm:col-span-2">
+               <TechBlock
+                icon={Terminal}
+                title="Engineering Philosophy"
+                description="I believe in clean, scalable architecture. Code is not just about functionality; it's about craft, maintainability, and the elegance of the solution."
+                delay={0.2}
               />
-              <CardContent className="p-6 relative z-10">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
-                    <Zap className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <h4 className="font-semibold text-foreground">
-                    Innovation Focus
-                  </h4>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Building cutting-edge AI agents and automation tools that
-                  streamline complex workflows and enhance user experiences.
-                </p>
-              </CardContent>
-            </Card>
+            </motion.div>
 
-            <Card className="card-animated border-2 border-teal-100 dark:border-teal-900/20 hover:border-teal-300 dark:hover:border-teal-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden h-full group">
-              <HexagonBackground
-                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
-                hexagonProps={{
-                  className:
-                    "hover:before:bg-teal-200 dark:hover:before:bg-teal-900 hover:after:bg-teal-100 dark:hover:after:bg-teal-950",
-                }}
-              />
-              <CardContent className="p-6 relative z-10">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="p-2 bg-teal-100 dark:bg-teal-900/20 rounded-lg">
-                    <Heart className="w-5 h-5 text-teal-600" />
-                  </div>
-                  <h4 className="font-semibold text-foreground">
-                    Passion Projects
-                  </h4>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  From geospatial analysis tools to voice AI systems, I love
-                  tackling diverse challenges that push the boundaries of
-                  technology.
-                </p>
-              </CardContent>
-            </Card>
+            <TechBlock
+              icon={Zap}
+              title="Innovation Focus"
+              description="Building cutting-edge AI agents and automation tools that streamline complex workflows and enhance user experiences."
+              delay={0.3}
+            />
 
-            <Card className="card-animated border-2 border-purple-100 dark:border-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 transition-colors bg-background/50 backdrop-blur-sm relative overflow-hidden h-full group">
-              <HexagonBackground
-                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
-                hexagonProps={{
-                  className:
-                    "hover:before:bg-purple-200 dark:hover:before:bg-purple-900 hover:after:bg-purple-100 dark:hover:after:bg-purple-950",
-                }}
+            <TechBlock
+              icon={Heart}
+              title="Passion Projects"
+              description="From geospatial analysis tools to voice AI systems, I love tackling diverse challenges that push the boundaries of technology."
+              delay={0.4}
+            />
+
+            <div className="sm:col-span-2">
+               <TechBlock
+                icon={Cpu}
+                title="Continuous Learning"
+                description="Always exploring new technologies and methodologies to stay at the forefront of AI/ML and software development. Currently diving deep into Agentic Workflows."
+                delay={0.5}
               />
-              <CardContent className="p-6 relative z-10">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                    <GraduationCap className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <h4 className="font-semibold text-foreground">
-                    Continuous Learning
-                  </h4>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Always exploring new technologies and methodologies to stay at
-                  the forefront of AI/ML and software development.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </section>

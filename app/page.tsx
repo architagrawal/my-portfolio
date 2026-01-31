@@ -46,15 +46,18 @@ export default function Home() {
         "experience",
         "projects",
         "skills",
-        // "achievements",
         "contact",
       ];
-      const scrollPosition = window.scrollY + 100;
+      // Use 1/3 of the viewport height to determine active section
+      // This ensures we highlight the section that occupies the main reading area
+      const scrollPosition = window.scrollY + (window.innerHeight / 3);
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
-          const { offsetTop, offsetHeight } = element;
+          const offsetTop = element.getBoundingClientRect().top + window.scrollY;
+          const offsetHeight = element.offsetHeight;
+
           if (
             scrollPosition >= offsetTop &&
             scrollPosition < offsetTop + offsetHeight
@@ -95,7 +98,7 @@ export default function Home() {
 
         <div className="min-h-screen bg-background text-foreground">
           <Header activeSection={activeSection} />
-          <main className="relative" role="main" aria-label="Main content">
+          <main className="relative bg-grid-pattern" role="main" aria-label="Main content">
             <Hero />
             <div className="relative">
               <GravityStarsBackground
@@ -109,7 +112,6 @@ export default function Home() {
               <Experience />
               <Projects />
               <Skills />
-              {/* <Achievements /> */}
               <Contact />
               <Analytics />
               <SpeedInsights />

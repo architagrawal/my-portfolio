@@ -2,7 +2,7 @@ import "./globals.css";
 import "./skills-animation.css";
 import "./lenis.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import {
   personSchema,
@@ -13,7 +13,19 @@ import {
 const inter = Inter({ 
   subsets: ["latin"],
   display: "swap",
-  preload: true,
+  variable: "--font-inter",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space",
 });
 
 export const metadata: Metadata = {
@@ -104,6 +116,8 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
+import CustomCursor from "@/components/ui/custom-cursor";
+
 export default function RootLayout({
   children,
 }: {
@@ -147,7 +161,10 @@ export default function RootLayout({
         <meta name="rating" content="General" />
         <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${outfit.variable} ${spaceGrotesk.variable} antialiased font-sans`}>
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

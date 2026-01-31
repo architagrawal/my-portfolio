@@ -12,28 +12,24 @@ const achievements = [
     position: "3rd Place",
     description: "Light Pollution Explorer project",
     icon: Trophy,
-    color: "yellow",
   },
   {
     title: "SpaceCode Hackathon",
     position: "3rd Place",
     description: "AI-Powered Pulsar Detection",
     icon: Award,
-    color: "blue",
   },
   {
     title: "KrackHack 2.0 (GDG)",
     position: "3rd Place",
     description: "Dealora Marketplace project",
     icon: Award,
-    color: "teal",
   },
   {
     title: "KrackHack 2.0 (GDG)",
     position: "3rd Place",
     description: "Dealora Marketplace project",
     icon: Award,
-    color: "teal",
   },
 ];
 
@@ -89,7 +85,7 @@ export default function Achievements() {
               viewport={{ once: true }}
               className="text-2xl font-semibold mb-6 flex items-center gap-2 text-foreground"
             >
-              <Trophy className="w-6 h-6 text-yellow-600" />
+              <Trophy className="w-6 h-6 text-primary" />
               Hackathon Wins
             </motion.h3>
 
@@ -102,15 +98,15 @@ export default function Achievements() {
                   transition={{ duration: 0.8, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 border-2 hover:border-yellow-200 dark:hover:border-yellow-800 bg-background/50 backdrop-blur-sm">
+                  <Card className="h-full hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/50 bg-background/50 backdrop-blur-sm rounded-none">
                     <CardHeader className="text-center">
-                      <div className="mx-auto w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-4">
-                        <achievement.icon className="w-6 h-6 text-white" />
+                      <div className="mx-auto w-12 h-12 bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
+                        <achievement.icon className="w-6 h-6 text-primary" />
                       </div>
                       <CardTitle className="text-lg text-foreground">
                         {achievement.title}
                       </CardTitle>
-                      <Badge className="mx-auto bg-gradient-to-r from-yellow-500 to-orange-500 text-white">
+                      <Badge className="mx-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
                         {achievement.position}
                       </Badge>
                     </CardHeader>
@@ -134,7 +130,7 @@ export default function Achievements() {
               viewport={{ once: true }}
               className="text-2xl font-semibold mb-6 flex items-center gap-2 text-foreground"
             >
-              <Award className="w-6 h-6 text-blue-600" />
+              <Award className="w-6 h-6 text-secondary" />
               Certifications
             </motion.h3>
 
@@ -147,11 +143,11 @@ export default function Achievements() {
                   transition={{ duration: 0.8, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-blue-200 dark:hover:border-blue-800 bg-background/50 backdrop-blur-sm">
+                  <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-secondary/50 bg-background/50 backdrop-blur-sm rounded-none">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3 text-foreground">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-500 rounded-lg flex items-center justify-center">
-                          <Award className="w-5 h-5 text-white" />
+                        <div className="w-10 h-10 bg-secondary/10 border border-secondary/20 flex items-center justify-center">
+                          <Award className="w-5 h-5 text-secondary" />
                         </div>
                         {cert.title}
                       </CardTitle>
@@ -163,7 +159,7 @@ export default function Achievements() {
                       <Button
                         variant="outline"
                         asChild
-                        className="w-full bg-background/50 backdrop-blur-sm"
+                        className="w-full bg-background/50 backdrop-blur-sm hover:bg-secondary/10 hover:text-secondary rounded-none border-border"
                       >
                         <a
                           href={cert.link}

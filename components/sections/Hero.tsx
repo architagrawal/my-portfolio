@@ -74,9 +74,9 @@ function TypewriterRoles() {
   const text = useTypewriterLoop(roles);
 
   return (
-    <span className="inline-flex items-center text-blue-600 dark:text-blue-400">
+    <span className="inline-flex items-center text-primary">
        {text}
-       <span className="ml-1 w-0.5 h-6 bg-blue-600 dark:bg-blue-400 animate-blink" />
+       <span className="ml-1 w-0.5 h-6 bg-primary animate-blink" />
     </span>
   );
 }
@@ -102,7 +102,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
     >
       {/* Background Paths Component - without title to remove background text */}
       <div className="absolute inset-0">
@@ -121,14 +121,15 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="mx-auto w-32 h-32 rounded-full relative"
+            className="mx-auto w-32 h-32 rounded-none relative"
           >
-            {/* Animated glow ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-600 to-teal-600 animate-profile-glow" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 animate-profile-spin opacity-60" />
+            {/* Animated glow ring - Removed for Editorial look */}
+            {/* <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-600 to-teal-600 animate-profile-glow" /> */}
+            {/* <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 animate-profile-spin opacity-60" /> */}
             {/* Inner container */}
-            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-blue-600 to-teal-600 p-0.5">
-              <div className="w-full h-full rounded-full overflow-hidden bg-background">
+            <div className="absolute inset-0 rounded-none bg-border p-[1px]">
+              <div className="w-full h-full rounded-none overflow-hidden bg-background relative grayscale hover:grayscale-0 transition-all duration-500">
+                <div className="absolute inset-0 border border-primary/20 z-10"></div>
                 <Image
                   src="/archit-profile.png"
                   alt="Archit Agrawal"
@@ -143,30 +144,37 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Animated Name - positioned just below icon */}
+            {/* Animated Name - Editorial Engineering Style */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-4"
+            className="space-y-4 relative z-10"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-700/80 dark:from-white dark:to-white/80">
-              ARCHIT AGRAWAL
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground font-heading uppercase">
+              Archit Agrawal
             </h1>
           </motion.div>
 
-          {/* Professional Info Container */}
+          {/* Professional Info Container - Technical Block */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mx-auto max-w-2xl mt-2.5 mb-2.5"
+            className="mx-auto max-w-3xl mt-8 mb-8"
           >
-            <div className="backdrop-blur-sm rounded-lg bg-gray-500/10 p-5 border-2 border-gray-500/50 leading-relaxed">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-4 h-10 flex items-center justify-center">
+            <div className="bg-background/80 backdrop-blur-md border border-border p-6 relative group overflow-hidden">
+              <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary"></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary"></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary"></div>
+              
+              <h2 className="text-xl sm:text-2xl font-medium text-primary mb-4 h-8 flex items-center justify-center font-tech tracking-wide uppercase">
                  <TypewriterRoles />
               </h2>
-              <TypewriterTagline />
+              <div className="font-tech text-muted-foreground text-sm sm:text-base border-t border-border pt-4 mt-4">
+                <TypewriterTagline />
+              </div>
             </div>
           </motion.div>
 
@@ -181,19 +189,19 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-900/20 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] backdrop-blur-sm"
             >
               <a
                 href="https://www.linkedin.com/in/agrawal-archit"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit LinkedIn profile"
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 font-tech"
               >
                 <Sparkle />
-                <Linkedin className="w-5 h-5 group-hover:text-blue-600 transition-colors" />
+                <Linkedin className="w-5 h-5 group-hover:text-primary transition-colors" />
                 <span>LinkedIn</span>
-                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
               </a>
             </Button>
 
@@ -201,19 +209,19 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group hover:bg-gray-50 hover:border-gray-300 dark:hover:bg-gray-800 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/20"
+              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.2)] backdrop-blur-sm"
             >
               <a
                 href="https://github.com/architagrawal"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit GitHub profile"
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 font-tech"
               >
                 <Sparkle />
-                <Github className="w-5 h-5 transition-colors" />
+                <Github className="w-5 h-5 transition-colors group-hover:text-primary" />
                 <span>GitHub</span>
-                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
               </a>
             </Button>
 
@@ -221,48 +229,58 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group hover:bg-orange-50 hover:border-orange-300 dark:hover:bg-orange-900/20 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/20"
+              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] backdrop-blur-sm"
             >
               <a
                 href="https://leetcode.com/architagrawal000"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit LeetCode profile"
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 font-tech"
               >
                 <Sparkle />
-                <Code className="w-5 h-5 group-hover:text-orange-600 transition-colors" />
+                <Code className="w-5 h-5 group-hover:text-primary transition-colors" />
                 <span>LeetCode</span>
-                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
               </a>
             </Button>
           </motion.div>
 
-          {/* CTA Button with Animated Gradient Glow */}
+          {/* CTA Buttons - flex container */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
+            {/* Resume Button - Solid Primary */}
             <div className="inline-block group relative">
-              {/* Animated gradient glow background */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-600 rounded-2xl opacity-0 group-hover:opacity-70 blur-lg transition-all duration-500 group-hover:duration-200 animate-gradient-glow" />
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-600 rounded-2xl opacity-0 group-hover:opacity-50 transition-all duration-500 group-hover:duration-200" />
-              
               <Button
-                variant="ghost"
-                onClick={scrollToAbout}
-                className="relative rounded-2xl px-8 py-6 text-lg font-semibold backdrop-blur-md 
-                bg-white/95 hover:bg-white/100 dark:bg-black/95 dark:hover:bg-black/100 
-                text-black dark:text-white transition-all duration-300 
-                group-hover:-translate-y-0.5 border border-black/10 dark:border-white/10
-                group-hover:border-blue-500/50 dark:group-hover:border-cyan-500/50
-                hover:shadow-lg hover:shadow-blue-500/25 dark:hover:shadow-cyan-500/25"
+                asChild
+                className="relative rounded-none px-8 py-6 text-lg font-medium font-tech tracking-wider
+                bg-primary text-primary-foreground transition-all duration-300 
+                hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(var(--primary),0.4)]
+                uppercase border border-primary"
               >
-                <span className="opacity-90 group-hover:opacity-100 transition-opacity bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text group-hover:text-transparent transition-all duration-300">
-                  Explore My Work
-                </span>
-                <ArrowDown className="ml-3 w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:translate-y-1 group-hover:text-blue-500 transition-all duration-300" />
+                <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                  <span>Download Resume</span>
+                  <ExternalLink className="ml-3 w-4 h-4" />
+                </a>
+              </Button>
+            </div>
+
+            {/* Initialize Button - Outline */}
+            <div className="inline-block group relative">
+              <Button
+                variant="outline"
+                onClick={scrollToAbout}
+                className="relative rounded-none px-12 py-6 text-lg font-medium font-tech tracking-wider
+                bg-transparent border-primary/50 text-foreground transition-all duration-300 
+                hover:bg-primary/10 hover:border-primary
+                uppercase"
+              >
+                <span>Initialize</span>
+                <ArrowDown className="ml-3 w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:translate-y-1 transition-all duration-300" />
               </Button>
             </div>
           </motion.div>

@@ -156,14 +156,13 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-8"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
-            Projects
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground font-heading uppercase tracking-tighter">
+            System Modules
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Building innovative solutions across AI/ML, web development, and
-            robotics
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-tech">
+            // deployed_projects_and_experiments
           </p>
         </motion.div>
 
@@ -171,65 +170,57 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="flex-shrink-0 w-[85vw] sm:w-[350px] md:w-[380px] lg:w-[400px] overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative h-full group"
+              className="flex-shrink-0 w-[85vw] sm:w-[350px] md:w-[380px] lg:w-[400px] overflow-hidden transition-all duration-300 border border-border bg-card relative h-full group rounded-none hover:border-primary/50"
             >
-              <HexagonBackground
-                className="absolute inset-0 flex items-center justify-center -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent"
-                hexagonProps={{
-                  className:
-                    "hover:before:bg-sky-200 dark:hover:before:bg-sky-900 hover:after:bg-sky-100 dark:hover:after:bg-sky-950",
-                }}
-              />
+              {/* Technical Header Line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
               <div className="relative z-10">
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 overflow-hidden relative">
+                {/* Image Container - Technical Aspect */}
+                <div className="aspect-video bg-muted overflow-hidden relative border-b border-border">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105 grayscale group-hover:grayscale-0"
                     sizes="(max-width: 768px) 100vw, 400px"
                     placeholder="blur"
                     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgIBAwQDAAAAAAAAAAAAAQIDBAAFERIGITFBE1Fx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAZEQACAwEAAAAAAAAAAAAAAAABAgADERIh/9oADAMBAAIRAxEAPwDK9B1a3p1Wes1CrHYhmPJZEJABHogEewe2FW6rkltWpbEsMSSyuXdlQAFieScYxlWO1Jv7n//Z"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge variant="secondary" className="bg-background/90">
-                      <Calendar className="w-3 h-3 mr-1" />
+                    <div className="bg-background/90 border border-border px-2 py-1 font-tech text-xs tracking-wider uppercase flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
                       {project.date}
-                    </Badge>
-                  </div>
-                  {project.award && (
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
-                        <Award className="w-3 h-3 mr-1" />
-                        {project.award}
-                      </Badge>
                     </div>
-                  )}
+                  </div>
                 </div>
 
-                <CardHeader>
-                  <CardTitle className="text-xl flex items-center gap-2 text-foreground">
-                    <TrendingUp className="w-5 h-5 text-blue-600" />
-                    {project.title}
-                  </CardTitle>
-                  <p className="text-muted-foreground leading-relaxed text-sm">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start mb-2">
+                    <CardTitle className="text-xl text-foreground font-heading uppercase tracking-wide">
+                      {project.title}
+                    </CardTitle>
+                    <TrendingUp className="w-5 h-5 text-primary opacity-70" />
+                  </div>
+                  <div className="h-px w-full bg-border mb-2" />
+                  <p className="text-muted-foreground leading-relaxed text-sm font-sans">
                     {project.description}
                   </p>
                 </CardHeader>
 
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-sm text-foreground">
-                      Key Achievements
+                    <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">
+                      // Key Metrics
                     </h4>
                     <ul className="space-y-1">
                       {project.achievements.map((achievement, achIndex) => (
                         <li
                           key={achIndex}
-                          className="flex items-start gap-2 experience-bullet-item group"
+                          className="flex items-start gap-2 group/item"
                         >
-                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 flex-shrink-0 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/50" />
-                          <span className="text-xs text-muted-foreground leading-relaxed transition-all duration-300 group-hover:text-white group-hover:drop-shadow-md">
+                          <span className="text-primary mt-1 text-[10px]">▶</span>
+                          <span className="text-xs text-foreground font-mono leading-relaxed group-hover/item:text-primary transition-colors">
                             {achievement}
                           </span>
                         </li>
@@ -238,24 +229,15 @@ export default function Projects() {
                   </div>
 
                   <div className="space-y-3">
-                    <h4 className="font-semibold text-foreground">Tech Stack</h4>
+                    <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">// Tech Stack</h4>
                     <div className="flex flex-wrap gap-1">
                       {project.technologies.map((tech, techIndex) => (
-                        <motion.div
+                        <div
                           key={techIndex}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            duration: 0.5,
-                            delay: techIndex * 0.05,
-                          }}
-                          viewport={{ once: true }}
-                          className="animated-skill animated-skill-small"
+                          className="px-2 py-1 bg-muted border border-border text-[10px] font-tech text-foreground uppercase tracking-wider hover:border-primary hover:text-primary transition-colors"
                         >
-                          <div className="animated-skill-inner">
-                            <span className="animated-skill-text">{tech}</span>
-                          </div>
-                        </motion.div>
+                          {tech}
+                        </div>
                       ))}
                     </div>
                   </div>

@@ -1,158 +1,172 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code, Wrench, Cloud, Database } from "lucide-react";
-import SkillCardScroll from "@/components/skill-card-scroll";
-
-// Define the allowed color values as a union type
-type SkillCategoryColor = "blue" | "teal" | "purple" | "orange";
+import { 
+  Terminal,
+} from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SkillNetwork from "@/components/ui/skill-network";
+import { Magnetic } from "@/components/ui/magnetic";
 
 // Define the skill category interface
 interface SkillCategory {
+  id: string;
   title: string;
-  icon: React.ComponentType<{ className?: string }>;
   skills: string[];
-  color: SkillCategoryColor;
 }
 
 const skillCategories: SkillCategory[] = [
   {
-    title: "Programming Languages",
-    icon: Code,
-    skills: ["Python", "C#", "Go", "C", "SQL", "TypeScript", "JavaScript"],
-    color: "blue",
+    id: "languages",
+    title: "Languages",
+    skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "SQL", "HTML/CSS"],
   },
   {
-    title: "Libraries & Frameworks",
-    icon: Wrench,
+    id: "frameworks",
+    title: "Frameworks",
     skills: [
+      "React",
+      "Next.js",
       "Node.js",
-      "React.js",
-      "Express.js",
-      ".NET",
-      "LangChain",
-      "Llama Index",
-      "Gradio",
-      "Flask",
+      "Express",
       "Django",
-      "Ruby on Rails",
+      "Flask",
+      "FastAPI",
+      ".NET Core",
+      "Tailwind CSS"
     ],
-    color: "teal",
   },
   {
-    title: "Tools & Platforms",
-    icon: Cloud,
+    id: "ai-ml",
+    title: "AI & ML",
     skills: [
-      "AWS (EC2, SQS, S3, Lambda)",
+      "PyTorch",
+      "TensorFlow",
+      "LangChain",
+      "LlamaIndex",
+      "Hugging Face",
+      "OpenAI API",
+      "scikit-learn",
+      "Pandas",
+      "NumPy"
+    ],
+  },
+  {
+    id: "cloud-devops",
+    title: "Cloud & DevOps",
+    skills: [
+      "AWS",
       "Docker",
       "Kubernetes",
-      "Redis",
-      "RabbitMQ",
-      "Nginx",
-      "Postman",
       "Git",
+      "CI/CD",
       "Linux",
+      "Nginx",
+      "Redis",
+      "RabbitMQ"
     ],
-    color: "purple",
-  },
-  {
-    title: "Data & Analytics",
-    icon: Database,
-    skills: [
-      "NumPy",
-      "Pandas",
-      "Matplotlib",
-      "Seaborn",
-      "TensorFlow",
-      "scikit-learn",
-      "Hugging Face",
-      "Prompt Engineering",
-    ],
-    color: "orange",
   },
 ];
 
-const colorVariants: Record<SkillCategoryColor, string> = {
-  blue: "border-blue-200 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-700",
-  teal: "border-teal-200 dark:border-teal-800 hover:border-teal-300 dark:hover:border-teal-700",
-  purple:
-    "border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-700",
-  orange:
-    "border-orange-200 dark:border-orange-800 hover:border-orange-300 dark:hover:border-orange-700",
-};
-
-const iconColorVariants: Record<SkillCategoryColor, string> = {
-  blue: "text-blue-600 bg-blue-100 dark:bg-blue-900/20",
-  teal: "text-teal-600 bg-teal-100 dark:bg-teal-900/20",
-  purple: "text-purple-600 bg-purple-100 dark:bg-purple-900/20",
-  orange: "text-orange-600 bg-orange-100 dark:bg-orange-900/20",
-};
+// Flatten skills for the network
+const allSkills = skillCategories.flatMap(cat => 
+  cat.skills.map(name => ({ name, category: cat.id }))
+);
 
 export default function Skills() {
+  const [activeTab, setActiveTab] = useState("all");
+
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section id="skills" className="py-32 px-4 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-0 right-0 p-20 opacity-20 pointer-events-none transform translate-x-1/2 -translate-y-1/2">
+        <div className="w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-pulse" />
+      </div>
+      <div className="absolute bottom-0 left-0 p-20 opacity-20 pointer-events-none transform -translate-x-1/2 translate-y-1/2">
+        <div className="w-64 h-64 bg-secondary/30 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16 space-y-6"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
-            Technical Skills
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary border border-primary/10 text-xs font-semibold uppercase tracking-widest hover:bg-primary/10 transition-colors">
+            <Terminal className="w-3 h-3" />
+            <span>Tech Stack</span>
+          </div>
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/40 pb-2">
+            Technical Proficiency
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive toolkit for building modern, scalable applications
+          <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto font-light leading-relaxed">
+            Explore my technical solar system. <span className="text-foreground font-medium">Hover</span> to interact, <span className="text-foreground font-medium">Filter</span> to focus.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {skillCategories.map((category, index) => (
-            <SkillCardScroll
-              key={index}
-              index={index}
-              totalCards={skillCategories.length}
-            >
-              <Card
-                className={`h-full border-2 transition-all duration-300 hover:shadow-lg bg-background/50 backdrop-blur-sm ${
-                  colorVariants[category.color]
-                }`}
-              >
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-foreground">
-                    <div
-                      className={`p-2 rounded-lg ${
-                        iconColorVariants[category.color]
-                      }`}
-                    >
-                      <category.icon className="w-5 h-5" />
-                    </div>
-                    {category.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-1">
-                    {category.skills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skillIndex}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: skillIndex * 0.05 }}
-                        viewport={{ once: true }}
-                        className="animated-skill"
-                      >
-                        <div className="animated-skill-inner">
-                          <span className="animated-skill-text">{skill}</span>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </SkillCardScroll>
-          ))}
+        {/* Controls - Floating HUD */}
+        <div className="flex flex-col items-center justify-center gap-6 mb-12">
+           <Tabs 
+            defaultValue="all" 
+            className="flex flex-col items-center"
+            onValueChange={setActiveTab}
+          >
+            <TabsList className="bg-background/20 backdrop-blur-xl border border-white/5 p-2 h-auto gap-2 rounded-full flex flex-wrap justify-center shadow-2xl mx-auto">
+              <Magnetic>
+                <TabsTrigger 
+                    value="all" 
+                    className="rounded-full px-5 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 font-medium"
+                >
+                    All System
+                </TabsTrigger>
+              </Magnetic>
+              <Magnetic>
+                <TabsTrigger value="languages" className="rounded-full px-5 py-2.5 data-[state=active]:bg-blue-500 data-[state=active]:text-white transition-all duration-300">Languages</TabsTrigger>
+              </Magnetic>
+              <Magnetic>
+                <TabsTrigger value="frameworks" className="rounded-full px-5 py-2.5 data-[state=active]:bg-teal-500 data-[state=active]:text-white transition-all duration-300">Frameworks</TabsTrigger>
+              </Magnetic>
+              <Magnetic>
+                <TabsTrigger value="ai-ml" className="rounded-full px-5 py-2.5 data-[state=active]:bg-purple-500 data-[state=active]:text-white transition-all duration-300">AI & ML</TabsTrigger>
+              </Magnetic>
+              <Magnetic>
+                <TabsTrigger value="cloud-devops" className="rounded-full px-5 py-2.5 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all duration-300">Cloud</TabsTrigger>
+              </Magnetic>
+            </TabsList>
+          </Tabs>
+        </div>
+
+        {/* Canvas Network */}
+        <motion.div
+           initial={{ opacity: 0, scale: 0.95 }}
+           whileInView={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 0.8 }}
+        >
+          <SkillNetwork 
+             skills={allSkills} 
+             activeCategory={activeTab} 
+          />
+        </motion.div>
+        
+        {/* Screen Reader Only Content for Accessibility */}
+        <div className="sr-only">
+          <h3>Skills List</h3>
+          <ul>
+            {skillCategories.map(cat => (
+                <li key={cat.id}>
+                    <h4>{cat.title}</h4>
+                    <ul>
+                        {cat.skills.map(skill => (
+                            <li key={skill}>{skill}</li>
+                        ))}
+                    </ul>
+                </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
