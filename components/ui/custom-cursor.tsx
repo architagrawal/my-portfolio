@@ -41,25 +41,28 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Main Dot - Direct Follower */}
+      {/* Main Dot — saffron core with gold glow */}
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-2.5 h-2.5 bg-primary rounded-full pointer-events-none z-[9999]"
         style={{
           x: mouseX,
           y: mouseY,
           translateX: "-50%",
           translateY: "-50%",
+          boxShadow: "0 0 14px hsl(var(--primary) / 0.85), 0 0 28px hsl(var(--secondary) / 0.55)",
         }}
       />
-      
-      {/* Trailing Ring - Liquid Glass Effect */}
+
+      {/* Trailing Gold Ring */}
       <motion.div
-        className="fixed top-0 left-0 w-12 h-12 bg-primary/10 backdrop-blur-[2px] border border-primary/20 rounded-full pointer-events-none z-[9998]"
+        className="fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none z-[9998]"
         style={{
           x: springX,
           y: springY,
           translateX: "-50%",
           translateY: "-50%",
+          border: "1.5px solid hsl(var(--secondary) / 0.7)",
+          boxShadow: "inset 0 0 12px hsl(var(--secondary) / 0.25), 0 0 18px hsl(var(--primary) / 0.18)",
         }}
       />
     </>

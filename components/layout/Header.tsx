@@ -85,11 +85,15 @@ export default function Header({ activeSection }: HeaderProps) {
                 {item.name}
                 {activeSection === item.href.substring(1) && (
                   <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                    className="absolute -bottom-1 left-0 right-0 flex items-center justify-center gap-1"
                     layoutId="activeTab"
                     initial={false}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
+                  >
+                    <span className="h-px flex-1 bg-gradient-to-r from-transparent to-secondary" />
+                    <span className="w-1.5 h-1.5 rotate-45 bg-secondary shadow-[0_0_8px_hsl(var(--secondary))]" />
+                    <span className="h-px flex-1 bg-gradient-to-l from-transparent to-secondary" />
+                  </motion.div>
                 )}
               </button>
             ))}
@@ -111,7 +115,7 @@ export default function Header({ activeSection }: HeaderProps) {
             {/* Desktop Resume Button */}
             <Button
               asChild
-              className="hidden md:inline-flex bg-primary hover:bg-primary/90 text-primary-foreground font-medium tracking-wide"
+              className="hidden md:inline-flex bg-primary hover:bg-primary/90 text-primary-foreground font-display tracking-wider uppercase border border-secondary rounded-none hover:shadow-[0_0_18px_hsl(var(--secondary)/0.5)]"
               size="sm"
             >
               <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer">

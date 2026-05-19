@@ -11,15 +11,19 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-border bg-background pt-16 pb-8 overflow-hidden">
+    <footer className="relative border-t border-secondary/40 bg-background pt-16 pb-8 overflow-hidden">
       {/* Structural Grid Background */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
+
+      {/* Gold ornamental top rule */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/70 to-transparent" />
+      <div className="om-divider max-w-md mx-auto mt-2 mb-10" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
           <div className="space-y-4 md:col-span-2">
-            <h3 className="text-2xl font-heading font-bold uppercase tracking-tight text-foreground">
+            <h3 className="text-2xl font-display font-bold uppercase tracking-wider text-foreground">
               Archit Agrawal
             </h3>
             <p className="text-muted-foreground font-sans max-w-sm">
@@ -102,8 +106,9 @@ export default function Footer() {
           </div>
         </div>
 
+        <div className="om-divider max-w-2xl mx-auto mb-8" aria-hidden="true" />
         {/* Technical Footer Bar */}
-        <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-2 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs font-mono text-muted-foreground order-2 md:order-1">
             © {currentYear} Archit Agrawal. All systems operational.
           </p>

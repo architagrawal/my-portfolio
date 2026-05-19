@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Heart, Zap, Code, Terminal, Cpu } from "lucide-react";
+import { GraduationCap, Heart, Zap, Code, Terminal, Cpu, Award, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Technical Corner Marker Component
@@ -31,7 +31,7 @@ const TechBlock = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
-      className="group relative h-full bg-background/50 backdrop-blur-md border border-border/50 p-6 transition-all duration-300 hover:bg-background/80"
+      className="temple-frame group relative h-full bg-background/50 backdrop-blur-md border border-secondary/40 p-6 transition-all duration-300 hover:bg-background/80 hover:border-secondary hover:shadow-[0_0_20px_hsl(var(--secondary)/0.2)]"
     >
       <CornerMarkers />
       
@@ -40,7 +40,7 @@ const TechBlock = ({
           <div className="p-2 bg-primary/10 border border-primary/20">
             <Icon className="w-5 h-5 text-primary" />
           </div>
-          <h4 className="font-heading uppercase tracking-wider text-lg font-bold text-foreground">
+          <h4 className="font-display uppercase tracking-wider text-lg font-bold text-foreground">
             {title}
           </h4>
         </div>
@@ -82,7 +82,7 @@ export default function About() {
               <span className="font-tech text-primary text-sm uppercase tracking-[0.2em]">
                 01 // Identity
               </span>
-              <h2 className="text-4xl sm:text-5xl font-bold font-heading uppercase tracking-tighter text-foreground">
+              <h2 className="section-heading text-4xl sm:text-5xl font-bold font-display uppercase tracking-wide text-foreground">
                 About Me
               </h2>
             </div>
@@ -107,11 +107,33 @@ export default function About() {
               </p>
             </div>
 
-            <div className="pt-4">
-              <div className="inline-flex items-center space-x-3 px-4 py-2 border border-border bg-muted/20">
+            <div className="pt-4 flex flex-wrap gap-3">
+              <div className="inline-flex items-center space-x-3 px-4 py-2 border border-secondary/50 bg-muted/20">
                 <GraduationCap className="w-5 h-5 text-primary" />
                 <span className="font-tech text-sm">MSCS @ Arizona State University</span>
               </div>
+              <div className="inline-flex items-center space-x-2 px-4 py-2 border border-secondary/50 bg-muted/20">
+                <span className="font-tech text-sm text-secondary font-semibold">GPA 4.0 / 4.0</span>
+              </div>
+              <div className="inline-flex items-center space-x-2 px-4 py-2 border border-secondary/50 bg-muted/20">
+                <MapPin className="w-4 h-4 text-primary" />
+                <span className="font-tech text-sm">NYC Metro Area</span>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <div className="flex items-center gap-2 mb-3">
+                <Award className="w-4 h-4 text-secondary" />
+                <span className="font-tech text-xs uppercase tracking-[0.2em] text-secondary">Certifications</span>
+              </div>
+              <ul className="space-y-2 text-sm font-tech text-muted-foreground">
+                <li className="flex items-center gap-2 before:content-['✺'] before:text-secondary/80 before:text-xs">
+                  LangChain Chat with Your Data
+                </li>
+                <li className="flex items-center gap-2 before:content-['✺'] before:text-secondary/80 before:text-xs">
+                  Building Systems with the ChatGPT API
+                </li>
+              </ul>
             </div>
           </motion.div>
 

@@ -16,30 +16,29 @@
 
 @layer base {
   :root {
-    /* Editorial Engineering — Light */
-    --background: 30 30% 98%;        /* Warm paper white */
-    --foreground: 228 12% 12%;       /* Near-black ink */
-    --card: 0 0% 100%;
-    --card-foreground: 228 12% 12%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 228 12% 12%;
+    /* Sanatan — Light (cream parchment, saffron, maroon) */
+    --background: 38 45% 96%;          /* Sandalwood cream */
+    --foreground: 0 35% 18%;           /* Deep maroon ink */
+    --card: 38 50% 99%;
+    --card-foreground: 0 35% 18%;
+    --popover: 38 50% 99%;
+    --popover-foreground: 0 35% 18%;
 
-    /* Brand orange (same hue as dark, tuned for light bg) */
-    --primary: 16 100% 48%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 24 92% 46%;             /* Saffron */
+    --primary-foreground: 38 50% 98%;
 
-    --secondary: 190 85% 42%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 38 65% 42%;           /* Antique brass gold */
+    --secondary-foreground: 38 50% 98%;
 
-    --muted: 30 15% 94%;
-    --muted-foreground: 228 8% 38%;
-    --accent: 16 100% 95%;            /* Soft orange tint */
-    --accent-foreground: 16 100% 28%;
-    --destructive: 0 84% 55%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 228 10% 88%;
-    --input: 228 10% 88%;
-    --ring: 16 100% 48%;
+    --muted: 38 30% 90%;
+    --muted-foreground: 0 20% 35%;
+    --accent: 358 65% 40%;             /* Sindoor */
+    --accent-foreground: 38 50% 98%;
+    --destructive: 358 70% 45%;
+    --destructive-foreground: 38 50% 98%;
+    --border: 38 35% 78%;
+    --input: 38 35% 85%;
+    --ring: 24 92% 46%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -131,6 +130,46 @@
   .text-flame {
     color: hsl(var(--primary));
     text-shadow: 0 0 24px hsl(var(--primary) / 0.45), 0 0 4px hsl(var(--primary) / 0.6);
+  }
+
+  /* Section heading — gold lotus underline */
+  .section-heading {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1.25rem;
+  }
+  .section-heading::before {
+    content: "✺";
+    display: block;
+    color: hsl(var(--secondary));
+    font-size: 1.25rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.85;
+  }
+  .section-heading::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 120px;
+    height: 8px;
+    transform: translateX(-50%);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' width='120' height='8'><g fill='none' stroke='%23E5B23A' stroke-width='1.2'><line x1='0' y1='4' x2='44' y2='4'/><line x1='76' y1='4' x2='120' y2='4'/><path d='M60 1 q-8 3 0 6 q8 -3 0 -6 z' fill='%23E5B23A' fill-opacity='0.4'/><circle cx='52' cy='4' r='1.2' fill='%23E5B23A'/><circle cx='68' cy='4' r='1.2' fill='%23E5B23A'/></g></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* Gopuram silhouette behind Hero */
+  .gopuram-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: min(1200px, 110%) auto;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600' width='1200' height='600'><defs><linearGradient id='g' x1='0' x2='0' y1='0' y2='1'><stop offset='0%' stop-color='%23F58E2A' stop-opacity='0'/><stop offset='60%' stop-color='%23E5B23A' stop-opacity='0.55'/><stop offset='100%' stop-color='%23C8102E' stop-opacity='0.85'/></linearGradient></defs><g fill='none' stroke='url(%23g)' stroke-width='1.4'><path d='M150 600 L150 480 L120 480 L120 440 L180 440 L180 380 L140 380 L140 340 L220 340 L220 280 L180 280 L180 240 L260 240 L260 180 L220 180 L220 140 L300 140 L300 80 L600 30 L900 80 L900 140 L980 140 L980 180 L940 180 L940 240 L1020 240 L1020 280 L980 280 L980 340 L1060 340 L1060 380 L1020 380 L1020 440 L1080 440 L1080 480 L1050 480 L1050 600 Z'/><path d='M600 30 L600 600' stroke-opacity='0.35'/><path d='M450 200 Q600 120 750 200' stroke-opacity='0.6'/><path d='M480 320 Q600 260 720 320' stroke-opacity='0.5'/><circle cx='600' cy='40' r='8' fill='%23E5B23A' fill-opacity='0.6' stroke='none'/><circle cx='600' cy='40' r='14' stroke-opacity='0.5'/><path d='M600 0 L600 30' stroke-opacity='0.5'/><path d='M540 600 L540 460 Q600 420 660 460 L660 600 Z' stroke-opacity='0.7'/><path d='M560 460 L560 600 M580 460 L580 600 M620 460 L620 600 M640 460 L640 600' stroke-opacity='0.3'/></g></svg>");
   }
 
   /* Devanagari accent font */

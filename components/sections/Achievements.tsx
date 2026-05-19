@@ -67,7 +67,7 @@ export default function Achievements() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+          <h2 className="section-heading text-3xl sm:text-4xl font-bold mb-4 text-foreground font-display uppercase tracking-wide">
             Achievements
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

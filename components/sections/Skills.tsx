@@ -29,7 +29,7 @@ const skillCategories: SkillCategory[] = [
     tagline: "Daily-driver syntax across web, systems, scripting.",
     icon: Code2,
     accent: "from-blue-500/20 to-blue-500/0 border-blue-500/30 text-blue-400",
-    skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "SQL", "Bash", "PowerShell", "HTML/CSS"],
+    skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "C++", "SQL", "Bash", "PowerShell", "HTML/CSS"],
   },
   {
     id: "frameworks",
@@ -48,6 +48,7 @@ const skillCategories: SkillCategory[] = [
       "Django",
       "Flask",
       "FastAPI",
+      "GraphQL",
       ".NET Core",
       "Tailwind CSS",
       "Tamagui",
@@ -74,11 +75,20 @@ const skillCategories: SkillCategory[] = [
       "LangGraph",
       "LlamaIndex",
       "Hugging Face",
+      "Transformers",
+      "Diffusers",
+      "Pydantic AI",
+      "MCP",
+      "CrewAI",
       "OpenAI API",
       "Gemini / Vertex AI",
       "RAG",
       "Prompt Flow",
       "Semantic Kernel",
+      "OCR (Tesseract)",
+      "PaddleOCR",
+      "Bark (TTS)",
+      "Stable Video Diffusion",
       "DPO / KTO",
       "MERT",
       "VampNet",
@@ -103,6 +113,11 @@ const skillCategories: SkillCategory[] = [
     accent: "from-orange-500/20 to-orange-500/0 border-orange-500/30 text-orange-400",
     skills: [
       "AWS",
+      "AWS EKS",
+      "AWS SQS",
+      "AWS S3",
+      "AWS Lambda",
+      "AWS EC2",
       "GCP",
       "Cloud Run",
       "Cloud Functions",
@@ -120,10 +135,29 @@ const skillCategories: SkillCategory[] = [
       "Kubernetes",
       "Git",
       "CI/CD",
+      "Jenkins",
+      "GitLab CI",
+      "GitHub Actions",
       "Linux",
       "Nginx",
       "RabbitMQ",
       "Logfire",
+    ],
+  },
+  {
+    id: "hpc",
+    title: "HPC & Compute",
+    tagline: "GPU systems, parallel compute, profiling.",
+    icon: Terminal,
+    accent: "from-yellow-500/20 to-yellow-500/0 border-yellow-500/30 text-yellow-400",
+    skills: [
+      "CUDA",
+      "C++",
+      "ROCm",
+      "GPU Profiling (Nsight)",
+      "Linux (Bash/Shell)",
+      "Vertex AI",
+      "MI300X",
     ],
   },
   {
@@ -142,6 +176,8 @@ const skillCategories: SkillCategory[] = [
       "Redis",
       "MMKV",
       "Algolia",
+      "Pinecone",
+      "DynamoDB",
       "Neo4j",
     ],
   },
@@ -274,7 +310,7 @@ export default function Skills() {
             <Terminal className="w-3 h-3" />
             <span>Tech Stack</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/40 pb-2">
+          <h2 className="section-heading text-3xl sm:text-4xl md:text-6xl font-bold tracking-wide font-display uppercase text-foreground pb-2">
             Technical Proficiency
           </h2>
           <p className="text-base md:text-xl text-muted-foreground/80 max-w-2xl mx-auto font-light leading-relaxed">

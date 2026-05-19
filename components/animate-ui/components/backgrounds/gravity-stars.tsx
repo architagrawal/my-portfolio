@@ -343,6 +343,27 @@ function GravityStarsBackground({
     };
   }, [animate]);
 
+  // Global pointer tracking — works even when overlay elements cover the canvas
+  React.useEffect(() => {
+    const onMove = (clientX: number, clientY: number) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = { x: clientX - rect.left, y: clientY - rect.top };
+    };
+    const handleMouse = (e: MouseEvent) => onMove(e.clientX, e.clientY);
+    const handleTouch = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) onMove(t.clientX, t.clientY);
+    };
+    window.addEventListener('mousemove', handleMouse, { passive: true });
+    window.addEventListener('touchmove', handleTouch, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouse);
+      window.removeEventListener('touchmove', handleTouch);
+    };
+  }, []);
+
   return (
     <div
       ref={containerRef}

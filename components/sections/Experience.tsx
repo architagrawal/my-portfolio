@@ -23,7 +23,7 @@ interface ExperienceItem {
 const experiences: ExperienceItem[] = [
   {
     company: "MyStage Music Inc",
-    role: "AI/ML Engineer",
+    role: "Founding AI/ML Engineer",
     location: "Remote",
     period: "July 2025 - Present",
     achievements: [
@@ -93,8 +93,26 @@ const experiences: ExperienceItem[] = [
     color: "purple",
   },
   {
+    company: "Arizona State University",
+    role: "Student Researcher",
+    location: "Tempe, AZ",
+    period: "August 2024 – May 2025",
+    achievements: [
+      {
+        text: "Project 1 — Probed temporal and logical reasoning capabilities of text-conditioned video generation models; designed evaluation prompts isolating cause-effect ordering and counterfactual scene logic.",
+        relatedTechs: ["Python", "PyTorch", "Diffusers"],
+      },
+      {
+        text: "Project 2 — Quantified physical-law adherence of rigid-body motion in GenAI video outputs (gravity, momentum, collision); built scoring rubric scoring real-world plausibility per frame sequence.",
+        relatedTechs: ["Python", "PyTorch", "Computer Vision"],
+      },
+    ],
+    technologies: ["Python", "PyTorch", "Diffusers", "Computer Vision", "Video Generation"],
+    color: "purple",
+  },
+  {
     company: "Edplus, Arizona State University",
-    role: "Student Software Developer",
+    role: "IDA",
     location: "Tempe, AZ",
     period: "Sept 2023 – May 2025",
     achievements: [
@@ -141,7 +159,7 @@ const experiences: ExperienceItem[] = [
   },
   {
     company: "Knowledge Exchange for Resilience, Arizona State University",
-    role: "Data Research Intern",
+    role: "Data Research Aide",
     location: "Tempe, AZ",
     period: "June 2024 – August 2024",
     achievements: [
@@ -161,6 +179,18 @@ const experiences: ExperienceItem[] = [
         text: "Wrote pytest unit + Locust load suites against FastAPI endpoints, establishing throughput and latency SLOs prior to release.",
         relatedTechs: ["Python", "FastAPI", "Locust"],
       },
+      {
+        text: "Delivered 20+ production REST APIs for NSF-funded Knowledge Alliance tool using .NET 8 + Dapper + MediatR clean architecture, secured with JWT and queued via AWS SQS.",
+        relatedTechs: [".NET 8", "C#", "Dapper", "MediatR", "JWT", "AWS SQS"],
+      },
+      {
+        text: "Cut API latency 198ms → 20ms (≈90%) via Redis caching layer + complex SQL query rewrites, holding sub-second responses under simulated peak load.",
+        relatedTechs: ["Redis", "SQL", ".NET 8"],
+      },
+      {
+        text: "Built bigram/n-gram ranking model over cleaned faculty profile text — 15% lift in search relevance over baseline.",
+        relatedTechs: ["Python", "Deep Learning"],
+      },
     ],
     technologies: [
       "Python",
@@ -168,6 +198,11 @@ const experiences: ExperienceItem[] = [
       "Pandas",
       "FAISS",
       "FastAPI",
+      ".NET 8",
+      "Dapper",
+      "MediatR",
+      "AWS SQS",
+      "Redis",
       "Neo4j",
       "Docker",
       "Git",
@@ -191,8 +226,12 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Git", "Docker", "Kubernetes", "SonarQube"],
       },
       {
-        text: "Shipped a Redis-backed ML demand-prediction service for desk/room reservations across 300+ Fortune 500 sites, lifting occupancy by 30%.",
-        relatedTechs: [".NET", "C#", "Redis"],
+        text: "Shipped a Redis-backed ML demand-prediction service for desk/room reservations across 300+ Fortune 500 sites (incl. Goldman Sachs, Merck), lifting occupancy by 30% amid COVID-era hot-desk constraints.",
+        relatedTechs: [".NET", "C#", "Redis", "React", "Node.js"],
+      },
+      {
+        text: "Optimized Angular student-listing screen with paginated fetching and AWS S3-backed asset delivery — 30% faster screen load; streamlined MySQL queries on class-details page for additional 10% latency reduction.",
+        relatedTechs: ["Angular", "JavaScript", "AWS S3", "MySQL"],
       },
       {
         text: "Published an internal npm package wrapping the Slack Web API for paginated message + attachment + reaction retrieval, consumed by the company social platform with semver-disciplined releases.",
@@ -241,6 +280,24 @@ const experiences: ExperienceItem[] = [
     technologies: ["React.js", "Google Maps API", "Python"],
     color: "blue",
   },
+  {
+    company: "Dhirubhai Ambani Institute of Information and Communication Technology",
+    role: "Computer Vision Researcher",
+    location: "Gandhinagar, India",
+    period: "May 2021 – August 2021",
+    achievements: [
+      {
+        text: "Explored AI/ML for self-driving cars with focus on sensor data — capture, recording, processing, and downstream use for vehicle guidance.",
+        relatedTechs: ["Python", "Computer Vision"],
+      },
+      {
+        text: "Studied radar + Lidar data acquisition pipelines, vehicle-to-vehicle (p2p) communication, and HD-map localization techniques.",
+        relatedTechs: ["Python", "Lidar", "Computer Vision"],
+      },
+    ],
+    technologies: ["Python", "Computer Vision", "Lidar", "Radar"],
+    color: "teal",
+  },
 ];
 
 export default function Experience() {
@@ -263,7 +320,7 @@ export default function Experience() {
             <Rocket className="w-3 h-3" />
             <span>Journey</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/40 pb-2">
+          <h2 className="section-heading text-5xl md:text-6xl font-bold tracking-wide font-display uppercase text-foreground pb-2">
             Professional Odyssey
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto font-light leading-relaxed">

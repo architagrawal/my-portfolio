@@ -102,11 +102,12 @@ export default function Home() {
             <Hero />
             <div className="relative">
               <GravityStarsBackground
-                className="absolute inset-0"
-                starsCount={1000}
-                gravityStrength={150}
+                className="absolute inset-0 text-[#E5B23A]"
+                starsCount={2500}
+                gravityStrength={180}
                 movementSpeed={0.8}
                 starsSize={2.3}
+                mouseInfluence={160}
               />
               <About />
               <Experience />

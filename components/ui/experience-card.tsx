@@ -77,9 +77,9 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
     >
         <Card
         className={`
-            relative overflow-hidden transition-all duration-500 
-            bg-background/40 backdrop-blur-md border border-white/5 
-            hover:border-white/10 hover:shadow-2xl hover:bg-background/60
+            temple-frame relative overflow-hidden transition-all duration-500
+            bg-background/40 backdrop-blur-md border border-secondary/30 rounded-none
+            hover:border-secondary hover:shadow-[0_0_28px_hsl(var(--secondary)/0.25)] hover:bg-background/60
             group-hover:translate-x-1
         `}
         >

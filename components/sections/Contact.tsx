@@ -32,7 +32,7 @@ export default function Contact() {
            viewport={{ once: true }}
            className="text-center mb-12"
          >
-           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+           <h2 className="section-heading text-3xl sm:text-4xl font-bold mb-4 text-foreground font-display uppercase tracking-wide">
              Get In Touch
            </h2>
            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -55,7 +55,7 @@ export default function Contact() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <InteractiveCard
                   InteractiveColor="hsl(var(--primary))"
-                  className="border-2 hover:border-primary/50 transition-colors bg-background/50 backdrop-blur-sm relative rounded-none"
+                  className="temple-frame border border-secondary/50 hover:border-secondary hover:shadow-[0_0_22px_hsl(var(--secondary)/0.3)] transition-all bg-background/50 backdrop-blur-sm relative rounded-none"
                 >
                   <Button
                     variant="ghost"
@@ -89,7 +89,7 @@ export default function Contact() {
 
                 <InteractiveCard
                   InteractiveColor="hsl(var(--secondary))"
-                  className="border-2 hover:border-secondary/50 transition-colors bg-background/50 backdrop-blur-sm rounded-none"
+                  className="temple-frame border border-secondary/50 hover:border-primary hover:shadow-[0_0_22px_hsl(var(--primary)/0.3)] transition-all bg-background/50 backdrop-blur-sm rounded-none"
                 >
                   <div className="p-6 text-center">
                     <div className="w-12 h-12 bg-secondary/10 border border-secondary/20 flex items-center justify-center mx-auto mb-4">
@@ -106,7 +106,7 @@ export default function Contact() {
 
             <InteractiveCard
               InteractiveColor="hsl(var(--primary))"
-              className="border-2 border-dashed border-border hover:border-primary/50 transition-colors bg-background/50 backdrop-blur-sm rounded-none"
+              className="border border-dashed border-secondary/60 hover:border-secondary hover:shadow-[0_0_18px_hsl(var(--secondary)/0.25)] transition-all bg-background/50 backdrop-blur-sm rounded-none"
             >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 justify-center text-foreground">

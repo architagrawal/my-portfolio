@@ -108,6 +108,42 @@ const projects = [
     award: undefined,
   },
   {
+    title: "SRP Electric MCP Server",
+    description:
+      "TypeScript MCP server exposing a legacy utility portal to LLM agents — reverse-engineered authentication, structured JSON tools for energy data reasoning.",
+    image:
+      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80",
+    date: "Dec 2025 – Jan 2026",
+    achievements: [
+      "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
+      "Reverse-engineered undocumented authentication flow of a legacy utility portal under highly ambiguous constraints — no docs, no spec.",
+      "Converted unstructured enterprise portal data into structured JSON tools surfaced through MCP for secure, deterministic LLM reasoning.",
+      "Designed tool schemas enforcing argument validation and safe downstream automation against the third-party portal.",
+    ],
+    technologies: ["TypeScript", "MCP", "Node.js", "REST APIs"],
+    demoUrl: "",
+    githubUrl: "",
+    award: undefined,
+  },
+  {
+    title: "MCP-Based GitHub PR Review Automation Agent",
+    description:
+      "MCP workflow automation service integrating GitHub webhooks, LLM reasoning, and pull-request analysis pipelines across GitHub Actions + Asana.",
+    image:
+      "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&q=80",
+    date: "Jul 2025 – Aug 2025",
+    achievements: [
+      "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
+      "Designed context-routing logic letting agents retrieve repository state, ticket metadata, and CI/CD execution context before generating review decisions.",
+      "Automated engineering workflows across GitHub Actions and Asana — status updates, ticket linking, review summaries without manual coordination.",
+      "Surfaced structured review verdicts to PR comments, gating merges on automated reasoning checks.",
+    ],
+    technologies: ["TypeScript", "MCP", "GitHub Actions", "Asana API", "LLM"],
+    demoUrl: "",
+    githubUrl: "",
+    award: undefined,
+  },
+  {
     title: "No-Code Pipeline Builder",
     description:
       "React 18 + ReactFlow 11 visual DAG editor with typed nodes, Zustand-backed undo/redo, debounced localStorage autosave, and FastAPI DAG-validation backend.",
@@ -361,7 +397,7 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground font-heading uppercase tracking-tighter">
+          <h2 className="section-heading text-4xl sm:text-5xl font-bold mb-4 text-foreground font-display uppercase tracking-wide">
             System Modules
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-tech">
@@ -373,7 +409,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-all duration-300 border border-border bg-card relative h-[540px] flex flex-col group rounded-none hover:border-primary/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 cursor-pointer"
+              className="temple-frame flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-all duration-300 border border-secondary/40 bg-card relative h-[540px] flex flex-col group rounded-none hover:border-primary/70 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
               onClick={() => setActiveProject(index)}
             >
               {/* Technical Header Line */}

@@ -9,6 +9,7 @@ import {
   Linkedin,
   Code,
   Instagram,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Sparkle from "@/components/ui/Sparkle";
@@ -123,10 +124,6 @@ export default function Hero() {
             transition={{ duration: 0.4 }}
             className="mx-auto w-32 h-32 rounded-none relative"
           >
-            {/* Animated glow ring - Removed for Editorial look */}
-            {/* <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-600 to-teal-600 animate-profile-glow" /> */}
-            {/* <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 animate-profile-spin opacity-60" /> */}
-            {/* Inner container */}
             <div className="absolute inset-0 rounded-none bg-border p-[1px]">
               <div className="w-full h-full rounded-none overflow-hidden bg-background relative transition-all duration-500">
                 <div className="absolute inset-0 border border-primary/20 z-10"></div>
@@ -234,6 +231,26 @@ export default function Hero() {
               className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] backdrop-blur-sm"
             >
               <a
+                href="https://medium.com/@architagrawal000"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Medium blog"
+                className="flex items-center space-x-2 font-tech"
+              >
+                <Sparkle />
+                <BookOpen className="w-5 h-5 group-hover:text-primary transition-colors" />
+                <span>Medium</span>
+                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
+              </a>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] backdrop-blur-sm"
+            >
+              <a
                 href="https://leetcode.com/architagrawal000"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -259,10 +276,10 @@ export default function Hero() {
             <div className="inline-block group relative">
               <Button
                 asChild
-                className="relative rounded-none px-8 py-6 text-lg font-medium font-tech tracking-wider
-                bg-primary text-primary-foreground transition-all duration-300 
-                hover:bg-primary/90 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)]
-                uppercase border border-primary"
+                className="temple-frame relative rounded-none px-8 py-6 text-lg font-medium font-display tracking-wider
+                bg-primary text-primary-foreground transition-all duration-300
+                hover:bg-primary/90 hover:shadow-[0_0_24px_hsl(var(--primary)/0.55),inset_0_0_12px_hsl(var(--secondary)/0.45)]
+                uppercase border border-secondary"
               >
                 <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer">
                   <span>Download Resume</span>
@@ -276,9 +293,9 @@ export default function Hero() {
               <Button
                 variant="outline"
                 onClick={scrollToAbout}
-                className="relative rounded-none px-12 py-6 text-lg font-medium font-tech tracking-wider
-                bg-transparent border-primary/50 text-foreground transition-all duration-300 
-                hover:bg-primary/10 hover:border-primary
+                className="temple-frame relative rounded-none px-12 py-6 text-lg font-medium font-display tracking-wider
+                bg-transparent border-secondary/60 text-foreground transition-all duration-300
+                hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_18px_hsl(var(--secondary)/0.35)]
                 uppercase"
               >
                 <span>Begin Journey</span>
