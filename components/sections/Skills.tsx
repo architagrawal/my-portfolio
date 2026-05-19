@@ -1,18 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { 
+import { useRef, MouseEvent } from "react";
+import {
   Terminal,
+  Code2,
+  Layers,
+  Brain,
+  Cloud,
+  Database,
+  FlaskConical,
+  LucideIcon,
 } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import SkillNetwork from "@/components/ui/skill-network";
-import { Magnetic } from "@/components/ui/magnetic";
 
-// Define the skill category interface
 interface SkillCategory {
   id: string;
   title: string;
+  tagline: string;
+  icon: LucideIcon;
+  accent: string;
   skills: string[];
 }
 
@@ -20,75 +26,243 @@ const skillCategories: SkillCategory[] = [
   {
     id: "languages",
     title: "Languages",
-    skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "SQL", "HTML/CSS"],
+    tagline: "Daily-driver syntax across web, systems, scripting.",
+    icon: Code2,
+    accent: "from-blue-500/20 to-blue-500/0 border-blue-500/30 text-blue-400",
+    skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "SQL", "Bash", "PowerShell", "HTML/CSS"],
   },
   {
     id: "frameworks",
-    title: "Frameworks",
+    title: "Frameworks & UI",
+    tagline: "Production-grade web and mobile stack.",
+    icon: Layers,
+    accent: "from-teal-500/20 to-teal-500/0 border-teal-500/30 text-teal-400",
     skills: [
       "React",
+      "React 19",
       "Next.js",
+      "React Native",
+      "Expo",
       "Node.js",
       "Express",
       "Django",
       "Flask",
       "FastAPI",
       ".NET Core",
-      "Tailwind CSS"
+      "Tailwind CSS",
+      "Tamagui",
+      "Radix UI",
+      "shadcn/ui",
+      "Zustand",
+      "TanStack Query",
+      "ReactFlow",
+      "Framer Motion",
+      "D3.js",
+      "Recharts",
     ],
   },
   {
     id: "ai-ml",
     title: "AI & ML",
+    tagline: "LLM orchestration, audio ML, RL preference tuning.",
+    icon: Brain,
+    accent: "from-purple-500/20 to-purple-500/0 border-purple-500/30 text-purple-400",
     skills: [
       "PyTorch",
       "TensorFlow",
       "LangChain",
+      "LangGraph",
       "LlamaIndex",
       "Hugging Face",
       "OpenAI API",
+      "Gemini / Vertex AI",
+      "RAG",
+      "Prompt Flow",
+      "Semantic Kernel",
+      "DPO / KTO",
+      "MERT",
+      "VampNet",
+      "Demucs",
+      "Audiobox",
+      "CLAP",
+      "Matchering",
+      "Audio DSP",
+      "Neo4j (KG)",
+      "FAISS",
+      "pgvector",
       "scikit-learn",
       "Pandas",
-      "NumPy"
+      "NumPy",
     ],
   },
   {
     id: "cloud-devops",
     title: "Cloud & DevOps",
+    tagline: "GCP-heavy, multi-cloud, GPU infra.",
+    icon: Cloud,
+    accent: "from-orange-500/20 to-orange-500/0 border-orange-500/30 text-orange-400",
     skills: [
       "AWS",
+      "GCP",
+      "Cloud Run",
+      "Cloud Functions",
+      "Compute Engine",
+      "Cloud Scheduler",
+      "Cloud Tasks",
+      "Pub/Sub",
+      "Cloudflare Workers",
+      "Vercel",
+      "DigitalOcean",
+      "ROCm / MI300X",
+      "HuggingFace Spaces",
+      "EAS",
       "Docker",
       "Kubernetes",
       "Git",
       "CI/CD",
       "Linux",
       "Nginx",
+      "RabbitMQ",
+      "Logfire",
+    ],
+  },
+  {
+    id: "databases",
+    title: "Databases & Search",
+    tagline: "Relational, document, vector, edge.",
+    icon: Database,
+    accent: "from-emerald-500/20 to-emerald-500/0 border-emerald-500/30 text-emerald-400",
+    skills: [
+      "PostgreSQL",
+      "Firestore",
+      "Supabase",
+      "Cloudflare D1",
+      "Drizzle ORM",
+      "SQL Alchemy",
       "Redis",
-      "RabbitMQ"
+      "MMKV",
+      "Algolia",
+      "Neo4j",
+    ],
+  },
+  {
+    id: "testing",
+    title: "Testing & Tooling",
+    tagline: "Unit, integration, property-based, E2E.",
+    icon: FlaskConical,
+    accent: "from-pink-500/20 to-pink-500/0 border-pink-500/30 text-pink-400",
+    skills: [
+      "pytest",
+      "pytest-asyncio",
+      "Jest",
+      "Vitest",
+      "React Testing Library",
+      "fast-check",
+      "Maestro",
+      "Playwright",
+      "Locust",
+      "SonarQube",
     ],
   },
 ];
 
-// Flatten skills for the network
-const allSkills = skillCategories.flatMap(cat => 
-  cat.skills.map(name => ({ name, category: cat.id }))
-);
+function SkillCard({ cat, idx }: { cat: SkillCategory; idx: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const Icon = cat.icon;
+  const iconColor = cat.accent.split(" ").find((c) => c.startsWith("text-")) ?? "";
 
-export default function Skills() {
-  const [activeTab, setActiveTab] = useState("all");
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  };
 
   return (
-    <section id="skills" className="py-32 px-4 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 p-20 opacity-20 pointer-events-none transform translate-x-1/2 -translate-y-1/2">
-        <div className="w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-pulse" />
-      </div>
-      <div className="absolute bottom-0 left-0 p-20 opacity-20 pointer-events-none transform -translate-x-1/2 translate-y-1/2">
-        <div className="w-64 h-64 bg-secondary/30 rounded-full blur-3xl animate-pulse delay-1000" />
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: idx * 0.08 }}
+      whileHover={{ y: -6 }}
+      className={`skill-card group relative overflow-hidden rounded-2xl border bg-gradient-to-br ${cat.accent} p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20`}
+      style={{
+        // @ts-expect-error -- CSS vars
+        "--mx": "50%",
+        "--my": "50%",
+      }}
+    >
+      {/* Mouse-tracked spotlight */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background:
+            "radial-gradient(400px circle at var(--mx) var(--my), hsl(var(--primary) / 0.15), transparent 60%)",
+        }}
+      />
+
+      <div className="absolute inset-0 bg-card/60 -z-10" />
+
+      <div className="relative flex items-start justify-between mb-4">
+        <motion.div
+          whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+          transition={{ duration: 0.5 }}
+          className={`p-2.5 rounded-xl bg-background/50 border border-white/5 ${iconColor}`}
+        >
+          <Icon className="w-5 h-5" />
+        </motion.div>
+        <span className="text-[10px] font-tech uppercase tracking-widest text-muted-foreground">
+          {String(cat.skills.length).padStart(2, "0")} items
+        </span>
       </div>
 
+      <h3 className="relative text-lg font-heading uppercase tracking-wide mb-1 text-foreground">
+        {cat.title}
+      </h3>
+      <p className="relative text-xs text-muted-foreground mb-4 leading-relaxed font-light">
+        {cat.tagline}
+      </p>
+
+      <div className="relative flex flex-wrap gap-1.5">
+        {cat.skills.map((skill, i) => (
+          <motion.span
+            key={skill}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: idx * 0.08 + i * 0.015 }}
+            whileHover={{ scale: 1.08, y: -2 }}
+            className="px-2 py-0.5 text-[11px] font-mono bg-background/60 border border-border rounded-md text-foreground/90 hover:border-primary hover:text-primary hover:shadow-md hover:shadow-primary/30 transition-colors cursor-default"
+          >
+            {skill}
+          </motion.span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Skills() {
+  return (
+    <section id="skills" className="py-32 px-4 relative overflow-hidden">
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.15]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage:
+            "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%)",
+        }}
+      />
+      {/* Single soft accent */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -100,71 +274,32 @@ export default function Skills() {
             <Terminal className="w-3 h-3" />
             <span>Tech Stack</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/40 pb-2">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/40 pb-2">
             Technical Proficiency
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto font-light leading-relaxed">
-            Explore my technical solar system. <span className="text-foreground font-medium">Hover</span> to interact, <span className="text-foreground font-medium">Filter</span> to focus.
+          <p className="text-base md:text-xl text-muted-foreground/80 max-w-2xl mx-auto font-light leading-relaxed">
+            Tools, frameworks, and infra I work with daily.
           </p>
         </motion.div>
 
-        {/* Controls - Floating HUD */}
-        <div className="flex flex-col items-center justify-center gap-6 mb-12">
-           <Tabs 
-            defaultValue="all" 
-            className="flex flex-col items-center"
-            onValueChange={setActiveTab}
-          >
-            <TabsList className="bg-background/20 backdrop-blur-xl border border-white/5 p-2 h-auto gap-2 rounded-full flex flex-wrap justify-center shadow-2xl mx-auto">
-              <Magnetic>
-                <TabsTrigger 
-                    value="all" 
-                    className="rounded-full px-5 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 font-medium"
-                >
-                    All System
-                </TabsTrigger>
-              </Magnetic>
-              <Magnetic>
-                <TabsTrigger value="languages" className="rounded-full px-5 py-2.5 data-[state=active]:bg-blue-500 data-[state=active]:text-white transition-all duration-300">Languages</TabsTrigger>
-              </Magnetic>
-              <Magnetic>
-                <TabsTrigger value="frameworks" className="rounded-full px-5 py-2.5 data-[state=active]:bg-teal-500 data-[state=active]:text-white transition-all duration-300">Frameworks</TabsTrigger>
-              </Magnetic>
-              <Magnetic>
-                <TabsTrigger value="ai-ml" className="rounded-full px-5 py-2.5 data-[state=active]:bg-purple-500 data-[state=active]:text-white transition-all duration-300">AI & ML</TabsTrigger>
-              </Magnetic>
-              <Magnetic>
-                <TabsTrigger value="cloud-devops" className="rounded-full px-5 py-2.5 data-[state=active]:bg-orange-500 data-[state=active]:text-white transition-all duration-300">Cloud</TabsTrigger>
-              </Magnetic>
-            </TabsList>
-          </Tabs>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {skillCategories.map((cat, idx) => (
+            <SkillCard key={cat.id} cat={cat} idx={idx} />
+          ))}
         </div>
 
-        {/* Canvas Network */}
-        <motion.div
-           initial={{ opacity: 0, scale: 0.95 }}
-           whileInView={{ opacity: 1, scale: 1 }}
-           transition={{ duration: 0.8 }}
-        >
-          <SkillNetwork 
-             skills={allSkills} 
-             activeCategory={activeTab} 
-          />
-        </motion.div>
-        
-        {/* Screen Reader Only Content for Accessibility */}
         <div className="sr-only">
           <h3>Skills List</h3>
           <ul>
-            {skillCategories.map(cat => (
-                <li key={cat.id}>
-                    <h4>{cat.title}</h4>
-                    <ul>
-                        {cat.skills.map(skill => (
-                            <li key={skill}>{skill}</li>
-                        ))}
-                    </ul>
-                </li>
+            {skillCategories.map((cat) => (
+              <li key={cat.id}>
+                <h4>{cat.title}</h4>
+                <ul>
+                  {cat.skills.map((skill) => (
+                    <li key={skill}>{skill}</li>
+                  ))}
+                </ul>
+              </li>
             ))}
           </ul>
         </div>

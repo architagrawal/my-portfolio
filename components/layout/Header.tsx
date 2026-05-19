@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
@@ -96,17 +96,17 @@ export default function Header({ activeSection }: HeaderProps) {
           </nav>
 
           <div className="flex items-center space-x-4">
-            {/* Theme toggle button - commented out */}
-            {/* <Button
+            <Button
               variant="ghost"
               size="sm"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="w-9 h-9 p-0"
+              className="w-11 h-11 p-0 relative"
+              aria-label="Toggle theme"
             >
               <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
-            </Button> */}
+            </Button>
 
             {/* Desktop Resume Button */}
             <Button
@@ -123,7 +123,7 @@ export default function Header({ activeSection }: HeaderProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="md:hidden w-9 h-9 p-0"
+              className="md:hidden w-11 h-11 p-0"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
@@ -137,6 +137,7 @@ export default function Header({ activeSection }: HeaderProps) {
         </div>
 
         {/* Mobile Navigation */}
+        <AnimatePresence>
         {isMobileMenuOpen && (
           <>
             {/* Blur overlay */}
@@ -162,7 +163,7 @@ export default function Header({ activeSection }: HeaderProps) {
                     key={item.name}
                     onClick={() => scrollToSection(item.href)}
                     className={cn(
-                      "block w-full text-left px-3 py-2 text-base font-medium rounded-md transition-all duration-200",
+                      "block w-full text-left px-3 py-3 min-h-[44px] text-base font-medium rounded-md transition-all duration-200",
                       activeSection === item.href.substring(1)
                         ? "text-primary bg-primary/10"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted hover:translate-x-1"
@@ -176,7 +177,7 @@ export default function Header({ activeSection }: HeaderProps) {
                   href="/Archit_Agrawal_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-left px-3 py-2 text-base font-medium rounded-md text-primary bg-primary/10 hover:bg-primary/20 transition-all duration-200"
+                  className="block w-full text-left px-3 py-3 min-h-[44px] text-base font-medium rounded-md text-primary bg-primary/10 hover:bg-primary/20 transition-all duration-200"
                 >
                   Resume
                 </a>
@@ -184,6 +185,7 @@ export default function Header({ activeSection }: HeaderProps) {
             </motion.div>
           </>
         )}
+        </AnimatePresence>
       </div>
     </motion.header>
   );

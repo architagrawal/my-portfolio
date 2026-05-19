@@ -28,34 +28,69 @@ const experiences: ExperienceItem[] = [
     period: "July 2025 - Present",
     achievements: [
       {
-        text: "Designed and deployed RESTful APIs, enabling scalable, low-latency integrations across cloud-based services.",
-        relatedTechs: ["Python", "FastAPI", "GCP"],
+        text: "Migrated a 14-Cloud-Function event pipeline into a unified LangGraph agent-worker on Cloud Run Jobs, collapsing six per-stage task types into one process-new-event-url graph composing sourcing → extraction → resolution → entity-source write → image fan-out sub-graphs.",
+        relatedTechs: ["Python", "LangGraph", "GCP", "Cloud Run"],
       },
       {
-        text: "Built scalable web scraping pipelines using Playwright with proxy rotation, deployed on Compute Engine with automated scheduling via Cron jobs to ensure reliable data collection.",
+        text: "Built reusable build_scraping_subgraph() factory compiled without a Firestore checkpointer so parent graphs compose it without nested-checkpoint conflicts; added route_entry bridge letting webhook-sourced scrapes skip URL-fetch and enter at extraction.",
+        relatedTechs: ["Python", "LangGraph"],
+      },
+      {
+        text: "Implemented interrupt()/resume pause-for-research contract: subgraph idempotently enqueues a domain-research task on missing domain_metadata/{tld}, calls interrupt(f\"domain_research:{tld}\"), resumes from checkpoint when external pipeline flips parent task to ready.",
+        relatedTechs: ["Python", "LangGraph", "Google Firestore"],
+      },
+      {
+        text: "Designed pure-function routing predicates (route_after_sourcing/extraction/resolution) over typed state for deterministic flow; used Send-based parallel image fan-out with per-Send error isolation via operator.add-reduced state field.",
+        relatedTechs: ["Python", "LangGraph"],
+      },
+      {
+        text: "Wrote atomic Firestore claim transactions with status == \"ready\" preconditions for multi-worker concurrency; used deterministic agent-task IDs with create() + AlreadyExists for true retry idempotency (set() would clobber in-flight tasks).",
+        relatedTechs: ["Python", "Google Firestore"],
+      },
+      {
+        text: "Architected resilient Playwright scraper with proxy rotation and exponential backoff on Compute Engine, indexing 70,000+ records/day across 650+ locations through anti-bot measures.",
         relatedTechs: ["Python", "Playwright", "GCP"],
       },
       {
-        text: "Developed data pipelines with location and event deduplication logic, ensuring high-quality, clean datasets for downstream analytics and applications.",
-        relatedTechs: [
-          "Python",
-          "Algolia",
-          "Google Firestore",
-          "Gemini Vertex AI",
-        ],
+        text: "Built Gemini Pro (Vertex AI) semantic entity-resolution and dedupe pass over raw event data, lifting downstream search dataset accuracy by 25%.",
+        relatedTechs: ["Python", "Gemini Vertex AI", "Google Firestore", "Algolia"],
+      },
+      {
+        text: "Shipped FastAPI + Cloud Functions REST endpoints fronting Algolia for sub-50ms search latency and Firestore for real-time sync.",
+        relatedTechs: ["Python", "FastAPI", "GCP", "Algolia", "Google Firestore"],
+      },
+      {
+        text: "Refactored a monolithic 1,600-LOC source-generic Cloud Run service into a callable subgraph inside packages/mystage-agents/scraping/ via git mv (history preserved), full import-path rewrite, and dep relocation — service deps trimmed 14 → 5.",
+        relatedTechs: ["Python", "Cloud Run"],
+      },
+      {
+        text: "Extended canonical Performance entity with next_reprocess_time / last_reprocess_time / reprocess_count; built Cloud Scheduler trigger emitting process-reprocess-event-data tasks and most-stale URL selection over entity_sources ordered by last_successful_scrape_time ASC.",
+        relatedTechs: ["Python", "Google Firestore", "GCP"],
+      },
+      {
+        text: "Wired Logfire distributed-trace context propagation: scheduler captures root ctx per URL into agent_tasks/{id}.ctx, runner attach_context() on claim and resume so worker spans nest under producer trace across pause/resume; added per-tick metric_counter instrumentation.",
+        relatedTechs: ["Python", "Logfire"],
+      },
+      {
+        text: "Wrote 200+ pytest unit + integration tests covering routing predicates, fetcher nodes, mocked Firestore claim transactions, idempotent enqueue under retry, HITL resume payloads, image fan-out isolation; pytest-asyncio auto mode with mock_async_db fixtures for Firestore-free runs.",
+        relatedTechs: ["Python", "pytest"],
       },
     ],
     technologies: [
       "Python",
+      "LangGraph",
       "FastAPI",
       "Playwright",
       "GCP",
+      "Cloud Run",
       "Gemini Vertex AI",
-      "Log fire",
+      "Logfire",
       "Algolia",
       "Google Firestore",
+      "pytest",
+      "asyncio",
     ],
-    color: "purple", // Changed to purple for AI/ML vibe
+    color: "purple",
   },
   {
     company: "Edplus, Arizona State University",
@@ -64,7 +99,7 @@ const experiences: ExperienceItem[] = [
     period: "Sept 2023 – May 2025",
     achievements: [
       {
-        text: "Leading development of a retrieval-augmented generation (RAG) chatbot system, facilitating 1,000+ faculty to design courses for 60,000+ students.",
+        text: "Led design and delivery of a multi-tenant RAG chatbot orchestrated via LangChain + Semantic Kernel with Prompt Flow evaluation harness, serving 1,000+ faculty authoring courses for 60,000+ students.",
         relatedTechs: [
           "Python",
           "LangChain",
@@ -74,19 +109,19 @@ const experiences: ExperienceItem[] = [
         ],
       },
       {
-        text: "Automated Google Drive folder and document creation based on Google Sheets data, streamlining workflows.",
-        relatedTechs: ["JavaScript", "Google Apps Script"],
-      },
-      {
-        text: "Designed REST APIs and webpages for quiz platforms and question banks in ASU Online courses.",
-        relatedTechs: ["Python", "JavaScript", "SQL"],
-      },
-      {
-        text: "Architected and deployed a Neo4j-powered knowledge graph system integrated with LLMs, enabling complex relationship queries reducing manual processing time from 4 hours to 15 minutes per transcript.",
+        text: "Engineered a Neo4j knowledge graph layered with LLM-driven Cypher synthesis, cutting transcript-to-insight loop from 4 hours to 15 minutes via deterministic graph traversal over noisy NL queries.",
         relatedTechs: ["Python", "Neo4j", "OpenAI", "LangChain"],
       },
       {
-        text: "Created responsive front-end interfaces with React.js and Material UI, improving user engagement by 35% and decreasing bounce rates by 20%.",
+        text: "Designed REST APIs and SQL-backed admin surfaces powering quiz platforms and question banks across ASU Online; enforced schema-level invariants for assessment integrity.",
+        relatedTechs: ["Python", "JavaScript", "SQL"],
+      },
+      {
+        text: "Authored Google Apps Script automation generating Drive folder/doc hierarchies from Sheets metadata, eliminating manual course-provisioning toil.",
+        relatedTechs: ["JavaScript", "Google Apps Script"],
+      },
+      {
+        text: "Built responsive React + Material UI interfaces with measurable UX outcomes: +35% engagement, −20% bounce rate.",
         relatedTechs: ["JavaScript"],
       },
     ],
@@ -111,19 +146,19 @@ const experiences: ExperienceItem[] = [
     period: "June 2024 – August 2024",
     achievements: [
       {
-        text: "Built a Python-based vector similarity search system using FAISS and Neo4j, reducing query response time by 60% while maintaining 95% accuracy.",
+        text: "Designed a FAISS + Neo4j hybrid retrieval layer (dense ANN over graph-anchored entities) delivering 60% lower p95 query latency at 95% recall.",
         relatedTechs: ["Python", "FAISS", "Neo4j"],
       },
       {
-        text: "Created a Python microservice for generating and storing vector embeddings of faculty profiles, enabling similarity-based recommendations with 85% accuracy.",
+        text: "Built a FastAPI embedding microservice over Postgres/pgvector for faculty-profile similarity, surfacing collaborator recommendations at 85% top-k precision.",
         relatedTechs: ["Python", "FastAPI", "PostgreSQL"],
       },
       {
-        text: "Formulated high-performance ETL pipeline processing 10,000+ faculty profiles daily, improving data accuracy by 95%.",
+        text: "Architected an idempotent ETL pipeline ingesting 10,000+ faculty profiles/day with Pandas-based transforms and Postgres upserts; raised dataset accuracy to 95% via constraint-driven validation.",
         relatedTechs: ["Python", "Pandas", "PostgreSQL"],
       },
       {
-        text: "Developed unit and stress tests for API endpoints ensuring system performance under high user traffic.",
+        text: "Wrote pytest unit + Locust load suites against FastAPI endpoints, establishing throughput and latency SLOs prior to release.",
         relatedTechs: ["Python", "FastAPI", "Locust"],
       },
     ],
@@ -148,23 +183,23 @@ const experiences: ExperienceItem[] = [
     period: "Jan 2022 – July 2023",
     achievements: [
       {
-        text: "Refactored monolithic backend services into MVC microservices following SOLID principles to optimize and scale the infrastructure using Kubernetes,resulting in a 35% reduction in resource usage and a 20% cost reduction.",
+        text: "Decomposed a .NET monolith into SOLID-aligned microservices on Kubernetes with bounded-context service boundaries, driving 35% lower resource footprint and 20% cost reduction across the fleet.",
         relatedTechs: [".NET", "C#", "Docker", "Kubernetes", "AWS"],
       },
       {
-        text: "Executed CI/CD pipelines reducing deployment time by 70% and decreasing production incidents by 40%.",
+        text: "Hardened CI/CD with SonarQube quality gates and containerized release pipelines: −70% deploy time, −40% production incidents.",
         relatedTechs: ["Git", "Docker", "Kubernetes", "SonarQube"],
       },
       {
-        text: "Developed ML prediction system to optimize space reservation systems for booking desks and meeting rooms for 300+ locations, enhancing occupancy rates by 30% for Fortune500 company.",
+        text: "Shipped a Redis-backed ML demand-prediction service for desk/room reservations across 300+ Fortune 500 sites, lifting occupancy by 30%.",
         relatedTechs: [".NET", "C#", "Redis"],
       },
       {
-        text: "Formulated a custom node package for retrieving 10 latest messages from Slack channels, including attached media, documents, and reactions into an internal social networking web app maintaining version control.",
+        text: "Published an internal npm package wrapping the Slack Web API for paginated message + attachment + reaction retrieval, consumed by the company social platform with semver-disciplined releases.",
         relatedTechs: ["Node.js", "Git"],
       },
       {
-        text: "Built responsive single-page applications using React.js and Redux, implementing client-side state management and RESTful API integration that improved user experience scores by 40%",
+        text: "Built React + Redux SPAs with normalized client-side state and typed REST integration, raising measured UX scores by 40%.",
         relatedTechs: ["Node.js"],
       },
     ],
@@ -191,15 +226,15 @@ const experiences: ExperienceItem[] = [
     period: "Sept 2021 – Dec 2021",
     achievements: [
       {
-        text: "Managed cross-functional order tracking system optimizing driver location tracking, reducing costs by 45% and enhancing user growth by 25% quarter on quarter.",
+        text: "Owned end-to-end order-tracking experience over Google Maps API with optimized driver geolocation polling, yielding 45% cost reduction and 25% QoQ user growth.",
         relatedTechs: ["React.js", "Google Maps API"],
       },
       {
-        text: "Automated system to scrap product details and reviews using script for better business data analytics, positioning of products, and improving customer service Managed software development life cycle sprints on Kanban.",
+        text: "Built a Python scraping toolchain harvesting product catalogs and reviews into the analytics warehouse, feeding pricing/positioning and CX workflows.",
         relatedTechs: ["Python"],
       },
       {
-        text: "Developed a full stack notification system using WebSockets and Express.js, enabling real-time updates that increased customer satisfaction by 28% and reduced support calls by 35%.",
+        text: "Delivered a full-stack WebSocket + Express.js notification service with backpressure-aware fan-out, raising CSAT by 28% and cutting support volume by 35%.",
         relatedTechs: ["React.js"],
       },
     ],
@@ -236,11 +271,11 @@ export default function Experience() {
           </p>
         </motion.div>
 
-        <div className="relative pl-4 md:pl-12">
-          
+        <div className="relative pl-6 md:pl-12">
+
           <div className="space-y-16">
             {experiences.map((exp, expIndex) => (
-              <div key={expIndex} className="relative pl-8 md:pl-16">
+              <div key={expIndex} className="relative pl-10 sm:pl-12 md:pl-16">
                 
                 {/* Timeline Star & Path */}
                 <div className="absolute left-0 top-0 bottom-0 -ml-[5px] md:-ml-[9px] w-12 flex flex-col items-center pt-8">

@@ -74,7 +74,7 @@ export default function Home() {
   }, []);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
       <SmoothScroll>
         {/* Hidden semantic content for AI crawlers */}
         <div className="sr-only" aria-hidden="true">

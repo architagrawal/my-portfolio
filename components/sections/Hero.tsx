@@ -85,7 +85,7 @@ function TypewriterRoles() {
 // Static tagline component
 function TypewriterTagline() {
   return (
-    <p className="text-lg text-muted-foreground leading-relaxed">
+    <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
       Building intelligent solutions and automating the future, one line of code at a time
     </p>
   );
@@ -128,7 +128,7 @@ export default function Hero() {
             {/* <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 animate-profile-spin opacity-60" /> */}
             {/* Inner container */}
             <div className="absolute inset-0 rounded-none bg-border p-[1px]">
-              <div className="w-full h-full rounded-none overflow-hidden bg-background relative grayscale hover:grayscale-0 transition-all duration-500">
+              <div className="w-full h-full rounded-none overflow-hidden bg-background relative transition-all duration-500">
                 <div className="absolute inset-0 border border-primary/20 z-10"></div>
                 <Image
                   src="/archit-profile.png"
@@ -163,7 +163,7 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mx-auto max-w-3xl mt-8 mb-8"
           >
-            <div className="bg-background/80 backdrop-blur-md border border-border p-6 relative group overflow-hidden">
+            <div className="bg-background/80 backdrop-blur-md border border-border p-4 sm:p-6 relative group overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary"></div>
               <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary"></div>
               <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary"></div>
@@ -189,7 +189,7 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] backdrop-blur-sm"
+              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] backdrop-blur-sm"
             >
               <a
                 href="https://www.linkedin.com/in/agrawal-archit"
@@ -209,7 +209,7 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.2)] backdrop-blur-sm"
+              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] backdrop-blur-sm"
             >
               <a
                 href="https://github.com/architagrawal"
@@ -229,7 +229,7 @@ export default function Hero() {
               variant="outline"
               size="lg"
               asChild
-              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] backdrop-blur-sm"
+              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] backdrop-blur-sm"
             >
               <a
                 href="https://leetcode.com/architagrawal000"
@@ -259,7 +259,7 @@ export default function Hero() {
                 asChild
                 className="relative rounded-none px-8 py-6 text-lg font-medium font-tech tracking-wider
                 bg-primary text-primary-foreground transition-all duration-300 
-                hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(var(--primary),0.4)]
+                hover:bg-primary/90 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)]
                 uppercase border border-primary"
               >
                 <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer">
