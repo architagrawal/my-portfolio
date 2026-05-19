@@ -15,7 +15,9 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
-        heading: ["var(--font-outfit)", "sans-serif"],
+        heading: ["var(--font-cinzel)", "var(--font-outfit)", "serif"],
+        display: ["var(--font-cinzel)", "serif"],
+        sanskrit: ["var(--font-sanskrit)", "serif"],
         tech: ["var(--font-space)", "monospace"],
       },
       backgroundImage: {

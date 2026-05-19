@@ -2,7 +2,7 @@ import "./globals.css";
 import "./skills-animation.css";
 import "./lenis.css";
 import type { Metadata } from "next";
-import { Inter, Outfit, Space_Grotesk } from "next/font/google";
+import { Inter, Outfit, Space_Grotesk, Cinzel, Tiro_Devanagari_Sanskrit } from "next/font/google";
 import Script from "next/script";
 import {
   personSchema,
@@ -26,6 +26,20 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-space",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-cinzel",
+  weight: ["400", "600", "700", "800"],
+});
+
+const tiroSanskrit = Tiro_Devanagari_Sanskrit({
+  subsets: ["devanagari", "latin"],
+  display: "swap",
+  variable: "--font-sanskrit",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -161,7 +175,7 @@ export default function RootLayout({
         <meta name="rating" content="General" />
         <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
-      <body className={`${inter.variable} ${outfit.variable} ${spaceGrotesk.variable} antialiased font-sans`}>
+      <body className={`${inter.variable} ${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} ${tiroSanskrit.variable} antialiased font-sans`}>
         <CustomCursor />
         {children}
       </body>

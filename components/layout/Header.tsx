@@ -63,7 +63,7 @@ export default function Header({ activeSection }: HeaderProps) {
           >
             <button
               onClick={() => scrollToSection("#hero")}
-              className="text-xl font-bold text-primary font-heading tracking-tighter hover:text-primary/80 transition-colors"
+              className="text-xl font-bold text-primary font-display tracking-wider hover:text-primary/80 transition-colors"
             >
               AA
             </button>

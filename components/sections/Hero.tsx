@@ -144,14 +144,16 @@ export default function Hero() {
             </div>
           </motion.div>
 
-            {/* Animated Name - Editorial Engineering Style */}
+            {/* Name */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-4 relative z-10"
+            className="space-y-3 relative z-10"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground font-heading uppercase">
+            <div className="om-divider mx-auto max-w-xs" aria-hidden="true" />
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-wide text-foreground font-display uppercase">
               Archit Agrawal
             </h1>
           </motion.div>
@@ -163,11 +165,11 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mx-auto max-w-3xl mt-8 mb-8"
           >
-            <div className="bg-background/80 backdrop-blur-md border border-border p-4 sm:p-6 relative group overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary"></div>
-              <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary"></div>
-              <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary"></div>
-              <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary"></div>
+            <div className="temple-frame bg-background/80 backdrop-blur-md border border-secondary/40 p-4 sm:p-6 relative group overflow-hidden">
+              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-secondary"></div>
+              <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-secondary"></div>
+              <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-secondary"></div>
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-secondary"></div>
               
               <h2 className="text-xl sm:text-2xl font-medium text-primary mb-4 h-8 flex items-center justify-center font-tech tracking-wide uppercase">
                  <TypewriterRoles />
@@ -279,7 +281,7 @@ export default function Hero() {
                 hover:bg-primary/10 hover:border-primary
                 uppercase"
               >
-                <span>Initialize</span>
+                <span>Begin Journey</span>
                 <ArrowDown className="ml-3 w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:translate-y-1 transition-all duration-300" />
               </Button>
             </div>
