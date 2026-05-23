@@ -2,19 +2,13 @@ import "./globals.css";
 import "./skills-animation.css";
 import "./lenis.css";
 import type { Metadata } from "next";
-import { Inter, Outfit, Space_Grotesk, Cinzel, Tiro_Devanagari_Sanskrit } from "next/font/google";
+import { Outfit, Space_Grotesk, Cinzel } from "next/font/google";
 import Script from "next/script";
 import {
   personSchema,
   websiteSchema,
   professionalServiceSchema,
 } from "./metadata";
-
-const inter = Inter({ 
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -26,20 +20,14 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-space",
+  weight: ["400", "500", "600"],
 });
 
 const cinzel = Cinzel({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-cinzel",
-  weight: ["400", "600", "700", "800"],
-});
-
-const tiroSanskrit = Tiro_Devanagari_Sanskrit({
-  subsets: ["devanagari", "latin"],
-  display: "swap",
-  variable: "--font-sanskrit",
-  weight: ["400"],
+  weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -144,7 +132,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vercel.live" />
-        <link rel="preload" href="/archit-profile.png" as="image" type="image/png" />
+        <link rel="preload" href="/archit-profile.webp" as="image" type="image/webp" />
         
         {/* Structured Data for AI and Search Engines */}
         <Script
@@ -175,7 +163,7 @@ export default function RootLayout({
         <meta name="rating" content="General" />
         <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
-      <body className={`${inter.variable} ${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} ${tiroSanskrit.variable} antialiased font-sans`}>
+      <body className={`${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} antialiased font-sans`}>
         <CustomCursor />
         {children}
       </body>

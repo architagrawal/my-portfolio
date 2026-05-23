@@ -265,34 +265,80 @@ function GravityStarsBackground({
     starsInteractionType,
   ]);
 
+  const spriteRef = React.useRef<HTMLCanvasElement | null>(null);
+  const spriteColorRef = React.useRef<string>("");
+
+  const buildSprite = React.useCallback(
+    (color: string) => {
+      const size = Math.ceil((glowIntensity * 2 + 8) * dpr);
+      const c = document.createElement("canvas");
+      c.width = size;
+      c.height = size;
+      const cx = c.getContext("2d");
+      if (!cx) return c;
+      const r = size / 2;
+      const grad = cx.createRadialGradient(r, r, 0, r, r, r);
+      grad.addColorStop(0, color);
+      grad.addColorStop(0.25, color);
+      grad.addColorStop(1, "rgba(0,0,0,0)");
+      cx.fillStyle = grad;
+      cx.fillRect(0, 0, size, size);
+      return c;
+    },
+    [dpr, glowIntensity],
+  );
+
   const drawStars = React.useCallback(
     (ctx: CanvasRenderingContext2D) => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       const color = readColor();
-      for (const p of starsRef.current) {
-        ctx.save();
-        ctx.shadowColor = color;
-        ctx.shadowBlur = glowIntensity * (p.glowMultiplier || 1) * 2;
-        ctx.globalAlpha = p.opacity;
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(p.x * dpr, p.y * dpr, p.size * dpr, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
+      if (!spriteRef.current || spriteColorRef.current !== color) {
+        spriteRef.current = buildSprite(color);
+        spriteColorRef.current = color;
       }
+      const sprite = spriteRef.current;
+      const sw = sprite.width;
+      const sh = sprite.height;
+      for (const p of starsRef.current) {
+        const scale = (p.size * (p.glowMultiplier || 1)) / 2;
+        const w = sw * scale;
+        const h = sh * scale;
+        ctx.globalAlpha = p.opacity;
+        ctx.drawImage(sprite, p.x * dpr - w / 2, p.y * dpr - h / 2, w, h);
+      }
+      ctx.globalAlpha = 1;
     },
-    [dpr, glowIntensity, readColor],
+    [dpr, readColor, buildSprite],
   );
+
+  const visibleRef = React.useRef(true);
 
   const animate = React.useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (!visibleRef.current || document.hidden) {
+      animRef.current = requestAnimationFrame(animate);
+      return;
+    }
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     updateStars();
     drawStars(ctx);
     animRef.current = requestAnimationFrame(animate);
   }, [updateStars, drawStars]);
+
+  React.useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) visibleRef.current = e.isIntersecting;
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   React.useEffect(() => {
     resizeCanvas();

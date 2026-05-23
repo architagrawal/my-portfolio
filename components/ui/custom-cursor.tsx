@@ -15,13 +15,17 @@ export default function CustomCursor() {
   const springY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    if (!fine) return;
+
     const updateMousePosition = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
       if (!isVisible) setIsVisible(true);
     };
 
-    window.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("mousemove", updateMousePosition, { passive: true });
     
     // Hide cursor when leaving window
     const handleMouseLeave = () => setIsVisible(false);

@@ -174,8 +174,8 @@
 
   /* Devanagari accent font */
   .font-sanskrit {
-    font-family: var(--font-sanskrit), "Tiro Devanagari Sanskrit", serif;
-    font-weight: 400;
+    font-family: var(--font-cinzel), "Cinzel", serif;
+    font-weight: 600;
   }
   .font-display {
     font-family: var(--font-cinzel), "Cinzel", serif;

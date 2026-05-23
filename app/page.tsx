@@ -39,38 +39,30 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = [
-        "hero",
-        "about",
-        "experience",
-        "projects",
-        "skills",
-        "contact",
-      ];
-      // Use 1/3 of the viewport height to determine active section
-      // This ensures we highlight the section that occupies the main reading area
-      const scrollPosition = window.scrollY + (window.innerHeight / 3);
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.getBoundingClientRect().top + window.scrollY;
-          const offsetHeight = element.offsetHeight;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
-            break;
-          }
+    const ids = ["hero", "about", "experience", "projects", "skills", "contact"];
+    const visible = new Map<string, number>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          visible.set(e.target.id, e.intersectionRatio);
         }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+        let best = "hero";
+        let bestRatio = 0;
+        visible.forEach((r, id) => {
+          if (r > bestRatio) {
+            bestRatio = r;
+            best = id;
+          }
+        });
+        if (bestRatio > 0) setActiveSection(best);
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    }
+    return () => io.disconnect();
   }, []);
 
   return (
@@ -103,7 +95,7 @@ export default function Home() {
             <div className="relative">
               <GravityStarsBackground
                 className="absolute inset-0 text-[#E5B23A]"
-                starsCount={2500}
+                starsCount={250}
                 gravityStrength={180}
                 movementSpeed={0.8}
                 starsSize={2.3}

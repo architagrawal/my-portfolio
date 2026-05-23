@@ -128,7 +128,7 @@ export default function Hero() {
               <div className="w-full h-full rounded-none overflow-hidden bg-background relative transition-all duration-500">
                 <div className="absolute inset-0 border border-primary/20 z-10"></div>
                 <Image
-                  src="/archit-profile.png"
+                  src="/archit-profile.webp"
                   alt="Archit Agrawal"
                   width={128}
                   height={128}
