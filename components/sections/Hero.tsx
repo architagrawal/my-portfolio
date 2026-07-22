@@ -2,22 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ArrowDown,
-  ArrowUpRight,
-  Github,
-  Linkedin,
-  Code,
-  BookOpen,
-} from "lucide-react";
+import { ArrowDown, ArrowUpRight, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 import { Marquee } from "@/components/ui/marquee";
 
 const socials = [
   { icon: Linkedin, href: "https://www.linkedin.com/in/agrawal-archit", label: "LinkedIn" },
   { icon: Github, href: "https://github.com/architagrawal", label: "GitHub" },
-  { icon: BookOpen, href: "https://medium.com/@architagrawal000", label: "Medium" },
-  { icon: Code, href: "https://leetcode.com/architagrawal000", label: "LeetCode" },
 ];
 
 const crafts = ["AI agents", "agentic workflows", "RAG systems", "LLM evals", "full-stack products"];
@@ -125,21 +116,37 @@ export default function Hero() {
           </h1>
 
           <motion.div
-            initial={{ opacity: 0, y: 24, rotate: 0 }}
-            animate={{ opacity: 1, y: 0, rotate: -3 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-36 h-48 sm:w-44 sm:h-56 shrink-0 border border-border overflow-hidden lg:mb-4 group"
+            className="shrink-0 lg:mb-4 flex flex-col items-center gap-4"
           >
-            <Image
-              src="/archit-profile.webp"
-              alt="Archit Agrawal"
-              fill
-              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-              style={{ objectPosition: "40% center" }}
-              priority
-              quality={85}
-            />
-            <div className="absolute inset-0 bg-primary/20 mix-blend-multiply group-hover:opacity-0 transition-opacity duration-700" />
+            <div className="relative w-36 h-48 sm:w-44 sm:h-56 border border-border overflow-hidden -rotate-3 group">
+              <Image
+                src="/archit-profile.webp"
+                alt="Archit Agrawal"
+                fill
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                style={{ objectPosition: "40% center" }}
+                priority
+                quality={85}
+              />
+              <div className="absolute inset-0 bg-primary/20 mix-blend-multiply group-hover:opacity-0 transition-opacity duration-700" />
+            </div>
+            <div className="flex items-center gap-3">
+              {socials.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-11 h-11 flex items-center justify-center border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
           </motion.div>
         </div>
 
@@ -176,21 +183,6 @@ export default function Hero() {
             See My Work
             <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
           </button>
-
-          <div className="flex items-center gap-4 ml-auto">
-            {socials.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
         </motion.div>
       </div>
 
