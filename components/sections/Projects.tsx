@@ -397,7 +397,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-colors duration-200 border border-border bg-card relative h-[540px] flex flex-col group rounded-none hover:border-primary/50 cursor-pointer"
+              className="flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-colors duration-200 border border-border bg-card relative h-[430px] flex flex-col group rounded-none hover:border-primary/50 cursor-pointer"
               onClick={() => setActiveProject(index)}
             >
 
@@ -428,55 +428,32 @@ export default function Projects() {
                     </CardTitle>
                     <TrendingUp className="w-4 h-4 text-primary opacity-70 shrink-0 mt-0.5" />
                   </div>
-                  <div className="h-px w-full bg-border mb-1.5" />
-                  <p className="text-muted-foreground leading-snug text-xs font-sans line-clamp-2">
+                  <div className="h-px w-full bg-border mb-2" />
+                  <p className="text-muted-foreground leading-relaxed text-sm font-sans line-clamp-4">
                     {project.description}
                   </p>
                 </CardHeader>
 
                 <CardContent className="space-y-3 flex-1 min-h-0 flex flex-col pb-4">
-                  <div className="space-y-1.5">
-                    <h4 className="font-semibold text-[10px] text-muted-foreground font-tech uppercase tracking-wider">
-                      Highlights
-                    </h4>
-                    <ul className="space-y-1">
-                      {project.achievements.slice(0, 3).map((achievement, achIndex) => (
-                        <li
-                          key={achIndex}
-                          className="flex items-start gap-2 group/item"
-                        >
-                          <span className="text-primary mt-1.5 w-1 h-1 rounded-full bg-primary shrink-0" />
-                          <span className="text-[11px] text-foreground font-mono leading-snug line-clamp-2">
-                            {typeof achievement === "string" ? achievement : achievement}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                    {project.achievements.length > 3 && (
-                      <p className="text-[10px] text-primary/80 font-tech pl-3">
-                        +{project.achievements.length - 3} more →
-                      </p>
+                  <div className="flex flex-wrap gap-1">
+                    {project.technologies.slice(0, 6).map((tech, techIndex) => (
+                      <div
+                        key={techIndex}
+                        className="px-2 py-0.5 bg-muted border border-border text-[10px] font-tech text-foreground uppercase tracking-wider"
+                      >
+                        {tech}
+                      </div>
+                    ))}
+                    {project.technologies.length > 6 && (
+                      <div className="px-2 py-0.5 text-[10px] font-tech text-muted-foreground">
+                        +{project.technologies.length - 6}
+                      </div>
                     )}
                   </div>
 
-                  <div className="space-y-1.5">
-                    <h4 className="font-semibold text-[10px] text-muted-foreground font-tech uppercase tracking-wider">Stack</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {project.technologies.slice(0, 6).map((tech, techIndex) => (
-                        <div
-                          key={techIndex}
-                          className="px-1.5 py-0.5 bg-muted border border-border text-[9px] font-tech text-foreground uppercase tracking-wider"
-                        >
-                          {tech}
-                        </div>
-                      ))}
-                      {project.technologies.length > 6 && (
-                        <div className="px-1.5 py-0.5 text-[9px] font-tech text-muted-foreground">
-                          +{project.technologies.length - 6}
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                  <p className="font-tech text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                    {project.achievements.length} highlights inside
+                  </p>
 
                   <div className="flex items-center gap-2 pt-2 mt-auto">
                     <Button

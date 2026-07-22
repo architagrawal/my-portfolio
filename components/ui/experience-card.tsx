@@ -94,11 +94,11 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
                 {exp.role}
                 </p>
                 <div className="flex flex-wrap gap-4 text-sm text-muted-foreground font-mono">
-                <span className={`flex items-center gap-1.5 px-2 py-0.5 rounded ${theme.badge} transition-colors`}>
+                <span className={`flex items-center gap-1.5 px-2 py-0.5 ${theme.badge} transition-colors`}>
                     <MapPin className="w-3.5 h-3.5" />
                     {exp.location}
                 </span>
-                <span className={`flex items-center gap-1.5 px-2 py-0.5 rounded ${theme.badge} transition-colors`}>
+                <span className={`flex items-center gap-1.5 px-2 py-0.5 ${theme.badge} transition-colors`}>
                     <Calendar className="w-3.5 h-3.5" />
                     {exp.period}
                 </span>
@@ -108,8 +108,8 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
         </CardHeader>
         <CardContent className="space-y-6 pt-4">
             <div className="space-y-4">
-            <ul className="space-y-3">
-                {exp.achievements.map((achievement, achIndex) => {
+            <ul className="space-y-4">
+                {exp.achievements.slice(0, 3).map((achievement, achIndex) => {
                 const achievementData =
                     typeof achievement === "string"
                     ? { text: achievement, relatedTechs: [] }
@@ -122,16 +122,48 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
                     onMouseEnter={() => setHoveredAchIndex(achIndex)}
                     onMouseLeave={() => setHoveredAchIndex(null)}
                     >
-                    {/* Bullet */}
-                    <div className={`mt-2 w-1.5 h-1.5 rounded-full ${theme.bullet} group-hover/item:scale-125 transition-all`} />
-                    
-                    <span className="text-muted-foreground/90 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
+                    <div className={`mt-2.5 w-1.5 h-1.5 ${theme.bullet} group-hover/item:scale-125 transition-all`} />
+
+                    <span className="text-base text-foreground/85 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
                         {achievementData.text}
                     </span>
                     </li>
                 );
                 })}
             </ul>
+
+            {exp.achievements.length > 3 && (
+              <details className="group/details">
+                <summary className="cursor-pointer list-none inline-flex items-center gap-2 font-tech text-xs uppercase tracking-[0.2em] text-primary hover:text-foreground transition-colors pl-2">
+                  <span className="group-open/details:hidden">+ {exp.achievements.length - 3} more</span>
+                  <span className="hidden group-open/details:inline">show less</span>
+                </summary>
+                <ul className="space-y-3 mt-4">
+                  {exp.achievements.slice(3).map((achievement, i) => {
+                    const achIndex = i + 3;
+                    const achievementData =
+                      typeof achievement === "string"
+                        ? { text: achievement, relatedTechs: [] }
+                        : achievement;
+
+                    return (
+                      <li
+                        key={achIndex}
+                        className="flex items-start gap-4 experience-bullet-item group/item relative pl-2"
+                        onMouseEnter={() => setHoveredAchIndex(achIndex)}
+                        onMouseLeave={() => setHoveredAchIndex(null)}
+                      >
+                        <div className={`mt-2 w-1.5 h-1.5 ${theme.bullet} group-hover/item:scale-125 transition-all`} />
+
+                        <span className="text-sm text-muted-foreground/90 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
+                          {achievementData.text}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </details>
+            )}
             </div>
 
             <div className="pt-4 border-t border-white/5">
@@ -148,7 +180,7 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
                     <span 
                         key={techIndex}
                         className={`
-                            px-2.5 py-1 rounded-full text-xs font-medium border transition-all duration-300
+                            px-2.5 py-1 text-xs font-medium border transition-all duration-300
                             ${shouldHighlight ? theme.pillActive : theme.pillInactive}
                         `}
                     >
