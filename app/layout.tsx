@@ -2,7 +2,7 @@ import "./globals.css";
 import "./skills-animation.css";
 import "./lenis.css";
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk, Cinzel } from "next/font/google";
+import { Outfit, Space_Grotesk, Cinzel, Syne } from "next/font/google";
 import Script from "next/script";
 import {
   personSchema,
@@ -28,6 +28,13 @@ const cinzel = Cinzel({
   display: "swap",
   variable: "--font-cinzel",
   weight: ["600", "700"],
+});
+
+const syne = Syne({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-syne",
+  weight: ["600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -163,7 +170,7 @@ export default function RootLayout({
         <meta name="rating" content="General" />
         <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
-      <body className={`${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} antialiased font-sans`}>
+      <body className={`${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} ${syne.variable} antialiased font-sans`}>
         <CustomCursor />
         {children}
       </body>

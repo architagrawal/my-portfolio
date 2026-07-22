@@ -10,7 +10,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
-import { GravityStarsBackground } from "@/components/animate-ui/components/backgrounds/gravity-stars";
 import { ProjectsSkeleton } from "@/components/skeletons/projects-skeleton";
 
 // Lazy load heavy sections that are below the fold
@@ -93,14 +92,6 @@ export default function Home() {
           <main className="relative bg-grid-pattern" role="main" aria-label="Main content">
             <Hero />
             <div className="relative">
-              <GravityStarsBackground
-                className="absolute inset-0 text-[#E5B23A]"
-                starsCount={250}
-                gravityStrength={180}
-                movementSpeed={0.8}
-                starsSize={2.3}
-                mouseInfluence={160}
-              />
               <About />
               <Experience />
               <Projects />

@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import ProjectsCarousel from "@/components/projects-carousel";
 import Image from "next/image";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const projects = [
   {
@@ -390,30 +391,15 @@ export default function Projects() {
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="section-heading text-4xl sm:text-5xl font-bold mb-4 text-foreground font-display uppercase tracking-wide">
-            System Modules
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-tech">
-            // deployed_projects_and_experiments
-          </p>
-        </motion.div>
+        <SectionHeading eyebrow="03 // Work" title="Projects" />
 
         <ProjectsCarousel totalCards={projects.length}>
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="temple-frame flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-all duration-300 border border-secondary/40 bg-card relative h-[540px] flex flex-col group rounded-none hover:border-primary/70 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
+              className="flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-colors duration-200 border border-border bg-card relative h-[540px] flex flex-col group rounded-none hover:border-primary/50 cursor-pointer"
               onClick={() => setActiveProject(index)}
             >
-              {/* Technical Header Line */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
               <div className="relative z-10 flex flex-col h-full min-h-0">
                 {/* Image Container - Technical Aspect */}
@@ -451,7 +437,7 @@ export default function Projects() {
                 <CardContent className="space-y-3 flex-1 min-h-0 flex flex-col pb-4">
                   <div className="space-y-1.5">
                     <h4 className="font-semibold text-[10px] text-muted-foreground font-tech uppercase tracking-wider">
-                      // Highlights
+                      Highlights
                     </h4>
                     <ul className="space-y-1">
                       {project.achievements.slice(0, 3).map((achievement, achIndex) => (
@@ -459,7 +445,7 @@ export default function Projects() {
                           key={achIndex}
                           className="flex items-start gap-2 group/item"
                         >
-                          <span className="text-primary mt-1 text-[9px] shrink-0">▶</span>
+                          <span className="text-primary mt-1.5 w-1 h-1 rounded-full bg-primary shrink-0" />
                           <span className="text-[11px] text-foreground font-mono leading-snug line-clamp-2">
                             {typeof achievement === "string" ? achievement : achievement}
                           </span>
@@ -474,7 +460,7 @@ export default function Projects() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <h4 className="font-semibold text-[10px] text-muted-foreground font-tech uppercase tracking-wider">// Stack</h4>
+                    <h4 className="font-semibold text-[10px] text-muted-foreground font-tech uppercase tracking-wider">Stack</h4>
                     <div className="flex flex-wrap gap-1">
                       {project.technologies.slice(0, 6).map((tech, techIndex) => (
                         <div
@@ -574,7 +560,7 @@ export default function Projects() {
               <div className="px-6 pb-6 space-y-5">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">
-                    // All Highlights
+                    Highlights
                   </h4>
                   <ul className="space-y-2">
                     {open.achievements.map((achievement, i) => (
@@ -585,7 +571,7 @@ export default function Projects() {
                         transition={{ duration: 0.25, delay: i * 0.03 }}
                         className="flex items-start gap-2"
                       >
-                        <span className="text-primary mt-1 text-[10px] shrink-0">▶</span>
+                        <span className="text-primary mt-1.5 w-1 h-1 rounded-full bg-primary shrink-0" />
                         <span className="text-xs text-foreground font-mono leading-relaxed">
                           {achievement}
                         </span>
@@ -595,7 +581,7 @@ export default function Projects() {
                 </div>
                 <div className="space-y-2">
                   <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">
-                    // Tech Stack
+                    Tech Stack
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {open.technologies.map((tech, i) => (

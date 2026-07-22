@@ -32,9 +32,9 @@ export const TimelineNode = ({ color, isLast }: TimelineNodeProps) => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="relative z-10 w-4 h-4 rounded-full flex items-center justify-center"
       >
-        <div className={`w-3 h-3 rounded-full ${selectedColor} shadow-[0_0_10px_2px_currentColor] animate-pulse`} />
+        <div className={`w-3 h-3 rounded-full ${selectedColor}`} />
         {/* Outer Ring */}
-        <div className={`absolute inset-0 -m-1 rounded-full border ${borderColor} opacity-50 animate-ping`} />
+        <div className={`absolute inset-0 -m-1 rounded-full border ${borderColor} opacity-40`} />
       </motion.div>
 
       {/* The Trajectory Line (Vertical) */}
@@ -43,7 +43,7 @@ export const TimelineNode = ({ color, isLast }: TimelineNodeProps) => {
         whileInView={{ height: isLast ? "100%" : "calc(100% + 4rem + 8px)" }}
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.5 }}
-        className={`w-0.5 flex-1 shadow-[0_0_8px_1px_rgba(var(--primary),0.3)] mt-2 ${
+        className={`w-0.5 flex-1 mt-2 ${
             isLast 
             ? "bg-gradient-to-b from-primary/50 to-transparent" 
             : "bg-gradient-to-b from-primary/50 to-primary/50"

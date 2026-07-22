@@ -1,329 +1,213 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowDown,
-  ExternalLink,
+  ArrowUpRight,
   Github,
   Linkedin,
   Code,
-  Instagram,
   BookOpen,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Sparkle from "@/components/ui/Sparkle";
 import Image from "next/image";
-import dynamic from "next/dynamic";
+import { Marquee } from "@/components/ui/marquee";
 
-// Lazy load heavy background animation
-const BackgroundPaths = dynamic(
-  () => import("@/components/ui/background-paths").then((mod) => ({ default: mod.BackgroundPaths })),
-  { ssr: false }
-);
+const socials = [
+  { icon: Linkedin, href: "https://www.linkedin.com/in/agrawal-archit", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/architagrawal", label: "GitHub" },
+  { icon: BookOpen, href: "https://medium.com/@architagrawal000", label: "Medium" },
+  { icon: Code, href: "https://leetcode.com/architagrawal000", label: "LeetCode" },
+];
 
+const crafts = ["AI agents", "agentic workflows", "RAG systems", "LLM evals", "full-stack products"];
 
-
-// Typewriter loop hook
-function useTypewriterLoop(phrases: string[], typeSpeed: number = 80, deleteSpeed: number = 50, pauseDuration: number = 2000) {
-  const [text, setText] = useState("");
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+/* Rotating craft word with blur dissolve */
+function CraftRotator() {
+  const [idx, setIdx] = useState(0);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    const t = setInterval(() => setIdx((i) => (i + 1) % crafts.length), 2600);
+    return () => clearInterval(t);
+  }, []);
 
-    const currentPhrase = phrases[phraseIndex];
-    
-    if (isDeleting) {
-      if (text === "") {
-        setIsDeleting(false);
-        setPhraseIndex((prev) => (prev + 1) % phrases.length);
-      } else {
-        timer = setTimeout(() => {
-          setText(text.slice(0, -1));
-        }, deleteSpeed);
-      }
-    } else {
-      if (text === currentPhrase) {
-        timer = setTimeout(() => {
-          setIsDeleting(true);
-        }, pauseDuration);
-      } else {
-        timer = setTimeout(() => {
-          setText(currentPhrase.slice(0, text.length + 1));
-        }, typeSpeed);
-      }
-    }
-
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, phraseIndex, phrases, typeSpeed, deleteSpeed, pauseDuration]);
-
-  return text;
-}
-
-// Typewriter roles component
-function TypewriterRoles() {
-  const roles = [
-    "Software Engineer",
-    "ML Engineer",
-    "AI Engineer",
-    "LLM Engineer",
-    "Data Engineer"
-  ];
-  
-  const text = useTypewriterLoop(roles);
+  if (reduce) return <span className="text-primary">{crafts[0]}</span>;
 
   return (
-    <span className="inline-flex items-center text-primary">
-       {text}
-       <span className="ml-1 w-0.5 h-6 bg-primary animate-blink" />
+    <span className="relative inline-block min-w-[9ch] text-left">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={idx}
+          initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -12, filter: "blur(8px)" }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-block text-primary"
+        >
+          {crafts[idx]}
+        </motion.span>
+      </AnimatePresence>
     </span>
   );
 }
 
-// Typewriter tagline component
-// Static tagline component
-function TypewriterTagline() {
+/* Staggered letter reveal for a display line */
+function RevealLine({ text, delay }: { text: string; delay: number }) {
+  const reduce = useReducedMotion();
+  const letters = text.split("");
+
   return (
-    <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
-      Building intelligent solutions and automating the future, one line of code at a time
-    </p>
+    <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
+      <motion.span
+        className="inline-block whitespace-pre"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          visible: { transition: { staggerChildren: 0.04, delayChildren: delay } },
+        }}
+        aria-hidden="true"
+      >
+        {letters.map((ch, i) => (
+          <motion.span
+            key={i}
+            className="inline-block"
+            variants={
+              reduce
+                ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+                : {
+                    hidden: { y: "110%", rotate: 4 },
+                    visible: {
+                      y: 0,
+                      rotate: 0,
+                      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                    },
+                  }
+            }
+          >
+            {ch}
+          </motion.span>
+        ))}
+      </motion.span>
+    </span>
   );
 }
 
+const marqueeItems = [
+  "AI Agents",
+  "LangGraph",
+  "RAG",
+  "MCP",
+  "Fine-Tuning",
+  "Evals",
+  "Full-Stack",
+];
+
 export default function Hero() {
   const scrollToAbout = () => {
-    const element = document.getElementById("about");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
+      className="min-h-screen flex flex-col justify-between relative pt-28 pb-0 overflow-hidden"
     >
-      {/* Background Paths Component - without title to remove background text */}
-      <div className="absolute inset-0">
-        <BackgroundPaths title="" />
-      </div>
-
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-8"
+          transition={{ duration: 0.5 }}
+          className="font-tech text-xs sm:text-sm uppercase tracking-[0.3em] text-muted-foreground mb-8"
         >
-          {/* Profile Image with Animated Glow Ring */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-            className="mx-auto w-32 h-32 rounded-none relative"
+          AI Engineer · Software Engineer · Full-Stack
+        </motion.p>
+
+        <div className="flex flex-col lg:flex-row lg:items-end gap-10 lg:gap-16">
+          <h1
+            className="font-display font-extrabold uppercase leading-[0.92] tracking-tight text-[10vw] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7.5rem] text-foreground"
+            aria-label="Archit Agrawal"
           >
-            <div className="absolute inset-0 rounded-none bg-border p-[1px]">
-              <div className="w-full h-full rounded-none overflow-hidden bg-background relative transition-all duration-500">
-                <div className="absolute inset-0 border border-primary/20 z-10"></div>
-                <Image
-                  src="/archit-profile.webp"
-                  alt="Archit Agrawal"
-                  width={128}
-                  height={128}
-                  className="w-full h-full object-cover"
-                  style={{ objectPosition: "40% center" }}
-                  priority
-                  quality={85}
-                />
-              </div>
-            </div>
+            <RevealLine text="Archit" delay={0.15} />
+            <RevealLine text="Agrawal" delay={0.35} />
+          </h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24, rotate: 0 }}
+            animate={{ opacity: 1, y: 0, rotate: -3 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-36 h-48 sm:w-44 sm:h-56 shrink-0 border border-border overflow-hidden lg:mb-4 group"
+          >
+            <Image
+              src="/archit-profile.webp"
+              alt="Archit Agrawal"
+              fill
+              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+              style={{ objectPosition: "40% center" }}
+              priority
+              quality={85}
+            />
+            <div className="absolute inset-0 bg-primary/20 mix-blend-multiply group-hover:opacity-0 transition-opacity duration-700" />
           </motion.div>
+        </div>
 
-            {/* Name */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-3 relative z-10"
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+          className="mt-10 text-lg sm:text-2xl text-muted-foreground max-w-2xl leading-relaxed"
+        >
+          I ship <CraftRotator /> to production. Currently building the
+          agent infrastructure behind MyStage&apos;s live-events platform.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.05 }}
+          className="mt-10 mb-14 flex flex-wrap items-center gap-x-10 gap-y-4"
+        >
+          <a
+            href="/Archit_Agrawal_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-1 hover:text-primary hover:border-primary transition-colors"
           >
-            <div className="om-divider mx-auto max-w-xs" aria-hidden="true" />
+            Download Resume
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-wide text-foreground font-display uppercase">
-              Archit Agrawal
-            </h1>
-          </motion.div>
-
-          {/* Professional Info Container - Technical Block */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mx-auto max-w-3xl mt-8 mb-8"
+          <button
+            onClick={scrollToAbout}
+            className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors"
           >
-            <div className="temple-frame bg-background/80 backdrop-blur-md border border-secondary/40 p-4 sm:p-6 relative group overflow-hidden">
-              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-secondary"></div>
-              <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-secondary"></div>
-              <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-secondary"></div>
-              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-secondary"></div>
-              
-              <h2 className="text-xl sm:text-2xl font-medium text-primary mb-4 h-8 flex items-center justify-center font-tech tracking-wide uppercase">
-                 <TypewriterRoles />
-              </h2>
-              <div className="font-tech text-muted-foreground text-sm sm:text-base border-t border-border pt-4 mt-4">
-                <TypewriterTagline />
-              </div>
-            </div>
-          </motion.div>
+            See My Work
+            <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
+          </button>
 
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex justify-center flex-wrap gap-4"
-          >
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] backdrop-blur-sm"
-            >
+          <div className="flex items-center gap-4 ml-auto">
+            {socials.map(({ icon: Icon, href, label }) => (
               <a
-                href="https://www.linkedin.com/in/agrawal-archit"
+                key={label}
+                href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Visit LinkedIn profile"
-                className="flex items-center space-x-2 font-tech"
+                aria-label={label}
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
-                <Sparkle />
-                <Linkedin className="w-5 h-5 group-hover:text-primary transition-colors" />
-                <span>LinkedIn</span>
-                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
+                <Icon className="w-5 h-5" />
               </a>
-            </Button>
-
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] backdrop-blur-sm"
-            >
-              <a
-                href="https://github.com/architagrawal"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit GitHub profile"
-                className="flex items-center space-x-2 font-tech"
-              >
-                <Sparkle />
-                <Github className="w-5 h-5 transition-colors group-hover:text-primary" />
-                <span>GitHub</span>
-                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
-              </a>
-            </Button>
-
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] backdrop-blur-sm"
-            >
-              <a
-                href="https://medium.com/@architagrawal000"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit Medium blog"
-                className="flex items-center space-x-2 font-tech"
-              >
-                <Sparkle />
-                <BookOpen className="w-5 h-5 group-hover:text-primary transition-colors" />
-                <span>Medium</span>
-                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
-              </a>
-            </Button>
-
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="group bg-background/50 hover:bg-primary/10 border-primary/20 hover:border-primary/50 sparkle-button transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] backdrop-blur-sm"
-            >
-              <a
-                href="https://leetcode.com/architagrawal000"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit LeetCode profile"
-                className="flex items-center space-x-2 font-tech"
-              >
-                <Sparkle />
-                <Code className="w-5 h-5 group-hover:text-primary transition-colors" />
-                <span>LeetCode</span>
-                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
-              </a>
-            </Button>
-          </motion.div>
-
-          {/* CTA Buttons - flex container */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6"
-          >
-            {/* Resume Button - Solid Primary */}
-            <div className="inline-block group relative">
-              <Button
-                asChild
-                className="temple-frame relative rounded-none px-8 py-6 text-lg font-medium font-display tracking-wider
-                bg-primary text-primary-foreground transition-all duration-300
-                hover:bg-primary/90 hover:shadow-[0_0_24px_hsl(var(--primary)/0.55),inset_0_0_12px_hsl(var(--secondary)/0.45)]
-                uppercase border border-secondary"
-              >
-                <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer">
-                  <span>Download Resume</span>
-                  <ExternalLink className="ml-3 w-4 h-4" />
-                </a>
-              </Button>
-            </div>
-
-            {/* Initialize Button - Outline */}
-            <div className="inline-block group relative">
-              <Button
-                variant="outline"
-                onClick={scrollToAbout}
-                className="temple-frame relative rounded-none px-12 py-6 text-lg font-medium font-display tracking-wider
-                bg-transparent border-secondary/60 text-foreground transition-all duration-300
-                hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_18px_hsl(var(--secondary)/0.35)]
-                uppercase"
-              >
-                <span>Begin Journey</span>
-                <ArrowDown className="ml-3 w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:translate-y-1 transition-all duration-300" />
-              </Button>
-            </div>
-          </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator - moved to bottom right */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
-        className="absolute bottom-8 right-8 z-20"
+        transition={{ duration: 0.8, delay: 1.2 }}
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1 h-3 bg-muted-foreground rounded-full mt-2"
-          />
-        </motion.div>
+        <Marquee items={marqueeItems} />
       </motion.div>
     </section>
   );

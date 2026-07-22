@@ -9,7 +9,7 @@ interface TechBadgeProps {
 }
 
 const baseVariant =
-  "bg-secondary/5 text-foreground border-secondary/50 hover:bg-primary/15 hover:border-primary hover:text-primary hover:shadow-[0_0_14px_hsl(var(--primary)/0.35)]";
+  "bg-background text-foreground border-border hover:border-primary hover:text-primary";
 
 const colorVariants: Record<string, string> = {
   blue: baseVariant,

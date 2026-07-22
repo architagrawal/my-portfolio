@@ -30,7 +30,7 @@ const colorMap = {
     bg: "bg-primary",
     border: "border-primary",
     badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary shadow-[0_0_10px_-2px_rgb(var(--primary))]",
+    pillActive: "bg-primary/20 border-primary text-primary",
     pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
     bullet: "bg-primary/50 group-hover/item:bg-primary"
   },
@@ -39,7 +39,7 @@ const colorMap = {
     bg: "bg-primary",
     border: "border-primary",
     badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary shadow-[0_0_10px_-2px_rgb(var(--primary))]",
+    pillActive: "bg-primary/20 border-primary text-primary",
     pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
     bullet: "bg-primary/50 group-hover/item:bg-primary"
   },
@@ -48,7 +48,7 @@ const colorMap = {
     bg: "bg-primary",
     border: "border-primary",
     badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary shadow-[0_0_10px_-2px_rgb(var(--primary))]",
+    pillActive: "bg-primary/20 border-primary text-primary",
     pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
     bullet: "bg-primary/50 group-hover/item:bg-primary"
   },
@@ -57,7 +57,7 @@ const colorMap = {
     bg: "bg-primary",
     border: "border-primary",
     badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary shadow-[0_0_10px_-2px_rgb(var(--primary))]",
+    pillActive: "bg-primary/20 border-primary text-primary",
     pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
     bullet: "bg-primary/50 group-hover/item:bg-primary"
   }
@@ -77,10 +77,9 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
     >
         <Card
         className={`
-            temple-frame relative overflow-hidden transition-all duration-500
-            bg-background/40 backdrop-blur-md border border-secondary/30 rounded-none
-            hover:border-secondary hover:shadow-[0_0_28px_hsl(var(--secondary)/0.25)] hover:bg-background/60
-            group-hover:translate-x-1
+            relative overflow-hidden transition-colors duration-200
+            bg-background/40 border border-border rounded-none
+            hover:border-primary/40
         `}
         >
         {/* REMOVED: Internal decorative left-border div to fix "extra blue line" issue */}

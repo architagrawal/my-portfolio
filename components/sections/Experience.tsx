@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Rocket } from "lucide-react";
 import { TimelineNode } from "@/components/ui/timeline-node";
 import { ExperienceCard } from "@/components/ui/experience-card";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 interface Achievement {
   text: string;
@@ -303,37 +303,16 @@ const experiences: ExperienceItem[] = [
 export default function Experience() {
 
   return (
-    <section id="experience" className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Background Gradients - Removed for Editorial Theme */}
-        <div className="absolute top-1/3 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
-
+    <section id="experience" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-card/40">
       <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20 space-y-4"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary border border-primary/10 text-xs font-semibold uppercase tracking-widest hover:bg-primary/10 transition-colors">
-            <Rocket className="w-3 h-3" />
-            <span>Journey</span>
-          </div>
-          <h2 className="section-heading text-5xl md:text-6xl font-bold tracking-wide font-display uppercase text-foreground pb-2">
-            Professional Odyssey
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto font-light leading-relaxed">
-            Building innovative solutions and driving measurable impact across the digital universe.
-          </p>
-        </motion.div>
+        <SectionHeading eyebrow="02 // Journey" title="Experience" />
 
         <div className="relative pl-6 md:pl-12">
 
           <div className="space-y-16">
             {experiences.map((exp, expIndex) => (
               <div key={expIndex} className="relative pl-10 sm:pl-12 md:pl-16">
-                
+
                 {/* Timeline Star & Path */}
                 <div className="absolute left-0 top-0 bottom-0 -ml-[5px] md:-ml-[9px] w-12 flex flex-col items-center pt-8">
                     <TimelineNode color={exp.color} isLast={expIndex === experiences.length - 1} />

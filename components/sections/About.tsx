@@ -3,27 +3,18 @@
 import { motion } from "framer-motion";
 import { GraduationCap, Heart, Zap, Code, Terminal, Cpu, Award, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SectionHeading } from "@/components/ui/section-heading";
 
-// Technical Corner Marker Component
-const CornerMarkers = () => (
-  <>
-    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
-    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
-    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
-    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary transition-all duration-300 group-hover:w-4 group-hover:h-4"></div>
-  </>
-);
-
-const TechBlock = ({ 
-  icon: Icon, 
-  title, 
-  description, 
-  delay 
-}: { 
-  icon: any, 
-  title: string, 
-  description: string, 
-  delay: number 
+const TechBlock = ({
+  icon: Icon,
+  title,
+  description,
+  delay
+}: {
+  icon: any,
+  title: string,
+  description: string,
+  delay: number
 }) => {
   return (
     <motion.div
@@ -31,10 +22,8 @@ const TechBlock = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
-      className="temple-frame group relative h-full bg-background/50 backdrop-blur-md border border-secondary/40 p-6 transition-all duration-300 hover:bg-background/80 hover:border-secondary hover:shadow-[0_0_20px_hsl(var(--secondary)/0.2)]"
+      className="group relative h-full bg-background/50 border border-border p-6 transition-colors duration-200 hover:border-primary/50"
     >
-      <CornerMarkers />
-      
       <div className="relative z-10 space-y-4">
         <div className="flex items-center space-x-4">
           <div className="p-2 bg-primary/10 border border-primary/20">
@@ -44,7 +33,7 @@ const TechBlock = ({
             {title}
           </h4>
         </div>
-        
+
         <p className="font-tech text-sm text-muted-foreground leading-relaxed">
           {description}
         </p>
@@ -69,7 +58,7 @@ export default function About() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
-          
+
           {/* Left Column: Narrative */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -78,32 +67,25 @@ export default function About() {
             viewport={{ once: true }}
             className="lg:col-span-5 space-y-8 sticky top-24"
           >
-            <div className="space-y-2">
-              <span className="font-tech text-primary text-sm uppercase tracking-[0.2em]">
-                01 // Identity
-              </span>
-              <h2 className="section-heading text-4xl sm:text-5xl font-bold font-display uppercase tracking-wide text-foreground">
-                About Me
-              </h2>
-            </div>
-            
+            <SectionHeading eyebrow="01 // Identity" title="About Me" className="mb-0" />
+
             <div className="space-y-6 text-muted-foreground">
               <p className="text-lg font-light leading-relaxed border-l-2 border-primary/30 pl-4">
-                Driven by <span className="text-foreground font-medium">curiosity</span>, powered by <span className="text-foreground font-medium">code</span>.
+                Founding AI/ML Engineer shipping <span className="text-foreground font-medium">production agentic systems</span>.
               </p>
-              
+
               <p className="leading-relaxed">
-                I&apos;m a software engineer recently graduated with MSCS from
-                Arizona State University. With a strong foundation in full-stack
-                development, applied machine learning and Generative AI, I
-                thrive on building real-world applications that make a difference.
+                I&apos;m an AI engineer (MSCS, Arizona State University, 4.0 GPA)
+                building the agent infrastructure at MyStage: LangGraph
+                orchestration, entity resolution with LLMs, and data pipelines
+                indexing 70,000+ records a day.
               </p>
-              
+
               <p className="leading-relaxed">
-                From voice bots to AI agents, I enjoy creating intelligent
-                solutions that solve complex problems. My passion for automation
-                drives me to build systems that not only work efficiently but
-                also continuously improve themselves.
+                Before that: multi-tenant RAG serving 60,000+ students, hybrid
+                vector + knowledge-graph retrieval, and microservices used by
+                Fortune 500 clients. I work across the full stack, from React
+                frontends to model inference and cloud infra.
               </p>
             </div>
 
@@ -127,10 +109,10 @@ export default function About() {
                 <span className="font-tech text-xs uppercase tracking-[0.2em] text-secondary">Certifications</span>
               </div>
               <ul className="space-y-2 text-sm font-tech text-muted-foreground">
-                <li className="flex items-center gap-2 before:content-['✺'] before:text-secondary/80 before:text-xs">
+                <li className="flex items-center gap-2 before:content-[''] before:w-1.5 before:h-1.5 before:bg-primary/70 before:shrink-0">
                   LangChain Chat with Your Data
                 </li>
-                <li className="flex items-center gap-2 before:content-['✺'] before:text-secondary/80 before:text-xs">
+                <li className="flex items-center gap-2 before:content-[''] before:w-1.5 before:h-1.5 before:bg-primary/70 before:shrink-0">
                   Building Systems with the ChatGPT API
                 </li>
               </ul>
@@ -138,39 +120,80 @@ export default function About() {
           </motion.div>
 
           {/* Right Column: Technical Specs */}
-          <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6 pt-8 lg:pt-0">
-            
+          <div className="lg:col-span-7 space-y-16 pt-8 lg:pt-0">
+
+            {/* Bold Statement Lines */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="space-y-10"
+            >
+              {[
+                {
+                  line: "I figure things out.",
+                  desc: "Throw a vague spec, a gnarly bug, or an unfamiliar stack at me and I'll map a path through it. I'm at home in the messy part of a project, turning ambiguity into working architecture.",
+                },
+                {
+                  line: "I build things people use.",
+                  desc: "Demos are easy, production is the job. I've shipped AI agents, voice bots, and full-stack apps that real users depend on, not just prototypes that sit in a repo.",
+                },
+                {
+                  line: "I own the full stack.",
+                  desc: "Comfortable from a polished React UI down to model inference, database schema, and the cloud infra that keeps it all running.",
+                },
+                {
+                  line: "I keep learning.",
+                  desc: "AI/ML moves fast. I stay close to the frontier, currently deep in agentic workflows and automation systems.",
+                },
+              ].map((item, i) => (
+                <div key={item.line} className="grid sm:grid-cols-12 gap-4 sm:gap-8 border-t border-border/50 pt-6">
+                  <h3 className="sm:col-span-6 font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-foreground leading-tight">
+                    {item.line}
+                  </h3>
+                  <p className="sm:col-span-6 text-sm text-muted-foreground leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+
+            <div className="grid sm:grid-cols-2 gap-6">
+
             <motion.div className="sm:col-span-2">
                <TechBlock
                 icon={Terminal}
-                title="Engineering Philosophy"
-                description="I believe in clean, scalable architecture. Code is not just about functionality; it's about craft, maintainability, and the elegance of the solution."
+                title="Agentic Systems"
+                description="LangGraph agent-workers in production: checkpointed pause/resume, idempotent task claims, parallel fan-out, distributed tracing. Not demos. Systems that survive retries and concurrency."
                 delay={0.2}
               />
             </motion.div>
 
             <TechBlock
               icon={Zap}
-              title="Innovation Focus"
-              description="Building cutting-edge AI agents and automation tools that streamline complex workflows and enhance user experiences."
+              title="LLM Engineering"
+              description="RAG at scale, entity resolution with Gemini, preference tuning (DPO/KTO), eval harnesses, and prompt pipelines with measurable accuracy lifts."
               delay={0.3}
             />
 
             <TechBlock
               icon={Heart}
-              title="Passion Projects"
-              description="From geospatial analysis tools to voice AI systems, I love tackling diverse challenges that push the boundaries of technology."
+              title="Full-Stack Delivery"
+              description="React/Next.js frontends, FastAPI and .NET services, Postgres/Firestore data layers, CI/CD on GCP and AWS. Owned end to end."
               delay={0.4}
             />
 
             <div className="sm:col-span-2">
                <TechBlock
                 icon={Cpu}
-                title="Continuous Learning"
-                description="Always exploring new technologies and methodologies to stay at the forefront of AI/ML and software development. Currently diving deep into Agentic Workflows."
+                title="Reliability & Testing"
+                description="200+ pytest suites on agent pipelines, property-based testing, load testing with SLOs, observability with Logfire. AI systems earn trust through evals and tests."
                 delay={0.5}
               />
             </div>
+
+          </div>
 
           </div>
 

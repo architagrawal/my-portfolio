@@ -27,13 +27,13 @@
     --primary: 24 92% 46%;             /* Saffron */
     --primary-foreground: 38 50% 98%;
 
-    --secondary: 38 65% 42%;           /* Antique brass gold */
-    --secondary-foreground: 38 50% 98%;
+    --secondary: 38 15% 85%;
+    --secondary-foreground: 0 25% 22%;
 
     --muted: 38 30% 90%;
     --muted-foreground: 0 20% 35%;
-    --accent: 358 65% 40%;             /* Sindoor */
-    --accent-foreground: 38 50% 98%;
+    --accent: 38 15% 85%;
+    --accent-foreground: 0 25% 22%;
     --destructive: 358 70% 45%;
     --destructive-foreground: 38 50% 98%;
     --border: 38 35% 78%;
@@ -47,34 +47,32 @@
     --radius: 0.5rem;
   }
   .dark {
-    /* Sanatan / Temple Aesthetic — deep indigo night, saffron flame, temple gold */
-    --background: 260 35% 6%;          /* Midnight indigo (नीलकंठ) */
-    --foreground: 40 55% 92%;          /* Ivory / parchment (चन्द्रकान्ति) */
+    /* Warm ink — near-black ground, ivory type, saffron as the only accent */
+    --background: 30 8% 6%;
+    --foreground: 40 30% 92%;
 
-    --card: 260 30% 9%;
-    --card-foreground: 40 55% 92%;
-    --popover: 260 35% 6%;
-    --popover-foreground: 40 55% 92%;
+    --card: 30 8% 9%;
+    --card-foreground: 40 30% 92%;
+    --popover: 30 8% 6%;
+    --popover-foreground: 40 30% 92%;
 
-    /* Saffron flame — primary CTA / accent */
     --primary: 28 95% 56%;             /* Kesari saffron #F58E2A */
-    --primary-foreground: 260 35% 6%;
+    --primary-foreground: 30 8% 6%;
 
-    /* Temple gold — secondary highlights */
-    --secondary: 42 78% 55%;           /* Brass gold #E5B23A */
-    --secondary-foreground: 260 35% 6%;
+    --secondary: 30 6% 20%;
+    --secondary-foreground: 40 25% 85%;
 
-    --muted: 260 20% 14%;
-    --muted-foreground: 40 25% 70%;
+    --muted: 30 8% 13%;
+    --muted-foreground: 40 12% 62%;
 
-    --accent: 358 70% 45%;             /* Sindoor vermillion #C8102E */
-    --accent-foreground: 40 55% 95%;
+    --accent: 30 6% 20%;
+    --accent-foreground: 40 25% 85%;
 
     --destructive: 358 70% 45%;
     --destructive-foreground: 40 55% 95%;
 
-    --border: 42 50% 28%;              /* Aged gold trim */
-    --input: 260 20% 14%;
+    --border: 30 6% 18%;
+    --input: 30 8% 13%;
     --ring: 28 95% 56%;
 
     --chart-1: 28 95% 56%;
@@ -84,80 +82,41 @@
     --chart-5: 40 55% 88%;
   }
 
-  /* Temple jaali — seamless repeating lattice motif */
+  /* Plain ground — no texture */
   .bg-grid-pattern {
     background-color: hsl(var(--background));
-    background-image:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23E5B23A' stroke-opacity='0.09' stroke-width='1'><path d='M0 40 Q20 0 40 40 Q60 80 80 40'/><path d='M0 40 Q20 80 40 40 Q60 0 80 40'/><path d='M40 0 Q0 20 40 40 Q80 60 40 80'/><path d='M40 0 Q80 20 40 40 Q0 60 40 80'/><circle cx='40' cy='40' r='3' fill='%23E5B23A' fill-opacity='0.15' stroke='none'/><circle cx='0' cy='0' r='2' fill='%23E5B23A' fill-opacity='0.12' stroke='none'/><circle cx='80' cy='0' r='2' fill='%23E5B23A' fill-opacity='0.12' stroke='none'/><circle cx='0' cy='80' r='2' fill='%23E5B23A' fill-opacity='0.12' stroke='none'/><circle cx='80' cy='80' r='2' fill='%23E5B23A' fill-opacity='0.12' stroke='none'/></g></svg>");
-    background-size: 80px 80px;
-    background-position: center;
   }
 
-  /* Ornamental gold divider — lotus-flanked rule */
+  /* Plain thin divider */
   .om-divider {
-    position: relative;
     height: 1px;
-    background: linear-gradient(to right, transparent, hsl(var(--secondary) / 0.6), transparent);
-  }
-  .om-divider::before {
-    content: "❀";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    color: hsl(var(--secondary));
-    background: hsl(var(--background));
-    padding: 0 0.75rem;
-    font-size: 0.9rem;
+    background: linear-gradient(to right, transparent, hsl(var(--border)), transparent);
   }
 
-  /* Gold corner ornament — used on framed blocks */
+  /* Framed blocks — flat single border, no corner ornament */
   .temple-frame {
     position: relative;
   }
-  .temple-frame::before,
-  .temple-frame::after {
-    content: "";
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border: 1px solid hsl(var(--secondary) / 0.7);
-  }
-  .temple-frame::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
-  .temple-frame::after  { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
 
-  /* Saffron flame text glow */
   .text-flame {
     color: hsl(var(--primary));
-    text-shadow: 0 0 24px hsl(var(--primary) / 0.45), 0 0 4px hsl(var(--primary) / 0.6);
   }
 
-  /* Section heading — gold lotus underline */
+  /* Section heading — plain underline bar */
   .section-heading {
     position: relative;
     display: inline-block;
-    padding-bottom: 1.25rem;
-  }
-  .section-heading::before {
-    content: "✺";
-    display: block;
-    color: hsl(var(--secondary));
-    font-size: 1.25rem;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    opacity: 0.85;
+    padding-bottom: 1rem;
   }
   .section-heading::after {
     content: "";
     position: absolute;
     left: 50%;
     bottom: 0;
-    width: 120px;
-    height: 8px;
+    width: 48px;
+    height: 2px;
     transform: translateX(-50%);
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' width='120' height='8'><g fill='none' stroke='%23E5B23A' stroke-width='1.2'><line x1='0' y1='4' x2='44' y2='4'/><line x1='76' y1='4' x2='120' y2='4'/><path d='M60 1 q-8 3 0 6 q8 -3 0 -6 z' fill='%23E5B23A' fill-opacity='0.4'/><circle cx='52' cy='4' r='1.2' fill='%23E5B23A'/><circle cx='68' cy='4' r='1.2' fill='%23E5B23A'/></g></svg>");
-    background-repeat: no-repeat;
-    background-position: center;
+    background: hsl(var(--primary));
   }
 
   /* Gopuram silhouette behind Hero */
@@ -172,14 +131,39 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600' width='1200' height='600'><defs><linearGradient id='g' x1='0' x2='0' y1='0' y2='1'><stop offset='0%' stop-color='%23F58E2A' stop-opacity='0'/><stop offset='60%' stop-color='%23E5B23A' stop-opacity='0.55'/><stop offset='100%' stop-color='%23C8102E' stop-opacity='0.85'/></linearGradient></defs><g fill='none' stroke='url(%23g)' stroke-width='1.4'><path d='M150 600 L150 480 L120 480 L120 440 L180 440 L180 380 L140 380 L140 340 L220 340 L220 280 L180 280 L180 240 L260 240 L260 180 L220 180 L220 140 L300 140 L300 80 L600 30 L900 80 L900 140 L980 140 L980 180 L940 180 L940 240 L1020 240 L1020 280 L980 280 L980 340 L1060 340 L1060 380 L1020 380 L1020 440 L1080 440 L1080 480 L1050 480 L1050 600 Z'/><path d='M600 30 L600 600' stroke-opacity='0.35'/><path d='M450 200 Q600 120 750 200' stroke-opacity='0.6'/><path d='M480 320 Q600 260 720 320' stroke-opacity='0.5'/><circle cx='600' cy='40' r='8' fill='%23E5B23A' fill-opacity='0.6' stroke='none'/><circle cx='600' cy='40' r='14' stroke-opacity='0.5'/><path d='M600 0 L600 30' stroke-opacity='0.5'/><path d='M540 600 L540 460 Q600 420 660 460 L660 600 Z' stroke-opacity='0.7'/><path d='M560 460 L560 600 M580 460 L580 600 M620 460 L620 600 M640 460 L640 600' stroke-opacity='0.3'/></g></svg>");
   }
 
-  /* Devanagari accent font */
-  .font-sanskrit {
-    font-family: var(--font-cinzel), "Cinzel", serif;
-    font-weight: 600;
-  }
   .font-display {
-    font-family: var(--font-cinzel), "Cinzel", serif;
-    letter-spacing: 0.04em;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+
+  /* ===== Cinematic motion kit ===== */
+
+  /* Outlined display text (hollow type) */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px hsl(var(--foreground) / 0.35);
+  }
+  .text-outline-primary {
+    color: transparent;
+    -webkit-text-stroke: 1px hsl(var(--primary) / 0.6);
+  }
+
+  /* Seamless marquee — inner track holds two identical halves */
+  @keyframes marquee-x {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-x 40s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
   }
 }
 

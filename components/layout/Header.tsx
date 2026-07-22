@@ -63,9 +63,9 @@ export default function Header({ activeSection }: HeaderProps) {
           >
             <button
               onClick={() => scrollToSection("#hero")}
-              className="text-xl font-bold text-primary font-display tracking-wider hover:text-primary/80 transition-colors"
+              className="text-sm font-bold uppercase tracking-[0.2em] text-foreground hover:text-primary transition-colors"
             >
-              AA
+              Archit Agrawal
             </button>
           </motion.div>
 
@@ -85,15 +85,11 @@ export default function Header({ activeSection }: HeaderProps) {
                 {item.name}
                 {activeSection === item.href.substring(1) && (
                   <motion.div
-                    className="absolute -bottom-1 left-0 right-0 flex items-center justify-center gap-1"
+                    className="absolute -bottom-0.5 left-3 right-3 h-px bg-primary"
                     layoutId="activeTab"
                     initial={false}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  >
-                    <span className="h-px flex-1 bg-gradient-to-r from-transparent to-secondary" />
-                    <span className="w-1.5 h-1.5 rotate-45 bg-secondary shadow-[0_0_8px_hsl(var(--secondary))]" />
-                    <span className="h-px flex-1 bg-gradient-to-l from-transparent to-secondary" />
-                  </motion.div>
+                  />
                 )}
               </button>
             ))}
@@ -112,16 +108,15 @@ export default function Header({ activeSection }: HeaderProps) {
               <span className="sr-only">Toggle theme</span>
             </Button>
 
-            {/* Desktop Resume Button */}
-            <Button
-              asChild
-              className="hidden md:inline-flex bg-primary hover:bg-primary/90 text-primary-foreground font-display tracking-wider uppercase border border-secondary rounded-none hover:shadow-[0_0_18px_hsl(var(--secondary)/0.5)]"
-              size="sm"
+            {/* Desktop Resume Link */}
+            <a
+              href="/Archit_Agrawal_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-0.5 hover:text-primary hover:border-primary transition-colors"
             >
-              <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer">
-                Resume
-              </a>
-            </Button>
+              Resume
+            </a>
 
             {/* Mobile menu button */}
             <Button
