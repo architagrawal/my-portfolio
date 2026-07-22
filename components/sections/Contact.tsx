@@ -45,21 +45,6 @@ export default function Contact() {
         </motion.div>
       </div>
       <div className="max-w-7xl mx-auto">
-        <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.8 }}
-           viewport={{ once: true }}
-           className="text-center mb-12"
-         >
-           <h2 className="section-heading text-3xl sm:text-4xl font-bold mb-4 text-foreground font-display uppercase tracking-wide">
-             Get In Touch
-           </h2>
-           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-             Let&apos;s collaborate on your next project or discuss opportunities
-           </p>
-         </motion.div>
-
         <div className="max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -69,9 +54,6 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-semibold mb-6 text-center text-foreground">
-                Contact Information
-              </h3>
               <div className="grid sm:grid-cols-2 gap-6">
                 <InteractiveCard
                   InteractiveColor="hsl(var(--primary))"

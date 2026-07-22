@@ -423,7 +423,7 @@ export default function Projects() {
 
                 <CardHeader className="pb-2 pt-3">
                   <div className="flex justify-between items-start gap-2 mb-1.5">
-                    <CardTitle className="text-base text-foreground font-heading uppercase tracking-wide leading-tight line-clamp-2">
+                    <CardTitle className="text-lg text-foreground font-display font-extrabold uppercase tracking-tight leading-tight line-clamp-2">
                       {project.title}
                     </CardTitle>
                     <TrendingUp className="w-4 h-4 text-primary opacity-70 shrink-0 mt-0.5" />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface SectionHeadingProps {
   eyebrow: string;
@@ -12,7 +12,6 @@ interface SectionHeadingProps {
 /* Outlined display title that fills solid as it scrolls into view */
 export function SectionHeading({ eyebrow, title, className = "" }: SectionHeadingProps) {
   const ref = useRef<HTMLHeadingElement>(null);
-  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 0.92", "start 0.4"],
@@ -42,19 +41,13 @@ export function SectionHeading({ eyebrow, title, className = "" }: SectionHeadin
         <span className="text-outline block" aria-hidden="true">
           {title}
         </span>
-        {reduce ? (
-          <span className="absolute inset-0 text-foreground" aria-hidden="true">
-            {title}
-          </span>
-        ) : (
-          <motion.span
-            style={{ clipPath: clip }}
-            className="absolute inset-0 text-foreground"
-            aria-hidden="true"
-          >
-            {title}
-          </motion.span>
-        )}
+        <motion.span
+          style={{ clipPath: clip }}
+          className="absolute inset-0 text-foreground"
+          aria-hidden="true"
+        >
+          {title}
+        </motion.span>
       </h2>
     </div>
   );

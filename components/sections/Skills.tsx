@@ -259,7 +259,7 @@ function SkillCard({ cat, idx }: { cat: SkillCategory; idx: number }) {
       <p className="relative text-[11px] font-tech uppercase tracking-[0.2em] text-muted-foreground/70 mb-1">
         {cat.tagline}
       </p>
-      <h3 className="relative text-lg font-heading uppercase tracking-wide mb-4 text-foreground">
+      <h3 className="relative text-xl font-display font-extrabold uppercase tracking-tight mb-4 text-foreground">
         {cat.title}
       </h3>
 

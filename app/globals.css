@@ -160,11 +160,6 @@
     animation: marquee-x 40s linear infinite;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none;
-    }
-  }
 }
 
 @layer base {

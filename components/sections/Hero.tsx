@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -25,14 +25,11 @@ const crafts = ["AI agents", "agentic workflows", "RAG systems", "LLM evals", "f
 /* Rotating craft word with blur dissolve */
 function CraftRotator() {
   const [idx, setIdx] = useState(0);
-  const reduce = useReducedMotion();
 
   useEffect(() => {
     const t = setInterval(() => setIdx((i) => (i + 1) % crafts.length), 2600);
     return () => clearInterval(t);
   }, []);
-
-  if (reduce) return <span className="text-primary">{crafts[0]}</span>;
 
   return (
     <span className="relative inline-block min-w-[9ch] text-left">
@@ -54,7 +51,6 @@ function CraftRotator() {
 
 /* Staggered letter reveal for a display line */
 function RevealLine({ text, delay }: { text: string; delay: number }) {
-  const reduce = useReducedMotion();
   const letters = text.split("");
 
   return (
@@ -72,18 +68,14 @@ function RevealLine({ text, delay }: { text: string; delay: number }) {
           <motion.span
             key={i}
             className="inline-block"
-            variants={
-              reduce
-                ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-                : {
-                    hidden: { y: "110%", rotate: 4 },
-                    visible: {
-                      y: 0,
-                      rotate: 0,
-                      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-                    },
-                  }
-            }
+            variants={{
+              hidden: { y: "110%", rotate: 4 },
+              visible: {
+                y: 0,
+                rotate: 0,
+                transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+              },
+            }}
           >
             {ch}
           </motion.span>

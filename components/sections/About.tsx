@@ -148,8 +148,11 @@ export default function About() {
                   desc: "AI/ML moves fast. I stay close to the frontier, currently deep in agentic workflows and automation systems.",
                 },
               ].map((item, i) => (
-                <div key={item.line} className="grid sm:grid-cols-12 gap-4 sm:gap-8 border-t border-border/50 pt-6">
-                  <h3 className="sm:col-span-6 font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-foreground leading-tight">
+                <div key={item.line} className="group grid sm:grid-cols-12 gap-4 sm:gap-8 border-t border-border/50 pt-6">
+                  <span className="sm:col-span-1 font-tech text-sm text-primary pt-2">
+                    0{i + 1}
+                  </span>
+                  <h3 className="sm:col-span-5 font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-foreground leading-[0.95] transition-transform duration-300 group-hover:translate-x-2">
                     {item.line}
                   </h3>
                   <p className="sm:col-span-6 text-sm text-muted-foreground leading-relaxed">

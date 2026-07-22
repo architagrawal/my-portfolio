@@ -87,13 +87,10 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
         <CardHeader className="pb-2">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
             <div>
-                <CardTitle className="text-2xl mb-1 flex items-center gap-3 text-foreground tracking-tight">
-                <span className={theme.primary}>
-                    <Building className="w-5 h-5 md:w-6 md:h-6" />
-                </span>
+                <CardTitle className="font-display text-2xl md:text-4xl font-extrabold uppercase tracking-tight mb-1 text-foreground leading-[0.95]">
                 {exp.company}
                 </CardTitle>
-                <p className="text-xl font-medium text-foreground/80 mb-2">
+                <p className="text-lg md:text-xl font-medium text-primary mb-2">
                 {exp.role}
                 </p>
                 <div className="flex flex-wrap gap-4 text-sm text-muted-foreground font-mono">
