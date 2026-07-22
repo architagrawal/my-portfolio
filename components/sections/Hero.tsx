@@ -126,12 +126,11 @@ export default function Hero() {
                 src="/archit-profile.webp"
                 alt="Archit Agrawal"
                 fill
-                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                className="object-cover"
                 style={{ objectPosition: "40% center" }}
                 priority
                 quality={85}
               />
-              <div className="absolute inset-0 bg-primary/20 mix-blend-multiply group-hover:opacity-0 transition-opacity duration-700" />
             </div>
             <div className="flex items-center gap-3">
               {socials.map(({ icon: Icon, href, label }) => (

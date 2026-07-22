@@ -70,7 +70,7 @@ export default function About() {
             <SectionHeading eyebrow="01 // Identity" title="About Me" className="mb-0" />
 
             <div className="space-y-6 text-muted-foreground">
-              <p className="text-lg font-light leading-relaxed border-l-2 border-primary/30 pl-4">
+              <p className="text-lg font-light leading-relaxed">
                 Founding AI/ML Engineer shipping <span className="text-foreground font-medium">production agentic systems</span>.
               </p>
 
@@ -95,7 +95,7 @@ export default function About() {
                 <span className="font-tech text-sm">MSCS @ Arizona State University</span>
               </div>
               <div className="inline-flex items-center space-x-2 px-4 py-2 border border-secondary/50 bg-muted/20">
-                <span className="font-tech text-sm text-secondary font-semibold">GPA 4.0 / 4.0</span>
+                <span className="font-tech text-sm font-semibold">GPA 4.0 / 4.0</span>
               </div>
               <div className="inline-flex items-center space-x-2 px-4 py-2 border border-secondary/50 bg-muted/20">
                 <MapPin className="w-4 h-4 text-primary" />
@@ -105,8 +105,8 @@ export default function About() {
 
             <div className="pt-4">
               <div className="flex items-center gap-2 mb-3">
-                <Award className="w-4 h-4 text-secondary" />
-                <span className="font-tech text-xs uppercase tracking-[0.2em] text-secondary">Certifications</span>
+                <Award className="w-4 h-4 text-muted-foreground" />
+                <span className="font-tech text-xs uppercase tracking-[0.2em] text-muted-foreground">Certifications</span>
               </div>
               <ul className="space-y-2 text-sm font-tech text-muted-foreground">
                 <li className="flex items-center gap-2 before:content-[''] before:w-1.5 before:h-1.5 before:bg-primary/70 before:shrink-0">

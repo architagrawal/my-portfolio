@@ -4,13 +4,13 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 interface SectionHeadingProps {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   className?: string;
 }
 
 /* Outlined display title that fills solid as it scrolls into view */
-export function SectionHeading({ eyebrow, title, className = "" }: SectionHeadingProps) {
+export function SectionHeading({ title, className = "" }: SectionHeadingProps) {
   const ref = useRef<HTMLHeadingElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -23,16 +23,7 @@ export function SectionHeading({ eyebrow, title, className = "" }: SectionHeadin
   );
 
   return (
-    <div className={`mb-16 space-y-3 ${className}`}>
-      <motion.span
-        initial={{ opacity: 0, y: 8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="block font-tech text-primary text-sm uppercase tracking-[0.25em]"
-      >
-        {eyebrow}
-      </motion.span>
+    <div className={`mb-16 ${className}`}>
       <h2
         ref={ref}
         aria-label={title}
