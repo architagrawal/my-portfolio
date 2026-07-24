@@ -1,11 +1,10 @@
-// Structured data for AI and search engines
 export const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Archit Agrawal",
-  jobTitle: "Software Engineer",
+  jobTitle: "Founding AI/ML Engineer",
   description:
-    "Software Engineer and AI/ML Enthusiast specializing in full-stack development, machine learning, generative AI, and intelligent automation systems. Recently graduated with MSCS from Arizona State University.",
+    "Founding AI/ML Engineer at MyStage Music. Builds agent workflows, retrieval systems, data pipelines, backend services, and full-stack applications.",
   url: "https://agrawal-archit.vercel.app",
   image: "https://agrawal-archit.vercel.app/archit-profile.png",
   alumniOf: [
@@ -24,26 +23,28 @@ export const personSchema = {
     "Software Engineering",
     "Artificial Intelligence",
     "Machine Learning",
-    "Generative AI",
-    "Full Stack Development",
+    "AI agents",
+    "Retrieval systems",
+    "Full-stack development",
     "React",
     "Next.js",
     "Python",
     "TypeScript",
     "Node.js",
-    "AI Agents",
-    "Voice Bots",
-    "Automation",
+    "LangGraph",
+    "Neo4j",
+    "FastAPI",
     "Cloud Computing",
     "System Design",
   ],
   sameAs: [
     "https://github.com/architagrawal",
-    "https://linkedin.com/in/archit-agrawal",
+    "https://www.linkedin.com/in/agrawal-archit",
   ],
-  email: "mailto:contact@agrawal-archit.vercel.app",
+  email: "mailto:architagrawal000@gmail.com",
   address: {
     "@type": "PostalAddress",
+    addressRegion: "New York metro area",
     addressCountry: "US",
   },
 };
@@ -54,31 +55,10 @@ export const websiteSchema = {
   name: "Archit Agrawal Portfolio",
   url: "https://agrawal-archit.vercel.app",
   description:
-    "Professional portfolio of Archit Agrawal - Software Engineer specializing in AI/ML, Full-Stack Development, and Intelligent Automation",
+    "Work and project notes from Archit Agrawal, a founding AI/ML engineer and software engineer.",
   author: {
     "@type": "Person",
     name: "Archit Agrawal",
   },
   inLanguage: "en-US",
-};
-
-export const professionalServiceSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Archit Agrawal - Software Engineering Services",
-  description:
-    "Expert software engineering services specializing in AI/ML applications, full-stack development, voice bots, AI agents, and automation solutions",
-  provider: {
-    "@type": "Person",
-    name: "Archit Agrawal",
-  },
-  areaServed: "Worldwide",
-  serviceType: [
-    "Software Development",
-    "AI/ML Development",
-    "Full Stack Development",
-    "AI Agent Development",
-    "Automation Solutions",
-    "Generative AI Applications",
-  ],
 };

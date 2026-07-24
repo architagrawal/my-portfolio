@@ -1,10 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Menu, X } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface HeaderProps {
@@ -12,180 +9,90 @@ interface HeaderProps {
 }
 
 const navigation = [
-  { name: "Home", href: "#hero" },
   { name: "About", href: "#about" },
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
-  // { name: "Achievements", href: "#achievements" },
   { name: "Contact", href: "#contact" },
 ];
 
 export default function Header({ activeSection }: HeaderProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsMobileMenuOpen(false);
+  const goTo = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    setIsOpen(false);
   };
 
   return (
-    <motion.header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border"
-          : "bg-transparent"
-      )}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <motion.div
-            className="flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <button
+          onClick={() => goTo("#hero")}
+          className="text-sm font-semibold tracking-wide text-foreground"
+        >
+          Archit Agrawal
+        </button>
+
+        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
+          {navigation.map((item) => (
             <button
-              onClick={() => scrollToSection("#hero")}
-              className="text-sm font-bold uppercase tracking-[0.2em] text-foreground hover:text-primary transition-colors"
-            >
-              Archit Agrawal
-            </button>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navigation.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className={cn(
-                  "px-3 py-2 text-sm font-medium transition-colors relative font-heading tracking-wide",
-                  activeSection === item.href.substring(1)
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {item.name}
-                {activeSection === item.href.substring(1) && (
-                  <motion.div
-                    className="absolute -bottom-0.5 left-3 right-3 h-px bg-primary"
-                    layoutId="activeTab"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
-              </button>
-            ))}
-          </nav>
-
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="w-11 h-11 p-0 relative"
-              aria-label="Toggle theme"
-            >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
-
-            {/* Desktop Resume Link */}
-            <a
-              href="/Archit_Agrawal_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:inline-flex text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-0.5 hover:text-primary hover:border-primary transition-colors"
-            >
-              Resume
-            </a>
-
-            {/* Mobile menu button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="md:hidden w-11 h-11 p-0"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-4 w-4" />
-              ) : (
-                <Menu className="h-4 w-4" />
+              key={item.href}
+              onClick={() => goTo(item.href)}
+              className={cn(
+                "border-b py-1 text-sm transition-colors",
+                activeSection === item.href.slice(1)
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground",
               )}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            {/* Blur overlay */}
-            <motion.div
-              className="fixed inset-0 bg-background/60 backdrop-blur-md z-40 md:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-hidden="true"
-            />
-            <motion.div
-              className="md:hidden relative z-50"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
             >
-              <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-xl border-t border-border shadow-lg">
-                {navigation.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => scrollToSection(item.href)}
-                    className={cn(
-                      "block w-full text-left px-3 py-3 min-h-[44px] text-base font-medium rounded-md transition-all duration-200",
-                      activeSection === item.href.substring(1)
-                        ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted hover:translate-x-1"
-                    )}
-                  >
-                    {item.name}
-                  </button>
-                ))}
-                {/* Mobile Resume Button */}
-                <a
-                  href="/Archit_Agrawal_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-left px-3 py-3 min-h-[44px] text-base font-medium rounded-md text-primary bg-primary/10 hover:bg-primary/20 transition-all duration-200"
-                >
-                  Resume
-                </a>
-              </div>
-            </motion.div>
-          </>
-        )}
-        </AnimatePresence>
+              {item.name}
+            </button>
+          ))}
+          <a
+            href="/Archit_Agrawal_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-primary"
+          >
+            Résumé
+          </a>
+        </nav>
+
+        <button
+          onClick={() => setIsOpen((value) => !value)}
+          className="flex h-11 w-11 items-center justify-center text-foreground md:hidden"
+          aria-label={isOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
-    </motion.header>
+
+      {isOpen && (
+        <nav
+          className="border-t border-border bg-background px-4 py-4 md:hidden"
+          aria-label="Mobile"
+        >
+          {navigation.map((item) => (
+            <button
+              key={item.href}
+              onClick={() => goTo(item.href)}
+              className="block min-h-11 w-full text-left text-base text-foreground"
+            >
+              {item.name}
+            </button>
+          ))}
+          <a
+            href="/Archit_Agrawal_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex min-h-11 items-center text-base text-primary"
+          >
+            Résumé
+          </a>
+        </nav>
+      )}
+    </header>
   );
 }

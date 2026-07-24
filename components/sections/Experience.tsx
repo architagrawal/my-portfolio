@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { TimelineNode } from "@/components/ui/timeline-node";
 import { ExperienceCard } from "@/components/ui/experience-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -16,6 +12,7 @@ interface ExperienceItem {
   location: string;
   period: string;
   achievements: (string | Achievement)[];
+  featuredAchievementIndexes?: number[];
   technologies: string[];
   color: string;
 }
@@ -48,11 +45,11 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python", "Google Firestore"],
       },
       {
-        text: "Architected resilient Playwright scraper with proxy rotation and exponential backoff on Compute Engine, indexing 70,000+ records/day across 650+ locations through anti-bot measures.",
+        text: "Built and operated a Playwright scraping service on Compute Engine. It processes 70,000+ records per day from 650+ locations and rotates proxies when sites block requests.",
         relatedTechs: ["Python", "Playwright", "GCP"],
       },
       {
-        text: "Built Gemini Pro (Vertex AI) semantic entity-resolution and dedupe pass over raw event data, lifting downstream search dataset accuracy by 25%.",
+        text: "Added Gemini-based entity resolution before records enter Firestore and Algolia. Internal dataset checks improved by 25%.",
         relatedTechs: ["Python", "Gemini Vertex AI", "Google Firestore", "Algolia"],
       },
       {
@@ -72,10 +69,11 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python", "Logfire"],
       },
       {
-        text: "Wrote 200+ pytest unit + integration tests covering routing predicates, fetcher nodes, mocked Firestore claim transactions, idempotent enqueue under retry, HITL resume payloads, image fan-out isolation; pytest-asyncio auto mode with mock_async_db fixtures for Firestore-free runs.",
+        text: "Added 200+ pytest tests for routing, task claims, retries, pause and resume behavior, and image fan-out. Mocked Firestore fixtures let most suites run locally.",
         relatedTechs: ["Python", "pytest"],
       },
     ],
+    featuredAchievementIndexes: [5, 6, 11],
     technologies: [
       "Python",
       "LangGraph",
@@ -99,25 +97,26 @@ const experiences: ExperienceItem[] = [
     period: "August 2024 – May 2025",
     achievements: [
       {
-        text: "Project 1 — Probed temporal and logical reasoning capabilities of text-conditioned video generation models; designed evaluation prompts isolating cause-effect ordering and counterfactual scene logic.",
+        text: "Designed prompts to test cause-and-effect ordering and counterfactual reasoning in text-conditioned video generation models.",
         relatedTechs: ["Python", "PyTorch", "Diffusers"],
       },
       {
-        text: "Project 2 — Quantified physical-law adherence of rigid-body motion in GenAI video outputs (gravity, momentum, collision); built scoring rubric scoring real-world plausibility per frame sequence.",
+        text: "Built a frame-sequence rubric for measuring whether generated rigid-body motion follows gravity, momentum, and collision behavior.",
         relatedTechs: ["Python", "PyTorch", "Computer Vision"],
       },
     ],
+    featuredAchievementIndexes: [0, 1],
     technologies: ["Python", "PyTorch", "Diffusers", "Computer Vision", "Video Generation"],
     color: "purple",
   },
   {
     company: "Edplus, Arizona State University",
-    role: "IDA",
+    role: "Instructional Design Assistant · Software Engineering",
     location: "Tempe, AZ",
     period: "Sept 2023 – May 2025",
     achievements: [
       {
-        text: "Led design and delivery of a multi-tenant RAG chatbot orchestrated via LangChain + Semantic Kernel with Prompt Flow evaluation harness, serving 1,000+ faculty authoring courses for 60,000+ students.",
+        text: "Led development of a multi-tenant RAG assistant used by 1,000+ faculty members who author courses for 60,000+ students.",
         relatedTechs: [
           "Python",
           "LangChain",
@@ -127,7 +126,7 @@ const experiences: ExperienceItem[] = [
         ],
       },
       {
-        text: "Engineered a Neo4j knowledge graph layered with LLM-driven Cypher synthesis, cutting transcript-to-insight loop from 4 hours to 15 minutes via deterministic graph traversal over noisy NL queries.",
+        text: "Combined Neo4j with generated Cypher queries to reduce transcript analysis from four hours to 15 minutes.",
         relatedTechs: ["Python", "Neo4j", "OpenAI", "LangChain"],
       },
       {
@@ -139,10 +138,11 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["JavaScript", "Google Apps Script"],
       },
       {
-        text: "Built responsive React + Material UI interfaces with measurable UX outcomes: +35% engagement, −20% bounce rate.",
+        text: "Built React and Material UI interfaces that increased engagement by 35% and reduced bounce rate by 20%.",
         relatedTechs: ["JavaScript"],
       },
     ],
+    featuredAchievementIndexes: [0, 1, 4],
     technologies: [
       "Python",
       "LangChain",
@@ -164,7 +164,7 @@ const experiences: ExperienceItem[] = [
     period: "June 2024 – August 2024",
     achievements: [
       {
-        text: "Designed a FAISS + Neo4j hybrid retrieval layer (dense ANN over graph-anchored entities) delivering 60% lower p95 query latency at 95% recall.",
+        text: "Combined FAISS retrieval with Neo4j entities, reducing p95 query latency by 60% while maintaining 95% recall.",
         relatedTechs: ["Python", "FAISS", "Neo4j"],
       },
       {
@@ -172,7 +172,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python", "FastAPI", "PostgreSQL"],
       },
       {
-        text: "Architected an idempotent ETL pipeline ingesting 10,000+ faculty profiles/day with Pandas-based transforms and Postgres upserts; raised dataset accuracy to 95% via constraint-driven validation.",
+        text: "Built an idempotent ETL pipeline for 10,000+ faculty profiles per day. Postgres constraints and validation checks raised dataset accuracy to 95%.",
         relatedTechs: ["Python", "Pandas", "PostgreSQL"],
       },
       {
@@ -184,7 +184,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: [".NET 8", "C#", "Dapper", "MediatR", "JWT", "AWS SQS"],
       },
       {
-        text: "Cut API latency 198ms → 20ms (≈90%) via Redis caching layer + complex SQL query rewrites, holding sub-second responses under simulated peak load.",
+        text: "Reduced API latency from 198 ms to 20 ms with Redis caching and SQL query changes, then verified the result under load.",
         relatedTechs: ["Redis", "SQL", ".NET 8"],
       },
       {
@@ -192,6 +192,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python", "Deep Learning"],
       },
     ],
+    featuredAchievementIndexes: [0, 2, 5],
     technologies: [
       "Python",
       "PostgreSQL",
@@ -218,15 +219,15 @@ const experiences: ExperienceItem[] = [
     period: "Jan 2022 – July 2023",
     achievements: [
       {
-        text: "Decomposed a .NET monolith into SOLID-aligned microservices on Kubernetes with bounded-context service boundaries, driving 35% lower resource footprint and 20% cost reduction across the fleet.",
+        text: "Helped split a .NET monolith into Kubernetes services, reducing resource use by 35% and infrastructure cost by 20%.",
         relatedTechs: [".NET", "C#", "Docker", "Kubernetes", "AWS"],
       },
       {
-        text: "Hardened CI/CD with SonarQube quality gates and containerized release pipelines: −70% deploy time, −40% production incidents.",
+        text: "Added SonarQube checks and containerized release pipelines. Deployment time fell by 70% and production incidents by 40%.",
         relatedTechs: ["Git", "Docker", "Kubernetes", "SonarQube"],
       },
       {
-        text: "Shipped a Redis-backed ML demand-prediction service for desk/room reservations across 300+ Fortune 500 sites (incl. Goldman Sachs, Merck), lifting occupancy by 30% amid COVID-era hot-desk constraints.",
+        text: "Worked on a Redis-backed demand prediction service for desk and room reservations across 300+ enterprise sites. Reported occupancy increased by 30%.",
         relatedTechs: [".NET", "C#", "Redis", "React", "Node.js"],
       },
       {
@@ -242,6 +243,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Node.js"],
       },
     ],
+    featuredAchievementIndexes: [0, 1, 2],
     technologies: [
       ".NET",
       "C#",
@@ -265,15 +267,15 @@ const experiences: ExperienceItem[] = [
     period: "Sept 2021 – Dec 2021",
     achievements: [
       {
-        text: "Owned end-to-end order-tracking experience over Google Maps API with optimized driver geolocation polling, yielding 45% cost reduction and 25% QoQ user growth.",
+        text: "Built the order-tracking flow around Google Maps and changed driver-location polling to reduce operating cost by 45%. The product reported 25% quarter-over-quarter user growth.",
         relatedTechs: ["React.js", "Google Maps API"],
       },
       {
-        text: "Built a Python scraping toolchain harvesting product catalogs and reviews into the analytics warehouse, feeding pricing/positioning and CX workflows.",
+        text: "Built Python jobs that collected product catalogs and reviews for pricing and customer-experience analysis.",
         relatedTechs: ["Python"],
       },
       {
-        text: "Delivered a full-stack WebSocket + Express.js notification service with backpressure-aware fan-out, raising CSAT by 28% and cutting support volume by 35%.",
+        text: "Built a WebSocket and Express notification service. Reported customer satisfaction increased by 28% and support volume fell by 35%.",
         relatedTechs: ["React.js"],
       },
     ],
@@ -287,11 +289,11 @@ const experiences: ExperienceItem[] = [
     period: "May 2021 – August 2021",
     achievements: [
       {
-        text: "Explored AI/ML for self-driving cars with focus on sensor data — capture, recording, processing, and downstream use for vehicle guidance.",
+        text: "Studied how sensor data is captured, stored, and processed for vehicle guidance in self-driving systems.",
         relatedTechs: ["Python", "Computer Vision"],
       },
       {
-        text: "Studied radar + Lidar data acquisition pipelines, vehicle-to-vehicle (p2p) communication, and HD-map localization techniques.",
+        text: "Worked with radar and lidar acquisition concepts, vehicle-to-vehicle communication, and HD-map localization.",
         relatedTechs: ["Python", "Lidar", "Computer Vision"],
       },
     ],
@@ -301,30 +303,20 @@ const experiences: ExperienceItem[] = [
 ];
 
 export default function Experience() {
-
   return (
-    <section id="experience" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-card/40">
-      <div className="max-w-7xl mx-auto relative z-10">
-        <SectionHeading eyebrow="02 // Journey" title="Experience" />
-
-        <div className="relative pl-6 md:pl-12">
-
-          <div className="space-y-16">
-            {experiences.map((exp, expIndex) => (
-              <div key={expIndex} className="relative pl-10 sm:pl-12 md:pl-16">
-
-                {/* Timeline Star & Path */}
-                <div className="absolute left-0 top-0 bottom-0 -ml-[5px] md:-ml-[9px] w-12 flex flex-col items-center pt-8">
-                    <TimelineNode color={exp.color} isLast={expIndex === experiences.length - 1} />
-                </div>
-
-                <ExperienceCard exp={exp} expIndex={expIndex} />
-              </div>
-            ))}
-          </div>
+    <section id="experience" className="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading eyebrow="Experience" title="Professional work" />
+        <div className="border-t border-border">
+          {experiences.map((exp, expIndex) => (
+            <ExperienceCard
+              key={`${exp.company}-${exp.period}`}
+              exp={exp}
+              expIndex={expIndex}
+            />
+          ))}
         </div>
       </div>
     </section>
   );
 }
-

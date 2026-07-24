@@ -1,9 +1,3 @@
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Building, MapPin, Calendar } from "lucide-react";
-import { useState } from "react";
-
 interface Achievement {
   text: string;
   relatedTechs?: string[];
@@ -15,6 +9,7 @@ interface ExperienceItem {
   location: string;
   period: string;
   achievements: (string | Achievement)[];
+  featuredAchievementIndexes?: number[];
   technologies: string[];
   color: string;
 }
@@ -24,174 +19,69 @@ interface ExperienceCardProps {
   expIndex: number;
 }
 
-const colorMap = {
-  blue: {
-    primary: "text-primary",
-    bg: "bg-primary",
-    border: "border-primary",
-    badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary",
-    pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
-    bullet: "bg-primary/50 group-hover/item:bg-primary"
-  },
-  teal: {
-    primary: "text-primary",
-    bg: "bg-primary",
-    border: "border-primary",
-    badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary",
-    pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
-    bullet: "bg-primary/50 group-hover/item:bg-primary"
-  },
-  purple: {
-    primary: "text-primary",
-    bg: "bg-primary",
-    border: "border-primary",
-    badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary",
-    pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
-    bullet: "bg-primary/50 group-hover/item:bg-primary"
-  },
-  orange: {
-    primary: "text-primary",
-    bg: "bg-primary",
-    border: "border-primary",
-    badge: "bg-primary/10 text-primary border-primary/20",
-    pillActive: "bg-primary/20 border-primary text-primary",
-    pillInactive: "bg-primary/5 text-muted-foreground border-primary/10 hover:bg-primary/10 hover:text-primary",
-    bullet: "bg-primary/50 group-hover/item:bg-primary"
-  }
-};
+function achievementText(achievement: string | Achievement) {
+  return typeof achievement === "string" ? achievement : achievement.text;
+}
 
 export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
-  const [hoveredAchIndex, setHoveredAchIndex] = useState<number | null>(null);
-  const theme = colorMap[exp.color as keyof typeof colorMap] || colorMap.blue;
+  const featuredIndexes =
+    exp.featuredAchievementIndexes ??
+    exp.achievements.slice(0, 3).map((_, index) => index);
+  const detailedIndexes = exp.achievements
+    .map((_, index) => index)
+    .filter((index) => !featuredIndexes.includes(index));
 
   return (
-    <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="relative group"
-    >
-        <Card
-        className={`
-            relative overflow-hidden transition-colors duration-200
-            bg-background/40 border border-border rounded-none
-            hover:border-primary/40
-        `}
-        >
-        {/* REMOVED: Internal decorative left-border div to fix "extra blue line" issue */}
-        
-        <CardHeader className="pb-2">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-            <div>
-                <CardTitle className="font-display text-2xl md:text-4xl font-extrabold uppercase tracking-tight mb-1 text-foreground leading-[0.95]">
-                {exp.company}
-                </CardTitle>
-                <p className="text-lg md:text-xl font-medium text-primary mb-2">
-                {exp.role}
-                </p>
-                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground font-mono">
-                <span className={`flex items-center gap-1.5 px-2 py-0.5 ${theme.badge} transition-colors`}>
-                    <MapPin className="w-3.5 h-3.5" />
-                    {exp.location}
-                </span>
-                <span className={`flex items-center gap-1.5 px-2 py-0.5 ${theme.badge} transition-colors`}>
-                    <Calendar className="w-3.5 h-3.5" />
-                    {exp.period}
-                </span>
-                </div>
-            </div>
-            </div>
-        </CardHeader>
-        <CardContent className="space-y-6 pt-4">
-            <div className="space-y-4">
-            <ul className="space-y-4">
-                {exp.achievements.slice(0, 3).map((achievement, achIndex) => {
-                const achievementData =
-                    typeof achievement === "string"
-                    ? { text: achievement, relatedTechs: [] }
-                    : achievement;
+    <article className="grid gap-6 border-b border-border py-10 lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-12">
+      <div>
+        <p className="font-tech text-xs text-primary">
+          {String(expIndex + 1).padStart(2, "0")}
+        </p>
+        <p className="mt-3 text-sm text-foreground">{exp.period}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{exp.location}</p>
+      </div>
 
-                return (
-                    <li
-                    key={achIndex}
-                    className="flex items-start gap-4 experience-bullet-item group/item relative pl-2"
-                    onMouseEnter={() => setHoveredAchIndex(achIndex)}
-                    onMouseLeave={() => setHoveredAchIndex(null)}
-                    >
-                    <div className={`mt-2.5 w-1.5 h-1.5 ${theme.bullet} group-hover/item:scale-125 transition-all`} />
+      <div>
+        <h3 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+          {exp.company}
+        </h3>
+        <p className="mt-2 text-base text-primary">{exp.role}</p>
 
-                    <span className="text-base text-foreground/85 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
-                        {achievementData.text}
-                    </span>
-                    </li>
-                );
-                })}
+        <ul className="mt-7 max-w-4xl space-y-4">
+          {featuredIndexes.map((index) => (
+            <li
+              key={index}
+              className="grid grid-cols-[0.8rem_1fr] gap-3 text-sm leading-relaxed text-foreground/90 sm:text-base"
+            >
+              <span className="mt-[0.65rem] h-1 w-1 bg-primary" />
+              <span>{achievementText(exp.achievements[index])}</span>
+            </li>
+          ))}
+        </ul>
+
+        {detailedIndexes.length > 0 && (
+          <details className="mt-7 max-w-4xl border-t border-border pt-5">
+            <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
+              Technical notes ({detailedIndexes.length})
+            </summary>
+            <ul className="mt-5 space-y-4">
+              {detailedIndexes.map((index) => (
+                <li
+                  key={index}
+                  className="grid grid-cols-[0.8rem_1fr] gap-3 text-sm leading-relaxed text-muted-foreground"
+                >
+                  <span className="mt-[0.55rem] h-px w-2 bg-border" />
+                  <span>{achievementText(exp.achievements[index])}</span>
+                </li>
+              ))}
             </ul>
+          </details>
+        )}
 
-            {exp.achievements.length > 3 && (
-              <details className="group/details">
-                <summary className="cursor-pointer list-none inline-flex items-center gap-2 font-tech text-xs uppercase tracking-[0.2em] text-primary hover:text-foreground transition-colors pl-2">
-                  <span className="group-open/details:hidden">+ {exp.achievements.length - 3} more</span>
-                  <span className="hidden group-open/details:inline">show less</span>
-                </summary>
-                <ul className="space-y-3 mt-4">
-                  {exp.achievements.slice(3).map((achievement, i) => {
-                    const achIndex = i + 3;
-                    const achievementData =
-                      typeof achievement === "string"
-                        ? { text: achievement, relatedTechs: [] }
-                        : achievement;
-
-                    return (
-                      <li
-                        key={achIndex}
-                        className="flex items-start gap-4 experience-bullet-item group/item relative pl-2"
-                        onMouseEnter={() => setHoveredAchIndex(achIndex)}
-                        onMouseLeave={() => setHoveredAchIndex(null)}
-                      >
-                        <div className={`mt-2 w-1.5 h-1.5 ${theme.bullet} group-hover/item:scale-125 transition-all`} />
-
-                        <span className="text-sm text-muted-foreground/90 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
-                          {achievementData.text}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </details>
-            )}
-            </div>
-
-            <div className="pt-4 border-t border-white/5">
-            <div className="flex flex-wrap gap-2">
-                {exp.technologies.map((tech, techIndex) => {
-                // Check highlight logic
-                const shouldHighlight =
-                    hoveredAchIndex !== null &&
-                    exp.achievements[hoveredAchIndex] &&
-                    typeof exp.achievements[hoveredAchIndex] === "object" &&
-                    (exp.achievements[hoveredAchIndex] as Achievement).relatedTechs?.includes(tech);
-
-                return (
-                    <span 
-                        key={techIndex}
-                        className={`
-                            px-2.5 py-1 text-xs font-medium border transition-all duration-300
-                            ${shouldHighlight ? theme.pillActive : theme.pillInactive}
-                        `}
-                    >
-                        {tech}
-                    </span>
-                );
-                })}
-            </div>
-            </div>
-        </CardContent>
-        </Card>
-    </motion.div>
+        <p className="mt-7 max-w-4xl text-xs leading-relaxed text-muted-foreground">
+          {exp.technologies.join(" · ")}
+        </p>
+      </div>
+    </article>
   );
 }

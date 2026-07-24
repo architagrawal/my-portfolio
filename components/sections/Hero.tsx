@@ -1,197 +1,120 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Github, Linkedin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
-import { Marquee } from "@/components/ui/marquee";
 
-const socials = [
-  { icon: Linkedin, href: "https://www.linkedin.com/in/agrawal-archit", label: "LinkedIn" },
-  { icon: Github, href: "https://github.com/architagrawal", label: "GitHub" },
-];
-
-const crafts = ["AI agents", "agentic workflows", "RAG systems", "LLM evals", "full-stack products"];
-
-/* Rotating craft word with blur dissolve */
-function CraftRotator() {
-  const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setIdx((i) => (i + 1) % crafts.length), 2600);
-    return () => clearInterval(t);
-  }, []);
-
-  return (
-    <span className="relative inline-block min-w-[9ch] text-left">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={idx}
-          initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -12, filter: "blur(8px)" }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-block text-primary"
-        >
-          {crafts[idx]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
-
-/* Staggered letter reveal for a display line */
-function RevealLine({ text, delay }: { text: string; delay: number }) {
-  const letters = text.split("");
-
-  return (
-    <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
-      <motion.span
-        className="inline-block whitespace-pre"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: { transition: { staggerChildren: 0.04, delayChildren: delay } },
-        }}
-        aria-hidden="true"
-      >
-        {letters.map((ch, i) => (
-          <motion.span
-            key={i}
-            className="inline-block"
-            variants={{
-              hidden: { y: "110%", rotate: 4 },
-              visible: {
-                y: 0,
-                rotate: 0,
-                transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-              },
-            }}
-          >
-            {ch}
-          </motion.span>
-        ))}
-      </motion.span>
-    </span>
-  );
-}
-
-const marqueeItems = [
-  "AI Agents",
-  "LangGraph",
-  "RAG",
-  "MCP",
-  "Fine-Tuning",
-  "Evals",
-  "Full-Stack",
+const impact = [
+  ["70,000+", "records indexed each day"],
+  ["60,000+", "students supported by ASU systems"],
+  ["4 hours → 15 minutes", "transcript processing time"],
+  ["200+", "tests around production agent workflows"],
 ];
 
 export default function Hero() {
-  const scrollToAbout = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <section
-      id="hero"
-      className="min-h-screen flex flex-col justify-between relative pt-28 pb-0 overflow-hidden"
-    >
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="font-tech text-xs sm:text-sm uppercase tracking-[0.3em] text-muted-foreground mb-8"
-        >
-          AI Engineer · Software Engineer · Full-Stack
-        </motion.p>
+    <section id="hero" className="border-b border-border px-4 pb-16 pt-28 sm:px-6 sm:pb-20 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <p className="mb-7 font-tech text-sm text-muted-foreground">
+          AI/ML Engineer · Software Engineer
+        </p>
 
-        <div className="flex flex-col lg:flex-row lg:items-end gap-10 lg:gap-16">
-          <h1
-            className="font-display font-extrabold uppercase leading-[0.92] tracking-tight text-[10vw] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7.5rem] text-foreground"
-            aria-label="Archit Agrawal"
-          >
-            <RevealLine text="Archit" delay={0.15} />
-            <RevealLine text="Agrawal" delay={0.35} />
-          </h1>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_14rem] lg:items-end">
+          <div>
+            <h1 className="font-display text-[clamp(3.4rem,10vw,8rem)] font-bold leading-[0.86] tracking-[-0.065em]">
+              Archit
+              <br />
+              Agrawal
+            </h1>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="shrink-0 lg:mb-4 flex flex-col items-center gap-4"
-          >
-            <div className="relative w-36 h-48 sm:w-44 sm:h-56 border border-border overflow-hidden -rotate-3 group">
+          <figure className="w-40 lg:w-full">
+            <div className="relative aspect-[3/4] overflow-hidden border border-border bg-card">
               <Image
                 src="/archit-profile.webp"
-                alt="Archit Agrawal"
+                alt="Portrait of Archit Agrawal"
                 fill
+                priority
+                sizes="(max-width: 1024px) 160px, 224px"
                 className="object-cover"
                 style={{ objectPosition: "40% center" }}
-                priority
-                quality={85}
               />
             </div>
-            <div className="flex items-center gap-3">
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-11 h-11 flex items-center justify-center border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-                >
-                  <Icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
-          </motion.div>
+            <figcaption className="mt-3 text-xs text-muted-foreground">
+              New York metro area
+            </figcaption>
+          </figure>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="mt-10 text-lg sm:text-2xl text-muted-foreground max-w-2xl leading-relaxed"
-        >
-          I ship <CraftRotator /> to production. Currently building the
-          agent infrastructure behind MyStage&apos;s live-events platform.
-        </motion.p>
+        <div className="mt-12 grid gap-8 border-t border-border pt-8 lg:grid-cols-[minmax(0,48rem)_1fr]">
+          <div>
+            <p className="text-xl leading-relaxed text-foreground sm:text-2xl">
+              I work on production AI infrastructure at MyStage, including
+              LangGraph workflows, entity resolution, scraping pipelines, and
+              the services that operate them.
+            </p>
+            <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+              My earlier work spans retrieval systems at Arizona State
+              University, backend and cloud infrastructure, and full-stack
+              products. This site documents the engineering decisions behind
+              that work.
+            </p>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.05 }}
-          className="mt-10 mb-14 flex flex-wrap items-center gap-x-10 gap-y-4"
-        >
-          <a
-            href="/Archit_Agrawal_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-1 hover:text-primary hover:border-primary transition-colors"
-          >
-            Download Resume
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          <div className="flex flex-col items-start gap-3 lg:items-end">
+            <a
+              href="/Archit_Agrawal_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm underline decoration-border underline-offset-4 hover:decoration-primary"
+            >
+              Résumé <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <a
+              href="mailto:architagrawal000@gmail.com"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Mail className="h-4 w-4" /> Email
+            </a>
+            <a
+              href="https://github.com/architagrawal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Github className="h-4 w-4" /> GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/agrawal-archit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Linkedin className="h-4 w-4" /> LinkedIn
+            </a>
+          </div>
+        </div>
 
-          <button
-            onClick={scrollToAbout}
-            className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors"
-          >
-            See My Work
-            <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
-          </button>
-        </motion.div>
+        <dl className="mt-16 grid border-y border-border sm:grid-cols-2 lg:grid-cols-4">
+          {impact.map(([value, label], index) => (
+            <div
+              key={label}
+              className="border-b border-border py-6 sm:px-5 sm:odd:border-r lg:border-b-0 lg:border-r lg:first:pl-0 lg:last:border-r-0"
+            >
+              <dt className="font-display text-2xl font-semibold tracking-tight">
+                {value}
+              </dt>
+              <dd className="mt-2 max-w-[14rem] text-sm leading-relaxed text-muted-foreground">
+                {label}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <a
+          href="#about"
+          className="mt-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+        >
+          Continue <ArrowDown className="h-4 w-4" />
+        </a>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-      >
-        <Marquee items={marqueeItems} />
-      </motion.div>
     </section>
   );
 }

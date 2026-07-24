@@ -1,25 +1,16 @@
-# Archit Agrawal - Professional Profile
+# Archit Agrawal
 
-## Quick Facts
-- **Name**: Archit Agrawal
-- **Role**: Software Engineer & AI/ML Enthusiast
-- **Education**: M.S. Computer Science - Arizona State University
-- **Specialization**: AI/ML, Generative AI, Full-Stack Development, Intelligent Automation
-- **Location**: United States
+Archit Agrawal is a founding AI/ML engineer at MyStage Music and is based in
+the New York metro area. His current work includes LangGraph workflows, entity
+resolution, scraping pipelines, search infrastructure, and backend services.
 
-## Technical Proficiency
-**AI/ML**: Generative AI, LLMs, RAG Systems, AI Agents, Voice Bots, Machine Learning, Deep Learning, NLP
-**Languages**: Python, TypeScript, JavaScript, Node.js, Java, C++
-**Frontend**: React, Next.js, Vue.js, Tailwind CSS, HTML5, CSS3
-**Backend**: Node.js, Express, FastAPI, REST APIs, GraphQL
-**Cloud**: AWS, Azure, Docker, Kubernetes
-**Databases**: PostgreSQL, MongoDB, Redis, Vector Databases
+He previously built retrieval and knowledge-graph systems at Arizona State
+University and worked on backend, cloud, and product systems at Zeus Learning
+and EAT.FIT.
 
-## Professional Focus
-Building innovative AI-powered solutions including voice bots, intelligent agents, and automation systems. Expertise in developing scalable full-stack applications with modern technologies. Passionate about creating products that solve real-world problems through artificial intelligence and software engineering excellence.
+Education: MS Computer Science, Arizona State University, 4.0 GPA
 
-## Contact
 Website: https://agrawal-archit.vercel.app
-GitHub: github.com/architagrawal
-LinkedIn: linkedin.com/in/archit-agrawal
+GitHub: https://github.com/architagrawal
+LinkedIn: https://www.linkedin.com/in/agrawal-archit
 Email: architagrawal000@gmail.com

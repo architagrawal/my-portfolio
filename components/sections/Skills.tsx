@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useRef, MouseEvent } from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import {
   Terminal,
@@ -27,7 +23,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "languages",
     title: "Languages",
-    tagline: "Daily-driver syntax across web, systems, scripting.",
+    tagline: "Languages used across recent roles and projects.",
     icon: Code2,
     accent: "from-blue-500/20 to-blue-500/0 border-blue-500/30 text-blue-400",
     skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "C++", "SQL", "Bash", "PowerShell", "HTML/CSS"],
@@ -35,7 +31,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "frameworks",
     title: "Frameworks & UI",
-    tagline: "Production-grade web and mobile stack.",
+    tagline: "Application frameworks and interface libraries.",
     icon: Layers,
     accent: "from-teal-500/20 to-teal-500/0 border-teal-500/30 text-teal-400",
     skills: [
@@ -66,7 +62,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "ai-ml",
     title: "AI & ML",
-    tagline: "LLM orchestration, audio ML, RL preference tuning.",
+    tagline: "Models, orchestration, retrieval, and evaluation.",
     icon: Brain,
     accent: "from-purple-500/20 to-purple-500/0 border-purple-500/30 text-purple-400",
     skills: [
@@ -109,7 +105,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "cloud-devops",
     title: "Cloud & DevOps",
-    tagline: "GCP-heavy, multi-cloud, GPU infra.",
+    tagline: "Deployment, compute, messaging, and operations.",
     icon: Cloud,
     accent: "from-orange-500/20 to-orange-500/0 border-orange-500/30 text-orange-400",
     skills: [
@@ -148,7 +144,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "hpc",
     title: "HPC & Compute",
-    tagline: "GPU systems, parallel compute, profiling.",
+    tagline: "GPU execution and profiling.",
     icon: Terminal,
     accent: "from-yellow-500/20 to-yellow-500/0 border-yellow-500/30 text-yellow-400",
     skills: [
@@ -164,7 +160,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "databases",
     title: "Databases & Search",
-    tagline: "Relational, document, vector, edge.",
+    tagline: "Relational, document, vector, graph, and search systems.",
     icon: Database,
     accent: "from-emerald-500/20 to-emerald-500/0 border-emerald-500/30 text-emerald-400",
     skills: [
@@ -185,7 +181,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "testing",
     title: "Testing & Tooling",
-    tagline: "Unit, integration, property-based, E2E.",
+    tagline: "Unit, integration, property-based, load, and end-to-end testing.",
     icon: FlaskConical,
     accent: "from-pink-500/20 to-pink-500/0 border-pink-500/30 text-pink-400",
     skills: [
@@ -203,122 +199,61 @@ const skillCategories: SkillCategory[] = [
   },
 ];
 
-function SkillCard({ cat, idx }: { cat: SkillCategory; idx: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const Icon = cat.icon;
-  const iconColor = cat.accent.split(" ").find((c) => c.startsWith("text-")) ?? "";
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: idx * 0.08 }}
-      whileHover={{ y: -6 }}
-      className="skill-card group relative overflow-hidden border border-border bg-card/40 p-6 transition-colors duration-200 hover:border-primary/40"
-      style={{
-        // @ts-expect-error -- CSS vars
-        "--mx": "50%",
-        "--my": "50%",
-      }}
-    >
-      {/* Mouse-tracked spotlight */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background:
-            "radial-gradient(400px circle at var(--mx) var(--my), hsl(var(--primary) / 0.15), transparent 60%)",
-        }}
-      />
-
-      <div className="absolute inset-0 bg-card/60 -z-10" />
-
-      <div className="relative flex items-start justify-between mb-4">
-        <motion.div
-          whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-          transition={{ duration: 0.5 }}
-          className={`p-2.5 rounded-xl bg-background/50 border border-white/5 ${iconColor}`}
-        >
-          <Icon className="w-5 h-5" />
-        </motion.div>
-        <span className="font-display text-4xl md:text-5xl font-bold leading-none tracking-tight text-foreground/10 select-none">
-          {String(idx + 1).padStart(2, "0")}
-        </span>
-      </div>
-
-      <p className="relative text-[11px] font-tech uppercase tracking-[0.2em] text-muted-foreground/70 mb-1">
-        {cat.tagline}
-      </p>
-      <h3 className="relative text-xl font-display font-extrabold uppercase tracking-tight mb-4 text-foreground">
-        {cat.title}
-      </h3>
-
-      <div className="relative flex flex-wrap gap-1.5">
-        {cat.skills.map((skill, i) => (
-          <motion.span
-            key={skill}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: idx * 0.08 + i * 0.015 }}
-            whileHover={{ scale: 1.08, y: -2 }}
-            className="px-2 py-0.5 text-[11px] font-mono bg-background/60 border border-border text-foreground/90 hover:border-primary hover:text-primary transition-colors cursor-default"
-          >
-            {skill}
-          </motion.span>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
+const operatingStrengths = [
+  {
+    title: "Production AI systems",
+    description:
+      "Most recent work: LangGraph orchestration, retrieval, entity resolution, evaluation, preference tuning, and asynchronous worker infrastructure.",
+  },
+  {
+    title: "Application and backend engineering",
+    description:
+      "React and React Native clients, Python and .NET services, API design, relational and document data models, and background processing.",
+  },
+  {
+    title: "Operations and reliability",
+    description:
+      "Idempotency, transaction boundaries, distributed tracing, unit and integration tests, load testing, release checks, and recovery procedures.",
+  },
+];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 px-4 relative overflow-hidden">
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.15]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-          maskImage:
-            "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%)",
-        }}
-      />
-      <div className="max-w-7xl mx-auto relative z-10">
-        <SectionHeading eyebrow="04 // Tech Stack" title="Skills" />
+    <section id="skills" className="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading eyebrow="Skills" title="Technical index" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {skillCategories.map((cat, idx) => (
-            <SkillCard key={cat.id} cat={cat} idx={idx} />
+        <div className="grid border-y border-border lg:grid-cols-3">
+          {operatingStrengths.map((strength) => (
+            <article
+              key={strength.title}
+              className="border-b border-border py-7 last:border-b-0 lg:border-b-0 lg:border-r lg:px-7 lg:first:pl-0 lg:last:border-r-0"
+            >
+              <h3 className="font-medium">{strength.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {strength.description}
+              </p>
+            </article>
           ))}
         </div>
 
-        <div className="sr-only">
-          <h3>Skills List</h3>
-          <ul>
-            {skillCategories.map((cat) => (
-              <li key={cat.id}>
-                <h4>{cat.title}</h4>
-                <ul>
-                  {cat.skills.map((skill) => (
-                    <li key={skill}>{skill}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-14">
+          {skillCategories.map((category) => (
+            <div
+              key={category.id}
+              className="grid gap-3 border-b border-border py-6 sm:grid-cols-[13rem_1fr]"
+            >
+              <div>
+                <h3 className="font-medium">{category.title}</h3>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  {category.tagline}
+                </p>
+              </div>
+              <p className="text-sm leading-7 text-foreground/85">
+                {category.skills.join(" · ")}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

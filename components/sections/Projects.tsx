@@ -1,50 +1,27 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import {
-  ExternalLink,
-  Github,
-  TrendingUp,
-  Calendar,
-  ArrowRight,
-} from "lucide-react";
-import ProjectsCarousel from "@/components/projects-carousel";
-import Image from "next/image";
+import { ExternalLink, Github } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const projects = [
   {
     title: "AiJockey — AI DJ Pipeline",
     description:
-      "End-to-end AI DJ rendering pipeline on ROCm/MI300X: stem separation → musical analysis → LLM Director → 25+ DSP transitions → mastering, with closed-loop preference tuning over Audiobox critics.",
-    image:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80",
+      "An AI-assisted DJ rendering system that separates stems, analyzes musical structure, plans transitions, applies DSP, and masters the final mix. The GPU workload runs on ROCm and MI300X hardware.",
     date: "2025 – Present",
     achievements: [
-      "Built multi-stage AI DJ pipeline: ingest → stem-sep (Demucs + Mel-Band Roformer) → BPM/key/phrase analysis → LLM Director plan → segment picker → transition execute → multi-band mastering, end-to-end in a single FastAPI service.",
+      "Combined ingestion, stem separation, BPM/key/phrase analysis, transition planning, rendering, and mastering in one FastAPI service.",
       "Implemented 25+ DSP transition modules: sidechain ducking, frequency-masked EQ swaps, echo-throw, beat juggle, spectral hold, reverse reverb, riser synth, MS multiband widen, bass-mono fold, LUFS-arc, BPM grid snap, glitch repair, de-esser, double-drop, EDM smile EQ.",
-      "Wrote fx_orchestrator with mutex effect groups + per-set FX budget (35%) — fixes too-many-effects-per-junction without killing variety; mutex groups model perceptual conflicts.",
+      "Added mutually exclusive effect groups and a 35% per-set effect budget after listening tests showed that unrestricted combinations made transitions worse.",
       "Phrase-aware crossfade scheduling with vocal-phrase boundary snapping + section-pair validator (intro→verse, drop→breakdown legality); 3-tier vocal_guard (SHREDDERS/HEAVY/ARTIFACT_PRONE) gating stem isolation per source-clip artifact risk.",
       "Adaptive LUFS targeting + tape saturation mastering chain; Matchering reference-match alt-path; DeepAFx-ST learned mastering wrapper.",
       "Trained MERT-reward head: MERT-95M embeddings → 4-axis regressor predicting Audiobox aesthetics (PQ/PC/CE/CU); grid-sweep renders n=32, final MSE 0.127. Used as picker-time reward without running Audiobox inference every render.",
       "Fine-tuned VampNet coarse model on user clips (2 epochs); debugged token-vs-latent input shape, vocab×T×n_pred interleaving bug, weights_only=False Lightning ckpt patch, removed deprecated return_signal kwarg.",
-      "Built DPO/KTO/IPO/DPO-P trainer variants for VampNet preference tuning; DPO converged loss 0.68 → 0.47 on 4 Audiobox-PQ-labeled preference pairs.",
+      "Implemented DPO, KTO, IPO, and DPO-P training paths for VampNet. In a small four-pair experiment, DPO loss moved from 0.68 to 0.47.",
       "Generated 145 VampNet bridges (Apache + CC-clean) as synthetic library expansion; vampnet_register.py promotes bridges to first-class clips with proper manifest schema (BPM/key/phrase re-run on synthetic audio).",
       "Wired CLAP-rerank + MERT-rerank + Audiobox-aesthetic critics into picker scoring — multi-critic ensemble with per-critic-error fallback.",
       "Reference-free audio quality eval stack: Audiobox Aesthetics, MuQ-Eval, AudioMOS DORA-MOS, CLAP coherence. PQ ceiling 7.61 (mashup mode); variant deltas tracked via composite (PQ+CE)/2.",
       "Closed-loop refinement: render N variants → score with Audiobox → feed best/worst as DPO preference pairs into Director LLM; plan_stats.jsonl collects KTO-compatible thumbs-up/down for future training; per-segment Audiobox slice prescore at cache-build so picker scores 30s windows pre-render.",
       "Ran GPU stack on DigitalOcean MI300X (192 GB HBM3) ROCm container — non-CUDA path, ported torch/Demucs/VampNet/MERT/Audiobox to ROCm builds; restore-from-checkpoint runbook (cache + sidecars + ckpts = 80 MB → re-spin ~30 min).",
-      "FastAPI backend + Gradio UI on HF Space, ngrok reserved-domain tunnel, sign-in + 1-render/user/day rate limit, SSE streaming progress ticker.",
+      "Exposed rendering through FastAPI and a Gradio interface, with sign-in, daily rate limits, and server-sent progress updates.",
       "Multi-stage caching: per-clip JSON sidecar (BPM/key/phrase), NPZ stem features, Audiobox slice JSON, MERT prediction JSON, stem-level Audiobox prescore — 186 clips × 5 sidecars = O(1) re-picker without re-analysis.",
       "Auto-recovery: yt-dlp re-pull on missing source audio, tar checkpoint + RESTORE.md so a destroyed droplet costs 30 min not a day.",
       "Diagnosed a class of PSNR-up-but-sounds-worse bugs — Audiobox PQ ≠ DJ-ear quality; designed mutex-budget orchestrator after measuring v5 PQ 7.60 felt messier than v4 PQ 7.51.",
@@ -71,23 +48,21 @@ const projects = [
   {
     title: "PrismSplit",
     description:
-      "React Native / Expo bill-splitting app on Supabase + Tamagui — feature-sliced Zustand stores, Postgres RPC ledger, real-time activity, AI receipt scan.",
-    image:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+      "A React Native bill-splitting application with a Postgres ledger, real-time activity, offline-aware state, settlement calculation, and receipt scanning.",
     date: "2025 – Present",
     achievements: [
       "Architected feature-sliced Zustand state (billsStore/activityStore/networkStore/uiStore/alertStore) split into actions/selectors for testability; normalized billsById index killing O(n) lookups on detail screens.",
-      "Built idempotency-key + MMKV persistence layer as foundation for offline writes and conflict resolution; real-time Supabase channel subscriptions with lifecycle-aware cleanup.",
-      "Wrote Postgres RPC functions (Supabase migrations) for atomic bill creation, settlement, and group-balance compute — multi-table writes stay transactional.",
+      "Added idempotency keys, MMKV persistence, and lifecycle-aware Supabase subscriptions as the basis for offline writes and real-time updates.",
+      "Moved bill creation, settlement, and group-balance calculations into Postgres functions so related writes remain transactional.",
       "Renamed Group → Space across schema, RPCs, store, and UI via versioned migrations with zero data loss.",
-      "Implemented direct-ledger clustering algorithm minimizing settlement transactions between users (graph reduction over debt edges); integer-cent money/currency module eliminating float drift in splits.",
+      "Implemented debt-edge reduction to lower the number of settlement transactions and stored money as integer cents to avoid floating-point drift.",
       "Unified reportError reporting system replacing scattered console.error — severity-tagged, routed to logging sink, wired through every catch; screen-level React ErrorBoundary surfacing recovery UI.",
       "Added Android release-build preflight (npm run preflight) + Maestro E2E flows catching ProGuard/native/env regressions Jest can't; authored explicit ProGuard keep rules for Google Sign-In, Firebase, and other native SDKs after diagnosing release-only silent failures.",
       "Perf: memoization audits, Tamagui style hoisting, dead-code removal, batched activity subs, selective balance invalidation on bill mutation, deferred non-critical fetches, Android build-flag tuning, spring → 250ms cubic easing for low-end Android frame-time wins.",
       "Designed 4-font typography system (Sora/Space Grotesk/Outfit/SpaceMono) enforced via Title/Body/Label/Numeric wrappers; useThemeColors() hook with light/dark token sets (lavender primary, peach secondary).",
       "Built LedgerItemRow — focus-driven expand/collapse row replacing modal-based item editing; auto-advance Enter, validate-on-blur, integer-only qty.",
       "Receipt-scan pipeline UI (scan → processing → review → create) with draft persistence surviving app kill; reusable primitives: ModernAlert, ConfirmDialog, EmptyState, Avatar, Skeleton, ListItem, SplitModeSelector.",
-      "Lifted test coverage from near-zero to enforced thresholds: unit tests across stores/services/actions/helpers/UI; interaction tests for LedgerItemRow (focus, expand, validation); full action-suite tests for billsStore (create, update, delete, item toggle); shared render helpers + store mocks + fixture factories.",
+      "Raised test coverage from near zero to enforced thresholds across stores, services, actions, helpers, and UI interactions.",
       "Product: AI receipt scanning with reviewable OCR drafts; deep-linked friend-add flow with auto profile fetch from invite code; Privacy/ToS/OSS-Licenses screens; lightweight i18n helpers (interpolation + pluralization) without a full runtime.",
       "DX: EAS configured with .easignore slimming build uploads; UI strings extracted to constants module; centralized URL config; long-press dev-only /experiment route for pre-port UI prototyping.",
     ],
@@ -111,9 +86,7 @@ const projects = [
   {
     title: "SRP Electric MCP Server",
     description:
-      "TypeScript MCP server exposing a legacy utility portal to LLM agents — reverse-engineered authentication, structured JSON tools for energy data reasoning.",
-    image:
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80",
+      "A TypeScript MCP server that converts data from a legacy utility portal into validated tools for energy-use queries.",
     date: "Dec 2025 – Jan 2026",
     achievements: [
       "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
@@ -129,9 +102,7 @@ const projects = [
   {
     title: "MCP-Based GitHub PR Review Automation Agent",
     description:
-      "MCP workflow automation service integrating GitHub webhooks, LLM reasoning, and pull-request analysis pipelines across GitHub Actions + Asana.",
-    image:
-      "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&q=80",
+      "A pull-request review service that combines GitHub webhooks, repository context, CI results, and Asana ticket data.",
     date: "Jul 2025 – Aug 2025",
     achievements: [
       "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
@@ -147,9 +118,7 @@ const projects = [
   {
     title: "No-Code Pipeline Builder",
     description:
-      "React 18 + ReactFlow 11 visual DAG editor with typed nodes, Zustand-backed undo/redo, debounced localStorage autosave, and FastAPI DAG-validation backend.",
-    image:
-      "https://images.unsplash.com/photo-1518932945647-7a1c969f8be2?w=800&q=80",
+      "A visual DAG editor built with ReactFlow. It supports typed nodes, undo and redo, local persistence, keyboard shortcuts, and server-side graph validation.",
     date: "2025",
     achievements: [
       "Built no-code pipeline builder on React 18 + ReactFlow 11 modeling a DAG of typed nodes (input, output, LLM, text + 5 demo nodes) with smoothstep edges and animated markers.",
@@ -184,27 +153,25 @@ const projects = [
   {
     title: "Clash Royale Clan Analytics Platform",
     description:
-      "Serverless analytics platform on Cloudflare Workers + D1 with Next.js 16 / React 19 frontend on Vercel; scheduled ETL, D3 viz gallery, TanStack Query, WCAG-compliant UI.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "A clan analytics application with scheduled data collection, a Cloudflare D1 warehouse, a Next.js interface, and interactive D3 visualizations.",
     date: "2025",
     achievements: [
-      "Built serverless analytics platform on Cloudflare Workers + D1 (SQLite) with Drizzle ORM, fronted by Next.js 16 / React 19 App Router on Vercel.",
+      "Built the application with Cloudflare Workers and D1 behind a Next.js interface, using Drizzle for the database layer.",
       "Designed multi-route Worker (admin, analytics, data, invites, notes, settings) with custom router/middleware layer and typed request handlers.",
-      "Scheduled cron pipeline (worker/src/cron.ts) polling upstream Clash Royale API, deduping battles, incrementally hydrating warehouse.",
+      "Added a scheduled worker that polls the Clash Royale API, deduplicates battles, and incrementally updates the warehouse.",
       "ETL pipeline (worker/src/etl/) split into aggregate / extract / load / processor / transform stages with Vitest unit coverage; backfill jobs (backfill.ts, agg-backfill.ts, backfill_facts.ts) reprocess historical data without blocking live cron, plus /api/admin/fix/backfill-enrichment admin endpoint.",
       "Worked around D1 100-parameter SQL limit by chunking IN (...) lists to 99 ids/statement, killing too-many-SQL-variables failures at scale.",
       "Fixed per-week fame misattribution by switching week-bucketing key from broken upstream battle.seasonId to playerWarStats.timestamp.",
       "Enriched deck/card transformer with evoCount, avgCardLevel, maxLevel, iconUrlEvolution, gameModeDetail; extended Drizzle schema and shipped migration.",
       "Fixed upstream-API edge case where duel rounds resolved 2-1 produced incorrect winner attribution.",
       "Designed REST endpoints for clan/member analytics, war logs, weekly trends, invites, player profile aggregations (handlePlayerAnalytics, getInsightsClanData, getInsightsHistory, getMemberBattleStats); weekStart query param serves per-week fame slices on demand; weeklyTrends payload powers 10-week sparklines.",
-      "D3 v7 viz gallery: bump chart (rank ribbons across war weeks), sunburst (hierarchical fame by role/player), ridgeline plot, force-directed bubble with quadrant clustering + in-bounds clamping, chord diagram, radial fame distribution.",
+      "Built D3 views for rank changes, role and player contribution, distributions, relationships, and multi-week performance.",
       "Reusable D3 theme utility (shared scales, color tokens, typography, responsive margins) used across every chart; ResizeObserver + viewport-scaled font sizes + dynamic SVG margins for clean mobile→desktop reflow.",
       "Cross-filtering between charts (FameDistribution, InsightsQuadrant, BattleModePanel, MomentumGrid) sharing single InsightsFilterContext with Escape-key reset.",
       "What-If simulator + projected-finish banner with guarded division-by-zero math and dropdown overflow fixes for clipped Radix dialogs.",
       "PlayerProfileModal: Combat DNA radar, deck history, evo insights, percentile bars, recommendations — replaced legacy radar modal; PlayerDetailPanel as responsive bottom-sheet (mobile) / side-pushed sidebar (tablet+) with skeleton states matching final grid breakpoints.",
       "Perf: TanStack Query for server-state caching/deduping/background refetch; tabular-nums on stat numerics; replaced blanket transition-all with property-scoped transition-colors across 23 elements to cut paint cost; responsive Recharts/D3 heights eliminating CLS on small viewports.",
-      "A11y: skip-nav link, <main> landmark, self-hosted fonts, prefers-reduced-motion, viewport-fit=cover for iOS safe areas; focus traps in modals, keyboard focus rings on tooltips, 44×44px min touch targets (WCAG 2.5.5).",
+      "Added skip navigation, landmarks, reduced-motion support, modal focus traps, keyboard-visible tooltips, and 44-pixel touch targets.",
       "Wired aria-expanded / aria-controls with persistent DOM nodes, roles on chart SVGs, descriptive aria-labels on delta/filter buttons; suppressed Recharts' inner accessibility tree to avoid duplicate announcements; fixed MemberTable contrast, swapped indigo/purple decorative colors for brand tokens, corrected backdrop-filter fallbacks via @supports.",
       "Vitest suites for ETL transform/processor and Worker middleware; PowerShell + Node scripts (db:sync-local, db:sync-manual) pulling production D1 snapshots into local dev; local runners (local-agg-runner.ts, local-process-runner.ts) executing aggregation/processing outside Worker runtime for faster iteration.",
     ],
@@ -228,9 +195,7 @@ const projects = [
   {
     title: "Image Recognition as a Service",
     description:
-      "Elastic cloud infrastructure SaaS for image recognition using deep learning models.",
-    image:
-      "https://nordicapis.com/wp-content/uploads/7-Best-Image-Recognition-APIs-e1587080882739.jpg",
+      "An AWS image-recognition service that adds and removes workers in response to queue depth.",
     date: "Jan 2024 – Feb 2024",
     achievements: [
       "Developed an elastic cloud infrastructure SaaS using AWS EC2, AWS SQS, and Lambda.",
@@ -244,9 +209,7 @@ const projects = [
   {
     title: "Soccer Game Result Prediction",
     description:
-      "Enhanced soccer game result prediction accuracy using advanced ML techniques.",
-    image:
-      "https://localsportsjournal.com/wp-content/uploads/2022/05/soccer-logo-general-scaled.jpg",
+      "A match-result model combining historical results, betting data, and sentiment features.",
     date: "Oct 2023 – Dec 2023",
     achievements: [
       "Increased prediction accuracy by 12% using LSTM, RNN, and Random Forest with XGBoost.",
@@ -260,9 +223,7 @@ const projects = [
   {
     title: "FitLife Health Tracking App",
     description:
-      "Android app for tracking heart/breath rates and personalized workout routines.",
-    image:
-      "https://thumbs.dreamstime.com/b/illustration-depicting-various-health-fitness-technology-interactions-features-illustration-depicting-various-health-395487611.jpg",
+      "An Android application that estimates heart and breathing rates from camera input and suggests workouts.",
     date: "Oct 2023 – Dec 2023",
     achievements: [
       "Programmed an Android app measuring heart and breath rates.",
@@ -276,8 +237,7 @@ const projects = [
   {
     title: "Reverse-Mode Automatic Differentiation",
     description:
-      "Implemented reverse-mode auto-differentiation for training neural networks.",
-    image: "https://i.ytimg.com/vi/1dqoFhl3zQQ/sddefault.jpg",
+      "A small automatic-differentiation engine with gradient graph operators and CUDA kernels.",
     date: "Feb 2024 – Mar 2024",
     achievements: [
       "Developed operators like Add and Matrix Multiplication for gradient node construction.",
@@ -291,9 +251,7 @@ const projects = [
   {
     title: "E-Commerce Platform",
     description:
-      "Full-featured online shopping platform with auth, product catalog, Stripe payments, React frontend, and Django REST backend on PostgreSQL + Redis.",
-    image:
-      "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+      "A React and Django storefront with authentication, product data, Stripe payments, PostgreSQL, and Redis caching.",
     date: "Sept 2024 – Dec 2024",
     achievements: [
       "Built a full-featured online shopping platform with user authentication, product catalog, and payment processing",
@@ -318,9 +276,7 @@ const projects = [
   {
     title: "Task Management System",
     description:
-      "Collaborative project management tool with task assignment, progress tracking, and deadline notifications — Flask REST API, SQLAlchemy ORM, JWT auth, React UI.",
-    image:
-      "https://terotam.com/wp-content/uploads/2022/07/Task-Management-software.png",
+      "A task-management application with assignments, progress tracking, notifications, a Flask API, and a React interface.",
     date: "Feb 2024 – May 2024",
     achievements: [
       "Created a collaborative project management tool with task assignment, progress tracking, and deadline notifications",
@@ -335,9 +291,7 @@ const projects = [
   {
     title: "Real-Time Chat Application",
     description:
-      "Scalable chat platform with private/group messaging — Django Channels WebSockets, Redis message queue, geolocation features, Plotly user-location viz.",
-    image:
-      "https://files.ably.io/ghost/prod/2023/01/build-a-realtime-chat-app-from-scratch--1-.png",
+      "A Django Channels chat application with private and group messaging, Redis, geolocation, and Plotly visualizations.",
     date: "July 2024 – October 2024",
     achievements: [
       "Developed a scalable chat platform with private messaging and group chat functionality",
@@ -359,243 +313,291 @@ const projects = [
   },
 ];
 
-export default function Projects() {
-  const [activeProject, setActiveProject] = useState<number | null>(null);
-  const open = activeProject !== null ? projects[activeProject] : null;
+const evidenceIndexes: Record<number, number[]> = {
+  0: [0, 2, 7, 12],
+  1: [1, 2, 4, 11],
+  5: [0, 2, 9, 15],
+};
 
-  useEffect(() => {
-    if (activeProject === null) return;
-    const scrollY = window.scrollY;
-    const html = document.documentElement;
-    const body = document.body;
-    const prevHtmlOverflow = html.style.overflow;
-    const prevBodyOverflow = body.style.overflow;
-    const prevBodyPosition = body.style.position;
-    const prevBodyTop = body.style.top;
-    const prevBodyWidth = body.style.width;
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.width = "100%";
-    return () => {
-      html.style.overflow = prevHtmlOverflow;
-      body.style.overflow = prevBodyOverflow;
-      body.style.position = prevBodyPosition;
-      body.style.top = prevBodyTop;
-      body.style.width = prevBodyWidth;
-      window.scrollTo(0, scrollY);
-    };
-  }, [activeProject]);
+function ProjectVisual({ type }: { type: "audio" | "mobile" | "analytics" }) {
+  if (type === "mobile") {
+    return (
+      <div className="flex min-h-[22rem] items-center justify-center bg-card p-8">
+        <div className="w-48 border border-border bg-background p-4 shadow-2xl">
+          <p className="text-xs text-muted-foreground">Apartment</p>
+          <p className="mt-2 font-display text-2xl font-semibold">$1,284.50</p>
+          <div className="mt-6 space-y-3">
+            {[
+              ["Groceries", "$86.42"],
+              ["Utilities", "$143.10"],
+              ["Dinner", "$72.00"],
+            ].map(([name, amount]) => (
+              <div key={name} className="flex justify-between border-t border-border pt-3 text-xs">
+                <span>{name}</span>
+                <span className="text-muted-foreground">{amount}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 bg-primary px-3 py-2 text-center text-xs text-primary-foreground">
+            Add expense
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "analytics") {
+    const values = [32, 58, 44, 76, 62, 88, 72, 96];
+    return (
+      <div className="min-h-[22rem] bg-card p-7">
+        <div className="flex items-baseline justify-between border-b border-border pb-5">
+          <div>
+            <p className="text-xs text-muted-foreground">Weekly clan performance</p>
+            <p className="mt-2 font-display text-3xl font-semibold">48,620</p>
+          </div>
+          <p className="text-xs text-primary">+12.4%</p>
+        </div>
+        <div className="mt-8 flex h-40 items-end gap-3">
+          {values.map((value, index) => (
+            <div key={index} className="flex h-full flex-1 items-end">
+              <div
+                className="w-full border-t border-primary bg-primary/15"
+                style={{ height: `${value}%` }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 flex justify-between font-tech text-[10px] text-muted-foreground">
+          <span>W01</span>
+          <span>W08</span>
+        </div>
+      </div>
+    );
+  }
+
+  const steps = ["Sources", "Stem separation", "Analysis", "LLM director", "DSP + master"];
+  return (
+    <div className="flex min-h-[22rem] items-center bg-card p-7">
+      <div className="w-full">
+        <p className="mb-6 text-xs text-muted-foreground">Simplified render path</p>
+        {steps.map((step, index) => (
+          <div key={step} className="grid grid-cols-[2rem_1fr] items-center gap-4">
+            <div className="font-tech text-xs text-primary">
+              {String(index + 1).padStart(2, "0")}
+            </div>
+            <div className="border-t border-border py-4 text-sm">{step}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProjectLinks({
+  demoUrl,
+  githubUrl,
+}: {
+  demoUrl: string;
+  githubUrl: string;
+}) {
+  if (!demoUrl && !githubUrl) return null;
+  return (
+    <div className="mt-6 flex gap-5">
+      {githubUrl && (
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm underline decoration-border underline-offset-4 hover:decoration-primary"
+        >
+          <Github className="h-4 w-4" /> Source
+        </a>
+      )}
+      {demoUrl && (
+        <a
+          href={demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm underline decoration-border underline-offset-4 hover:decoration-primary"
+        >
+          <ExternalLink className="h-4 w-4" /> Demo
+        </a>
+      )}
+    </div>
+  );
+}
+
+export default function Projects() {
+  const featured = [
+    { index: 0, visual: "audio" as const },
+    { index: 1, visual: "mobile" as const },
+    { index: 5, visual: "analytics" as const },
+  ];
+  const systems = [2, 3, 4];
+  const used = new Set([...featured.map(({ index }) => index), ...systems]);
+  const archive = projects.map((_, index) => index).filter((index) => !used.has(index));
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading eyebrow="03 // Work" title="Projects" />
+    <section id="projects" className="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-end">
+          <SectionHeading eyebrow="Projects" title="Selected systems" className="mb-0" />
+          <p className="leading-relaxed text-muted-foreground">
+            Three detailed examples are shown first. The diagrams are simplified
+            system views, not product screenshots. Complete implementation notes
+            remain available under each project.
+          </p>
+        </div>
 
-        <ProjectsCarousel totalCards={projects.length}>
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-colors duration-200 border border-border bg-card relative h-[430px] flex flex-col group rounded-none hover:border-primary/50 cursor-pointer"
-              onClick={() => setActiveProject(index)}
-            >
-
-              <div className="relative z-10 flex flex-col h-full min-h-0">
-                {/* Image Container - Technical Aspect */}
-                <div className="h-[140px] bg-muted overflow-hidden relative border-b border-border shrink-0">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 400px"
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgIBAwQDAAAAAAAAAAAAAQIDBAAFERIGITFBE1Fx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAZEQACAwEAAAAAAAAAAAAAAAABAgADERIh/9oADAMBAAIRAxEAPwDK9B1a3p1Wes1CrHYhmPJZEJABHogEewe2FW6rkltWpbEsMSSyuXdlQAFieScYxlWO1Jv7n//Z"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <div className="bg-background/90 border border-border px-2 py-1 font-tech text-xs tracking-wider uppercase flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {project.date}
+        <div className="mt-16 space-y-24">
+          {featured.map(({ index, visual }, position) => {
+            const project = projects[index];
+            const selected = evidenceIndexes[index] ?? [0, 1, 2];
+            return (
+              <article key={project.title} className="border-t border-border pt-8">
+                <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.8fr)]">
+                  <div>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <span className="font-tech text-primary">
+                        {String(position + 1).padStart(2, "0")}
+                      </span>
+                      <span>{project.date}</span>
                     </div>
-                  </div>
-                </div>
-
-                <CardHeader className="pb-2 pt-3">
-                  <div className="flex justify-between items-start gap-2 mb-1.5">
-                    <CardTitle className="text-lg text-foreground font-display font-extrabold uppercase tracking-tight leading-tight line-clamp-2">
+                    <h3 className="mt-5 max-w-3xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
                       {project.title}
-                    </CardTitle>
-                    <TrendingUp className="w-4 h-4 text-primary opacity-70 shrink-0 mt-0.5" />
-                  </div>
-                  <div className="h-px w-full bg-border mb-2" />
-                  <p className="text-muted-foreground leading-relaxed text-sm font-sans line-clamp-4">
-                    {project.description}
-                  </p>
-                </CardHeader>
+                    </h3>
+                    <p className="mt-5 max-w-3xl leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
 
-                <CardContent className="space-y-3 flex-1 min-h-0 flex flex-col pb-4">
-                  <div className="flex flex-wrap gap-1">
-                    {project.technologies.slice(0, 6).map((tech, techIndex) => (
-                      <div
-                        key={techIndex}
-                        className="px-2 py-0.5 bg-muted border border-border text-[10px] font-tech text-foreground uppercase tracking-wider"
-                      >
-                        {tech}
-                      </div>
-                    ))}
-                    {project.technologies.length > 6 && (
-                      <div className="px-2 py-0.5 text-[10px] font-tech text-muted-foreground">
-                        +{project.technologies.length - 6}
-                      </div>
-                    )}
+                    <h4 className="mt-8 text-sm font-medium">Selected implementation evidence</h4>
+                    <ul className="mt-4 max-w-3xl space-y-4">
+                      {selected.map((achievementIndex) => (
+                        <li
+                          key={achievementIndex}
+                          className="grid grid-cols-[0.8rem_1fr] gap-3 text-sm leading-relaxed text-foreground/90"
+                        >
+                          <span className="mt-[0.55rem] h-1 w-1 bg-primary" />
+                          <span>{project.achievements[achievementIndex]}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <details className="mt-7 max-w-3xl border-t border-border pt-5">
+                      <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
+                        Complete engineering notes ({project.achievements.length})
+                      </summary>
+                      <ul className="mt-5 space-y-4">
+                        {project.achievements.map((achievement, achievementIndex) => (
+                          <li
+                            key={achievementIndex}
+                            className="grid grid-cols-[1.5rem_1fr] gap-3 text-sm leading-relaxed text-muted-foreground"
+                          >
+                            <span className="font-tech text-xs text-foreground/40">
+                              {String(achievementIndex + 1).padStart(2, "0")}
+                            </span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+
+                    <p className="mt-7 text-xs leading-relaxed text-muted-foreground">
+                      {project.technologies.join(" · ")}
+                    </p>
+                    <ProjectLinks demoUrl={project.demoUrl} githubUrl={project.githubUrl} />
                   </div>
 
-                  <p className="font-tech text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                    {project.achievements.length} highlights inside
-                  </p>
-
-                  <div className="flex items-center gap-2 pt-2 mt-auto">
-                    <Button
-                      size="sm"
-                      variant="default"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveProject(index);
-                      }}
-                      className="group/btn flex-1"
-                    >
-                      View Details
-                      <ArrowRight className="w-3 h-3 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                    </Button>
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`${project.title} GitHub repository`}
-                        className="w-9 h-9 flex items-center justify-center border border-border hover:border-primary/50 hover:bg-primary/10 transition-colors shrink-0"
-                      >
-                        <Github className="w-4 h-4" />
-                      </a>
-                    )}
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`${project.title} live demo`}
-                        className="w-9 h-9 flex items-center justify-center border border-border hover:border-primary/50 hover:bg-primary/10 transition-colors shrink-0"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
-                </CardContent>
-              </div>
-            </Card>
-          ))}
-        </ProjectsCarousel>
-      </div>
-
-      <Dialog open={activeProject !== null} onOpenChange={(o) => !o && setActiveProject(null)}>
-        <DialogContent
-          onWheel={(e) => e.stopPropagation()}
-          className="!grid-cols-1 block max-w-3xl max-h-[85vh] overflow-y-auto rounded-none border-border bg-card p-0 gap-0 overscroll-contain"
-          style={{ WebkitOverflowScrolling: "touch" }}
-        >
-          {open && (
-            <>
-              <div className="relative aspect-[21/9] bg-muted overflow-hidden border-b border-border">
-                <Image
-                  src={open.image}
-                  alt={open.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 768px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                <div className="absolute bottom-4 left-6 right-6">
-                  <div className="inline-flex items-center gap-2 px-2 py-1 bg-background/90 border border-border font-tech text-[10px] tracking-wider uppercase mb-2">
-                    <Calendar className="w-3 h-3" />
-                    {open.date}
-                  </div>
+                  <figure className="order-first lg:order-none">
+                    <ProjectVisual type={visual} />
+                    <figcaption className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                      Simplified system view based on the implementation described here.
+                    </figcaption>
+                  </figure>
                 </div>
-              </div>
-              <DialogHeader className="px-6 pt-4 pb-2">
-                <DialogTitle className="text-2xl font-heading uppercase tracking-wide">
-                  {open.title}
-                </DialogTitle>
-                {open.description && (
-                  <DialogDescription className="text-sm font-sans leading-relaxed">
-                    {open.description}
-                  </DialogDescription>
-                )}
-              </DialogHeader>
-              <div className="px-6 pb-6 space-y-5">
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">
-                    Highlights
-                  </h4>
-                  <ul className="space-y-2">
-                    {open.achievements.map((achievement, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.25, delay: i * 0.03 }}
-                        className="flex items-start gap-2"
-                      >
-                        <span className="text-primary mt-1.5 w-1 h-1 rounded-full bg-primary shrink-0" />
-                        <span className="text-xs text-foreground font-mono leading-relaxed">
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="mt-24 border-t border-border pt-10">
+          <h3 className="font-display text-2xl font-semibold tracking-tight">
+            Agents and developer tools
+          </h3>
+          <div className="mt-8 border-t border-border">
+            {systems.map((index) => {
+              const project = projects[index];
+              return (
+                <details key={project.title} className="border-b border-border py-6">
+                  <summary className="grid cursor-pointer gap-3 sm:grid-cols-[10rem_1fr_auto] sm:items-baseline">
+                    <span className="text-sm text-muted-foreground">{project.date}</span>
+                    <span className="font-medium">{project.title}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {project.achievements.length} notes
+                    </span>
+                  </summary>
+                  <div className="max-w-4xl pb-3 pt-6 sm:ml-40">
+                    <p className="leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                    <ul className="mt-6 space-y-4">
+                      {project.achievements.map((achievement, achievementIndex) => (
+                        <li
+                          key={achievementIndex}
+                          className="text-sm leading-relaxed text-foreground/85"
+                        >
                           {achievement}
-                        </span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">
-                    Tech Stack
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {open.technologies.map((tech, i) => (
-                      <div
-                        key={i}
-                        className="px-2 py-1 bg-muted border border-border text-[10px] font-tech text-foreground uppercase tracking-wider"
-                      >
-                        {tech}
-                      </div>
-                    ))}
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-6 text-xs text-muted-foreground">
+                      {project.technologies.join(" · ")}
+                    </p>
+                    <ProjectLinks demoUrl={project.demoUrl} githubUrl={project.githubUrl} />
                   </div>
-                </div>
-                {(open.demoUrl || open.githubUrl) && (
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {open.demoUrl && (
-                      <Button size="sm" asChild>
-                        <a href={open.demoUrl} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-3 h-3 mr-2" />
-                          Live Demo
-                        </a>
-                      </Button>
-                    )}
-                    {open.githubUrl && (
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={open.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Github className="w-3 h-3 mr-2" />
-                          Source
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+                </details>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-20 border-t border-border pt-10">
+          <h3 className="font-display text-2xl font-semibold tracking-tight">
+            Earlier projects
+          </h3>
+          <div className="mt-8 overflow-x-auto">
+            <table className="w-full min-w-[44rem] border-collapse text-left text-sm">
+              <thead className="text-muted-foreground">
+                <tr className="border-b border-border">
+                  <th className="py-3 pr-6 font-normal">Dates</th>
+                  <th className="py-3 pr-6 font-normal">Project</th>
+                  <th className="py-3 pr-6 font-normal">Summary</th>
+                  <th className="py-3 font-normal">Stack</th>
+                </tr>
+              </thead>
+              <tbody>
+                {archive.map((index) => {
+                  const project = projects[index];
+                  return (
+                    <tr key={project.title} className="border-b border-border align-top">
+                      <td className="whitespace-nowrap py-5 pr-6 text-muted-foreground">
+                        {project.date}
+                      </td>
+                      <td className="py-5 pr-6 font-medium">{project.title}</td>
+                      <td className="max-w-md py-5 pr-6 leading-relaxed text-muted-foreground">
+                        {project.description}
+                      </td>
+                      <td className="max-w-xs py-5 text-xs leading-relaxed text-muted-foreground">
+                        {project.technologies.join(" · ")}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

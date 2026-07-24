@@ -1,12 +1,9 @@
 "use client";
 
-import { useState, useEffect, lazy, Suspense } from "react";
-import { motion } from "framer-motion";
-import Script from "next/script";
+import { useState, useEffect } from "react";
 import Header from "@/components/layout/Header";
 import Hero from "@/components/sections/Hero";
 import Footer from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
@@ -27,11 +24,6 @@ const Skills = dynamic(() => import("@/components/sections/Skills"), {
 });
 const Contact = dynamic(() => import("@/components/sections/Contact"), {
   loading: () => <div className="min-h-screen" />,
-});
-
-// Lazy load SmoothScroll only after initial render
-const SmoothScroll = dynamic(() => import("@/components/smooth-scroll"), {
-  ssr: false,
 });
 
 export default function Home() {
@@ -65,51 +57,19 @@ export default function Home() {
   }, []);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-      <SmoothScroll>
-        {/* Hidden semantic content for AI crawlers */}
-        <div className="sr-only" aria-hidden="true">
-          <h1>Archit Agrawal - Software Engineer and AI/ML Enthusiast</h1>
-          <p>
-            Professional software engineer specializing in artificial
-            intelligence, machine learning, generative AI, full-stack
-            development, and intelligent automation. Master of Science in
-            Computer Science from Arizona State University. Expert in building
-            AI agents, voice bots, and scalable web applications using React,
-            Next.js, Python, TypeScript, and modern cloud technologies.
-          </p>
-          <p>
-            Keywords: Archit Agrawal, Software Engineer, AI Engineer, ML
-            Engineer, Generative AI, Full-Stack Developer, React, Next.js,
-            Python, TypeScript, AI Agents, Voice Bots, Automation, Arizona State
-            University, IIT Mandi, LLM Applications, Machine Learning, Deep
-            Learning, Node.js, Cloud Computing
-          </p>
-        </div>
-
-        <div className="min-h-screen bg-background text-foreground">
-          <Header activeSection={activeSection} />
-          <main className="relative bg-grid-pattern" role="main" aria-label="Main content">
-            <Hero />
-            <div className="relative">
-              <About />
-              <Experience />
-              <Projects />
-              <Skills />
-              <Contact />
-              <Analytics />
-              <SpeedInsights />
-            </div>
-          </main>
-          <Footer />
-        </div>
-
-        {/* External Script */}
-        {/* <Script
-          src="https://www.noupe.com/embed/019936c521a870d98ce210cbb3ccea9a5879.js"
-          strategy="afterInteractive"
-        /> */}
-      </SmoothScroll>
-    </ThemeProvider>
+    <div className="min-h-screen bg-background text-foreground">
+      <Header activeSection={activeSection} />
+      <main role="main">
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
+        <Analytics />
+        <SpeedInsights />
+      </main>
+      <Footer />
+    </div>
   );
 }
