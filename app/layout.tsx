@@ -2,12 +2,11 @@ import "./globals.css";
 import "./skills-animation.css";
 import "./lenis.css";
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk, Cinzel, Syne } from "next/font/google";
+import { Outfit, Space_Grotesk, Cinzel, Syne, Caveat } from "next/font/google";
 import Script from "next/script";
 import {
   personSchema,
   websiteSchema,
-  professionalServiceSchema,
 } from "./metadata";
 
 const outfit = Outfit({
@@ -37,41 +36,48 @@ const syne = Syne({
   weight: ["600", "700", "800"],
 });
 
+const caveat = Caveat({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-caveat",
+  weight: ["600"],
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://agrawal-archit.vercel.app"),
   title: {
-    default:
-      "Archit Agrawal - Software Engineer & AI/ML Enthusiast | Full-Stack Developer",
+    default: "Archit Agrawal | Founding AI Engineer & Software Engineer",
     template: "%s | Archit Agrawal",
   },
   description:
-    "Archit Agrawal is a Software Engineer specializing in AI/ML, Generative AI, Full-Stack Development, and Intelligent Automation. MSCS from Arizona State University. Expert in building AI agents, voice bots, and scalable applications using React, Python, TypeScript, and modern cloud technologies.",
+    "Archit Agrawal is a founding AI/ML engineer at MyStage Music building production agent systems — LangGraph orchestration, retrieval, entity resolution — and full-stack products. MSCS, Arizona State University.",
   keywords: [
     "Archit Agrawal",
-    "Archit Agrawal Software Engineer",
-    "Archit Agrawal AI Engineer",
     "Software Engineer",
     "AI/ML Engineer",
-    "Generative AI",
-    "Full Stack Developer",
-    "Arizona State University",
-    "ASU MSCS",
-    "IIT Mandi",
-    "Machine Learning",
-    "Deep Learning",
+    "AI Engineer",
+    "Machine Learning Engineer",
+    "Full-Stack Engineer",
     "AI Agents",
-    "Voice Bots",
-    "Automation",
-    "React Developer",
-    "Next.js Developer",
-    "Python Developer",
-    "TypeScript",
-    "Node.js",
-    "LLM Applications",
+    "Agentic AI",
+    "Multi-Agent Systems",
+    "Prompt Engineering",
+    "Claude Code",
+    "MCP",
+    "LLM",
+    "Large Language Models",
+    "Generative AI",
+    "LangGraph",
+    "LangChain",
     "RAG Systems",
-    "Artificial Intelligence",
-    "Software Development",
-    "System Design",
-    "Cloud Computing",
+    "Retrieval-Augmented Generation",
+    "Python",
+    "TypeScript",
+    "React",
+    "Next.js",
+    "USA",
+    "Open to Relocation",
+    "Arizona State University",
   ],
   authors: [
     { name: "Archit Agrawal", url: "https://agrawal-archit.vercel.app" },
@@ -79,9 +85,9 @@ export const metadata: Metadata = {
   creator: "Archit Agrawal",
   publisher: "Archit Agrawal",
   openGraph: {
-    title: "Archit Agrawal - Software Engineer & AI/ML Enthusiast",
+    title: "Archit Agrawal | Founding AI Engineer & Software Engineer",
     description:
-      "Software Engineer specializing in AI/ML, Generative AI, Full-Stack Development, and Intelligent Automation. Building cutting-edge AI agents, voice bots, and scalable applications.",
+      "Production agent systems, retrieval infrastructure, and full-stack products. Founding AI/ML engineer at MyStage Music.",
     type: "profile",
     locale: "en_US",
     url: "https://agrawal-archit.vercel.app",
@@ -91,16 +97,15 @@ export const metadata: Metadata = {
         url: "https://agrawal-archit.vercel.app/archit-profile.png",
         width: 1200,
         height: 630,
-        alt: "Archit Agrawal - Software Engineer & AI/ML Enthusiast",
+        alt: "Portrait of Archit Agrawal",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Archit Agrawal - Software Engineer & AI/ML Enthusiast",
+    title: "Archit Agrawal | Founding AI Engineer & Software Engineer",
     description:
-      "Software Engineer specializing in AI/ML, Generative AI, Full-Stack Development, and Intelligent Automation.",
-    creator: "@architagrawal", // Update with your Twitter handle if different
+      "Production agent systems, retrieval infrastructure, and full-stack products. Founding AI/ML engineer at MyStage Music.",
     images: ["https://agrawal-archit.vercel.app/archit-profile.png"],
   },
   robots: {
@@ -156,22 +161,12 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
-        <Script
-          id="professional-service-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(professionalServiceSchema),
-          }}
-        />
-        {/* AI-Friendly Meta Tags */}
         <meta name="author" content="Archit Agrawal" />
-        <meta name="coverage" content="Worldwide" />
-        <meta name="distribution" content="Global" />
-        <meta name="rating" content="General" />
         <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
-      <body className={`${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} ${syne.variable} antialiased font-sans`}>
+      <body className={`${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} ${syne.variable} ${caveat.variable} antialiased font-sans`}>
         <CustomCursor />
+        <div className="film-grain" aria-hidden="true" />
         {children}
       </body>
     </html>

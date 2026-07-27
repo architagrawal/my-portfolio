@@ -19,6 +19,7 @@ const config: Config = {
         display: ["var(--font-syne)", "sans-serif"],
         sanskrit: ["var(--font-outfit)", "sans-serif"],
         tech: ["var(--font-space)", "monospace"],
+        hand: ["var(--font-caveat)", "cursive"],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

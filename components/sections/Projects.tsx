@@ -1,24 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import {
-  ExternalLink,
-  Github,
-  TrendingUp,
-  Calendar,
-  ArrowRight,
-} from "lucide-react";
-import ProjectsCarousel from "@/components/projects-carousel";
+import { motion, useReducedMotion } from "framer-motion";
+import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -26,9 +9,7 @@ const projects = [
   {
     title: "AiJockey — AI DJ Pipeline",
     description:
-      "End-to-end AI DJ rendering pipeline on ROCm/MI300X: stem separation → musical analysis → LLM Director → 25+ DSP transitions → mastering, with closed-loop preference tuning over Audiobox critics.",
-    image:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80",
+      "An AI DJ system that separates stems, analyzes musical structure, plans transitions with an LLM Director, applies DSP, and masters the final mix — closed-loop preference tuning over audio critics, running on ROCm/MI300X.",
     date: "2025 – Present",
     achievements: [
       "Built multi-stage AI DJ pipeline: ingest → stem-sep (Demucs + Mel-Band Roformer) → BPM/key/phrase analysis → LLM Director plan → segment picker → transition execute → multi-band mastering, end-to-end in a single FastAPI service.",
@@ -66,14 +47,11 @@ const projects = [
     ],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "PrismSplit",
     description:
-      "React Native / Expo bill-splitting app on Supabase + Tamagui — feature-sliced Zustand stores, Postgres RPC ledger, real-time activity, AI receipt scan.",
-    image:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+      "Most expenses aren't split 50/50 — you order a steak, they order a salad. PrismSplit splits bills at the item level: scan a receipt, AI extracts every item, and everyone pays exactly what they owe.",
     date: "2025 – Present",
     achievements: [
       "Architected feature-sliced Zustand state (billsStore/activityStore/networkStore/uiStore/alertStore) split into actions/selectors for testability; normalized billsById index killing O(n) lookups on detail screens.",
@@ -106,14 +84,11 @@ const projects = [
     ],
     demoUrl: "",
     githubUrl: "https://github.com/architagrawal/PrismSplit",
-    award: undefined,
   },
   {
     title: "SRP Electric MCP Server",
     description:
       "TypeScript MCP server exposing a legacy utility portal to LLM agents — reverse-engineered authentication, structured JSON tools for energy data reasoning.",
-    image:
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80",
     date: "Dec 2025 – Jan 2026",
     achievements: [
       "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
@@ -124,14 +99,11 @@ const projects = [
     technologies: ["TypeScript", "MCP", "Node.js", "REST APIs"],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "MCP-Based GitHub PR Review Automation Agent",
     description:
       "MCP workflow automation service integrating GitHub webhooks, LLM reasoning, and pull-request analysis pipelines across GitHub Actions + Asana.",
-    image:
-      "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&q=80",
     date: "Jul 2025 – Aug 2025",
     achievements: [
       "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
@@ -142,14 +114,11 @@ const projects = [
     technologies: ["TypeScript", "MCP", "GitHub Actions", "Asana API", "LLM"],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "No-Code Pipeline Builder",
     description:
       "React 18 + ReactFlow 11 visual DAG editor with typed nodes, Zustand-backed undo/redo, debounced localStorage autosave, and FastAPI DAG-validation backend.",
-    image:
-      "https://images.unsplash.com/photo-1518932945647-7a1c969f8be2?w=800&q=80",
     date: "2025",
     achievements: [
       "Built no-code pipeline builder on React 18 + ReactFlow 11 modeling a DAG of typed nodes (input, output, LLM, text + 5 demo nodes) with smoothstep edges and animated markers.",
@@ -179,14 +148,11 @@ const projects = [
     ],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "Clash Royale Clan Analytics Platform",
     description:
-      "Serverless analytics platform on Cloudflare Workers + D1 with Next.js 16 / React 19 frontend on Vercel; scheduled ETL, D3 viz gallery, TanStack Query, WCAG-compliant UI.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "A serverless clan-analytics platform: scheduled data collection into a Cloudflare D1 warehouse, a Next.js 16 / React 19 frontend, and an interactive cross-filtering D3 visualization gallery.",
     date: "2025",
     achievements: [
       "Built serverless analytics platform on Cloudflare Workers + D1 (SQLite) with Drizzle ORM, fronted by Next.js 16 / React 19 App Router on Vercel.",
@@ -223,14 +189,11 @@ const projects = [
     ],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "Image Recognition as a Service",
     description:
       "Elastic cloud infrastructure SaaS for image recognition using deep learning models.",
-    image:
-      "https://nordicapis.com/wp-content/uploads/7-Best-Image-Recognition-APIs-e1587080882739.jpg",
     date: "Jan 2024 – Feb 2024",
     achievements: [
       "Developed an elastic cloud infrastructure SaaS using AWS EC2, AWS SQS, and Lambda.",
@@ -239,14 +202,11 @@ const projects = [
     technologies: ["AWS EC2", "AWS SQS", "AWS Lambda", "Python"],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "Soccer Game Result Prediction",
     description:
       "Enhanced soccer game result prediction accuracy using advanced ML techniques.",
-    image:
-      "https://localsportsjournal.com/wp-content/uploads/2022/05/soccer-logo-general-scaled.jpg",
     date: "Oct 2023 – Dec 2023",
     achievements: [
       "Increased prediction accuracy by 12% using LSTM, RNN, and Random Forest with XGBoost.",
@@ -255,14 +215,11 @@ const projects = [
     technologies: ["Python", "Deep Learning", "Data Science", "Statistics"],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "FitLife Health Tracking App",
     description:
       "Android app for tracking heart/breath rates and personalized workout routines.",
-    image:
-      "https://thumbs.dreamstime.com/b/illustration-depicting-various-health-fitness-technology-interactions-features-illustration-depicting-various-health-395487611.jpg",
     date: "Oct 2023 – Dec 2023",
     achievements: [
       "Programmed an Android app measuring heart and breath rates.",
@@ -271,13 +228,11 @@ const projects = [
     technologies: ["Android Studio", "Matlab", "Machine Learning"],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "Reverse-Mode Automatic Differentiation",
     description:
       "Implemented reverse-mode auto-differentiation for training neural networks.",
-    image: "https://i.ytimg.com/vi/1dqoFhl3zQQ/sddefault.jpg",
     date: "Feb 2024 – Mar 2024",
     achievements: [
       "Developed operators like Add and Matrix Multiplication for gradient node construction.",
@@ -286,14 +241,11 @@ const projects = [
     technologies: ["Python", "CUDA", "Neural Networks"],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "E-Commerce Platform",
     description:
       "Full-featured online shopping platform with auth, product catalog, Stripe payments, React frontend, and Django REST backend on PostgreSQL + Redis.",
-    image:
-      "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
     date: "Sept 2024 – Dec 2024",
     achievements: [
       "Built a full-featured online shopping platform with user authentication, product catalog, and payment processing",
@@ -313,14 +265,11 @@ const projects = [
     ],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "Task Management System",
     description:
       "Collaborative project management tool with task assignment, progress tracking, and deadline notifications — Flask REST API, SQLAlchemy ORM, JWT auth, React UI.",
-    image:
-      "https://terotam.com/wp-content/uploads/2022/07/Task-Management-software.png",
     date: "Feb 2024 – May 2024",
     achievements: [
       "Created a collaborative project management tool with task assignment, progress tracking, and deadline notifications",
@@ -330,14 +279,11 @@ const projects = [
     technologies: ["React", "Flask", "SQL Alchemy", "JWT", "Docker", "AWS"],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
   {
     title: "Real-Time Chat Application",
     description:
       "Scalable chat platform with private/group messaging — Django Channels WebSockets, Redis message queue, geolocation features, Plotly user-location viz.",
-    image:
-      "https://files.ably.io/ghost/prod/2023/01/build-a-realtime-chat-app-from-scratch--1-.png",
     date: "July 2024 – October 2024",
     achievements: [
       "Developed a scalable chat platform with private messaging and group chat functionality",
@@ -355,247 +301,389 @@ const projects = [
     ],
     demoUrl: "",
     githubUrl: "",
-    award: undefined,
   },
 ];
 
-export default function Projects() {
-  const [activeProject, setActiveProject] = useState<number | null>(null);
-  const open = activeProject !== null ? projects[activeProject] : null;
+/* Curated featured systems shown as full editorial articles */
+interface FeaturedMeta {
+  index: number;
+  visual: "audio" | "appshot" | "analytics";
+  badge?: string;
+  caption: string;
+  highlights: string[];
+}
 
-  useEffect(() => {
-    if (activeProject === null) return;
-    const scrollY = window.scrollY;
-    const html = document.documentElement;
-    const body = document.body;
-    const prevHtmlOverflow = html.style.overflow;
-    const prevBodyOverflow = body.style.overflow;
-    const prevBodyPosition = body.style.position;
-    const prevBodyTop = body.style.top;
-    const prevBodyWidth = body.style.width;
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.width = "100%";
-    return () => {
-      html.style.overflow = prevHtmlOverflow;
-      body.style.overflow = prevBodyOverflow;
-      body.style.position = prevBodyPosition;
-      body.style.top = prevBodyTop;
-      body.style.width = prevBodyWidth;
-      window.scrollTo(0, scrollY);
-    };
-  }, [activeProject]);
+const featuredMeta: FeaturedMeta[] = [
+  {
+    index: 1,
+    visual: "appshot",
+    badge: "Active build",
+    caption: "Actual product UI — in active development",
+    highlights: [
+      "Scan → itemize → split → settle: AI receipt scanning extracts merchant, items, tax, and tip; every item splits by equal, percentage, shares, or exact amounts.",
+      "Postgres RPC ledger keeps bill creation, settlement, and balance math transactional — money lives as integer cents, so splits never drift.",
+      "Debt-edge reduction algorithm minimizes the number of settlement transactions inside a group.",
+      "Offline-aware core: idempotency keys and MMKV persistence underneath real-time Supabase subscriptions.",
+      "Maestro E2E flows and enforced coverage thresholds guard every release build.",
+    ],
+  },
+  {
+    index: 0,
+    visual: "audio",
+    caption: "Illustrative system view, drawn in code — not a product screenshot",
+    highlights: [
+      "Full render path — stem separation, BPM/key/phrase analysis, LLM Director planning, 25+ DSP transitions, multi-band mastering — in one FastAPI service.",
+      "Closed-loop tuning: rendered variants are scored by Audiobox critics and fed back to the Director as DPO preference pairs.",
+      "Trained a MERT reward head that predicts aesthetic scores at pick time, skipping full critic inference per render.",
+      "Runs on a DigitalOcean MI300X (192 GB) ROCm container — the whole torch/Demucs/VampNet stack ported off CUDA.",
+    ],
+  },
+  {
+    index: 5,
+    visual: "analytics",
+    caption: "Illustrative system view, drawn in code — not a product screenshot",
+    highlights: [
+      "Scheduled Workers cron polls the Clash Royale API, dedupes battles, and incrementally hydrates a D1 warehouse.",
+      "D3 gallery — bump chart, sunburst, ridgeline, force-directed bubbles, chord diagram — cross-filtering through one shared context.",
+      "Worked around D1's 100-parameter SQL limit; fixed upstream week-bucketing and duel-winner attribution bugs.",
+      "Accessibility built in: skip-nav, focus traps, reduced-motion support, 44px touch targets.",
+    ],
+  },
+];
+
+const featuredIndexes = featuredMeta.map((f) => f.index);
+const archiveIndexes = projects
+  .map((_, i) => i)
+  .filter((i) => !featuredIndexes.includes(i));
+
+/* --- Bespoke animated visuals (no stock photos) --- */
+
+function AudioPipelineVisual() {
+  const reduce = useReducedMotion();
+  const stages = ["Sources", "Stem separation", "Analysis", "LLM Director", "DSP + master"];
+  const bars = [42, 68, 35, 82, 55, 90, 48, 73, 60, 38, 85, 52];
+
+  return (
+    <div className="h-full flex flex-col justify-between p-6 sm:p-8">
+      <div>
+        <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-5">
+          Render path
+        </p>
+        <div className="relative">
+          <div className="absolute left-[13px] top-2 bottom-2 w-px bg-border" aria-hidden="true" />
+          {!reduce && (
+            <motion.div
+              className="absolute left-[11px] w-[5px] h-[5px] bg-primary shadow-[0_0_8px_hsl(var(--primary))]"
+              animate={{ top: ["3%", "94%"], opacity: [0, 1, 1, 0] }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+              aria-hidden="true"
+            />
+          )}
+          <ol className="space-y-4 relative">
+            {stages.map((stage, i) => (
+              <li key={stage} className="flex items-center gap-4">
+                <span className="w-[27px] h-[27px] shrink-0 flex items-center justify-center border border-border bg-background font-tech text-[10px] text-primary relative z-10">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-sm text-foreground/85">{stage}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+      <div className="flex items-end gap-1.5 h-16 mt-8" aria-hidden="true">
+        {bars.map((h, i) => (
+          <motion.div
+            key={i}
+            className="flex-1 bg-primary/60 origin-bottom"
+            style={{ height: `${h}%` }}
+            animate={reduce ? undefined : { scaleY: [1, 0.4, 0.85, 0.55, 1] }}
+            transition={{
+              duration: 1.8 + (i % 5) * 0.3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.08,
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AppShotVisual() {
+  const reduce = useReducedMotion();
+
+  return (
+    <div className="relative overflow-hidden group/shot aspect-[3/2]">
+      <motion.div
+        className="absolute inset-0"
+        animate={reduce ? undefined : { y: [0, -6, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Image
+          src="/prismsplit-app.jpg"
+          alt="Three PrismSplit screens: itemized grocery split, home dashboard with settle-up balances, and recording a payment"
+          fill
+          sizes="(max-width: 1024px) 100vw, 640px"
+          className="object-cover transition-transform duration-700 group-hover/shot:scale-[1.03]"
+        />
+      </motion.div>
+    </div>
+  );
+}
+
+function AnalyticsVisual() {
+  const reduce = useReducedMotion();
+  const values = [32, 58, 44, 76, 62, 88, 72, 96];
+
+  return (
+    <div className="h-full flex flex-col p-6 sm:p-8">
+      <div className="flex items-baseline justify-between border-b border-border pb-4">
+        <div>
+          <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+            Weekly clan fame
+          </p>
+          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums">
+            48,620
+          </p>
+        </div>
+        <p className="font-tech text-xs text-primary">+12.4%</p>
+      </div>
+      <div className="relative flex-1 min-h-[10rem] mt-6 overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-0 flex items-end gap-2.5">
+          {values.map((v, i) => (
+            <motion.div
+              key={i}
+              className="flex-1 bg-primary/15 border-t border-primary origin-bottom"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              style={{ height: `${v}%` }}
+            />
+          ))}
+        </div>
+        {!reduce && (
+          <motion.div
+            className="absolute top-0 bottom-0 w-px bg-primary/50"
+            animate={{ left: ["0%", "100%"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          />
+        )}
+      </div>
+      <div className="mt-3 flex justify-between font-tech text-[10px] text-muted-foreground">
+        <span>W01</span>
+        <span>W08</span>
+      </div>
+    </div>
+  );
+}
+
+const visualComponents = {
+  audio: AudioPipelineVisual,
+  appshot: AppShotVisual,
+  analytics: AnalyticsVisual,
+};
+
+function ProjectLinks({ demoUrl, githubUrl }: { demoUrl?: string; githubUrl?: string }) {
+  if (!demoUrl && !githubUrl) return null;
+  return (
+    <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+      {githubUrl && (
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-0.5 hover:text-primary hover:border-primary transition-colors"
+        >
+          <Github className="w-4 h-4" /> Source
+        </a>
+      )}
+      {demoUrl && (
+        <a
+          href={demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-0.5 hover:text-primary hover:border-primary transition-colors"
+        >
+          <ExternalLink className="w-4 h-4" /> Live demo
+        </a>
+      )}
+    </div>
+  );
+}
+
+export default function Projects() {
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <SectionHeading eyebrow="03 // Work" title="Projects" />
 
-        <ProjectsCarousel totalCards={projects.length}>
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="flex-shrink-0 w-[85vw] sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden transition-colors duration-200 border border-border bg-card relative h-[430px] flex flex-col group rounded-none hover:border-primary/50 cursor-pointer"
-              onClick={() => setActiveProject(index)}
-            >
+        {/* Featured systems */}
+        <div className="space-y-20 md:space-y-28">
+          {featuredMeta.map((meta, order) => {
+            const project = projects[meta.index];
+            const Visual = visualComponents[meta.visual];
+            const flip = order % 2 === 1;
 
-              <div className="relative z-10 flex flex-col h-full min-h-0">
-                {/* Image Container - Technical Aspect */}
-                <div className="h-[140px] bg-muted overflow-hidden relative border-b border-border shrink-0">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 400px"
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgIBAwQDAAAAAAAAAAAAAQIDBAAFERIGITFBE1Fx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAZEQACAwEAAAAAAAAAAAAAAAABAgADERIh/9oADAMBAAIRAxEAPwDK9B1a3p1Wes1CrHYhmPJZEJABHogEewe2FW6rkltWpbEsMSSyuXdlQAFieScYxlWO1Jv7n//Z"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <div className="bg-background/90 border border-border px-2 py-1 font-tech text-xs tracking-wider uppercase flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
+            return (
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-stretch"
+              >
+                <div className={flip ? "lg:order-2" : undefined}>
+                  <div className="flex flex-wrap items-baseline gap-4 mb-3">
+                    <span className="font-tech text-sm text-primary">
+                      {String(order + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-tech text-xs uppercase tracking-[0.2em] text-muted-foreground">
                       {project.date}
-                    </div>
+                    </span>
+                    {meta.badge && (
+                      <span className="inline-flex items-center gap-2 border border-primary/40 px-2.5 py-1">
+                        <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                          <span className="animate-ping absolute inline-flex h-full w-full bg-primary opacity-60" />
+                          <span className="relative inline-flex h-1.5 w-1.5 bg-primary" />
+                        </span>
+                        <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-primary">
+                          {meta.badge}
+                        </span>
+                      </span>
+                    )}
                   </div>
-                </div>
 
-                <CardHeader className="pb-2 pt-3">
-                  <div className="flex justify-between items-start gap-2 mb-1.5">
-                    <CardTitle className="text-lg text-foreground font-display font-extrabold uppercase tracking-tight leading-tight line-clamp-2">
-                      {project.title}
-                    </CardTitle>
-                    <TrendingUp className="w-4 h-4 text-primary opacity-70 shrink-0 mt-0.5" />
-                  </div>
-                  <div className="h-px w-full bg-border mb-2" />
-                  <p className="text-muted-foreground leading-relaxed text-sm font-sans line-clamp-4">
+                  <h3 className="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight leading-[0.95] text-foreground">
+                    {project.title}
+                  </h3>
+
+                  <p className="mt-4 text-muted-foreground leading-relaxed">
                     {project.description}
                   </p>
-                </CardHeader>
 
-                <CardContent className="space-y-3 flex-1 min-h-0 flex flex-col pb-4">
-                  <div className="flex flex-wrap gap-1">
-                    {project.technologies.slice(0, 6).map((tech, techIndex) => (
-                      <div
-                        key={techIndex}
-                        className="px-2 py-0.5 bg-muted border border-border text-[10px] font-tech text-foreground uppercase tracking-wider"
-                      >
-                        {tech}
-                      </div>
-                    ))}
-                    {project.technologies.length > 6 && (
-                      <div className="px-2 py-0.5 text-[10px] font-tech text-muted-foreground">
-                        +{project.technologies.length - 6}
-                      </div>
-                    )}
-                  </div>
-
-                  <p className="font-tech text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                    {project.achievements.length} highlights inside
-                  </p>
-
-                  <div className="flex items-center gap-2 pt-2 mt-auto">
-                    <Button
-                      size="sm"
-                      variant="default"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveProject(index);
-                      }}
-                      className="group/btn flex-1"
-                    >
-                      View Details
-                      <ArrowRight className="w-3 h-3 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                    </Button>
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`${project.title} GitHub repository`}
-                        className="w-9 h-9 flex items-center justify-center border border-border hover:border-primary/50 hover:bg-primary/10 transition-colors shrink-0"
-                      >
-                        <Github className="w-4 h-4" />
-                      </a>
-                    )}
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`${project.title} live demo`}
-                        className="w-9 h-9 flex items-center justify-center border border-border hover:border-primary/50 hover:bg-primary/10 transition-colors shrink-0"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
-                </CardContent>
-              </div>
-            </Card>
-          ))}
-        </ProjectsCarousel>
-      </div>
-
-      <Dialog open={activeProject !== null} onOpenChange={(o) => !o && setActiveProject(null)}>
-        <DialogContent
-          onWheel={(e) => e.stopPropagation()}
-          className="!grid-cols-1 block max-w-3xl max-h-[85vh] overflow-y-auto rounded-none border-border bg-card p-0 gap-0 overscroll-contain"
-          style={{ WebkitOverflowScrolling: "touch" }}
-        >
-          {open && (
-            <>
-              <div className="relative aspect-[21/9] bg-muted overflow-hidden border-b border-border">
-                <Image
-                  src={open.image}
-                  alt={open.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 768px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                <div className="absolute bottom-4 left-6 right-6">
-                  <div className="inline-flex items-center gap-2 px-2 py-1 bg-background/90 border border-border font-tech text-[10px] tracking-wider uppercase mb-2">
-                    <Calendar className="w-3 h-3" />
-                    {open.date}
-                  </div>
-                </div>
-              </div>
-              <DialogHeader className="px-6 pt-4 pb-2">
-                <DialogTitle className="text-2xl font-heading uppercase tracking-wide">
-                  {open.title}
-                </DialogTitle>
-                {open.description && (
-                  <DialogDescription className="text-sm font-sans leading-relaxed">
-                    {open.description}
-                  </DialogDescription>
-                )}
-              </DialogHeader>
-              <div className="px-6 pb-6 space-y-5">
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">
-                    Highlights
-                  </h4>
-                  <ul className="space-y-2">
-                    {open.achievements.map((achievement, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.25, delay: i * 0.03 }}
-                        className="flex items-start gap-2"
-                      >
-                        <span className="text-primary mt-1.5 w-1 h-1 rounded-full bg-primary shrink-0" />
-                        <span className="text-xs text-foreground font-mono leading-relaxed">
-                          {achievement}
+                  <ul className="mt-6 space-y-3">
+                    {meta.highlights.map((highlight) => (
+                      <li key={highlight} className="flex items-start gap-3">
+                        <span className="mt-2 w-1.5 h-1.5 bg-primary shrink-0" />
+                        <span className="text-sm text-foreground/85 leading-relaxed">
+                          {highlight}
                         </span>
-                      </motion.li>
+                      </li>
                     ))}
                   </ul>
+
+                  <details className="mt-5 group/details">
+                    <summary className="cursor-pointer list-none inline-flex items-center gap-2 font-tech text-xs uppercase tracking-[0.2em] text-primary hover:text-foreground transition-colors">
+                      <span className="group-open/details:hidden">
+                        + {project.achievements.length} implementation notes
+                      </span>
+                      <span className="hidden group-open/details:inline">show less</span>
+                    </summary>
+                    <ul className="mt-4 space-y-2.5">
+                      {project.achievements.map((achievement, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <span className="mt-2 w-1 h-1 bg-primary/50 shrink-0" />
+                          <span className="text-xs text-muted-foreground/90 font-mono leading-relaxed">
+                            {achievement}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+
+                  <p className="mt-6 font-tech text-xs uppercase tracking-wider text-muted-foreground leading-relaxed">
+                    {project.technologies.join(" · ")}
+                  </p>
+
+                  <ProjectLinks demoUrl={project.demoUrl} githubUrl={project.githubUrl} />
                 </div>
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-xs text-muted-foreground font-tech uppercase tracking-wider">
-                    Tech Stack
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {open.technologies.map((tech, i) => (
-                      <div
-                        key={i}
-                        className="px-2 py-1 bg-muted border border-border text-[10px] font-tech text-foreground uppercase tracking-wider"
-                      >
-                        {tech}
-                      </div>
-                    ))}
+
+                <figure
+                  className={`flex flex-col ${
+                    meta.visual === "appshot" ? "lg:self-start" : ""
+                  } ${flip ? "lg:order-1" : ""}`}
+                >
+                  <div
+                    className={`border border-border bg-card/40 overflow-hidden ${
+                      meta.visual === "appshot" ? "" : "flex-1 min-h-[22rem]"
+                    }`}
+                  >
+                    <Visual />
                   </div>
-                </div>
-                {(open.demoUrl || open.githubUrl) && (
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {open.demoUrl && (
-                      <Button size="sm" asChild>
-                        <a href={open.demoUrl} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-3 h-3 mr-2" />
-                          Live Demo
-                        </a>
-                      </Button>
-                    )}
-                    {open.githubUrl && (
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={open.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Github className="w-3 h-3 mr-2" />
-                          Source
-                        </a>
-                      </Button>
-                    )}
+                  <figcaption className="mt-3 font-tech text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70">
+                    {meta.caption}
+                  </figcaption>
+                </figure>
+              </motion.article>
+            );
+          })}
+        </div>
+
+        {/* Index of remaining builds */}
+        <div className="mt-24 md:mt-32">
+          <motion.h3
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-foreground mb-2"
+          >
+            More builds
+          </motion.h3>
+          <p className="text-sm text-muted-foreground mb-8">
+            Agents, tooling, and earlier work — expand any row for the details.
+          </p>
+
+          <div className="border-t border-border group/list">
+            {archiveIndexes.map((index) => {
+              const project = projects[index];
+              return (
+                <details
+                  key={project.title}
+                  className="group/row border-b border-border transition-opacity duration-300 group-hover/list:opacity-40 hover:!opacity-100 open:!opacity-100"
+                >
+                  <summary className="cursor-pointer list-none py-5 grid sm:grid-cols-[9rem_1fr_auto] gap-x-6 gap-y-1 items-baseline">
+                    <span className="font-tech text-xs uppercase tracking-wider text-muted-foreground">
+                      {project.date}
+                    </span>
+                    <span className="font-display text-lg sm:text-xl font-bold uppercase tracking-tight text-foreground transition-transform duration-300 group-hover/row:translate-x-2">
+                      {project.title}
+                    </span>
+                    <span className="font-tech text-xs uppercase tracking-[0.2em] text-primary justify-self-start sm:justify-self-end">
+                      <span className="group-open/row:hidden">+ expand</span>
+                      <span className="hidden group-open/row:inline">− close</span>
+                    </span>
+                  </summary>
+                  <div className="pb-7 sm:pl-[9.5rem] max-w-3xl">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {project.description}
+                    </p>
+                    <ul className="mt-4 space-y-2.5">
+                      {project.achievements.map((achievement, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <span className="mt-2 w-1 h-1 bg-primary/50 shrink-0" />
+                          <span className="text-xs text-foreground/80 font-mono leading-relaxed">
+                            {achievement}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-5 font-tech text-xs uppercase tracking-wider text-muted-foreground leading-relaxed">
+                      {project.technologies.join(" · ")}
+                    </p>
+                    <ProjectLinks demoUrl={project.demoUrl} githubUrl={project.githubUrl} />
                   </div>
-                )}
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+                </details>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -15,6 +15,7 @@ interface ExperienceItem {
   location: string;
   period: string;
   achievements: (string | Achievement)[];
+  featured?: number[];
   technologies: string[];
   color: string;
 }
@@ -67,6 +68,13 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
   const [hoveredAchIndex, setHoveredAchIndex] = useState<number | null>(null);
   const theme = colorMap[exp.color as keyof typeof colorMap] || colorMap.blue;
 
+  const featuredIdx = (exp.featured ?? [0, 1, 2]).filter(
+    (i) => i < exp.achievements.length
+  );
+  const noteIdx = exp.achievements
+    .map((_, i) => i)
+    .filter((i) => !featuredIdx.includes(i));
+
   return (
     <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -109,7 +117,8 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
         <CardContent className="space-y-6 pt-4">
             <div className="space-y-4">
             <ul className="space-y-4">
-                {exp.achievements.slice(0, 3).map((achievement, achIndex) => {
+                {featuredIdx.map((achIndex) => {
+                const achievement = exp.achievements[achIndex];
                 const achievementData =
                     typeof achievement === "string"
                     ? { text: achievement, relatedTechs: [] }
@@ -132,15 +141,15 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
                 })}
             </ul>
 
-            {exp.achievements.length > 3 && (
+            {noteIdx.length > 0 && (
               <details className="group/details">
                 <summary className="cursor-pointer list-none inline-flex items-center gap-2 font-tech text-xs uppercase tracking-[0.2em] text-primary hover:text-foreground transition-colors pl-2">
-                  <span className="group-open/details:hidden">+ {exp.achievements.length - 3} more</span>
+                  <span className="group-open/details:hidden">+ {noteIdx.length} technical notes</span>
                   <span className="hidden group-open/details:inline">show less</span>
                 </summary>
                 <ul className="space-y-3 mt-4">
-                  {exp.achievements.slice(3).map((achievement, i) => {
-                    const achIndex = i + 3;
+                  {noteIdx.map((achIndex) => {
+                    const achievement = exp.achievements[achIndex];
                     const achievementData =
                       typeof achievement === "string"
                         ? { text: achievement, relatedTechs: [] }

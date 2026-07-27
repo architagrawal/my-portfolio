@@ -16,6 +16,8 @@ interface ExperienceItem {
   location: string;
   period: string;
   achievements: (string | Achievement)[];
+  /** Indexes of achievements to surface first; the rest collapse into technical notes */
+  featured?: number[];
   technologies: string[];
   color: string;
 }
@@ -26,9 +28,10 @@ const experiences: ExperienceItem[] = [
     role: "Founding AI/ML Engineer",
     location: "Remote",
     period: "July 2025 - Present",
+    featured: [0, 5, 6],
     achievements: [
       {
-        text: "Migrated a 14-Cloud-Function event pipeline into a unified LangGraph agent-worker on Cloud Run Jobs, collapsing six per-stage task types into one process-new-event-url graph composing sourcing → extraction → resolution → entity-source write → image fan-out sub-graphs.",
+        text: "Replaced a 14-Cloud-Function event pipeline with a single LangGraph agent-worker on Cloud Run Jobs — sourcing, extraction, resolution, and image fan-out now run as one composable, checkpointed graph.",
         relatedTechs: ["Python", "LangGraph", "GCP", "Cloud Run"],
       },
       {
@@ -48,11 +51,11 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python", "Google Firestore"],
       },
       {
-        text: "Architected resilient Playwright scraper with proxy rotation and exponential backoff on Compute Engine, indexing 70,000+ records/day across 650+ locations through anti-bot measures.",
+        text: "Built and operate a Playwright scraping service on Compute Engine that indexes 70,000+ records a day from 650+ locations, rotating proxies and backing off when sites push back.",
         relatedTechs: ["Python", "Playwright", "GCP"],
       },
       {
-        text: "Built Gemini Pro (Vertex AI) semantic entity-resolution and dedupe pass over raw event data, lifting downstream search dataset accuracy by 25%.",
+        text: "Added Gemini-based entity resolution and dedupe before records reach Firestore and Algolia, lifting downstream search dataset accuracy by 25%.",
         relatedTechs: ["Python", "Gemini Vertex AI", "Google Firestore", "Algolia"],
       },
       {
@@ -99,11 +102,11 @@ const experiences: ExperienceItem[] = [
     period: "August 2024 – May 2025",
     achievements: [
       {
-        text: "Project 1 — Probed temporal and logical reasoning capabilities of text-conditioned video generation models; designed evaluation prompts isolating cause-effect ordering and counterfactual scene logic.",
+        text: "Designed evaluation prompts that isolate cause-and-effect ordering and counterfactual reasoning in text-conditioned video generation models.",
         relatedTechs: ["Python", "PyTorch", "Diffusers"],
       },
       {
-        text: "Project 2 — Quantified physical-law adherence of rigid-body motion in GenAI video outputs (gravity, momentum, collision); built scoring rubric scoring real-world plausibility per frame sequence.",
+        text: "Built a frame-sequence rubric measuring whether generated rigid-body motion obeys gravity, momentum, and collision behavior.",
         relatedTechs: ["Python", "PyTorch", "Computer Vision"],
       },
     ],
@@ -112,12 +115,13 @@ const experiences: ExperienceItem[] = [
   },
   {
     company: "Edplus, Arizona State University",
-    role: "IDA",
+    role: "Instructional Design Assistant · Software Engineering",
     location: "Tempe, AZ",
     period: "Sept 2023 – May 2025",
+    featured: [0, 1, 4],
     achievements: [
       {
-        text: "Led design and delivery of a multi-tenant RAG chatbot orchestrated via LangChain + Semantic Kernel with Prompt Flow evaluation harness, serving 1,000+ faculty authoring courses for 60,000+ students.",
+        text: "Led development of a multi-tenant RAG assistant (LangChain + Semantic Kernel, Prompt Flow evals) used by 1,000+ faculty authoring courses for 60,000+ students.",
         relatedTechs: [
           "Python",
           "LangChain",
@@ -127,7 +131,7 @@ const experiences: ExperienceItem[] = [
         ],
       },
       {
-        text: "Engineered a Neo4j knowledge graph layered with LLM-driven Cypher synthesis, cutting transcript-to-insight loop from 4 hours to 15 minutes via deterministic graph traversal over noisy NL queries.",
+        text: "Combined a Neo4j knowledge graph with LLM-generated Cypher queries, cutting transcript analysis from 4 hours to 15 minutes.",
         relatedTechs: ["Python", "Neo4j", "OpenAI", "LangChain"],
       },
       {
@@ -162,9 +166,10 @@ const experiences: ExperienceItem[] = [
     role: "Data Research Aide",
     location: "Tempe, AZ",
     period: "June 2024 – August 2024",
+    featured: [0, 2, 5],
     achievements: [
       {
-        text: "Designed a FAISS + Neo4j hybrid retrieval layer (dense ANN over graph-anchored entities) delivering 60% lower p95 query latency at 95% recall.",
+        text: "Built a hybrid FAISS + Neo4j retrieval layer that cut p95 query latency by 60% while holding 95% recall.",
         relatedTechs: ["Python", "FAISS", "Neo4j"],
       },
       {
@@ -172,7 +177,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python", "FastAPI", "PostgreSQL"],
       },
       {
-        text: "Architected an idempotent ETL pipeline ingesting 10,000+ faculty profiles/day with Pandas-based transforms and Postgres upserts; raised dataset accuracy to 95% via constraint-driven validation.",
+        text: "Built an idempotent ETL pipeline ingesting 10,000+ faculty profiles a day; Postgres constraints and validation checks raised dataset accuracy to 95%.",
         relatedTechs: ["Python", "Pandas", "PostgreSQL"],
       },
       {
@@ -184,7 +189,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: [".NET 8", "C#", "Dapper", "MediatR", "JWT", "AWS SQS"],
       },
       {
-        text: "Cut API latency 198ms → 20ms (≈90%) via Redis caching layer + complex SQL query rewrites, holding sub-second responses under simulated peak load.",
+        text: "Cut API latency from 198ms to 20ms with a Redis caching layer and SQL query rewrites, then verified the result under simulated peak load.",
         relatedTechs: ["Redis", "SQL", ".NET 8"],
       },
       {
@@ -216,17 +221,18 @@ const experiences: ExperienceItem[] = [
     role: "Software Engineer",
     location: "Mumbai, India",
     period: "Jan 2022 – July 2023",
+    featured: [0, 1, 2],
     achievements: [
       {
-        text: "Decomposed a .NET monolith into SOLID-aligned microservices on Kubernetes with bounded-context service boundaries, driving 35% lower resource footprint and 20% cost reduction across the fleet.",
+        text: "Split a .NET monolith into microservices on Kubernetes, cutting resource footprint by 35% and infrastructure cost by 20%.",
         relatedTechs: [".NET", "C#", "Docker", "Kubernetes", "AWS"],
       },
       {
-        text: "Hardened CI/CD with SonarQube quality gates and containerized release pipelines: −70% deploy time, −40% production incidents.",
+        text: "Hardened CI/CD with SonarQube quality gates and containerized release pipelines — deploy time down 70%, production incidents down 40%.",
         relatedTechs: ["Git", "Docker", "Kubernetes", "SonarQube"],
       },
       {
-        text: "Shipped a Redis-backed ML demand-prediction service for desk/room reservations across 300+ Fortune 500 sites (incl. Goldman Sachs, Merck), lifting occupancy by 30% amid COVID-era hot-desk constraints.",
+        text: "Shipped a Redis-backed demand-prediction service for desk reservations across 300+ Fortune 500 sites (incl. Goldman Sachs, Merck); reported occupancy improved 30% under COVID hot-desk constraints.",
         relatedTechs: [".NET", "C#", "Redis", "React", "Node.js"],
       },
       {
@@ -265,7 +271,7 @@ const experiences: ExperienceItem[] = [
     period: "Sept 2021 – Dec 2021",
     achievements: [
       {
-        text: "Owned end-to-end order-tracking experience over Google Maps API with optimized driver geolocation polling, yielding 45% cost reduction and 25% QoQ user growth.",
+        text: "Built the order-tracking experience on Google Maps API and optimized driver-location polling, cutting its serving cost by 45%; shipped during a quarter of 25% user growth.",
         relatedTechs: ["React.js", "Google Maps API"],
       },
       {
@@ -273,7 +279,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python"],
       },
       {
-        text: "Delivered a full-stack WebSocket + Express.js notification service with backpressure-aware fan-out, raising CSAT by 28% and cutting support volume by 35%.",
+        text: "Built a full-stack WebSocket + Express.js notification service with backpressure-aware fan-out; after launch, reported CSAT rose 28% and support volume fell 35%.",
         relatedTechs: ["React.js"],
       },
     ],
@@ -307,11 +313,31 @@ export default function Experience() {
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading eyebrow="02 // Journey" title="Experience" />
 
+        <div className="flex flex-wrap gap-x-12 gap-y-4 -mt-6 mb-14">
+          {[
+            ["4+", "years"],
+            ["7", "roles"],
+            ["∞", "iteration"],
+          ].map(([value, label]) => (
+            <div key={label}>
+              <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                {value}
+              </span>
+              <span className="ml-2 font-tech text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+
         <div className="relative pl-6 md:pl-12">
 
-          <div className="space-y-16">
+          <div className="space-y-16 group/list">
             {experiences.map((exp, expIndex) => (
-              <div key={expIndex} className="relative pl-10 sm:pl-12 md:pl-16">
+              <div
+                key={expIndex}
+                className="relative pl-10 sm:pl-12 md:pl-16 transition-opacity duration-300 group-hover/list:opacity-40 hover:!opacity-100"
+              >
 
                 {/* Timeline Star & Path */}
                 <div className="absolute left-0 top-0 bottom-0 -ml-[5px] md:-ml-[9px] w-12 flex flex-col items-center pt-8">

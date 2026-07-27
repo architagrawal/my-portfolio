@@ -1,9 +1,48 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { GraduationCap, Heart, Zap, Code, Terminal, Cpu, Award, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/section-heading";
+
+/* Statement row that comes into focus when it crosses the middle of the viewport */
+const StatementRow = ({ line, desc, index }: { line: string; desc: string; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const inFocus = useInView(ref, { margin: "-38% 0px -38% 0px" });
+  const focused = reduce ? true : inFocus;
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "group grid sm:grid-cols-12 gap-4 sm:gap-8 border-t border-border/50 pt-6 transition-opacity duration-500",
+        focused ? "opacity-100" : "opacity-50"
+      )}
+    >
+      <span
+        className={cn(
+          "sm:col-span-1 font-tech text-sm pt-2 transition-colors duration-500",
+          focused ? "text-primary" : "text-muted-foreground"
+        )}
+      >
+        0{index + 1}
+      </span>
+      <h3
+        className={cn(
+          "sm:col-span-5 font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-foreground leading-[0.95] transition-transform duration-500 group-hover:translate-x-2",
+          focused && "sm:translate-x-2"
+        )}
+      >
+        {line}
+      </h3>
+      <p className="sm:col-span-6 text-sm text-muted-foreground leading-relaxed">
+        {desc}
+      </p>
+    </div>
+  );
+};
 
 const TechBlock = ({
   icon: Icon,
@@ -87,6 +126,12 @@ export default function About() {
                 Fortune 500 clients. I work across the full stack, from React
                 frontends to model inference and cloud infra.
               </p>
+
+              <p className="leading-relaxed">
+                Off the clock, I&apos;m usually running my own playlists
+                through AiJockey — the AI DJ project below — and tweaking
+                transitions until they stop sounding like a robot made them.
+              </p>
             </div>
 
             <div className="pt-4 flex flex-wrap gap-3">
@@ -99,7 +144,7 @@ export default function About() {
               </div>
               <div className="inline-flex items-center space-x-2 px-4 py-2 border border-secondary/50 bg-muted/20">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span className="font-tech text-sm">NYC Metro Area</span>
+                <span className="font-tech text-sm">USA · Open to Relocation</span>
               </div>
             </div>
 
@@ -148,17 +193,7 @@ export default function About() {
                   desc: "AI/ML moves fast. I stay close to the frontier, currently deep in agentic workflows and automation systems.",
                 },
               ].map((item, i) => (
-                <div key={item.line} className="group grid sm:grid-cols-12 gap-4 sm:gap-8 border-t border-border/50 pt-6">
-                  <span className="sm:col-span-1 font-tech text-sm text-primary pt-2">
-                    0{i + 1}
-                  </span>
-                  <h3 className="sm:col-span-5 font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-foreground leading-[0.95] transition-transform duration-300 group-hover:translate-x-2">
-                    {item.line}
-                  </h3>
-                  <p className="sm:col-span-6 text-sm text-muted-foreground leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
+                <StatementRow key={item.line} line={item.line} desc={item.desc} index={i} />
               ))}
             </motion.div>
 

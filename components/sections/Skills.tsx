@@ -8,6 +8,8 @@ import {
   Code2,
   Layers,
   Brain,
+  Bot,
+  Plug,
   Cloud,
   Database,
   FlaskConical,
@@ -19,17 +21,115 @@ interface SkillCategory {
   title: string;
   tagline: string;
   icon: LucideIcon;
-  accent: string;
   skills: string[];
 }
 
 const skillCategories: SkillCategory[] = [
   {
+    id: "agents-llm",
+    title: "Agents & LLM Engineering",
+    tagline: "Agentic systems end to end, tracking every iteration since 2023.",
+    icon: Bot,
+    skills: [
+      "LangChain",
+      "LangGraph",
+      "LlamaIndex",
+      "CrewAI",
+      "Pydantic AI",
+      "Semantic Kernel",
+      "Prompt Flow",
+      "Claude Agent SDK",
+      "OpenAI API",
+      "Anthropic API (Claude)",
+      "Gemini / Vertex AI",
+      "Agentic AI",
+      "Multi-Agent Systems",
+      "Agent Orchestration",
+      "Subagents / Orchestrator-Worker Patterns",
+      "Agent Memory (short & long-term)",
+      "RAG",
+      "Embeddings",
+      "Vector Search",
+      "Prompt Engineering",
+      "Context Engineering",
+      "Chain-of-Thought (CoT)",
+      "ReAct",
+      "Few-shot / Zero-shot",
+      "Structured Outputs",
+      "Function Calling / Tool Use",
+      "Prompt Caching",
+      "Token Streaming (SSE)",
+      "Guardrails",
+      "LLM Evals / LLM-as-Judge",
+      "Human-in-the-Loop",
+      "LLM Observability & Tracing",
+    ],
+  },
+  {
+    id: "mcp-tooling",
+    title: "MCP & AI-Native Tooling",
+    tagline: "MCP server dev & deploy, agent skills, hooks, agentic coding daily drivers.",
+    icon: Plug,
+    skills: [
+      "MCP (Model Context Protocol)",
+      "MCP Server Development",
+      "MCP Server Deployment (stdio / Streamable HTTP)",
+      "FastMCP",
+      "MCP Tools, Resources & Prompts",
+      "A2A Protocol",
+      "Claude Code",
+      "OpenAI Codex",
+      "Kiro",
+      "Agent Skills (Claude Skills)",
+      "Skill Development",
+      "Custom Slash Commands & Hooks",
+      "CLAUDE.md / AGENTS.md",
+      "Spec-Driven Development",
+      "Agentic Coding",
+      "AI-Assisted Code Review",
+      "Sandboxed Agent Execution",
+    ],
+  },
+  {
+    id: "ai-ml",
+    title: "AI & ML",
+    tagline: "Model training, fine-tuning, audio ML, RL preference tuning.",
+    icon: Brain,
+    skills: [
+      "PyTorch",
+      "TensorFlow",
+      "Hugging Face",
+      "Transformers",
+      "Diffusers",
+      "Fine-tuning (LoRA / PEFT)",
+      "DPO / KTO",
+      "OCR (Tesseract)",
+      "PaddleOCR",
+      "Bark (TTS)",
+      "Stable Video Diffusion",
+      "MERT",
+      "VampNet",
+      "Demucs",
+      "Audiobox",
+      "CLAP",
+      "Matchering",
+      "Audio DSP",
+      "librosa",
+      "torchaudio",
+      "Neo4j (KG)",
+      "FAISS",
+      "pgvector",
+      "scikit-learn",
+      "Pandas",
+      "NumPy",
+      "Jupyter",
+    ],
+  },
+  {
     id: "languages",
     title: "Languages",
     tagline: "Daily-driver syntax across web, systems, scripting.",
     icon: Code2,
-    accent: "from-blue-500/20 to-blue-500/0 border-blue-500/30 text-blue-400",
     skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "C++", "SQL", "Bash", "PowerShell", "HTML/CSS"],
   },
   {
@@ -37,7 +137,6 @@ const skillCategories: SkillCategory[] = [
     title: "Frameworks & UI",
     tagline: "Production-grade web and mobile stack.",
     icon: Layers,
-    accent: "from-teal-500/20 to-teal-500/0 border-teal-500/30 text-teal-400",
     skills: [
       "React",
       "React 19",
@@ -49,8 +148,13 @@ const skillCategories: SkillCategory[] = [
       "Django",
       "Flask",
       "FastAPI",
+      "REST APIs",
       "GraphQL",
+      "WebSockets",
+      "OpenAPI / Swagger",
+      "Pydantic",
       ".NET Core",
+      "Vite",
       "Tailwind CSS",
       "Tamagui",
       "Radix UI",
@@ -64,54 +168,10 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    id: "ai-ml",
-    title: "AI & ML",
-    tagline: "LLM orchestration, audio ML, RL preference tuning.",
-    icon: Brain,
-    accent: "from-purple-500/20 to-purple-500/0 border-purple-500/30 text-purple-400",
-    skills: [
-      "PyTorch",
-      "TensorFlow",
-      "LangChain",
-      "LangGraph",
-      "LlamaIndex",
-      "Hugging Face",
-      "Transformers",
-      "Diffusers",
-      "Pydantic AI",
-      "MCP",
-      "CrewAI",
-      "OpenAI API",
-      "Gemini / Vertex AI",
-      "RAG",
-      "Prompt Flow",
-      "Semantic Kernel",
-      "OCR (Tesseract)",
-      "PaddleOCR",
-      "Bark (TTS)",
-      "Stable Video Diffusion",
-      "DPO / KTO",
-      "MERT",
-      "VampNet",
-      "Demucs",
-      "Audiobox",
-      "CLAP",
-      "Matchering",
-      "Audio DSP",
-      "Neo4j (KG)",
-      "FAISS",
-      "pgvector",
-      "scikit-learn",
-      "Pandas",
-      "NumPy",
-    ],
-  },
-  {
     id: "cloud-devops",
     title: "Cloud & DevOps",
     tagline: "GCP-heavy, multi-cloud, GPU infra.",
     icon: Cloud,
-    accent: "from-orange-500/20 to-orange-500/0 border-orange-500/30 text-orange-400",
     skills: [
       "AWS",
       "AWS EKS",
@@ -122,7 +182,9 @@ const skillCategories: SkillCategory[] = [
       "GCP",
       "Cloud Run",
       "Cloud Functions",
+      "Cloud Storage (GCS)",
       "Compute Engine",
+      "Firebase",
       "Cloud Scheduler",
       "Cloud Tasks",
       "Pub/Sub",
@@ -133,7 +195,10 @@ const skillCategories: SkillCategory[] = [
       "HuggingFace Spaces",
       "EAS",
       "Docker",
+      "Docker Compose",
       "Kubernetes",
+      "Serverless",
+      "Microservices",
       "Git",
       "CI/CD",
       "Jenkins",
@@ -143,6 +208,7 @@ const skillCategories: SkillCategory[] = [
       "Nginx",
       "RabbitMQ",
       "Logfire",
+      "OpenTelemetry",
     ],
   },
   {
@@ -150,7 +216,6 @@ const skillCategories: SkillCategory[] = [
     title: "HPC & Compute",
     tagline: "GPU systems, parallel compute, profiling.",
     icon: Terminal,
-    accent: "from-yellow-500/20 to-yellow-500/0 border-yellow-500/30 text-yellow-400",
     skills: [
       "CUDA",
       "C++",
@@ -166,11 +231,11 @@ const skillCategories: SkillCategory[] = [
     title: "Databases & Search",
     tagline: "Relational, document, vector, edge.",
     icon: Database,
-    accent: "from-emerald-500/20 to-emerald-500/0 border-emerald-500/30 text-emerald-400",
     skills: [
       "PostgreSQL",
       "Firestore",
       "Supabase",
+      "SQLite",
       "Cloudflare D1",
       "Drizzle ORM",
       "SQL Alchemy",
@@ -187,7 +252,6 @@ const skillCategories: SkillCategory[] = [
     title: "Testing & Tooling",
     tagline: "Unit, integration, property-based, E2E.",
     icon: FlaskConical,
-    accent: "from-pink-500/20 to-pink-500/0 border-pink-500/30 text-pink-400",
     skills: [
       "pytest",
       "pytest-asyncio",
@@ -199,6 +263,9 @@ const skillCategories: SkillCategory[] = [
       "Playwright",
       "Locust",
       "SonarQube",
+      "ESLint",
+      "Prettier",
+      "Postman",
     ],
   },
 ];
@@ -206,7 +273,6 @@ const skillCategories: SkillCategory[] = [
 function SkillCard({ cat, idx }: { cat: SkillCategory; idx: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const Icon = cat.icon;
-  const iconColor = cat.accent.split(" ").find((c) => c.startsWith("text-")) ?? "";
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -247,7 +313,7 @@ function SkillCard({ cat, idx }: { cat: SkillCategory; idx: number }) {
         <motion.div
           whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
           transition={{ duration: 0.5 }}
-          className={`p-2.5 rounded-xl bg-background/50 border border-white/5 ${iconColor}`}
+          className="p-2.5 bg-primary/10 border border-primary/20 text-primary"
         >
           <Icon className="w-5 h-5" />
         </motion.div>
@@ -304,6 +370,20 @@ export default function Skills() {
             <SkillCard key={cat.id} cat={cat} idx={idx} />
           ))}
         </div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-10 border-t border-border/50 pt-6 text-sm text-muted-foreground"
+        >
+          <span className="font-tech text-xs uppercase tracking-[0.2em] text-primary mr-3">
+            Next rabbit holes
+          </span>
+          Multi-agent orchestration patterns · LLM evals at scale · audio ML —
+          the list never really ends.
+        </motion.p>
 
         <div className="sr-only">
           <h3>Skills List</h3>

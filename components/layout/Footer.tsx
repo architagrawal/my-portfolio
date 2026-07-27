@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUp, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -17,9 +17,20 @@ export default function Footer() {
             <h3 className="text-2xl font-display font-bold uppercase tracking-wide text-foreground">
               Archit Agrawal
             </h3>
-            <p className="text-muted-foreground">
-              Engineering intelligent solutions. AI/ML, full-stack architecture, and automation.
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Designed and built by me — Next.js, Tailwind CSS, and Framer
+              Motion, with type set in Syne and Space Grotesk. The starfield is
+              a hand-rolled canvas.
             </p>
+            <a
+              href="https://github.com/architagrawal/my-portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-1.5 font-tech text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors"
+            >
+              View source
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
           </div>
 
           <nav className="flex flex-col gap-2 text-sm" aria-label="Footer">
