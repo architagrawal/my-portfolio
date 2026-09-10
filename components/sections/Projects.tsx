@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, FileText } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const projects = [
@@ -302,18 +303,90 @@ const projects = [
     demoUrl: "",
     githubUrl: "",
   },
+  {
+    title: "Survey Agents — Coding & Analysis Platform",
+    description:
+      "A five-agent pipeline that turns a raw survey export into coded responses, tool-computed facts and charts, plus a semantic layer that decides what a dataset can be asked. Everything is an agent, every deterministic operation is a tool, and no number in a report is ever produced by a model.",
+    date: "June 2026 – Present",
+    achievements: [
+      "Five-stage intake pipeline (frame, repair, retype, classify, review) where the orchestrator is ordinary code and a model is consulted only where the rules are visibly unsure; every decision lands in one JSON recipe that replays without it. Over 30 hand-written export shapes: 6 files need a stage, 11 model calls, $0.0023, and 0 divergences between a run and its replay.",
+      "Label integrity by construction: a schema enum makes an out-of-codebook code unrepresentable rather than discouraged (the prompt this replaced threatened a $1,000 penalty and got 9 invented tags anyway), and a per-response correlation token catches batch scrambles that count-matching cannot see.",
+      "Escalation ladder for failed batches: discard the batch whole, re-label at batch size 1, then quarantine and ABSTAIN, capped at 2 iterations. Correlation integrity 100%, 114/114 rows joined, 0 rows carrying a destroyed label against 13 of 102 (12.7%) on the pipeline it was benchmarked against.",
+      "verify_citations makes the reporting valve mechanical: every figure in the drafted prose must resolve to a fact the analytics stage computed, or the sentence is redrafted naming the offending number and then removed.",
+      "Ran the control experiment that the architecture could lose: at a fixed model the two pipelines tie on F1 (0.685 vs 0.692, overlapping ranges), model choice moves F1 by 0.230 and architecture by −0.007, and the pipeline costs ~4–8× and ~6× the wall clock of three plain API calls. Also showed the 0.637 baseline every earlier claim rested on was never reproducible.",
+      "Batch size measured as a quality parameter rather than a throughput knob: the sweep leaves F1 flat and moves the precision/recall split, so the ladder is a dial with a documented shape instead of a guess.",
+      "Consensus routing wired in after ensemble voting was tested on runs already on disk: the consensus signal separates ~4× better than the hand-built risk score, which measured as useless. Nested ensemble arms carry no information and nearly shipped.",
+      "Corrected my own published finding twice on reasoning: non-termination came from an unbounded reasoning budget and a rules block, not from an incompatibility between reasoning and constrained decoding. Reasoning then won on F1 and lost the product.",
+      "Deployed on AWS with CDK: Step Functions state machine (Distributed Map over 3 label slices, merge, Choice-based repair loop, ToleratedFailurePercentage circuit breaker) reaching 4 consecutive succeeded runs at 102/102, after the first green run silently labelled 100 of 102 because concurrent map iterations overwrote one slot.",
+      "Established where AgentCore earns its place: its harness took labelling from 50/102 to 102/102 where our own agent loop failed, and at the orchestration level a state machine is faster, durable and cheaper once the fan-out shares its prompt prefix (106,951 of 109,969 cache-write tokens sat in three slices each writing its own).",
+      "Semantic layer over the facts: ~10 declared operators, metrics minted by usage and bound to column kinds rather than names, a binding cache so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples, extends and requests before it refuses.",
+      "Question passport on every answer (plan hash, dataset version, registry version, skill version) so an answer re-executes byte-identically and a stale one is detectable; shadow re-execution diffs recent answers when a definition changes, so a moved number is found before a reader finds it.",
+      "Negative catalog computed at intake: what a dataset cannot answer and why, so the interface greys out the control instead of refusing after the fact.",
+      "Visualization layer on a constrained Vega-Lite subset: one spec produces the chart, an accessible data table, alt text, a CSV and an ASCII rendering. Mark selection is deterministic, borrowed from Cleveland & McGill, Bertin, Mackinlay's APT, Draco's constraint split and Brehmer & Munzner's task vocabulary.",
+      "Chart agent held to improve-or-discard behind four gates: over 36 cases, 0 of 36 proposals beat the rule table, 1 case had headroom, and 5 identical runs on it disagreed (0.80/0.40/0.40/0.40/0.64). An oracle over the agent's own search space found the scorer's exploits first: a word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
+      "Nuxt 4 web app over a NestJS API, both compiling against one shared TypeScript contract, rendering the same specs the CLI prints; DuckDB in-process as the compute engine with no server, and Lance serving vector plus BM25 search straight from S3.",
+      "Intake hardened against real files: UTF-16 headers full of null bytes, a duplicate header silently overwriting a column, 0/1 flags typed as rating scales, report titles in the header row, and 22 of 32 CSVs hiding their timestamp inside the identifier so every survey reported no date column while holding dates the whole time.",
+      "74k lines of TypeScript across 353 modules, 1,021 tests, 253 recorded runs and 40 measured experiments, each stating what it establishes and what it does not, including that every accuracy number is self-graded and the fixture corpus is a monoculture.",
+      "Codebook fit is checked before any spend: question scope is embedded and 25 responses are sample-labelled, giving mean best match 0.598 with a 4% abstain rate on the right codebook against 0.316 and 88% on the wrong one, for about $0.001. The thresholds written from a guess before calibration ran would have let the wrong codebook through with a warning.",
+      "Upload identity is content, not filename: a normalised content hash means two people uploading the same export get one run instead of two conflicting sets of numbers for one survey, and the first sighting wins for the wave's date.",
+      "Run lineage on two axes with four relations (relabel, recode, wave, wave_recoded), because only a new wave may claim topic movement. A second labelling pass over the same responses cannot present itself as a trend.",
+      "Cross-run comparison guarded by what the runs actually are: 9 of 13 recorded runs are the same respondents, so a pooled total is refused where a dimension is missing, drift across unequal runs is reported as a share rather than a count, and the axis is never assumed to be time.",
+      "Cross-codebook mappings earn trust by behaving alike: a proposal is checked against the co-occurrence and sentiment profiles of both codes before confirmation, and carries an SSSOM predicate so a narrowMatch is never aggregated as an exact match. Two real codebooks produced 0 lexical proposals, which is itself the finding.",
+      "Time buckets follow the academic calendar rather than the Gregorian one, because a month boundary falls mid-semester and term-to-term is the comparison a reader can act on.",
+      "Deterministic insight sweep says what stands out the moment an upload finishes, corrected for multiple comparisons, every claim resolving to a fact. Building it surfaced two false-discovery traps: correcting after an effect-size filter, and a null model that preserved the sparsity pattern, both of which made noise look like findings.",
+      "Chart properties are classified rather than opened up: 75 styling properties each carry a class, which is how three accepted-and-inert bugs were found where a restyle answered a field no branch ever read.",
+      "Capability menus are generated from the registry rather than hand-written, after the same staleness bug appeared three times, and a panel's declared requirement is the same predicate the validator enforces, so the interface cannot offer what the run will refuse.",
+      "Spend control that actually binds: caps on both tokens and dollars, checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing at all.",
+      "The graph is data with load-time gates rather than a trusted stage list, and the pipeline emits one replayable recipe; eight agent harnesses were deployed with per-agent tool sets, one withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs.",
+      "Progressive transcript compaction borrowed from production harnesses, then measured: batch size rather than compaction is the dominant cost lever, and the 8,192-token output cap is the real constraint on batch size.",
+      "Five reproducible scaling proofs instead of slides: 200x rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, zero-model-call replays, namespace and entitlement checks, and byte-identical re-execution from a passport.",
+      "Skills authored in the open Agent Skills standard and loaded into the cached system prefix, then held to the same bar as everything else: the first one changed no outcome on the batch and cost slightly less, which is the result rather than the pitch.",
+      "A review stage that reads the finished profile instead of each decision, because per-decision gates are blind to upstream bugs. Verified by reintroducing a known sampler defect (a stride that aliased against alternating data and silently halved a dimension's values on any file over ~200 rows) and confirming the stage catches what the gates missed.",
+    ],
+    technologies: [
+      "TypeScript",
+      "AWS Bedrock",
+      "AgentCore",
+      "Step Functions",
+      "AWS CDK",
+      "Nuxt 4",
+      "NestJS",
+      "Vega-Lite",
+      "DuckDB",
+      "Lance",
+      "Vitest",
+      "llama.cpp",
+    ],
+    demoUrl: "",
+    githubUrl: "",
+  },
 ];
 
 /* Curated featured systems shown as full editorial articles */
 interface FeaturedMeta {
   index: number;
-  visual: "audio" | "appshot" | "analytics";
+  visual: "audio" | "appshot" | "analytics" | "agents";
   badge?: string;
   caption: string;
+  caseStudyUrl?: string;
   highlights: string[];
 }
 
 const featuredMeta: FeaturedMeta[] = [
+  {
+    index: 13,
+    visual: "agents",
+    badge: "Case study",
+    caption: "Illustrative system view, drawn in code — not a product screenshot",
+    caseStudyUrl: "/work/survey-agents",
+    highlights: [
+      "The agent decides, a tool computes. Every figure in a report has to resolve to a fact a tool produced, or the sentence is redrafted and then removed. The result is a system that structurally cannot fabricate a number.",
+      "Constrained decoding plus a per-response correlation token: zero invalid labels and zero silently overwritten rows, against 9 invented tags and 12.7% destroyed rows on the pipeline it was benchmarked against.",
+      "Measured against its own premise: at a fixed model the two architectures tie on F1, the model pin moves F1 thirty times more than the architecture does, and what the agents buy is reliability rather than accuracy.",
+      "Questions compile to MBQL-shaped plans; metrics bind to column kinds, not names; refusal is the last rung of a ladder that substitutes, decomposes and samples first.",
+      "Charts are specs, never images. The agent proposes a mark and an encoding, never data, and four gates mean an eagerly invoked agent can cost a call but cannot damage a chart.",
+    ],
+  },
   {
     index: 1,
     visual: "appshot",
@@ -433,6 +506,107 @@ function AppShotVisual() {
   );
 }
 
+function SurveyAgentsVisual() {
+  const reduce = useReducedMotion();
+  const stages = [
+    { name: "intake", tools: "4 tools", fill: 62 },
+    { name: "label", tools: "5 + 1", fill: 100 },
+    { name: "qa", tools: "6 tools", fill: 78 },
+    { name: "analytics", tools: "4 tools", fill: 54 },
+    { name: "conclude", tools: "2 + 1", fill: 40 },
+  ];
+  const loops = [
+    { name: "tool loop", bound: "8 calls, then graceful exit" },
+    { name: "repair loop", bound: "2 iterations, then quarantine" },
+    { name: "verify loop", bound: "2 redrafts, then strip" },
+  ];
+
+  return (
+    <div className="h-full flex flex-col p-6 sm:p-8">
+      <div className="flex items-baseline justify-between border-b border-border pb-4">
+        <div>
+          <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+            Intake pipeline
+          </p>
+          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums">
+            102 / 102
+          </p>
+        </div>
+        <p className="font-tech text-xs text-primary">0 destroyed labels</p>
+      </div>
+
+      <div className="flex-1 min-h-[10rem] mt-6 flex flex-col justify-between gap-8">
+        <div className="space-y-3">
+          {stages.map((stage, i) => (
+            <div key={stage.name} className="grid grid-cols-[5.5rem_1fr_3.5rem] items-center gap-3">
+              <span className="font-tech text-[11px] text-foreground/85">{stage.name}</span>
+              <span className="relative h-2 bg-border/60" aria-hidden="true">
+                <motion.span
+                  className="absolute inset-y-0 left-0 bg-primary origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ width: `${stage.fill}%` }}
+                />
+              </span>
+              <span className="font-tech text-[10px] text-muted-foreground text-right tabular-nums">
+                {stage.tools}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t border-border pt-4">
+          <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
+            Graph, hashed onto the run manifest
+          </p>
+          <pre
+            className="font-mono text-[10px] leading-[1.7] text-muted-foreground/90 whitespace-pre overflow-hidden"
+            aria-hidden="true"
+          >{`intake -> label -> qa -> analytics -> conclude
+                     |
+                     +- repairable? -> re-label requeued
+                                       rows only, max 2`}</pre>
+        </div>
+
+        <div className="border-t border-border pt-4">
+          <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
+            Bounded loops
+          </p>
+          <div className="space-y-2">
+            {loops.map((loop) => (
+              <div key={loop.name} className="flex items-baseline justify-between gap-4">
+                <span className="font-tech text-[11px] text-foreground/85">{loop.name}</span>
+                <span className="font-mono text-[10px] text-muted-foreground text-right">
+                  {loop.bound}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 border-t border-border pt-4 flex items-center justify-between gap-3">
+        <span className="font-mono text-[11px] text-muted-foreground truncate">
+          [fact:F-0142] net sentiment +6.1 pp
+        </span>
+        <span className="inline-flex items-center gap-2 shrink-0">
+          <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+            {!reduce && (
+              <span className="animate-ping absolute inline-flex h-full w-full bg-primary opacity-60" />
+            )}
+            <span className="relative inline-flex h-1.5 w-1.5 bg-primary" />
+          </span>
+          <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-primary">
+            verified
+          </span>
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function AnalyticsVisual() {
   const reduce = useReducedMotion();
   const values = [32, 58, 44, 76, 62, 88, 72, 96];
@@ -484,12 +658,29 @@ const visualComponents = {
   audio: AudioPipelineVisual,
   appshot: AppShotVisual,
   analytics: AnalyticsVisual,
+  agents: SurveyAgentsVisual,
 };
 
-function ProjectLinks({ demoUrl, githubUrl }: { demoUrl?: string; githubUrl?: string }) {
-  if (!demoUrl && !githubUrl) return null;
+function ProjectLinks({
+  demoUrl,
+  githubUrl,
+  caseStudyUrl,
+}: {
+  demoUrl?: string;
+  githubUrl?: string;
+  caseStudyUrl?: string;
+}) {
+  if (!demoUrl && !githubUrl && !caseStudyUrl) return null;
   return (
     <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+      {caseStudyUrl && (
+        <Link
+          href={caseStudyUrl}
+          className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-primary border-b border-primary pb-0.5 hover:text-foreground hover:border-foreground transition-colors"
+        >
+          <FileText className="w-4 h-4" /> Read the case study
+        </Link>
+      )}
       {githubUrl && (
         <a
           href={githubUrl}
@@ -600,7 +791,11 @@ export default function Projects() {
                     {project.technologies.join(" · ")}
                   </p>
 
-                  <ProjectLinks demoUrl={project.demoUrl} githubUrl={project.githubUrl} />
+                  <ProjectLinks
+                    demoUrl={project.demoUrl}
+                    githubUrl={project.githubUrl}
+                    caseStudyUrl={meta.caseStudyUrl}
+                  />
                 </div>
 
                 <figure

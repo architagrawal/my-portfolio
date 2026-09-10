@@ -24,6 +24,86 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
+    company: "Edplus, Arizona State University",
+    role: "AI Software Engineer",
+    location: "Tempe, AZ",
+    period: "June 2026 - Present",
+    featured: [0, 1, 2],
+    achievements: [
+      {
+        text: "Designed and built an agentic survey-analysis platform in TypeScript: five agents (intake, label, qa, analytics, conclude) over ~30 deterministic tools, on one rule: the agent decides, the tool computes, so no number that reaches a stakeholder is ever produced by a model.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore"],
+      },
+      {
+        text: "Delivered the adoption decision on measurement rather than assertion: built the control run the architecture could lose, and showed model choice moves labelling F1 by 0.230 while the architecture moves it by −0.007 at fixed model, for 4–8× the cost. Reframed the recommendation from accuracy to reliability.",
+        relatedTechs: ["TypeScript", "AWS Bedrock"],
+      },
+      {
+        text: "Eliminated the failure mode the previous pipeline could not detect: schema-constrained decoding plus per-response correlation tokens took invented labels from 9 to 0 and silently overwritten rows from 13 of 102 to 0, at 100% join integrity and 0% label churn across repeat runs.",
+        relatedTechs: ["TypeScript", "AWS Bedrock"],
+      },
+      {
+        text: "Shipped the pipeline on AWS with CDK: a Step Functions state machine with a Distributed Map over label slices, a Choice-based repair loop and a ToleratedFailurePercentage circuit breaker, after finding a fan-in defect where a fully SUCCEEDED execution had silently dropped 2% of the corpus.",
+        relatedTechs: ["AWS CDK", "Step Functions", "AWS Bedrock"],
+      },
+      {
+        text: "Established where each managed service earns its place: AgentCore's harness at the stage level, where it took labelling from 50/102 to 102/102 after our own agent loop failed, and Step Functions at the orchestration level, with the remaining cost gap traced to per-slice prompt-cache writes.",
+        relatedTechs: ["AgentCore", "Step Functions"],
+      },
+      {
+        text: "Built the semantic layer that decides what a dataset can be asked: ~10 declared operators, metrics minted by usage and bound to column kinds rather than column names, a binding cache so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples and extends before it refuses.",
+        relatedTechs: ["TypeScript", "DuckDB"],
+      },
+      {
+        text: "Made every answer reproducible and auditable: a question passport (plan hash plus dataset, registry and skill versions) re-executes an answer byte-identically, shadow re-execution diffs recent answers when a definition changes, and metric lint in CI fails any metric that cannot be computed on a stored run.",
+        relatedTechs: ["TypeScript", "Vitest"],
+      },
+      {
+        text: "Built the visualization layer as specs rather than images: a constrained Vega-Lite subset where one spec yields the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with deterministic mark selection from published visualization research and the agent restricted to proposing mark and encoding behind four gates.",
+        relatedTechs: ["Vega-Lite", "TypeScript", "Nuxt 4"],
+      },
+      {
+        text: "Instituted an agent-earns-its-place protocol: held-out batches, eagerness sweeps and oracle runs over the agent's own search space. Results included 0 of 36 chart proposals beating the deterministic rule table and a consensus signal that separates ~4× better than the hand-built risk score it replaced.",
+        relatedTechs: ["TypeScript", "AWS Bedrock"],
+      },
+      {
+        text: "Hardened intake against exports that parse cleanly and are still wrong: UTF-16 headers full of null bytes, duplicate headers overwriting whole columns, 0/1 flags typed as rating scales, report titles occupying the header row, and 22 of 32 files hiding their timestamp inside an identifier column.",
+        relatedTechs: ["TypeScript", "Node.js"],
+      },
+      {
+        text: "Shipped the internal web application: a Nuxt 4 front end over a NestJS API, both compiling against one shared TypeScript contract, with the printable report assembled by the same builder that serves the app.",
+        relatedTechs: ["Nuxt 4", "NestJS", "TypeScript"],
+      },
+      {
+        text: "Ran the data platform with no database: DuckDB in-process over per-run JSON, Lance serving vector and BM25 retrieval straight from S3, and facts bounded at ~150 KB per run. One npm install, zero infrastructure to stand up.",
+        relatedTechs: ["DuckDB", "Lance", "Node.js"],
+      },
+      {
+        text: "Built the governance surface the pipeline is judged on: personal-data classification inside intake, entitlement-gated respondent-level retrieval, spend caps enforced inside stages rather than between them, and weight columns typed and reported but never applied so nothing silently rescales.",
+        relatedTechs: ["TypeScript", "AWS Bedrock"],
+      },
+      {
+        text: "Authored the decision record the team works from: scope, approaches, findings and problem logs covering 40 measured experiments across 253 recorded runs, each stating what it establishes and what it does not, including that every accuracy number is self-graded.",
+        relatedTechs: ["TypeScript", "Vitest"],
+      },
+    ],
+    technologies: [
+      "TypeScript",
+      "AWS Bedrock",
+      "AgentCore",
+      "Step Functions",
+      "AWS CDK",
+      "DuckDB",
+      "Lance",
+      "Vega-Lite",
+      "Nuxt 4",
+      "NestJS",
+      "Vitest",
+      "Node.js",
+    ],
+    color: "blue",
+  },
+  {
     company: "MyStage Music Inc",
     role: "Founding AI/ML Engineer",
     location: "Remote",
@@ -316,7 +396,7 @@ export default function Experience() {
         <div className="flex flex-wrap gap-x-12 gap-y-4 -mt-6 mb-14">
           {[
             ["4+", "years"],
-            ["7", "roles"],
+            [String(experiences.length), "roles"],
             ["∞", "iteration"],
           ].map(([value, label]) => (
             <div key={label}>
