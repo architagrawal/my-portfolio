@@ -363,7 +363,7 @@ const projects = [
   {
     title: "Survey Agents — Coding & Analysis Platform",
     description:
-      "A ten-agent platform that turns a raw survey export into coded responses, tool-verified facts, charts and reproducible answers. Every deterministic operation is a tool, so no figure in a report is ever computed by a model.",
+      "A ten-agent platform that turns any raw survey export into coded responses, tool-verified facts, charts and reproducible answers, with no per-survey pipeline to maintain. Every deterministic operation is a tool, so no figure that reaches a stakeholder is ever computed by a model.",
     date: "June 2026 – Present",
     achievements: [
       "Ten agents with their own tool sets: intake, label, qa, curate, adjudicate, analysis, analytics, viz and conclude, under an orchestrator whose tools are the other agents.",
@@ -375,21 +375,21 @@ const projects = [
       "A 14-page Nuxt 4 front end over a NestJS API of ten modules (uploads, surveys, codebooks, analysis, comparisons, exports, governance, templates, jobs), all compiling against one shared TypeScript contract.",
       "Five-stage intake pipeline (frame, repair, retype, classify, review) where the orchestrator is ordinary code and a model is consulted only where the rules are visibly unsure; every decision lands in one JSON recipe that replays without it. Over 30 hand-written export shapes: 6 files need a stage, 11 model calls, $0.0023, and 0 divergences between a run and its replay.",
       "Label integrity by construction: a schema enum makes an out-of-codebook code unrepresentable rather than discouraged (the prompt this replaced threatened a $1,000 penalty and got 9 invented tags anyway), and a per-response correlation token catches batch scrambles that count-matching cannot see.",
-      "Escalation ladder for failed batches: discard the batch whole, re-label at batch size 1, then quarantine and ABSTAIN, capped at 2 iterations. Correlation integrity 100%, 114/114 rows joined, 0 rows carrying a destroyed label against 13 of 102 (12.7%) on the pipeline it was benchmarked against.",
+      "Escalation ladder for failed batches: discard the batch whole, re-label at batch size 1, then quarantine and ABSTAIN, capped at 2 iterations. Correlation integrity 100%, every row joined, and zero rows carrying a destroyed label against roughly one in eight on the pipeline it was benchmarked against.",
       "verify_citations makes the reporting valve mechanical: every figure in the drafted prose must resolve to a fact the analytics stage computed, or the sentence is redrafted naming the offending number and then removed.",
       "Ran the control experiment that the architecture could lose: at a fixed model the two pipelines tie on F1 (0.685 vs 0.692, overlapping ranges), model choice moves F1 by 0.230 and architecture by −0.007, and the pipeline costs ~4–8× and ~6× the wall clock of three plain API calls. Also showed the 0.637 baseline every earlier claim rested on was never reproducible.",
       "Batch size measured as a quality parameter rather than a throughput knob: the sweep leaves F1 flat and moves the precision/recall split, so the ladder is a dial with a documented shape instead of a guess.",
       "Consensus routing wired in after ensemble voting was tested on runs already on disk: the consensus signal separates ~4× better than the hand-built risk score, which measured as useless. Nested ensemble arms carry no information and nearly shipped.",
       "Corrected my own published finding twice on reasoning: non-termination came from an unbounded reasoning budget and a rules block, not from an incompatibility between reasoning and constrained decoding. Reasoning then won on F1 and lost the product.",
-      "Deployed on AWS with CDK: Step Functions state machine (Distributed Map over 3 label slices, merge, Choice-based repair loop, ToleratedFailurePercentage circuit breaker) reaching 4 consecutive succeeded runs at 102/102, after the first green run silently labeled 100 of 102 because concurrent map iterations overwrote one slot.",
-      "Established where AgentCore earns its place: its harness took labeling from 50/102 to 102/102 where our own agent loop failed, and at the orchestration level a state machine is faster, durable and cheaper once the fan-out shares its prompt prefix (106,951 of 109,969 cache-write tokens sat in three slices each writing its own).",
+      "Deployed on AWS with CDK: Step Functions state machine (Distributed Map over label slices, merge, Choice-based repair loop, ToleratedFailurePercentage circuit breaker) reaching complete coverage on consecutive executions, after an early green run silently dropped part of the corpus because concurrent map iterations overwrote a shared slot.",
+      "Established where AgentCore earns its place: its harness took labeling from partial to complete coverage where our own agent loop stalled, and at the orchestration level a state machine is faster, durable and cheaper once the fan-out shares its prompt prefix, since nearly every cache-write token had been wasted on slices each writing their own.",
       "Semantic layer over the facts: ~10 declared operators, metrics minted by usage and bound to column kinds rather than names, a binding cache so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples, extends and requests before it refuses.",
       "Question passport on every answer (plan hash, dataset version, registry version, skill version) so an answer re-executes byte-identically and a stale one is detectable; shadow re-execution diffs recent answers when a definition changes, so a moved number is found before a reader finds it.",
       "Negative catalog computed at intake: what a dataset cannot answer and why, so the interface grays out the control instead of refusing after the fact.",
       "Visualization layer on a constrained Vega-Lite subset: one spec produces the chart, an accessible data table, alt text, a CSV and an ASCII rendering. Mark selection is deterministic, borrowed from Cleveland & McGill, Bertin, Mackinlay's APT, Draco's constraint split and Brehmer & Munzner's task vocabulary.",
-      "Chart agent held to improve-or-discard behind four gates: over 36 cases, 0 of 36 proposals beat the rule table, 1 case had headroom, and 5 identical runs on it disagreed (0.80/0.40/0.40/0.40/0.64). An oracle over the agent's own search space found the scorer's exploits first: a word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
+      "Chart agent held to improve-or-discard behind four gates: across the whole evaluation corpus not one proposal beat the rule table, and the single case with headroom scored five different ways across five identical runs. An oracle over the agent's own search space found the scorer's exploits first: a word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
       "Nuxt 4 web app over a NestJS API, both compiling against one shared TypeScript contract, rendering the same specs the CLI prints; DuckDB in-process as the compute engine with no server, and Lance serving vector plus BM25 search straight from S3.",
-      "Intake hardened against real files: UTF-16 headers full of null bytes, a duplicate header silently overwriting a column, 0/1 flags typed as rating scales, report titles in the header row, and 22 of 32 CSVs hiding their timestamp inside the identifier so every survey reported no date column while holding dates the whole time.",
+      "Intake hardened against real files: UTF-16 headers full of null bytes, a duplicate header silently overwriting a column, 0/1 flags typed as rating scales, report titles in the header row, and roughly seven in ten exports hiding their timestamp inside the identifier so a header-trusting pipeline reports no date column while holding the dates the whole time.",
       "116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs and 40 measured experiments, each stating what it establishes and what it does not, including that every accuracy number is self-graded and the fixture corpus is a monoculture.",
       "Codebook fit is checked before any spend: question scope is embedded and 25 responses are sample-labeled, giving mean best match 0.598 with a 4% abstain rate on the right codebook against 0.316 and 88% on the wrong one, for about $0.001. The thresholds written from a guess before calibration ran would have let the wrong codebook through with a warning.",
       "Upload identity is content, not filename: a normalized content hash means two people uploading the same export get one run instead of two conflicting sets of numbers for one survey, and the first sighting wins for the wave's date.",
@@ -401,7 +401,7 @@ const projects = [
       "Chart properties are classified rather than opened up: 75 styling properties each carry a class, which is how three accepted-and-inert bugs were found where a restyle answered a field no branch ever read.",
       "Capability menus are generated from the registry rather than hand-written, after the same staleness bug appeared three times, and a panel's declared requirement is the same predicate the validator enforces, so the interface cannot offer what the run will refuse.",
       "Spend control that actually binds: caps on both tokens and dollars, checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing at all.",
-      "The graph is data with load-time gates rather than a trusted stage list, and the pipeline emits one replayable recipe; ten agent harnesses were deployed with per-agent tool sets, one withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs.",
+      "The graph is data with load-time gates rather than a trusted stage list, and the pipeline emits one replayable recipe; ten agent harnesses were deployed with per-agent tool sets, one withheld at runtime until its precondition exists after telemetry showed it never firing.",
       "Progressive transcript compaction borrowed from production harnesses, then measured: batch size rather than compaction is the dominant cost lever, and the 8,192-token output cap is the real constraint on batch size.",
       "Five reproducible scaling proofs instead of slides: 200x rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, zero-model-call replays, namespace and entitlement checks, and byte-identical re-execution from a passport.",
       "Skills authored in the open Agent Skills standard and loaded into the cached system prefix, then held to the same bar as everything else: the first one changed no outcome on the batch and cost slightly less, which is the result rather than the pitch.",
@@ -483,7 +483,7 @@ const featuredMeta: FeaturedMeta[] = [
     caseStudyUrl: "/work/survey-agents",
     highlights: [
       "Ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker. 116k lines of TypeScript, 1,255 tests.",
-      "Schema-constrained decoding plus per-response correlation tokens: invented labels 9 → 0, silently overwritten rows 13 of 102 → 0, join integrity 100%.",
+      "Schema-constrained decoding plus per-response correlation tokens: out-of-codebook labels unrepresentable, silently overwritten rows eliminated, join integrity 100% on every run. The pipeline it replaced destroyed roughly one row in eight and flagged none of it.",
       "Questions compile to MBQL plans, clear seven validation checks, then execute over stored facts with DuckDB on a miss. Metrics bind to column kinds, so an unseen survey is answerable on arrival.",
       "Charts are specs, never images: one constrained Vega-Lite spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection deterministic.",
       "Every number in a drafted report resolves to a fact the analytics stage computed, or the sentence is redrafted naming the offending figure and then removed.",
@@ -554,149 +554,186 @@ const archiveIndexes = projects
 
 /* --- Bespoke animated visuals (no stock photos) --- */
 
-const DJ_STAGES = [
-  { id: "ingest", note: "yt-dlp pull · 186 clips cached" },
+const DJ_RING = [
+  { id: "ingest", note: "yt-dlp pull · sidecar cache" },
   { id: "stems", note: "Demucs + Mel-Band Roformer" },
-  { id: "analysis", note: "BPM · key · phrase boundaries" },
+  { id: "analysis", note: "bpm · key · phrase boundaries" },
   { id: "director", note: "LLM plan · section-pair validator" },
   { id: "picker", note: "CLAP + MERT + Audiobox critics" },
   { id: "transition", note: "25 DSP modules · mutex groups" },
   { id: "master", note: "adaptive LUFS · tape saturation" },
+  { id: "score", note: "4-axis aesthetics · reward head" },
 ];
 
-const CRITICS = [
-  { axis: "PQ", value: 7.61, of: 10 },
-  { axis: "PC", value: 6.94, of: 10 },
-  { axis: "CE", value: 7.22, of: 10 },
-  { axis: "CU", value: 6.48, of: 10 },
+const AXES = [
+  { k: "PQ", v: 0.76 },
+  { k: "PC", v: 0.69 },
+  { k: "CE", v: 0.72 },
+  { k: "CU", v: 0.65 },
 ];
+
+const R_OUT = 74;
+const R_IN = 62;
+const CX = 100;
+const CY = 100;
+
+function polar(cx: number, cy: number, r: number, deg: number) {
+  const a = ((deg - 90) * Math.PI) / 180;
+  return [cx + r * Math.cos(a), cy + r * Math.sin(a)] as const;
+}
+
+/** One arc segment of the ring, as a filled band. */
+function segment(from: number, to: number, rOut: number, rIn: number) {
+  const [x1, y1] = polar(CX, CY, rOut, from);
+  const [x2, y2] = polar(CX, CY, rOut, to);
+  const [x3, y3] = polar(CX, CY, rIn, to);
+  const [x4, y4] = polar(CX, CY, rIn, from);
+  const large = to - from > 180 ? 1 : 0;
+  return `M${x1} ${y1} A ${rOut} ${rOut} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${rIn} ${rIn} 0 ${large} 0 ${x4} ${y4} Z`;
+}
 
 /**
- * 03 — the render path as it actually runs: seven stages, the FX budget that
- * caps effects per junction, the four-axis aesthetic critics the picker scores
- * against, and the closed loop that turns the best and worst variants into
- * preference pairs for the director.
+ * 03 — drawn as a ring because the system closes on itself: every render is
+ * scored on four aesthetic axes and the best and worst become preference pairs
+ * that retrain the director. The spokes inside are the live critic scores; the
+ * outer arc is the FX budget that caps effects per junction.
  */
 function AudioPipelineVisual() {
   const reduce = useReducedMotion();
-  const [step, setStep] = useState(reduce ? DJ_STAGES.length - 1 : 0);
+  const [i, setI] = useState(reduce ? 3 : 0);
 
   useEffect(() => {
     if (reduce) return;
-    const id = setInterval(() => setStep((p) => (p + 1) % (DJ_STAGES.length + 1)), 1000);
+    const id = setInterval(() => setI((p) => (p + 1) % DJ_RING.length), 1050);
     return () => clearInterval(id);
   }, [reduce]);
 
-  const looping = step >= DJ_STAGES.length;
-  const active = Math.min(step, DJ_STAGES.length - 1);
-  const fxUsed = 12 + active * 3.4;
+  const stepDeg = 360 / DJ_RING.length;
+  const active = DJ_RING[i];
+  const fx = 0.34 + (i / DJ_RING.length) * 0.62;
 
   return (
     <div className="h-full flex flex-col p-6 sm:p-8">
       <div className="flex items-baseline justify-between border-b border-border pb-4">
         <div>
           <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-            Render path
+            Closed-loop render
           </p>
-          <p className="mt-1 font-display text-2xl font-bold tracking-tight tabular-nums text-foreground">
-            {DJ_STAGES[active].id}
+          <p className="mt-1 font-display text-2xl font-bold tracking-tight text-foreground">
+            {active.id}
           </p>
         </div>
         <p className="font-tech text-xs text-primary tabular-nums">variant 3 / 4</p>
       </div>
 
-      {/* seven stages, the run walking them */}
-      <div className="flex-1 min-h-[8rem] mt-5 flex flex-col justify-between gap-1.5">
-        {DJ_STAGES.map((stage, i) => {
-          const isActive = i === active && !looping;
-          const done = i < active || looping;
-          return (
-            <div key={stage.id} className="grid grid-cols-[4.6rem_1fr] items-center gap-3">
-              <span
-                className={`font-tech text-[10px] transition-colors duration-300 ${
-                  isActive ? "text-primary" : done ? "text-foreground/60" : "text-muted-foreground/40"
-                }`}
-              >
-                {stage.id}
-              </span>
-              <span className="relative h-[3px] bg-border/50 overflow-hidden" aria-hidden="true">
-                <motion.span
-                  className="absolute inset-y-0 left-0 bg-primary origin-left"
+      <div className="flex-1 min-h-[12rem] mt-2 flex items-center justify-center" aria-hidden="true">
+        <svg viewBox="0 0 200 200" className="w-full h-auto max-h-[19rem]">
+          {/* the FX budget, an arc that fills toward its cap */}
+          <path d={segment(0, 359.9, 88, 82)} fill="hsl(var(--border))" />
+          <motion.path
+            d={segment(0, Math.max(1, 359.9 * fx), 88, 82)}
+            fill="hsl(var(--primary) / 0.5)"
+            initial={false}
+            animate={{ opacity: 1 }}
+          />
+
+          {/* the eight stages of the loop */}
+          {DJ_RING.map((st, idx) => {
+            const from = idx * stepDeg + 2;
+            const to = (idx + 1) * stepDeg - 2;
+            const isActive = idx === i;
+            const [lx, ly] = polar(CX, CY, 96, from + stepDeg / 2);
+            return (
+              <g key={st.id}>
+                <motion.path
+                  d={segment(from, to, R_OUT, R_IN)}
+                  fill="hsl(var(--primary))"
                   initial={false}
-                  animate={{ scaleX: isActive ? 1 : done ? 0.3 : 0, opacity: isActive ? 1 : 0.4 }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ width: "100%" }}
+                  animate={{ fillOpacity: isActive ? 1 : 0.2 }}
+                  transition={{ duration: 0.35 }}
                 />
-                {isActive && !reduce && (
-                  <motion.span
-                    className="absolute inset-y-0 w-5 bg-primary-foreground/25"
-                    animate={{ left: ["-10%", "100%"] }}
-                    transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
-                  />
-                )}
-              </span>
-            </div>
-          );
-        })}
-      </div>
+                <text
+                  x={lx}
+                  y={ly}
+                  textAnchor={lx > CX + 4 ? "start" : lx < CX - 4 ? "end" : "middle"}
+                  dominantBaseline="middle"
+                  className="font-tech"
+                  fontSize="7.5"
+                  fill={isActive ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
+                >
+                  {st.id}
+                </text>
+              </g>
+            );
+          })}
 
-      {/* the FX budget: variety without stacking effects on one junction */}
-      <div className="mt-5">
-        <div className="flex items-baseline justify-between font-tech text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70 mb-1.5">
-          <span>fx budget · 3 mutex groups</span>
-          <span className="text-primary tabular-nums">{Math.round(fxUsed)}% / 35%</span>
-        </div>
-        <div className="relative h-2 bg-border/50" aria-hidden="true">
-          <motion.span
-            className="absolute inset-y-0 left-0 bg-primary/60"
-            animate={{ width: `${(fxUsed / 35) * 100}%` }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          {/* the critic polygon: four aesthetic axes as one shape */}
+          <motion.polygon
+            points={AXES.map((ax, idx) => polar(CX, CY, 12 + ax.v * 36, idx * 90 + 45).join(",")).join(" ")}
+            fill="hsl(var(--primary) / 0.2)"
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.4"
+            initial={reduce ? false : { scale: 0.4, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: `${CX}px ${CY}px` }}
           />
-          <span className="absolute -top-[3px] bottom-[-3px] w-px bg-foreground/50" style={{ left: "100%" }} />
-        </div>
+
+          {/* axis guides and labels */}
+          {AXES.map((ax, idx) => {
+            const deg = idx * 90 + 45;
+            const [ex, ey] = polar(CX, CY, 12 + ax.v * 36, deg);
+            const [tx, ty] = polar(CX, CY, 54, deg);
+            return (
+              <g key={ax.k}>
+                <line x1={CX} y1={CY} x2={tx} y2={ty} stroke="hsl(var(--border))" strokeWidth="0.6" />
+                <circle cx={ex} cy={ey} r="1.7" fill="hsl(var(--primary))" />
+                <text
+                  x={tx}
+                  y={ty}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="font-tech"
+                  fontSize="7"
+                  fill="hsl(var(--muted-foreground))"
+                >
+                  {ax.k}
+                </text>
+              </g>
+            );
+          })}
+          <circle cx={CX} cy={CY} r="2.4" fill="hsl(var(--primary))" />
+
+          {/* the token that carries a variant around the loop */}
+          {!reduce && (
+            <motion.circle
+              r="3"
+              fill="hsl(var(--primary))"
+              animate={{ offsetDistance: ["0%", "100%"] }}
+              transition={{ duration: 8.4, repeat: Infinity, ease: "linear" }}
+              style={{
+                offsetPath: `path("M100 32 A 68 68 0 1 1 99.9 32")`,
+                offsetRotate: "0deg",
+              } as React.CSSProperties}
+            />
+          )}
+        </svg>
       </div>
 
-      {/* four-axis critics the picker scores against */}
-      <div className="mt-5 grid grid-cols-4 gap-2.5">
-        {CRITICS.map((c, i) => (
-          <div key={c.axis}>
-            <div className="flex items-baseline justify-between">
-              <span className="font-tech text-[9px] text-muted-foreground/70">{c.axis}</span>
-              <span className="font-tech text-[9px] text-foreground/70 tabular-nums">{c.value}</span>
-            </div>
-            <div className="mt-1 h-1 bg-border/50" aria-hidden="true">
-              <motion.span
-                className="block h-full bg-primary/60 origin-left"
-                initial={reduce ? false : { scaleX: 0 }}
-                whileInView={{ scaleX: c.value / c.of }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 + i * 0.1 }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* the loop that feeds scores back into the director */}
-      <div className="mt-auto pt-4 border-t border-border">
-        <div className="flex items-center gap-2.5">
-          <motion.span
-            className="w-1.5 h-1.5 bg-primary shrink-0"
-            animate={reduce ? undefined : { opacity: looping ? 1 : 0.3, scale: looping ? 1.6 : 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.p
-            key={looping ? "loop" : DJ_STAGES[active].note}
-            className="font-tech text-[10px] text-foreground/70 truncate"
-            initial={reduce ? false : { opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.28 }}
-          >
-            {looping
-              ? "best + worst → DPO pairs → director · loss 0.68 → 0.47"
-              : DJ_STAGES[active].note}
-          </motion.p>
-        </div>
+      <div className="mt-2 border-t border-border pt-3 space-y-1.5">
+        <motion.p
+          key={active.note}
+          className="font-tech text-[10.5px] text-foreground/75 truncate"
+          initial={reduce ? false : { opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.28 }}
+        >
+          {active.note}
+        </motion.p>
+        <p className="font-tech text-[10px] text-muted-foreground">
+          best + worst → DPO pairs → director · loss 0.68 → 0.47
+        </p>
       </div>
     </div>
   );
@@ -730,258 +767,375 @@ function AppShotVisual() {
  * repairable and kicks the run back, and the counters follow the phase.
  * Reduced motion gets the finished state with no ticking.
  */
-const RUN_PHASES: {
-  agent: string;
-  note: string;
-  rows: number;
-  repair?: boolean;
-}[] = [
-  { agent: "intake", note: "profile_csv · detect_header_shape", rows: 0 },
-  { agent: "curate", note: "cluster_confusables · freeze_profile", rows: 0 },
-  { agent: "label", note: "Map · batch 50 · concurrency 4", rows: 38 },
-  { agent: "label", note: "slice 2 of 3 committed", rows: 74 },
-  { agent: "qa", note: "join_integrity · invalid_label_rate", rows: 102 },
-  { agent: "label", note: "verdict repairable · relabel 6 rows", rows: 102, repair: true },
-  { agent: "analytics", note: "count_by · crosstab · coverage", rows: 102 },
-  { agent: "viz", note: "propose_chart → 4 gates", rows: 102 },
-  { agent: "conclude", note: "verify_citations · 0 unsourced", rows: 102 },
+/** Filled ribbon between two horizontal spans, the Sankey primitive. */
+function ribbon(a1: number, a2: number, y1: number, b1: number, b2: number, y2: number) {
+  const m = (y1 + y2) / 2;
+  return `M${a1} ${y1} C ${a1} ${m}, ${b1} ${m}, ${b1} ${y2} L ${b2} ${y2} C ${b2} ${m}, ${a2} ${m}, ${a2} ${y1} Z`;
+}
+
+const SANKEY_STAGES = [
+  { id: "intake", y: 62, note: "scan_file · find_headers · check_columns" },
+  { id: "curate", y: 112, note: "confusable_clusters · distinctions" },
+  { id: "label", y: 180, note: "distributed map · schema-constrained" },
+  { id: "qa", y: 248, note: "integrity · conflicts · outliers" },
+  { id: "analytics", y: 298, note: "count_by · crosstab · cooccurrence" },
 ];
 
-const AGENT_LANES = [
-  "intake",
-  "curate",
-  "label",
-  "adjudicate",
-  "qa",
-  "analytics",
-  "analysis",
-  "viz",
-  "conclude",
+const TRUNK = [112, 188] as const; // the single-file span
+const LANES = [
+  [30, 82],
+  [112, 164],
+  [194, 246],
+] as const; // three parallel label slices, clearly separated
+const OUTS = [
+  { span: [30, 82], t: "facts" },
+  { span: [112, 164], t: "charts" },
+  { span: [194, 246], t: "report" },
 ] as const;
 
+/**
+ * 01 — drawn as a Sankey because fan-out and merge *is* the architecture: one
+ * export widens across parallel label slices, narrows back through QA, and
+ * splits again into facts, charts and prose. Ribbon width is volume; the thin
+ * strand peeling off QA is the bounded repair pass.
+ */
 function SurveyAgentsVisual() {
   const reduce = useReducedMotion();
-  const [phase, setPhase] = useState(reduce ? RUN_PHASES.length - 1 : 0);
+  const [step, setStep] = useState(reduce ? SANKEY_STAGES.length - 1 : 0);
 
   useEffect(() => {
     if (reduce) return;
-    const id = setInterval(() => setPhase((p) => (p + 1) % RUN_PHASES.length), 1150);
+    const id = setInterval(() => setStep((p) => (p + 1) % (SANKEY_STAGES.length + 1)), 1150);
     return () => clearInterval(id);
   }, [reduce]);
 
-  const current = RUN_PHASES[phase];
-  const activeLane = AGENT_LANES.indexOf(current.agent as (typeof AGENT_LANES)[number]);
-  const pct = Math.round((current.rows / 102) * 100);
+  const active = Math.min(step, SANKEY_STAGES.length - 1);
+  const cycling = step >= SANKEY_STAGES.length;
 
   return (
     <div className="h-full flex flex-col p-6 sm:p-8">
       <div className="flex items-baseline justify-between border-b border-border pb-4">
         <div>
           <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-            Run 0f472a8d
+            Coding pipeline
           </p>
-          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums text-foreground">
-            {current.rows} / 102
+          <p className="mt-1 font-display text-2xl font-bold tracking-tight text-foreground">
+            {cycling ? "conclude" : SANKEY_STAGES[active].id}
           </p>
         </div>
         <div className="text-right">
-          <p
-            className={`font-tech text-xs transition-colors duration-300 ${
-              current.repair ? "text-foreground" : "text-primary"
-            }`}
-          >
-            {current.repair ? "repair · 1 of 2" : "0 destroyed labels"}
-          </p>
-          <p className="mt-1 font-tech text-[10px] text-muted-foreground tabular-nums">
-            {(0.0004 * (phase + 1)).toFixed(4)} usd
+          <p className="font-tech text-xs text-primary">0 destroyed labels</p>
+          <p className="mt-1 font-tech text-[10px] text-muted-foreground">
+            every figure tool-computed
           </p>
         </div>
       </div>
 
-      {/* agent lanes: the active one carries the run */}
-      <div className="flex-1 min-h-[9rem] mt-5 flex flex-col justify-between gap-2">
-        {AGENT_LANES.map((agent, i) => {
-          const isActive = i === activeLane;
-          const isDone = activeLane > i;
-          return (
-            <div key={agent} className="grid grid-cols-[4.75rem_1fr] items-center gap-3">
-              <span
-                className={`font-tech text-[10.5px] transition-colors duration-300 ${
-                  isActive ? "text-primary" : isDone ? "text-foreground/60" : "text-muted-foreground/40"
-                }`}
-              >
-                {agent}
-              </span>
-              <span className="relative h-[3px] bg-border/50 overflow-hidden" aria-hidden="true">
-                <motion.span
-                  className="absolute inset-y-0 left-0 bg-primary origin-left"
-                  initial={false}
-                  animate={{ scaleX: isActive ? 1 : isDone ? 0.28 : 0, opacity: isActive ? 1 : 0.35 }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ width: "100%" }}
-                />
-                {isActive && !reduce && (
-                  <motion.span
-                    className="absolute inset-y-0 w-6 bg-primary-foreground/25"
-                    animate={{ left: ["-10%", "100%"] }}
-                    transition={{ duration: 1.05, repeat: Infinity, ease: "linear" }}
-                  />
-                )}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* the fan-out, live only while label is running */}
-      <div className="mt-5 flex items-center gap-1.5" aria-hidden="true">
-        {[0, 1, 2].map((slice) => (
-          <motion.span
-            key={slice}
-            className="h-1.5 flex-1 bg-primary/25 origin-left"
-            initial={false}
-            animate={{
-              scaleX: current.agent === "label" ? 1 : 0.12,
-              opacity: current.agent === "label" ? 1 : 0.3,
-            }}
-            transition={{ duration: 0.55, delay: slice * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      <div className="flex-1 min-h-[13rem] mt-4 flex items-center" aria-hidden="true">
+        <svg viewBox="0 0 276 348" className="w-full h-auto max-h-[24rem]">
+          {/* one file in */}
+          <path
+            d={ribbon(128, 172, 26, TRUNK[0], TRUNK[1], 62)}
+            fill="hsl(var(--primary) / 0.1)"
+            stroke="hsl(var(--primary) / 0.3)"
+            strokeWidth="0.6"
           />
-        ))}
+          <path
+            d={ribbon(TRUNK[0], TRUNK[1], 68, TRUNK[0], TRUNK[1], 112)}
+            fill="hsl(var(--primary) / 0.1)"
+            stroke="hsl(var(--primary) / 0.3)"
+            strokeWidth="0.6"
+          />
+
+          {/* widening into three parallel slices, then merging back */}
+          {LANES.map(([a, b], i) => {
+            const third = (TRUNK[1] - TRUNK[0]) / 3;
+            const fa = TRUNK[0] + i * third;
+            return (
+              <g key={i}>
+                <motion.path
+                  d={ribbon(fa, fa + third, 118, a, b, 180)}
+                  fill="hsl(var(--primary) / 0.2)"
+                  stroke="hsl(var(--primary) / 0.4)"
+                  strokeWidth="0.6"
+                  initial={false}
+                  animate={{ opacity: active >= 2 ? 1 : 0.25 }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                />
+                <motion.path
+                  d={ribbon(a, b, 186, fa, fa + third, 248)}
+                  fill="hsl(var(--primary) / 0.2)"
+                  stroke="hsl(var(--primary) / 0.4)"
+                  strokeWidth="0.6"
+                  initial={false}
+                  animate={{ opacity: active >= 3 ? 1 : 0.2 }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                />
+              </g>
+            );
+          })}
+
+          {/* the thin repair strand peeling off QA and back into label */}
+          <motion.path
+            d="M110 252 C 8 254, 4 196, 26 186"
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.6"
+            strokeDasharray="3 3"
+            initial={false}
+            animate={{ opacity: cycling ? 1 : 0.25 }}
+            transition={{ duration: 0.4 }}
+          />
+          <path
+            d={ribbon(TRUNK[0], TRUNK[1], 254, TRUNK[0], TRUNK[1], 298)}
+            fill="hsl(var(--primary) / 0.1)"
+            stroke="hsl(var(--primary) / 0.3)"
+            strokeWidth="0.6"
+          />
+
+          {/* facts split three ways */}
+          {OUTS.map((o, i) => {
+            const third = (TRUNK[1] - TRUNK[0]) / 3;
+            const fa = TRUNK[0] + i * third;
+            return (
+              <motion.path
+                key={o.t}
+                d={ribbon(fa, fa + third, 304, o.span[0], o.span[1], 330)}
+                fill="hsl(var(--primary) / 0.1)"
+                stroke="hsl(var(--primary) / 0.3)"
+                strokeWidth="0.6"
+                initial={false}
+                animate={{ opacity: active >= 4 || cycling ? 1 : 0.2 }}
+                transition={{ duration: 0.5, delay: i * 0.07 }}
+              />
+            );
+          })}
+
+          {/* stage bars */}
+          <rect x="128" y="20" width="44" height="6" fill="hsl(var(--muted-foreground) / 0.5)" />
+          <text x="128" y="15" className="font-tech" fontSize="8.5" fill="hsl(var(--muted-foreground))">
+            any survey export
+          </text>
+          {SANKEY_STAGES.map((st, idx) => {
+            const isLabel = st.id === "label";
+            return isLabel ? (
+              <g key={st.id}>
+                {LANES.map(([a, b]) => (
+                  <motion.rect
+                    key={a}
+                    x={a}
+                    y={st.y}
+                    width={b - a}
+                    height="6"
+                    fill="hsl(var(--primary))"
+                    initial={false}
+                    animate={{ fillOpacity: idx === active && !cycling ? 1 : 0.4 }}
+                    transition={{ duration: 0.35 }}
+                  />
+                ))}
+                <text
+                  x={LANES[0][0]}
+                  y={st.y - 5}
+                  className="font-tech"
+                  fontSize="9"
+                  fill={idx === active && !cycling ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
+                >
+                  label · 3 slices
+                </text>
+              </g>
+            ) : (
+              <g key={st.id}>
+                <motion.rect
+                  x={TRUNK[0]}
+                  y={st.y}
+                  width={TRUNK[1] - TRUNK[0]}
+                  height="6"
+                  fill="hsl(var(--primary))"
+                  initial={false}
+                  animate={{ fillOpacity: idx === active && !cycling ? 1 : 0.4 }}
+                  transition={{ duration: 0.35 }}
+                />
+                <text
+                  x={TRUNK[0]}
+                  y={st.y - 5}
+                  className="font-tech"
+                  fontSize="9"
+                  fill={idx === active && !cycling ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
+                >
+                  {st.id}
+                </text>
+              </g>
+            );
+          })}
+          {OUTS.map((o) => (
+            <g key={o.t}>
+              <rect x={o.span[0]} y="330" width={o.span[1] - o.span[0]} height="6" fill="hsl(var(--primary) / 0.6)" />
+              <text x={o.span[0]} y="346" className="font-tech" fontSize="8.5" fill="hsl(var(--muted-foreground))">
+                {o.t}
+              </text>
+            </g>
+          ))}
+
+          {!reduce && (
+            <motion.circle
+              cx="150"
+              cy={26}
+              r="2.4"
+              fill="hsl(var(--primary))"
+              initial={{ cy: 26, opacity: 0 }}
+              animate={{ cy: [26, 330], opacity: [0, 1, 1, 0] }}
+              transition={{ duration: 5.75, repeat: Infinity, ease: "linear" }}
+            />
+          )}
+        </svg>
       </div>
 
-      <div className="mt-4 border-t border-border pt-3 flex items-baseline justify-between gap-4">
+      <div className="mt-3 border-t border-border pt-3">
         <motion.p
-          key={current.note}
+          key={cycling ? "loop" : SANKEY_STAGES[active].note}
           className="font-tech text-[10.5px] text-foreground/75 truncate"
           initial={reduce ? false : { opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.28 }}
         >
-          {current.note}
+          {cycling ? "repairable → relabel the flagged rows only" : SANKEY_STAGES[active].note}
         </motion.p>
-        <p className="font-tech text-[10px] text-muted-foreground tabular-nums shrink-0">
-          {pct}%
-        </p>
       </div>
     </div>
   );
 }
 
-const CLAN_MEMBERS = [
-  { tag: "ARCHIT", fame: 3120 },
-  { tag: "K1NGSL", fame: 2980 },
-  { tag: "NOVA", fame: 2755 },
-  { tag: "RAZR", fame: 2410 },
-  { tag: "PIXEL", fame: 2180 },
+/** Eight weeks of finishing position per member. Crossings are the story. */
+const BUMP = [
+  { tag: "ARCHIT", ranks: [3, 3, 2, 2, 1, 1, 1, 1] },
+  { tag: "K1NGSL", ranks: [1, 1, 1, 1, 2, 3, 2, 2] },
+  { tag: "NOVA", ranks: [2, 2, 3, 4, 3, 2, 3, 3] },
+  { tag: "RAZR", ranks: [5, 4, 4, 3, 4, 4, 5, 4] },
+  { tag: "PIXEL", ranks: [4, 5, 5, 5, 5, 5, 4, 5] },
 ];
 
-const FAME_PATH = "M2 44 C 16 40, 22 34, 32 33 S 48 26, 58 21 S 76 16, 98 6";
+const BW = 34; // horizontal gap per week
+const BH = 26; // vertical gap per rank
 
 /**
- * 04 — a ladder that moves. The weekly line draws itself, and the member
- * ranking reshuffles with layout animation, which is what clan analytics
- * actually looks like week to week.
+ * 04 — a bump chart, because a clan ladder is a story about positions changing
+ * hands, and a bar chart cannot show a crossing. Each line is one member's
+ * finishing rank across eight river races; the lines draw in, then the leader
+ * separates.
  */
 function AnalyticsVisual() {
   const reduce = useReducedMotion();
-  const [members, setMembers] = useState(CLAN_MEMBERS);
 
-  // Fame drifts, and the ladder is always the sorted view of it, so a row only
-  // changes position when its score actually crosses a neighbour's.
-  useEffect(() => {
-    if (reduce) return;
-    const id = setInterval(() => {
-      setMembers((prev) =>
-        prev.map((m) => ({
-          ...m,
-          fame: Math.max(1800, Math.min(3400, m.fame + Math.round((Math.random() - 0.45) * 260))),
-        })),
-      );
-    }, 2100);
-    return () => clearInterval(id);
-  }, [reduce]);
-
-  const order = [...members].sort((a, b) => b.fame - a.fame);
-  const top = order[0].fame;
+  const pts = (ranks: number[]) =>
+    ranks.map((r, i) => [18 + i * BW, 14 + (r - 1) * BH] as const);
+  const line = (ranks: number[]) =>
+    pts(ranks)
+      .map(([x, y], i) => (i === 0 ? `M${x} ${y}` : `L${x} ${y}`))
+      .join(" ");
 
   return (
     <div className="h-full flex flex-col p-6 sm:p-8">
       <div className="flex items-baseline justify-between border-b border-border pb-4">
         <div>
           <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-            Weekly clan fame
+            River race ladder
           </p>
-          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums text-foreground">
-            48,620
+          <p className="mt-1 font-display text-2xl font-bold tracking-tight text-foreground">
+            8 weeks
           </p>
         </div>
-        <p className="font-tech text-xs text-primary">+12.4%</p>
+        <p className="font-tech text-xs text-primary">3 lead changes</p>
       </div>
 
-      {/* the trend, drawn rather than placed */}
-      <div className="mt-5" aria-hidden="true">
-        <svg viewBox="0 0 100 48" className="w-full h-[58px]">
-          <path d="M2 44 H 98" stroke="hsl(var(--border))" strokeWidth="0.4" fill="none" />
-          <path d="M2 25 H 98" stroke="hsl(var(--border))" strokeWidth="0.4" strokeDasharray="1 2" fill="none" />
-          <motion.path
-            d={FAME_PATH}
-            fill="none"
-            stroke="hsl(var(--primary))"
-            strokeWidth="1.5"
-            initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
-            animate={reduce ? undefined : { pathLength: [0, 1] }}
-            transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 1.1, ease: "easeInOut" }}
-          />
-          {!reduce && (
-            <motion.circle
-              r="1.9"
-              fill="hsl(var(--primary))"
-              animate={{ offsetDistance: ["0%", "100%"] }}
-              transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 1.1, ease: "easeInOut" }}
-              style={{ offsetPath: `path("${FAME_PATH}")` } as React.CSSProperties}
-            />
-          )}
-        </svg>
-        <div className="flex justify-between font-tech text-[10px] text-muted-foreground">
-          <span>W01</span>
-          <span>W08</span>
-        </div>
-      </div>
-
-      {/* the ladder, reordering */}
-      <div className="flex-1 min-h-[7rem] mt-5 border-t border-border pt-3 flex flex-col">
-        <p className="font-tech text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70 mb-2.5">
-          River race ladder
-        </p>
-        <div className="flex-1 flex flex-col justify-around gap-1.5">
-          {order.map((m, i) => (
-            <motion.div
-              key={m.tag}
-              layout={!reduce}
-              transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="grid grid-cols-[1.4rem_4.6rem_1fr_3rem] items-center gap-2"
-            >
-              <span
-                className={`font-tech text-[10px] tabular-nums ${
-                  i === 0 ? "text-primary" : "text-muted-foreground/60"
-                }`}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="font-tech text-[10.5px] text-foreground/80 truncate">{m.tag}</span>
-              <span className="relative h-1.5 bg-border/50" aria-hidden="true">
-                <motion.span
-                  className="absolute inset-y-0 left-0 bg-primary/60"
-                  animate={{ width: `${(m.fame / top) * 100}%` }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                />
-              </span>
-              <span className="font-tech text-[10px] tabular-nums text-muted-foreground text-right">
-                {m.fame.toLocaleString()}
-              </span>
-            </motion.div>
+      <div className="flex-1 min-h-[11rem] mt-6 flex items-center" aria-hidden="true">
+        <svg viewBox="0 0 290 150" className="w-full h-auto">
+          {/* rank guides */}
+          {[0, 1, 2, 3, 4].map((r) => (
+            <g key={r}>
+              <line
+                x1="18"
+                y1={14 + r * BH}
+                x2="256"
+                y2={14 + r * BH}
+                stroke="hsl(var(--border))"
+                strokeWidth="0.6"
+                strokeDasharray="2 3"
+              />
+              <text x="4" y={17 + r * BH} className="font-tech" fontSize="8" fill="hsl(var(--muted-foreground))">
+                {r + 1}
+              </text>
+            </g>
           ))}
-        </div>
+
+          {BUMP.map((m, i) => {
+            const leader = m.tag === "ARCHIT";
+            return (
+              <g key={m.tag}>
+                <motion.path
+                  d={line(m.ranks)}
+                  fill="none"
+                  stroke={leader ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.5)"}
+                  strokeWidth={leader ? 2.2 : 1.2}
+                  strokeLinejoin="round"
+                  initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, delay: 0.15 + i * 0.12, ease: "easeInOut" }}
+                />
+                {pts(m.ranks).map(([x, y], j) => (
+                  <motion.circle
+                    key={j}
+                    cx={x}
+                    cy={y}
+                    r={leader ? 2.6 : 1.8}
+                    fill={leader ? "hsl(var(--primary))" : "hsl(var(--background))"}
+                    stroke={leader ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.5)"}
+                    strokeWidth="0.9"
+                    initial={reduce ? false : { opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.25, delay: 0.3 + i * 0.12 + j * 0.11 }}
+                  />
+                ))}
+                <motion.text
+                  x={18 + 7 * BW + 8}
+                  y={17 + (m.ranks[7] - 1) * BH}
+                  className="font-tech"
+                  fontSize="8.5"
+                  fill={leader ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
+                  initial={reduce ? false : { opacity: 0, x: -4 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: 1.5 + i * 0.08 }}
+                >
+                  {m.tag}
+                </motion.text>
+              </g>
+            );
+          })}
+
+          <text x="18" y="146" className="font-tech" fontSize="8" fill="hsl(var(--muted-foreground))">
+            W01
+          </text>
+          <text x="232" y="146" className="font-tech" fontSize="8" fill="hsl(var(--muted-foreground))">
+            W08
+          </text>
+        </svg>
+      </div>
+
+      <div className="mt-auto border-t border-border pt-3 grid grid-cols-3 gap-3">
+        {[
+          ["48,620", "clan fame"],
+          ["+12.4%", "week on week"],
+          ["94%", "war participation"],
+        ].map(([v, l]) => (
+          <div key={l}>
+            <p className="font-tech text-[11px] tabular-nums text-foreground/80">{v}</p>
+            <p className="font-tech text-[9px] uppercase tracking-[0.15em] text-muted-foreground/70">
+              {l}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

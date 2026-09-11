@@ -375,14 +375,8 @@ function StateMachine({ r }: { r: boolean }) {
           <div key={st} className="flex items-center gap-1 flex-1 last:flex-none">
             <motion.span
               className="font-tech text-[9px] px-1.5 py-1 border whitespace-nowrap"
-              animate={
-                r
-                  ? undefined
-                  : {
-                      borderColor: [B, P, B],
-                      color: ["hsl(var(--muted-foreground))", P, "hsl(var(--muted-foreground))"],
-                    }
-              }
+              style={{ borderColor: P, color: P }}
+              animate={r ? { opacity: 0.5 } : { opacity: [0.35, 1, 0.35] }}
               transition={{ duration: 4, repeat: Infinity, times: [0, 0.1, 0.3], delay: i * 0.9 }}
             >
               {st}
@@ -416,12 +410,18 @@ function Fanout({ r }: { r: boolean }) {
         <rect x="2" y="30" width="18" height="10" fill="hsl(var(--card))" stroke={P} strokeWidth="0.8" />
         {[6, 22, 38, 54].map((y, i) => (
           <g key={y}>
-            <motion.path
+            <path
               d={`M20 35 C 50 35, 60 ${y + 5}, 86 ${y + 5}`}
               fill="none"
               stroke={B}
               strokeWidth="0.7"
-              animate={r ? undefined : { stroke: [B, P, B] }}
+            />
+            <motion.path
+              d={`M20 35 C 50 35, 60 ${y + 5}, 86 ${y + 5}`}
+              fill="none"
+              stroke={P}
+              strokeWidth="0.7"
+              animate={r ? { strokeOpacity: 0.4 } : { strokeOpacity: [0, 1, 0] }}
               transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.18, times: [0, 0.3, 1] }}
             />
             <rect x="86" y={y} width="20" height="10" fill="hsl(var(--card))" stroke={B} strokeWidth="0.7" />

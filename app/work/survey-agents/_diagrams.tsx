@@ -275,37 +275,46 @@ const LOOP_BOUNDS = [
   { loop: "verify loop", bound: "2 redrafts", then: "strip the sentence" },
 ];
 
+/**
+ * A unit chart rather than a bar chart: every square is one tool call the agent
+ * is allowed before it must exit. Counting them is the point, so they are drawn
+ * as countable objects.
+ */
 export function ToolBudget() {
-  const max = 24;
   return (
     <div className="my-2 border border-border">
-      <div className="flex items-baseline justify-between border-b border-border px-4 py-3">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border px-4 py-3">
         <p className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          maxToolCalls per agent
+          One square = one permitted tool call
         </p>
-        <p className="font-tech text-[10px] text-muted-foreground/70">declared before the loop was written</p>
+        <p className="font-tech text-[10px] text-muted-foreground/80">
+          declared before the loop was written
+        </p>
       </div>
 
-      <ul className="divide-y divide-border/60">
+      <div className="divide-y divide-border/60">
         {TOOL_CAPS.map((t) => (
-          <li key={t.agent} className="grid grid-cols-[7.5rem_1fr] sm:grid-cols-[8rem_3rem_1fr] items-center gap-x-3 px-4 py-2.5">
+          <div
+            key={t.agent}
+            className="grid grid-cols-[6.5rem_1fr] sm:grid-cols-[6.5rem_1fr_13rem] items-center gap-x-4 gap-y-1.5 px-4 py-2.5"
+          >
             <span className="font-tech text-[12px] text-foreground/90">{t.agent}</span>
-            <span className="hidden sm:block font-tech text-[12px] tabular-nums text-primary">{t.cap}</span>
-            <span className="flex items-center gap-3">
-              <span className="relative h-1.5 flex-1 bg-border/50" aria-hidden="true">
+            <span className="flex flex-wrap gap-[3px]" aria-label={`${t.cap} calls`}>
+              {Array.from({ length: t.cap }).map((_, i) => (
                 <span
-                  className="absolute inset-y-0 left-0 bg-primary/70"
-                  style={{ width: `${(t.cap / max) * 100}%` }}
+                  key={i}
+                  className="w-[9px] h-[9px] bg-primary/70"
+                  style={{ opacity: 0.35 + (i / t.cap) * 0.65 }}
                 />
-              </span>
-              <span className="hidden md:inline font-tech text-[10px] text-muted-foreground/80 w-[15rem] shrink-0">
-                {t.note}
-              </span>
-              <span className="sm:hidden font-tech text-[11px] tabular-nums text-primary">{t.cap}</span>
+              ))}
+              <span className="ml-2 font-tech text-[11px] tabular-nums text-primary">{t.cap}</span>
             </span>
-          </li>
+            <span className="hidden sm:block font-tech text-[10px] text-muted-foreground/80">
+              {t.note}
+            </span>
+          </div>
         ))}
-      </ul>
+      </div>
 
       <div className="border-t border-border px-4 py-3 grid gap-2 sm:grid-cols-3">
         {LOOP_BOUNDS.map((l) => (

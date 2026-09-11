@@ -17,7 +17,7 @@ const navigation = [
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
-  { name: "Achievements", href: "#achievements" },
+  // { name: "Achievements", href: "#achievements" },  // hidden: content needs verification
   { name: "Contact", href: "#contact" },
 ];
 

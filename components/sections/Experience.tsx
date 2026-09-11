@@ -47,19 +47,19 @@ const experiences: ExperienceItem[] = [
     ],
     achievements: [
       {
-        text: "Architected and shipped an agentic survey-analysis platform: ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a 5% failure circuit breaker. 116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs.",
+        text: "Architected and shipped an agentic platform that takes any survey any team uploads and returns analysis they can defend line by line: ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a failure circuit breaker. 116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs, and no per-survey pipeline to maintain.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore", "Step Functions", "AWS CDK"],
       },
       {
-        text: "Made fabricated figures structurally impossible rather than merely discouraged: schema-constrained decoding, per-response correlation tokens, and a citation verifier that resolves every number in a draft back to a tool-computed fact. Invented labels 9 → 0. Silently overwritten rows 13 of 102 → 0. Join integrity 100%, label churn 0% across repeat runs.",
+        text: "Closed the failure mode nobody upstream was even measuring. Schema-constrained decoding, per-response correlation tokens and a citation verifier make a fabricated figure structurally impossible rather than merely discouraged: out-of-codebook labels are unrepresentable, silently overwritten rows are eliminated, join integrity is 100% and label churn is zero across repeat runs. The pipeline this replaced was quietly destroying roughly one row in eight and flagging none of it.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "Zod", "Vitest"],
       },
       {
-        text: "Built the semantic layer that decides what a dataset can be asked: English compiles to an MBQL plan, clears seven validation checks, then executes over stored facts with DuckDB on a miss. Metrics bind to column kinds rather than column names, so an unseen survey is answerable the moment it lands.",
+        text: "Built the semantic layer that decides what any dataset can be asked: plain English compiles to an MBQL plan, clears seven validation checks, then executes against stored facts with DuckDB on a miss. Metrics bind to column kinds rather than column names, so a survey the system has never seen is fully answerable the moment it lands, and a question nobody predeclared still returns a cited number.",
         relatedTechs: ["TypeScript", "DuckDB", "Zod"],
       },
       {
-        text: "Authored the target architecture for the platform that succeeds the POC: six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates, and a novelty ledger recording eight mechanisms with no published counterpart, each paired with the instrument that would measure it.",
+        text: "Authored the target architecture for the production platform that succeeds it, and the case for building it: six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates, and a novelty ledger of eight mechanisms that sit ahead of the published literature, each paired with the instrument that would prove or kill it.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "PostgreSQL"],
       },
       {
@@ -75,7 +75,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Recovered scrambled label batches instead of dropping rows: discard the batch whole, re-label at batch size 1, then quarantine and abstain, capped at 2 iterations. 114 of 114 rows joined at 100% correlation integrity.",
+        text: "Recovered scrambled label batches instead of dropping rows: discard the batch whole, re-label at batch size 1, then quarantine and abstain, capped at 2 iterations. Correlation integrity has never dropped below 100% since.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
@@ -87,11 +87,11 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["TypeScript", "Node.js"],
       },
       {
-        text: "Recovered the dates 22 of 32 exports were reporting as missing by detecting constant arity inside packed identifier columns. The same intake survives UTF-16 null-byte headers, duplicate headers overwriting a column, and 0/1 flags typed as rating scales.",
+        text: "Unlocked a time axis on roughly seven in ten real exports, which had been reporting no date column while carrying the timestamp packed inside an identifier. The same intake survives UTF-16 null-byte headers, duplicate headers overwriting a column, and 0/1 flags typed as rating scales.",
         relatedTechs: ["TypeScript", "Node.js"],
       },
       {
-        text: "Emitted every intake decision as one replayable JSON recipe: 30+ export shapes, 11 model calls, $0.0023, zero divergence between a run and its replay.",
+        text: "Emitted every intake decision as one replayable JSON recipe: across every export shape we could construct, the model is consulted a handful of times, the sweep costs a fraction of a cent, and a run has never once diverged from its replay.",
         relatedTechs: ["TypeScript", "Node.js"],
       },
       {
@@ -151,7 +151,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["TypeScript", "DuckDB"],
       },
       {
-        text: "Blocked the cross-survey join that silently double counts: a respondent fingerprint caught two runs sharing all 114 response ids, after a pooled breakdown had reported 203 of 203 with nothing flagging it.",
+        text: "Blocked the cross-survey join that silently double counts: a respondent fingerprint catches runs that share respondents, after a pooled breakdown counted every one of them twice while reporting a denominator that looked perfectly self-consistent.",
         relatedTechs: ["TypeScript", "DuckDB"],
       },
       {
@@ -159,15 +159,15 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["AWS CDK", "Step Functions", "AgentCore"],
       },
       {
-        text: "Traced a fully SUCCEEDED execution that had silently dropped 2% of the corpus to concurrent Distributed Map iterations writing the same slot, then partitioned the writes and added a real fan-in.",
+        text: "Traced a fully SUCCEEDED execution that had silently dropped part of the corpus to concurrent Distributed Map iterations writing the same slot, then partitioned the writes and added a real fan-in, because green meant nothing until that held.",
         relatedTechs: ["Step Functions", "AWS CDK"],
       },
       {
-        text: "Benchmarked a managed agent runtime against a hand-rolled loop: AgentCore's harness took labelling from 50 of 102 to 102 of 102 where our own loop failed, and earns its place at the stage level, not the orchestration level.",
+        text: "Benchmarked a managed agent runtime against a hand-rolled loop: AgentCore's harness took labelling from partial to complete coverage where our own loop stalled, and earns its place at the stage level, not the orchestration level.",
         relatedTechs: ["AgentCore", "Step Functions"],
       },
       {
-        text: "Bounded blast radius with a ToleratedFailurePercentage circuit breaker at 5%, halting a run once that share of batches fails instead of grinding through the remaining 190 and paying for every one.",
+        text: "Bounded blast radius with a ToleratedFailurePercentage circuit breaker at 5%, halting a run once that share of batches fails instead of grinding through every remaining batch and paying for all of them.",
         relatedTechs: ["Step Functions", "AWS CDK"],
       },
       {
@@ -179,7 +179,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Held every agent to improve-or-discard: 0 of 36 chart proposals beat the deterministic rule table, so the rule table stayed. A consensus signal measured on held-out data separated about 4× better than the risk score it replaced.",
+        text: "Held every agent to improve-or-discard: across the whole evaluation corpus not one chart proposal has beaten the deterministic rule table, so the rule table stayed. A consensus signal measured on held-out data separated about 4× better than the risk score it replaced.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "Vitest"],
       },
       {

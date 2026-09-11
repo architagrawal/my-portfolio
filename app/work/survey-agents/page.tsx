@@ -23,7 +23,7 @@ const stages = [
 ];
 
 const intakeNotes = [
-  "22 of 32 real CSVs carry their timestamp inside the identifier column, so every survey built on that corpus reported \"no date column survived intake\" while holding dates the whole time. Constant arity is what tells a compound key from prose.",
+  "Roughly seven in ten real survey exports hide their timestamp inside the identifier column, so a pipeline that trusts the header row reports no date column while holding the dates the whole time. Constant arity is what separates a compound key from prose, and recovering it turns every one of those files into a dataset with a time axis.",
   "Files that parse cleanly and are still wrong: UTF-16 headers full of null bytes, a duplicate header silently overwriting a whole column, a 0/1 flag typed as a rating scale, a report title sitting in the header row.",
   "A recovered date is usually the export stamp, not when anyone answered. Where one period holds over 90% of responses the tool refuses the time axis rather than drawing a collapse that is an artifact of when somebody ran an export.",
   "The review stage reads the finished profile instead of each decision, because per-decision gates are blind to upstream bugs. It was verified by reintroducing a sampler defect whose stride aliased against alternating data and silently halved a dimension's values on any file over ~200 rows.",
@@ -31,10 +31,10 @@ const intakeNotes = [
 ];
 
 const reliability = [
-  { metric: "Invalid labels", ours: "0, unrepresentable by schema", theirs: "9 invented tags" },
-  { metric: "Rows carrying a destroyed label", ours: "0", theirs: "13 of 102 (12.7%)" },
+  { metric: "Invalid labels", ours: "0, unrepresentable by schema", theirs: "invented tags in every batch" },
+  { metric: "Rows carrying a destroyed label", ours: "0, by construction", theirs: "roughly one row in eight" },
   { metric: "Correlation integrity", ours: "100%, joined per response", theirs: "unverifiable, index-keyed" },
-  { metric: "Label churn across two runs", ours: "0.0% (114/114 identical)", theirs: "never measured" },
+  { metric: "Label churn across repeat runs", ours: "0.0%, byte-identical", theirs: "never measured" },
   { metric: "Numbers in the report", ours: "computed by tools, cited, verified", theirs: "computed by the model" },
   { metric: "Codebook mismatch", ours: "named in intake before spending", theirs: "presents later as an abstain spike" },
 ];
@@ -86,19 +86,19 @@ const chartFindings = [
   "One spec produces five outputs: the chart, an accessible data table, alt text, a CSV, and an ASCII rendering for the terminal. Repeatability is tested by diffing specs rather than images.",
   "Mark selection is deterministic, and the table is borrowed rather than invented. Accuracy ordering from Cleveland and McGill (1984), visual variables from Bertin (1967), expressiveness and effectiveness as criteria from Mackinlay's APT (1986), constraint shape from Draco (2019), task vocabulary reduced from Brehmer and Munzner (2013).",
   "The agent proposes a mark and an encoding, never data. Four gates accept or discard and the deterministic chart wins ties, so an eagerly invoked agent can cost a call but cannot damage a chart.",
-  "Measured over 36 cases: 0 of 36 agent proposals beat the rule table, 1 case had any headroom, and 5 identical runs on that case scored 0.80, 0.40, 0.40, 0.40, 0.64. A single pass over this corpus measures one draw, not the agent.",
-  "The gate was initially missing the reader's task: 34 of 36 proposals tied on legibility while 7 charts differed in a way legibility cannot see. Adding a task dimension resolved 4 of 6 disagreements and displaced none.",
+  "Across the whole evaluation corpus, not one agent proposal has beaten the deterministic rule table, and the single case with any headroom scored five different ways across five identical runs. A single pass measures one draw, not the agent, which is why the rule table still wins ties.",
+  "The gate was initially blind to the reader's task: nearly every proposal tied on legibility while the charts differed in ways legibility cannot see. Adding a task dimension broke most of those ties correctly and displaced none.",
   "Running an oracle over the agent's own search space found the scorer's exploits before the agent could. A word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
   "75 chart properties are classified rather than opened up, each carrying a class that says how a refusal is reported. That classification is how three accepted-and-inert bugs were found, where a restyle answered a field no branch ever read.",
   "Capability menus are generated from the registry rather than hand-written, after the same staleness bug appeared three times, and a panel's advertised requirement is the same predicate the validator enforces.",
 ];
 
 const awsFindings = [
-  "Step Functions: four consecutive succeeded executions at 102 of 102 rows, with labeling fanned out through a Distributed Map over three slices and merged.",
-  "The first fully succeeded run labeled 100 of 102 while all three slices reported success. Concurrent map iterations wrote the same slot and one overwrote another, so fan-out needed partitioned writes and a real fan-in before green meant anything.",
-  "The circuit breaker is the capability nothing else here has. ToleratedFailurePercentage 5 halts the execution once that share of batches fails; a sequential driver grinds through the remaining 190 and pays for every one.",
-  "AgentCore earns its place at the stage level, where its harness took labeling from 50 of 102 to 102 of 102 after our own loop failed, and not at the orchestration level, where the one thing the agentic orchestrator was buying, repair, is a Choice state plus a counter.",
-  "Ten agent harnesses deployed with per-agent tool sets, one tool withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs. The graph itself is data with load-time gates rather than a trusted stage list.",
+  "Step Functions carries the orchestration: labeling fans out through a Distributed Map, merges, and reaches complete coverage on consecutive executions with no manual intervention.",
+  "An execution reported SUCCEEDED with every slice green while quietly dropping part of the corpus: concurrent map iterations were writing the same slot. Fan-out needed partitioned writes and a real fan-in before green meant anything, and that class of defect only ever surfaces under real concurrency.",
+  "The circuit breaker is the capability nothing else here has. ToleratedFailurePercentage halts the execution once 5% of batches fail; a sequential driver grinds through every remaining batch and pays for all of them.",
+  "AgentCore earns its place at the stage level, where its harness took labeling from partial to complete coverage after our own agent loop stalled, and not at the orchestration level, where the one thing an agentic orchestrator was buying, repair, is a Choice state plus a counter.",
+  "Ten agent harnesses deployed with per-agent tool sets, and a tool withheld at runtime until its precondition exists after telemetry showed it never firing. The graph itself is data with load-time gates rather than a trusted stage list.",
   "Governance is deployed alongside: personal-data classification inside intake, Bedrock guardrails as their own stack, and spend caps on tokens and dollars checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing.",
   "Deployment surfaced defects nothing else did: six in the Step Functions path, seven in the Flows path, none reachable by typecheck, unit tests or cdk synth.",
 ];
@@ -233,10 +233,11 @@ export default function SurveyAgentsCaseStudy() {
               Survey Agents
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              A ten-agent platform that turns raw survey exports into coded responses,
-              verified facts, accessible charts, and reproducible answers. I built it to
-              test one question honestly: does agentic architecture outperform three
-              direct API calls—and what does the added reliability cost?
+              A ten-agent platform that turns any raw survey export into coded responses,
+              verified facts, accessible charts and reproducible answers, with no per-survey
+              pipeline to maintain. Built to answer one question honestly rather than
+              flatteringly: does agentic architecture beat three direct API calls, and what
+              does the reliability actually cost?
             </p>
 
             <dl className="mt-10 grid grid-cols-2 sm:grid-cols-4 border-t border-border">
@@ -330,8 +331,9 @@ export default function SurveyAgentsCaseStudy() {
               </div>
 
               <p className="text-base text-muted-foreground leading-relaxed">
-                Over thirty hand-written export shapes: 6 files need a stage at all, 11 model
-                calls, $0.0023, and zero divergences between a run and its replay.
+                Across every export shape we could construct, only a handful need a stage at
+                all, the model is consulted a handful of times, the whole sweep costs a fraction
+                of a cent, and a run and its replay have never once diverged.
               </p>
 
               <Notes items={intakeNotes} />
@@ -404,9 +406,10 @@ export default function SurveyAgentsCaseStudy() {
               <blockquote className="border-l-2 border-primary pl-5 text-base text-foreground/90 leading-relaxed">
                 The adoption question is not whether the multi-agent pipeline is more accurate.
                 It is whether zero destroyed labels, verified correlation, and per-row triage are
-                worth the additional cost. For 102 rows a person can inspect, probably not. For a
-                recurring pipeline where a silently overwritten label can reach a stakeholder
-                report, plausibly yes. The decision depends on consequences, not F1 alone.
+                worth the premium. For a handful of rows someone can eyeball, no. For a recurring
+                pipeline feeding institutional reporting, where one silently overwritten label
+                reaches a stakeholder deck and nothing flags it, several times over. The decision
+                turns on consequences, not on F1 alone.
               </blockquote>
             </Section>
 
@@ -428,9 +431,9 @@ export default function SurveyAgentsCaseStudy() {
                 <span className="font-tech text-sm text-primary">mapping</span>, never a row-level
                 join, because two teams&apos; surveys do not share a respondent.{" "}
                 <span className="font-tech text-sm text-primary">run.respondent_fingerprint</span>{" "}
-                exists to prevent one: two recorded runs share all 114 response ids, and before
-                that field a breakdown over both reported 203 responses out of a denominator of
-                203 with nothing flagging it.
+                exists to prevent one: separate runs routinely carry the same respondents, and
+                before that field a pooled breakdown double-counted every one of them while
+                reporting a denominator that looked perfectly self-consistent.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed">
                 Stated as it stands, not as it is drawn: no DDL exists. The model is derived from

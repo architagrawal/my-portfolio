@@ -153,22 +153,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className="pt-4">
-              <div className="flex items-center gap-2 mb-3">
-                <Award className="w-4 h-4 text-muted-foreground" />
-                <span className="font-tech text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  Recognition
-                </span>
-              </div>
-              <ul className="space-y-2 text-sm font-tech text-muted-foreground">
-                <li className="flex items-center gap-2 before:content-[''] before:w-1.5 before:h-1.5 before:bg-primary/70 before:shrink-0">
-                  3 hackathon podium finishes
-                </li>
-                <li className="flex items-center gap-2 before:content-[''] before:w-1.5 before:h-1.5 before:bg-primary/70 before:shrink-0">
-                  6 certifications, listed in full below
-                </li>
-              </ul>
-            </div>
+
           </motion.div>
 
           {/* Right Column: Technical Specs */}

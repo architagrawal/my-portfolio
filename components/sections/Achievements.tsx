@@ -15,39 +15,12 @@ interface Hackathon {
 }
 
 const hackathons: Hackathon[] = [
-  {
-    event: "Orion Space Hackathon",
-    year: "2025",
-    placement: "3rd place",
-    project: "Light Pollution Explorer",
-    summary:
-      "Turns satellite radiance data into an answer to one question: where is the nearest sky dark enough to see anything from.",
-    detail:
-      "Night-lights raster tiles are resampled to a viewing-quality scale, then scored against travel time from wherever you are, so the recommendation trades darkness against how far you would have to drive rather than reporting the darkest pixel on the map.",
-    stack: ["Python", "Geospatial rasters", "React", "Mapping"],
-  },
-  {
-    event: "SpaceCode Hackathon",
-    year: "2025",
-    placement: "3rd place",
-    project: "AI-Powered Pulsar Detection",
-    summary:
-      "Classifies pulsar candidates from radio-telescope statistics, on a corpus where the honest baseline is doing nothing.",
-    detail:
-      "Real candidate sets are roughly 9% signal, so a model that answers no every time scores above 90% and finds not one pulsar. Scoring on recall at a fixed false-alarm budget instead of accuracy is what made the model's improvement visible at all.",
-    stack: ["Python", "scikit-learn", "Class imbalance", "Signal features"],
-  },
-  {
-    event: "KrackHack 2.0 · GDG",
-    year: "2025",
-    placement: "3rd place",
-    project: "Dealora Marketplace",
-    summary:
-      "A peer-to-peer marketplace built inside a hackathon weekend, with listings, search and settlement working end to end.",
-    detail:
-      "Scope was cut deliberately on the first evening: one category, one currency, no messaging, so what shipped was a complete path from listing to settled transaction rather than four features that each stopped halfway.",
-    stack: ["React", "Node.js", "Postgres", "Auth"],
-  },
+  // VERIFY BEFORE RENDERING. Event names and placements are the only fields that
+  // predate this file's rewrite. Year, project detail and stack were inferred and
+  // have been cleared rather than guessed again.
+  { event: "Orion Space Hackathon", year: "", placement: "3rd place", project: "Light Pollution Explorer", summary: "", detail: "", stack: [] },
+  { event: "SpaceCode Hackathon", year: "", placement: "3rd place", project: "AI-Powered Pulsar Detection", summary: "", detail: "", stack: [] },
+  { event: "KrackHack 2.0 · GDG", year: "", placement: "3rd place", project: "Dealora Marketplace", summary: "", detail: "", stack: [] },
 ];
 
 interface Certification {
@@ -56,35 +29,10 @@ interface Certification {
   link?: string;
 }
 
-const certifications: Certification[] = [
-  {
-    title: "LangChain: Chat with Your Data",
-    issuer: "DeepLearning.AI",
-  },
-  {
-    title: "Building Systems with the ChatGPT API",
-    issuer: "DeepLearning.AI",
-  },
-  {
-    title: "Google Cloud Skills Boost",
-    issuer: "Google Cloud · public profile",
-    link: "https://www.cloudskillsboost.google/public_profiles/d4bd12d2-80fb-43a7-ba30-536890e3e09f",
-  },
-  {
-    title: "Advanced Python: Working with Data",
-    issuer: "LinkedIn Learning",
-    link: "https://www.linkedin.com/learning/certificates/cbaafd2959fdd9c1f7582a234173da86cd0bfed1cf7f05d66c4ffa2c9b6773f7",
-  },
-  {
-    title: "DevOps with AWS",
-    issuer: "LinkedIn Learning",
-    link: "https://www.linkedin.com/learning/certificates/0a554bf6692410db2e6064d5fe1cdf41ad584cef0705577cd3842005ddbab24c",
-  },
-  {
-    title: "Career Essentials in Generative AI",
-    issuer: "Microsoft · LinkedIn",
-  },
-];
+// VERIFY OWNERSHIP BEFORE RENDERING. The credential URLs that were here came from
+// the repo, not from a verified source, and two of them pointed at the same page.
+// Links are removed until each one is confirmed to belong to this profile.
+const certifications: Certification[] = [];
 
 export default function Achievements() {
   return (
