@@ -482,7 +482,7 @@ const featuredMeta: FeaturedMeta[] = [
     caption: "Illustrative system view, drawn in code — not a product screenshot",
     caseStudyUrl: "/work/survey-agents",
     highlights: [
-      "Ten agents over 75 typed tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker. 116k lines of TypeScript, 1,255 tests.",
+      "Ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker. 116k lines of TypeScript, 1,255 tests.",
       "Schema-constrained decoding plus per-response correlation tokens: invented labels 9 → 0, silently overwritten rows 13 of 102 → 0, join integrity 100%.",
       "Questions compile to MBQL plans, clear seven validation checks, then execute over stored facts with DuckDB on a miss. Metrics bind to column kinds, so an unseen survey is answerable on arrival.",
       "Charts are specs, never images: one constrained Vega-Lite spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection deterministic.",
@@ -554,111 +554,149 @@ const archiveIndexes = projects
 
 /* --- Bespoke animated visuals (no stock photos) --- */
 
-const DIRECTOR_CALLS = [
-  "match 128 → 124 bpm · stretch deck B",
-  "key clash Am → Cm · shift +2 semitones",
-  "swap on bar 32 · 16-beat crossfade",
-  "duck vocals · bass swap at the drop",
-  "energy dip detected · hold the outro",
+const DJ_STAGES = [
+  { id: "ingest", note: "yt-dlp pull · 186 clips cached" },
+  { id: "stems", note: "Demucs + Mel-Band Roformer" },
+  { id: "analysis", note: "BPM · key · phrase boundaries" },
+  { id: "director", note: "LLM plan · section-pair validator" },
+  { id: "picker", note: "CLAP + MERT + Audiobox critics" },
+  { id: "transition", note: "25 DSP modules · mutex groups" },
+  { id: "master", note: "adaptive LUFS · tape saturation" },
 ];
 
-const STEMS = [
-  { name: "drums", base: 82, speed: 0.9 },
-  { name: "bass", base: 64, speed: 1.35 },
-  { name: "vocals", base: 47, speed: 1.8 },
-  { name: "other", base: 33, speed: 1.15 },
+const CRITICS = [
+  { axis: "PQ", value: 7.61, of: 10 },
+  { axis: "PC", value: 6.94, of: 10 },
+  { axis: "CE", value: 7.22, of: 10 },
+  { axis: "CU", value: 6.48, of: 10 },
 ];
 
 /**
- * 03 — the DJ actually mixing: four separated stems moving independently, a
- * crossfader riding between decks, and the director's call changing underneath.
+ * 03 — the render path as it actually runs: seven stages, the FX budget that
+ * caps effects per junction, the four-axis aesthetic critics the picker scores
+ * against, and the closed loop that turns the best and worst variants into
+ * preference pairs for the director.
  */
 function AudioPipelineVisual() {
   const reduce = useReducedMotion();
-  const [call, setCall] = useState(0);
+  const [step, setStep] = useState(reduce ? DJ_STAGES.length - 1 : 0);
 
   useEffect(() => {
     if (reduce) return;
-    const id = setInterval(() => setCall((c) => (c + 1) % DIRECTOR_CALLS.length), 2600);
+    const id = setInterval(() => setStep((p) => (p + 1) % (DJ_STAGES.length + 1)), 1000);
     return () => clearInterval(id);
   }, [reduce]);
 
+  const looping = step >= DJ_STAGES.length;
+  const active = Math.min(step, DJ_STAGES.length - 1);
+  const fxUsed = 12 + active * 3.4;
+
   return (
     <div className="h-full flex flex-col p-6 sm:p-8">
-      {/* the two decks */}
-      <div className="flex items-start justify-between border-b border-border pb-4">
-        {[
-          { deck: "A", bpm: "128.0", key: "Am" },
-          { deck: "B", bpm: "124.0", key: "Cm" },
-        ].map((d, i) => (
-          <div key={d.deck} className={i === 1 ? "text-right" : undefined}>
-            <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-              Deck {d.deck}
-            </p>
-            <p className="mt-1 font-display text-2xl font-bold tracking-tight tabular-nums text-foreground">
-              {d.bpm}
-              <span className="ml-1.5 font-tech text-[10px] text-muted-foreground">bpm</span>
-            </p>
-            <p className="font-tech text-[10px] text-primary">{d.key}</p>
-          </div>
-        ))}
+      <div className="flex items-baseline justify-between border-b border-border pb-4">
+        <div>
+          <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+            Render path
+          </p>
+          <p className="mt-1 font-display text-2xl font-bold tracking-tight tabular-nums text-foreground">
+            {DJ_STAGES[active].id}
+          </p>
+        </div>
+        <p className="font-tech text-xs text-primary tabular-nums">variant 3 / 4</p>
       </div>
 
-      {/* crossfader */}
-      <div className="mt-5">
-        <div className="flex items-center justify-between font-tech text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70 mb-2">
-          <span>crossfade</span>
-          <span>16 beats</span>
-        </div>
-        <div className="relative h-[3px] bg-border" aria-hidden="true">
-          <motion.span
-            className="absolute -top-[4px] h-[11px] w-[3px] bg-primary shadow-[0_0_8px_hsl(var(--primary))]"
-            animate={reduce ? undefined : { left: ["4%", "94%", "4%"] }}
-            transition={{ duration: 7.2, repeat: Infinity, ease: "easeInOut" }}
-            style={reduce ? { left: "50%" } : undefined}
-          />
-        </div>
-      </div>
-
-      {/* the separated stems, each on its own envelope */}
-      <div className="flex-1 min-h-[8rem] mt-6 flex flex-col justify-around gap-3">
-        {STEMS.map((stem) => (
-          <div key={stem.name} className="grid grid-cols-[3.6rem_1fr] items-center gap-3">
-            <span className="font-tech text-[10.5px] text-foreground/70">{stem.name}</span>
-            <div className="flex items-center gap-[3px] h-4" aria-hidden="true">
-              {Array.from({ length: 26 }).map((_, i) => (
+      {/* seven stages, the run walking them */}
+      <div className="flex-1 min-h-[8rem] mt-5 flex flex-col justify-between gap-1.5">
+        {DJ_STAGES.map((stage, i) => {
+          const isActive = i === active && !looping;
+          const done = i < active || looping;
+          return (
+            <div key={stage.id} className="grid grid-cols-[4.6rem_1fr] items-center gap-3">
+              <span
+                className={`font-tech text-[10px] transition-colors duration-300 ${
+                  isActive ? "text-primary" : done ? "text-foreground/60" : "text-muted-foreground/40"
+                }`}
+              >
+                {stage.id}
+              </span>
+              <span className="relative h-[3px] bg-border/50 overflow-hidden" aria-hidden="true">
                 <motion.span
-                  key={i}
-                  className="flex-1 bg-primary/60 origin-center"
-                  style={{ height: `${Math.max(14, stem.base - Math.abs(13 - i) * 3)}%` }}
-                  animate={reduce ? undefined : { scaleY: [0.35, 1, 0.5, 0.9, 0.35] }}
-                  transition={{
-                    duration: stem.speed * (1 + (i % 4) * 0.1),
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.035,
-                  }}
+                  className="absolute inset-y-0 left-0 bg-primary origin-left"
+                  initial={false}
+                  animate={{ scaleX: isActive ? 1 : done ? 0.3 : 0, opacity: isActive ? 1 : 0.4 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ width: "100%" }}
                 />
-              ))}
+                {isActive && !reduce && (
+                  <motion.span
+                    className="absolute inset-y-0 w-5 bg-primary-foreground/25"
+                    animate={{ left: ["-10%", "100%"] }}
+                    transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+                  />
+                )}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* the FX budget: variety without stacking effects on one junction */}
+      <div className="mt-5">
+        <div className="flex items-baseline justify-between font-tech text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70 mb-1.5">
+          <span>fx budget · 3 mutex groups</span>
+          <span className="text-primary tabular-nums">{Math.round(fxUsed)}% / 35%</span>
+        </div>
+        <div className="relative h-2 bg-border/50" aria-hidden="true">
+          <motion.span
+            className="absolute inset-y-0 left-0 bg-primary/60"
+            animate={{ width: `${(fxUsed / 35) * 100}%` }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          />
+          <span className="absolute -top-[3px] bottom-[-3px] w-px bg-foreground/50" style={{ left: "100%" }} />
+        </div>
+      </div>
+
+      {/* four-axis critics the picker scores against */}
+      <div className="mt-5 grid grid-cols-4 gap-2.5">
+        {CRITICS.map((c, i) => (
+          <div key={c.axis}>
+            <div className="flex items-baseline justify-between">
+              <span className="font-tech text-[9px] text-muted-foreground/70">{c.axis}</span>
+              <span className="font-tech text-[9px] text-foreground/70 tabular-nums">{c.value}</span>
+            </div>
+            <div className="mt-1 h-1 bg-border/50" aria-hidden="true">
+              <motion.span
+                className="block h-full bg-primary/60 origin-left"
+                initial={reduce ? false : { scaleX: 0 }}
+                whileInView={{ scaleX: c.value / c.of }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 + i * 0.1 }}
+              />
             </div>
           </div>
         ))}
       </div>
 
-      {/* the director's call */}
-      <div className="mt-5 border-t border-border pt-3 flex items-baseline gap-3">
-        <span className="font-tech text-[9px] uppercase tracking-[0.2em] text-primary shrink-0">
-          director
-        </span>
-        <motion.p
-          key={call}
-          className="font-tech text-[10.5px] text-foreground/75 truncate"
-          initial={reduce ? false : { opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-        >
-          {DIRECTOR_CALLS[call]}
-        </motion.p>
+      {/* the loop that feeds scores back into the director */}
+      <div className="mt-auto pt-4 border-t border-border">
+        <div className="flex items-center gap-2.5">
+          <motion.span
+            className="w-1.5 h-1.5 bg-primary shrink-0"
+            animate={reduce ? undefined : { opacity: looping ? 1 : 0.3, scale: looping ? 1.6 : 1 }}
+            transition={{ duration: 0.3 }}
+          />
+          <motion.p
+            key={looping ? "loop" : DJ_STAGES[active].note}
+            className="font-tech text-[10px] text-foreground/70 truncate"
+            initial={reduce ? false : { opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.28 }}
+          >
+            {looping
+              ? "best + worst → DPO pairs → director · loss 0.68 → 0.47"
+              : DJ_STAGES[active].note}
+          </motion.p>
+        </div>
       </div>
     </div>
   );
@@ -951,17 +989,17 @@ function AnalyticsVisual() {
 
 /** Which compact animation an archive row reveals when it opens. */
 const MINI_BY_TITLE: Record<string, MiniKind> = {
-  "SRP Electric MCP Server": "flow",
-  "MCP-Based GitHub PR Review Automation Agent": "flow",
-  "Real-Time Chat Application": "flow",
-  "Image Recognition as a Service": "queue",
-  "Soccer Game Result Prediction": "model",
-  "FitLife Health Tracking App": "device",
-  "E-Commerce Platform": "device",
-  "Task Management System": "device",
-  "No-Code Pipeline Builder": "graph",
-  "Reverse-Mode Automatic Differentiation": "graph",
-  "Survey Intelligence Platform — Target Architecture": "graph",
+  "SRP Electric MCP Server": "mcp-auth",
+  "MCP-Based GitHub PR Review Automation Agent": "pr-review",
+  "No-Code Pipeline Builder": "dag-editor",
+  "Image Recognition as a Service": "autoscale",
+  "Soccer Game Result Prediction": "calibration",
+  "FitLife Health Tracking App": "ppg",
+  "Reverse-Mode Automatic Differentiation": "autodiff",
+  "E-Commerce Platform": "funnel",
+  "Task Management System": "state-machine",
+  "Real-Time Chat Application": "fanout",
+  "Survey Intelligence Platform — Target Architecture": "ladder",
 };
 
 /**
@@ -992,7 +1030,7 @@ function ArchiveRow({ project }: { project: Project }) {
         </span>
       </summary>
 
-      <div className="pb-7 sm:pl-[9.5rem] grid lg:grid-cols-[minmax(0,1fr)_15rem] gap-x-10 gap-y-6 items-start">
+      <div className="pb-7 sm:pl-[9.5rem] grid lg:grid-cols-[minmax(0,1fr)_17rem] gap-x-10 gap-y-6 items-start">
         <div className="max-w-3xl">
           <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
           <ul className="mt-4 space-y-2.5">

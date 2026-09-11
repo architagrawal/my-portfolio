@@ -47,7 +47,7 @@ const experiences: ExperienceItem[] = [
     ],
     achievements: [
       {
-        text: "Architected and shipped an agentic survey-analysis platform: ten agents over 75 typed tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a 5% failure circuit breaker. 116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs.",
+        text: "Architected and shipped an agentic survey-analysis platform: ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a 5% failure circuit breaker. 116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore", "Step Functions", "AWS CDK"],
       },
       {

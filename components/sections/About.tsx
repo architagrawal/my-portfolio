@@ -116,7 +116,7 @@ export default function About() {
               <p className="leading-relaxed">
                 I hold an MS in Computer Science from Arizona State University
                 (4.0 GPA). At EdPlus I own the architecture of an agentic
-                survey-analysis platform: ten agents over 75 typed tools, 116k
+                survey-analysis platform: ten agents over 65 registered tools, 116k
                 lines of TypeScript on Bedrock and Step Functions, plus the
                 target architecture for the production system that follows it.
                 At MyStage I build LangGraph workflows, LLM-powered entity

@@ -4,27 +4,15 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/layout/Footer";
-import { AgentGraph, ToolBudget, AnswerPath, DataModel } from "./_diagrams";
+import { AgentGraph, ToolBudget, ToolMatrix, AnswerPath, DataModel } from "./_diagrams";
 
 const stats = [
   { value: "116k", label: "lines of TypeScript" },
   { value: "1,255", label: "tests" },
-  { value: "75", label: "typed tools" },
+  { value: "65", label: "registered tools" },
   { value: "258", label: "recorded runs" },
 ];
 
-const agents = [
-  { name: "intake", tools: "profile_csv · detect_header_shape · detect_embedded_dates · validate_mapping · emit_dispositions · check_codebook_fit · list_questions · sample_rows", model: "none" },
-  { name: "curate", tools: "cluster_confusables · codebook_gaps · draft_distinctions · freeze_profile", model: "draft_distinctions" },
-  { name: "label", tools: "load_codebook · calibrate_density · build_prefix · verify_correlation · validate_enum · check_sentiment_consistency · augment_labels · commit", model: "label_batch" },
-  { name: "adjudicate", tools: "find_contested_rows", model: "adjudicate_batch" },
-  { name: "qa", tools: "join_integrity · invalid_label_rate · abstain_rate · outlier_detect · calibrate_threshold · score_consensus · score_decision_risk · route_rows · requeue_rows · codebook_rules", model: "none" },
-  { name: "analytics", tools: "count_by · crosstab · cooccurrence · coverage · aggregate · compare · bucket_dates · codebook_use · dimensions · facts", model: "none" },
-  { name: "analysis", tools: "describe_survey · choose_rung · execute_plan · compose_answer · compare_runs · propose_followups", model: "bind_question" },
-  { name: "viz", tools: "check_chart · draw_chart · repair_chart · restyle_chart · describe_chart · shorten_labels", model: "propose_chart" },
-  { name: "conclude", tools: "read_facts · verify_citations · verify_grounding", model: "draft_summary" },
-  { name: "orchestrator", tools: "its tools are the other agents", model: "none" },
-];
 
 const stages = [
   { stage: "frame", decides: "delimiter, header row, transpose", gate: "framing score below 0.65" },
@@ -280,26 +268,7 @@ export default function SurveyAgentsCaseStudy() {
                 The model writes the sentence; deterministic code verifies the number.
               </p>
 
-              <div className="overflow-x-auto border border-border">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <Th>Agent</Th>
-                      <Th>Deterministic tools</Th>
-                      <Th>Model tools</Th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {agents.map((a) => (
-                      <tr key={a.name} className="border-b border-border last:border-0">
-                        <td className="p-3 font-tech text-xs text-primary whitespace-nowrap align-top">{a.name}</td>
-                        <td className="p-3 text-xs font-mono text-muted-foreground/90 leading-relaxed">{a.tools}</td>
-                        <td className="p-3 text-xs font-mono text-foreground/80 whitespace-nowrap align-top">{a.model}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <ToolMatrix />
 
               <ToolBudget />
 

@@ -500,3 +500,120 @@ export function DataModel() {
     </div>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* 5. The tool surface: ten agents, every tool named                   */
+/* ------------------------------------------------------------------ */
+
+const TOOL_MATRIX: { agent: string; model: string[]; tools: string[] }[] = [
+  {
+    agent: "intake",
+    model: [],
+    tools: ["scan_file", "find_headers", "check_columns", "check_codebook", "mark_rows", "list_questions"],
+  },
+  {
+    agent: "curate",
+    model: ["explain_codes", "group_codes"],
+    tools: ["confusable_clusters", "group_codes", "explain_codes", "distinctions", "find_gaps", "save_notes"],
+  },
+  {
+    agent: "label",
+    model: ["label_results", "add_missed", "measure_code_density"],
+    tools: ["label_results", "load_codes", "measure_code_density", "check_all_returned", "check_codes", "check_sentiment", "tag_rows", "add_missed", "missed_codes", "concern_counts"],
+  },
+  {
+    agent: "adjudicate",
+    model: ["drop_weak_codes"],
+    tools: ["find_weak_rows", "drop_weak_codes", "kept_codes"],
+  },
+  {
+    agent: "qa",
+    model: [],
+    tools: ["count_bad_codes", "count_uncoded", "check_conflicts", "find_outliers", "find_missing", "score_rows", "set_cutoff", "split_rows", "redo_rows", "compare_runs"],
+  },
+  {
+    agent: "analytics",
+    model: [],
+    tools: ["count_by", "count_pairs", "count_cooccurrence", "count_covered", "count_codebook_use", "bucket_dates"],
+  },
+  {
+    agent: "analysis",
+    model: ["bind_question", "choose_rung", "find_comparisons", "propose_followups"],
+    tools: ["describe_survey", "bind_question", "validate_plan", "choose_rung", "execute_plan", "compose_answer", "find_comparisons", "compare_runs", "check_citations", "propose_followups"],
+  },
+  {
+    agent: "viz",
+    model: ["propose_chart", "repair_chart", "restyle_chart", "shorten_labels"],
+    tools: ["propose_chart", "check_readable", "check_traceable", "draw_chart", "repair_chart", "restyle_chart", "describe_chart", "shorten_labels"],
+  },
+  {
+    agent: "conclude",
+    model: ["write_summary", "check_claims"],
+    tools: ["read_numbers", "write_summary", "check_claims", "check_numbers"],
+  },
+  {
+    agent: "semantic",
+    model: ["judge_sensitivity"],
+    tools: ["judge_sensitivity"],
+  },
+  {
+    agent: "orchestrator",
+    model: [],
+    tools: ["delegate → the other agents"],
+  },
+];
+
+export function ToolMatrix() {
+  const total = TOOL_MATRIX.reduce((n, a) => n + a.tools.length, 0);
+  const modelCount = TOOL_MATRIX.reduce((n, a) => n + a.model.length, 0);
+
+  return (
+    <div className="my-2 border border-border">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border px-4 py-3">
+        <p className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+          The whole tool surface
+        </p>
+        <p className="font-tech text-[10px] text-muted-foreground/80">
+          <span className="text-foreground">{total}</span> tools ·{" "}
+          <span className="text-primary">{modelCount}</span> reach a model ·{" "}
+          <span className="text-foreground">{total - modelCount}</span> are deterministic
+        </p>
+      </div>
+
+      <div className="divide-y divide-border/60">
+        {TOOL_MATRIX.map((a) => (
+          <div key={a.agent} className="grid sm:grid-cols-[7.5rem_1fr] gap-x-4 gap-y-2 px-4 py-3">
+            <div className="flex items-baseline gap-2">
+              <span className="font-tech text-[12px] text-foreground/90">{a.agent}</span>
+              <span className="font-tech text-[10px] tabular-nums text-muted-foreground/60">
+                {a.tools.length}
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {a.tools.map((t) => {
+                const isModel = a.model.includes(t);
+                return (
+                  <span
+                    key={t}
+                    className={`font-tech text-[10px] px-1.5 py-0.5 border whitespace-nowrap ${
+                      isModel
+                        ? "border-primary/40 bg-primary/10 text-primary"
+                        : "border-border bg-card/40 text-muted-foreground"
+                    }`}
+                  >
+                    {t}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="border-t border-border px-4 py-3 font-tech text-[10px] text-muted-foreground/80">
+        Saffron is a tool whose implementation calls a model. Everything else is code, which
+        is why no figure in a report can come from one.
+      </p>
+    </div>
+  );
+}
