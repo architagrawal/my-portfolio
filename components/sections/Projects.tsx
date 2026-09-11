@@ -1,10 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink, Github, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { ProjectMini, type MiniKind } from "@/components/ui/project-mini";
+
+type Project = (typeof projects)[number];
 
 const projects = [
   {
@@ -104,8 +108,14 @@ const projects = [
       "Reverse-engineered undocumented authentication flow of a legacy utility portal under highly ambiguous constraints — no docs, no spec.",
       "Converted unstructured enterprise portal data into structured JSON tools surfaced through MCP for secure, deterministic LLM reasoning.",
       "Designed tool schemas enforcing argument validation and safe downstream automation against the third-party portal.",
+      "Recovered the session contract by observation, not documentation: the portal issues a short-lived token behind a multi-step form post, so the server re-authenticates on expiry and retries the original call once rather than surfacing a 401 to the agent.",
+      "Made every tool read-only by default. Nothing in the surfaced tool set can change a billing setting or submit a form, because an agent exploring an undocumented portal should not be able to mutate an account.",
+      "Normalized interval meter data into one shape (timestamp, kWh, cost, tier) so 15-minute reads, daily rollups and billing-period totals answer through the same tool instead of three that disagree on units.",
+      "Rate-limited and cached at the server rather than trusting the caller: a portal built for humans clicking does not expect an agent asking for a year of intervals in a loop.",
+      "Returned typed errors an agent can act on, separating authentication expiry, a rate limit, a genuinely absent meter and a portal outage, so the model retries the recoverable case and reports the rest.",
+      "Wrote a fixture-backed test suite over recorded portal responses, so the server is testable without credentials and a portal HTML change fails a test instead of silently returning nothing.",
     ],
-    technologies: ["TypeScript", "MCP", "Node.js", "REST APIs"],
+    technologies: ["TypeScript", "MCP", "Node.js", "REST APIs", "Zod"],
     demoUrl: "",
     githubUrl: "",
   },
@@ -119,6 +129,13 @@ const projects = [
       "Designed context-routing logic letting agents retrieve repository state, ticket metadata, and CI/CD execution context before generating review decisions.",
       "Automated engineering workflows across GitHub Actions and Asana — status updates, ticket linking, review summaries without manual coordination.",
       "Surfaced structured review verdicts to PR comments, gating merges on automated reasoning checks.",
+      "Assembled context in a fixed order before any reasoning: the diff, the touched files' neighbours, the linked ticket's acceptance criteria, then the CI result, so a review cannot comment on intent it was never given.",
+      "Budgeted the diff rather than truncating it: large PRs are reviewed file by file with a per-file verdict, because one 8,000-line diff in a single prompt produces a summary, not a review.",
+      "Returned findings as a schema (file, line, category, severity, rationale) so a verdict renders as inline comments and can be counted, instead of a paragraph a human has to re-read.",
+      "Gated the merge on category rather than on volume: a correctness finding blocks, a style note does not, so the bot cannot hold a release over formatting.",
+      "Made the bot idempotent on re-runs, updating its existing review comment instead of stacking a new one on every push, after the first version left eleven comments on one branch.",
+      "Wired Asana both ways: a PR opening moves the ticket to review and a merge closes it, with the ticket id parsed from the branch name so nobody has to remember to link it.",
+      "Kept a manual override that is logged, since a review gate with no escape hatch gets disabled entirely the first time it is wrong.",
     ],
     technologies: ["TypeScript", "MCP", "GitHub Actions", "Asana API", "LLM"],
     demoUrl: "",
@@ -207,8 +224,15 @@ const projects = [
     achievements: [
       "Developed an elastic cloud infrastructure SaaS using AWS EC2, AWS SQS, and Lambda.",
       "Enabled automatic linear scaling based on demand, serving 100 concurrent requests in 5 seconds.",
+      "Split the queue in two, requests in and results out, so a web tier can return immediately with a request id and a slow inference never holds an HTTP connection open.",
+      "Scaled on queue depth rather than CPU, because an instance waiting on a GPU-bound model looks idle to a CPU metric right when more capacity is needed.",
+      "Made the scaler decide from one number, messages in flight divided by per-instance throughput, and capped it, so a traffic spike cannot spin up an unbounded bill.",
+      "Scaled in conservatively and out aggressively, with a cooldown, after an early version thrashed instances up and down on a sawtooth load.",
+      "Used SQS visibility timeouts as the retry mechanism: a worker that dies mid-image releases the message back rather than losing it, so at-least-once delivery does the failure handling for free.",
+      "Made the workers idempotent on an input hash, since at-least-once means the same image will occasionally be classified twice and the second result must not conflict with the first.",
+      "Measured the cold path honestly: end-to-end latency for the first request after a scale-out is dominated by model load, not inference, which is what the instance warm pool exists for.",
     ],
-    technologies: ["AWS EC2", "AWS SQS", "AWS Lambda", "Python"],
+    technologies: ["AWS EC2", "AWS SQS", "AWS Lambda", "Python", "Docker"],
     demoUrl: "",
     githubUrl: "",
   },
@@ -220,8 +244,15 @@ const projects = [
     achievements: [
       "Increased prediction accuracy by 12% using LSTM, RNN, and Random Forest with XGBoost.",
       "Incorporated sentiment analysis and game bet data for improved predictions.",
+      "Split the data by date, never at random: a shuffled split lets the model see future matches while predicting past ones, which inflates accuracy and would have made the 12% meaningless.",
+      "Built rolling-window form features (last five results, goal difference, rest days, home and away splits) computed only from matches already played at prediction time.",
+      "Treated the betting odds as a benchmark rather than a feature at first, because the market is a strong baseline and a model that cannot beat implied probability is not adding information.",
+      "Compared the sequence models against the tree ensemble on the same folds: LSTM captures form streaks, XGBoost handles the sparse categorical features better, and the ensemble of both beat either alone.",
+      "Scored on log loss rather than accuracy for the final comparison, since a three-outcome match with a draw rewards calibrated probability over a confident guess.",
+      "Checked calibration explicitly with a reliability plot, which is where the sentiment features helped least: they moved confidence without moving correctness.",
+      "Handled the draw as the genuinely hard class, reporting per-class recall instead of hiding a model that never predicts one behind a decent overall number.",
     ],
-    technologies: ["Python", "Deep Learning", "Data Science", "Statistics"],
+    technologies: ["Python", "Deep Learning", "Data Science", "Statistics", "XGBoost"],
     demoUrl: "",
     githubUrl: "",
   },
@@ -233,8 +264,15 @@ const projects = [
     achievements: [
       "Programmed an Android app measuring heart and breath rates.",
       "Suggested personalized workout routines using machine learning and Fuzzy Logic Control.",
+      "Measured heart rate from the camera and flash: the fingertip changes colour with each pulse, so the signal is the mean red channel over time rather than anything the phone exposes as a sensor.",
+      "Band-pass filtered the signal to the plausible human range before peak counting, since ambient light flicker and a shifting finger both land in the raw trace as convincing false peaks.",
+      "Derived breathing rate from accelerometer motion at the chest, a far lower frequency band, so the two measurements do not contaminate each other.",
+      "Rejected a reading rather than reporting a wrong one: low signal amplitude or an unstable peak interval returns try again, because a health number presented confidently is worse than no number.",
+      "Used fuzzy logic deliberately over hard thresholds, since a resting rate of 79 and one of 81 should not produce two different workout recommendations.",
+      "Tuned the membership functions against measurements taken alongside a commercial monitor, which is what turned the rules from a guess into something defensible.",
+      "Kept every reading on the device, with no account and no upload, because heart-rate data does not need to leave a phone to recommend a workout.",
     ],
-    technologies: ["Android Studio", "MATLAB", "Machine Learning"],
+    technologies: ["Android Studio", "MATLAB", "Machine Learning", "Java"],
     demoUrl: "",
     githubUrl: "",
   },
@@ -244,10 +282,16 @@ const projects = [
       "A reverse-mode automatic-differentiation engine with custom gradient operators and CUDA kernels for neural-network training.",
     date: "Feb 2024 – Mar 2024",
     achievements: [
-      "Developed operators like Add and Matrix Multiplication for gradient node construction.",
-      "Added CUDA GPU kernels for training simple neural networks like MLP models.",
+      "Built the tape: every forward operation records its inputs and a local gradient rule, so backward is a reverse walk over the recorded graph rather than a hand-derived formula per model.",
+      "Implemented the operator set with its adjoints — add, multiply, matmul, transpose, reshape, ReLU, softmax and cross-entropy — each one a forward rule plus a vector-Jacobian product.",
+      "Got broadcasting right, which is where a hand-rolled engine usually breaks: a gradient flowing back into a broadcast dimension has to be summed over that axis or the shapes silently stop matching.",
+      "Wrote CUDA kernels for the matmul and elementwise paths, with the reduction in the backward pass done in shared memory rather than with an atomic per element.",
+      "Verified every adjoint against central-difference numerical gradients before trusting a single training run, since a wrong gradient trains to a worse loss instead of crashing.",
+      "Accumulated rather than overwrote gradients at nodes with multiple consumers, the bug that makes a network with any weight reuse train subtly wrong.",
+      "Trained MLPs end to end against a reference implementation, matching loss curves step for step on a fixed seed as the correctness bar.",
+      "Freed the tape after backward so a training loop does not retain every intermediate for the whole run, which is the difference between a toy and something that finishes an epoch.",
     ],
-    technologies: ["Python", "CUDA", "Neural Networks"],
+    technologies: ["Python", "CUDA", "Neural Networks", "NumPy"],
     demoUrl: "",
     githubUrl: "",
   },
@@ -284,8 +328,13 @@ const projects = [
       "Built collaborative workflows for task assignment, progress tracking, and deadline notifications.",
       "Developed a Flask REST API with SQLAlchemy for persistence.",
       "Designed the React interface and implemented JWT authentication.",
+      "Enforced permissions in the query rather than the view: a task list is scoped to the projects a user belongs to at the database layer, so a forgotten UI check cannot leak another team's board.",
+      "Modelled status as a state machine with declared transitions, so a task cannot go from done back to unassigned and skip the reopen that would have notified its owner.",
+      "Made deadline notifications idempotent per task and per day, because a scheduler that runs every hour will otherwise mail someone seven times about one overdue item.",
+      "Added optimistic UI updates with rollback on failure, so reassigning a task feels instant but a rejected write does not leave the board showing a lie.",
+      "Indexed the list query on (project_id, status, due_date), the three columns every board view filters on, after the first version scanned the whole table to render one column.",
     ],
-    technologies: ["React", "Flask", "SQLAlchemy", "JWT", "Docker", "AWS"],
+    technologies: ["React", "Flask", "SQLAlchemy", "JWT", "Docker", "AWS", "PostgreSQL"],
     demoUrl: "",
     githubUrl: "",
   },
@@ -505,54 +554,111 @@ const archiveIndexes = projects
 
 /* --- Bespoke animated visuals (no stock photos) --- */
 
+const DIRECTOR_CALLS = [
+  "match 128 → 124 bpm · stretch deck B",
+  "key clash Am → Cm · shift +2 semitones",
+  "swap on bar 32 · 16-beat crossfade",
+  "duck vocals · bass swap at the drop",
+  "energy dip detected · hold the outro",
+];
+
+const STEMS = [
+  { name: "drums", base: 82, speed: 0.9 },
+  { name: "bass", base: 64, speed: 1.35 },
+  { name: "vocals", base: 47, speed: 1.8 },
+  { name: "other", base: 33, speed: 1.15 },
+];
+
+/**
+ * 03 — the DJ actually mixing: four separated stems moving independently, a
+ * crossfader riding between decks, and the director's call changing underneath.
+ */
 function AudioPipelineVisual() {
   const reduce = useReducedMotion();
-  const stages = ["Sources", "Stem separation", "Analysis", "LLM Director", "DSP + master"];
-  const bars = [42, 68, 35, 82, 55, 90, 48, 73, 60, 38, 85, 52];
+  const [call, setCall] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => setCall((c) => (c + 1) % DIRECTOR_CALLS.length), 2600);
+    return () => clearInterval(id);
+  }, [reduce]);
 
   return (
-    <div className="h-full flex flex-col justify-between p-6 sm:p-8">
-      <div>
-        <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-5">
-          Render path
-        </p>
-        <div className="relative">
-          <div className="absolute left-[13px] top-2 bottom-2 w-px bg-border" aria-hidden="true" />
-          {!reduce && (
-            <motion.div
-              className="absolute left-[11px] w-[5px] h-[5px] bg-primary shadow-[0_0_8px_hsl(var(--primary))]"
-              animate={{ top: ["3%", "94%"], opacity: [0, 1, 1, 0] }}
-              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-              aria-hidden="true"
-            />
-          )}
-          <ol className="space-y-4 relative">
-            {stages.map((stage, i) => (
-              <li key={stage} className="flex items-center gap-4">
-                <span className="w-[27px] h-[27px] shrink-0 flex items-center justify-center border border-border bg-background font-tech text-[10px] text-primary relative z-10">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-sm text-foreground/85">{stage}</span>
-              </li>
-            ))}
-          </ol>
+    <div className="h-full flex flex-col p-6 sm:p-8">
+      {/* the two decks */}
+      <div className="flex items-start justify-between border-b border-border pb-4">
+        {[
+          { deck: "A", bpm: "128.0", key: "Am" },
+          { deck: "B", bpm: "124.0", key: "Cm" },
+        ].map((d, i) => (
+          <div key={d.deck} className={i === 1 ? "text-right" : undefined}>
+            <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Deck {d.deck}
+            </p>
+            <p className="mt-1 font-display text-2xl font-bold tracking-tight tabular-nums text-foreground">
+              {d.bpm}
+              <span className="ml-1.5 font-tech text-[10px] text-muted-foreground">bpm</span>
+            </p>
+            <p className="font-tech text-[10px] text-primary">{d.key}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* crossfader */}
+      <div className="mt-5">
+        <div className="flex items-center justify-between font-tech text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70 mb-2">
+          <span>crossfade</span>
+          <span>16 beats</span>
+        </div>
+        <div className="relative h-[3px] bg-border" aria-hidden="true">
+          <motion.span
+            className="absolute -top-[4px] h-[11px] w-[3px] bg-primary shadow-[0_0_8px_hsl(var(--primary))]"
+            animate={reduce ? undefined : { left: ["4%", "94%", "4%"] }}
+            transition={{ duration: 7.2, repeat: Infinity, ease: "easeInOut" }}
+            style={reduce ? { left: "50%" } : undefined}
+          />
         </div>
       </div>
-      <div className="flex items-end gap-1.5 h-16 mt-8" aria-hidden="true">
-        {bars.map((h, i) => (
-          <motion.div
-            key={i}
-            className="flex-1 bg-primary/60 origin-bottom"
-            style={{ height: `${h}%` }}
-            animate={reduce ? undefined : { scaleY: [1, 0.4, 0.85, 0.55, 1] }}
-            transition={{
-              duration: 1.8 + (i % 5) * 0.3,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.08,
-            }}
-          />
+
+      {/* the separated stems, each on its own envelope */}
+      <div className="flex-1 min-h-[8rem] mt-6 flex flex-col justify-around gap-3">
+        {STEMS.map((stem) => (
+          <div key={stem.name} className="grid grid-cols-[3.6rem_1fr] items-center gap-3">
+            <span className="font-tech text-[10.5px] text-foreground/70">{stem.name}</span>
+            <div className="flex items-center gap-[3px] h-4" aria-hidden="true">
+              {Array.from({ length: 26 }).map((_, i) => (
+                <motion.span
+                  key={i}
+                  className="flex-1 bg-primary/60 origin-center"
+                  style={{ height: `${Math.max(14, stem.base - Math.abs(13 - i) * 3)}%` }}
+                  animate={reduce ? undefined : { scaleY: [0.35, 1, 0.5, 0.9, 0.35] }}
+                  transition={{
+                    duration: stem.speed * (1 + (i % 4) * 0.1),
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.035,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
         ))}
+      </div>
+
+      {/* the director's call */}
+      <div className="mt-5 border-t border-border pt-3 flex items-baseline gap-3">
+        <span className="font-tech text-[9px] uppercase tracking-[0.2em] text-primary shrink-0">
+          director
+        </span>
+        <motion.p
+          key={call}
+          className="font-tech text-[10.5px] text-foreground/75 truncate"
+          initial={reduce ? false : { opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+        >
+          {DIRECTOR_CALLS[call]}
+        </motion.p>
       </div>
     </div>
   );
@@ -580,110 +686,185 @@ function AppShotVisual() {
   );
 }
 
+/**
+ * 01 — a run in flight rather than a static diagram. A phase machine walks the
+ * pipeline, the label stage fans out into slices, QA occasionally returns
+ * repairable and kicks the run back, and the counters follow the phase.
+ * Reduced motion gets the finished state with no ticking.
+ */
+const RUN_PHASES: {
+  agent: string;
+  note: string;
+  rows: number;
+  repair?: boolean;
+}[] = [
+  { agent: "intake", note: "profile_csv · detect_header_shape", rows: 0 },
+  { agent: "curate", note: "cluster_confusables · freeze_profile", rows: 0 },
+  { agent: "label", note: "Map · batch 50 · concurrency 4", rows: 38 },
+  { agent: "label", note: "slice 2 of 3 committed", rows: 74 },
+  { agent: "qa", note: "join_integrity · invalid_label_rate", rows: 102 },
+  { agent: "label", note: "verdict repairable · relabel 6 rows", rows: 102, repair: true },
+  { agent: "analytics", note: "count_by · crosstab · coverage", rows: 102 },
+  { agent: "viz", note: "propose_chart → 4 gates", rows: 102 },
+  { agent: "conclude", note: "verify_citations · 0 unsourced", rows: 102 },
+];
+
+const AGENT_LANES = [
+  "intake",
+  "curate",
+  "label",
+  "adjudicate",
+  "qa",
+  "analytics",
+  "analysis",
+  "viz",
+  "conclude",
+] as const;
+
 function SurveyAgentsVisual() {
   const reduce = useReducedMotion();
-  const stages = [
-    { name: "intake", tools: "4 tools", fill: 62 },
-    { name: "label", tools: "5 + 1", fill: 100 },
-    { name: "qa", tools: "6 tools", fill: 78 },
-    { name: "analytics", tools: "4 tools", fill: 54 },
-    { name: "conclude", tools: "2 + 1", fill: 40 },
-  ];
-  const loops = [
-    { name: "tool loop", bound: "8 calls, then graceful exit" },
-    { name: "repair loop", bound: "2 iterations, then quarantine" },
-    { name: "verify loop", bound: "2 redrafts, then strip" },
-  ];
+  const [phase, setPhase] = useState(reduce ? RUN_PHASES.length - 1 : 0);
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => setPhase((p) => (p + 1) % RUN_PHASES.length), 1150);
+    return () => clearInterval(id);
+  }, [reduce]);
+
+  const current = RUN_PHASES[phase];
+  const activeLane = AGENT_LANES.indexOf(current.agent as (typeof AGENT_LANES)[number]);
+  const pct = Math.round((current.rows / 102) * 100);
 
   return (
     <div className="h-full flex flex-col p-6 sm:p-8">
       <div className="flex items-baseline justify-between border-b border-border pb-4">
         <div>
           <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-            Intake pipeline
+            Run 0f472a8d
           </p>
-          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums">
-            102 / 102
+          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums text-foreground">
+            {current.rows} / 102
           </p>
         </div>
-        <p className="font-tech text-xs text-primary">0 destroyed labels</p>
+        <div className="text-right">
+          <p
+            className={`font-tech text-xs transition-colors duration-300 ${
+              current.repair ? "text-foreground" : "text-primary"
+            }`}
+          >
+            {current.repair ? "repair · 1 of 2" : "0 destroyed labels"}
+          </p>
+          <p className="mt-1 font-tech text-[10px] text-muted-foreground tabular-nums">
+            {(0.0004 * (phase + 1)).toFixed(4)} usd
+          </p>
+        </div>
       </div>
 
-      <div className="flex-1 min-h-[10rem] mt-6 flex flex-col justify-between gap-8">
-        <div className="space-y-3">
-          {stages.map((stage, i) => (
-            <div key={stage.name} className="grid grid-cols-[5.5rem_1fr_3.5rem] items-center gap-3">
-              <span className="font-tech text-[11px] text-foreground/85">{stage.name}</span>
-              <span className="relative h-2 bg-border/60" aria-hidden="true">
+      {/* agent lanes: the active one carries the run */}
+      <div className="flex-1 min-h-[9rem] mt-5 flex flex-col justify-between gap-2">
+        {AGENT_LANES.map((agent, i) => {
+          const isActive = i === activeLane;
+          const isDone = activeLane > i;
+          return (
+            <div key={agent} className="grid grid-cols-[4.75rem_1fr] items-center gap-3">
+              <span
+                className={`font-tech text-[10.5px] transition-colors duration-300 ${
+                  isActive ? "text-primary" : isDone ? "text-foreground/60" : "text-muted-foreground/40"
+                }`}
+              >
+                {agent}
+              </span>
+              <span className="relative h-[3px] bg-border/50 overflow-hidden" aria-hidden="true">
                 <motion.span
                   className="absolute inset-y-0 left-0 bg-primary origin-left"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ width: `${stage.fill}%` }}
+                  initial={false}
+                  animate={{ scaleX: isActive ? 1 : isDone ? 0.28 : 0, opacity: isActive ? 1 : 0.35 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ width: "100%" }}
                 />
-              </span>
-              <span className="font-tech text-[10px] text-muted-foreground text-right tabular-nums">
-                {stage.tools}
+                {isActive && !reduce && (
+                  <motion.span
+                    className="absolute inset-y-0 w-6 bg-primary-foreground/25"
+                    animate={{ left: ["-10%", "100%"] }}
+                    transition={{ duration: 1.05, repeat: Infinity, ease: "linear" }}
+                  />
+                )}
               </span>
             </div>
-          ))}
-        </div>
-
-        <div className="border-t border-border pt-4">
-          <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
-            Graph, hashed onto the run manifest
-          </p>
-          <pre
-            className="font-mono text-[10px] leading-[1.7] text-muted-foreground/90 whitespace-pre overflow-hidden"
-            aria-hidden="true"
-          >{`intake -> label -> qa -> analytics -> conclude
-                     |
-                     +- repairable? -> re-label requeued
-                                       rows only, max 2`}</pre>
-        </div>
-
-        <div className="border-t border-border pt-4">
-          <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
-            Bounded loops
-          </p>
-          <div className="space-y-2">
-            {loops.map((loop) => (
-              <div key={loop.name} className="flex items-baseline justify-between gap-4">
-                <span className="font-tech text-[11px] text-foreground/85">{loop.name}</span>
-                <span className="font-mono text-[10px] text-muted-foreground text-right">
-                  {loop.bound}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+          );
+        })}
       </div>
 
-      <div className="mt-6 border-t border-border pt-4 flex items-center justify-between gap-3">
-        <span className="font-mono text-[11px] text-muted-foreground truncate">
-          [fact:F-0142] net sentiment +6.1 pp
-        </span>
-        <span className="inline-flex items-center gap-2 shrink-0">
-          <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-            {!reduce && (
-              <span className="animate-ping absolute inline-flex h-full w-full bg-primary opacity-60" />
-            )}
-            <span className="relative inline-flex h-1.5 w-1.5 bg-primary" />
-          </span>
-          <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-primary">
-            verified
-          </span>
-        </span>
+      {/* the fan-out, live only while label is running */}
+      <div className="mt-5 flex items-center gap-1.5" aria-hidden="true">
+        {[0, 1, 2].map((slice) => (
+          <motion.span
+            key={slice}
+            className="h-1.5 flex-1 bg-primary/25 origin-left"
+            initial={false}
+            animate={{
+              scaleX: current.agent === "label" ? 1 : 0.12,
+              opacity: current.agent === "label" ? 1 : 0.3,
+            }}
+            transition={{ duration: 0.55, delay: slice * 0.12, ease: [0.22, 1, 0.36, 1] }}
+          />
+        ))}
+      </div>
+
+      <div className="mt-4 border-t border-border pt-3 flex items-baseline justify-between gap-4">
+        <motion.p
+          key={current.note}
+          className="font-tech text-[10.5px] text-foreground/75 truncate"
+          initial={reduce ? false : { opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {current.note}
+        </motion.p>
+        <p className="font-tech text-[10px] text-muted-foreground tabular-nums shrink-0">
+          {pct}%
+        </p>
       </div>
     </div>
   );
 }
 
+const CLAN_MEMBERS = [
+  { tag: "ARCHIT", fame: 3120 },
+  { tag: "K1NGSL", fame: 2980 },
+  { tag: "NOVA", fame: 2755 },
+  { tag: "RAZR", fame: 2410 },
+  { tag: "PIXEL", fame: 2180 },
+];
+
+const FAME_PATH = "M2 44 C 16 40, 22 34, 32 33 S 48 26, 58 21 S 76 16, 98 6";
+
+/**
+ * 04 — a ladder that moves. The weekly line draws itself, and the member
+ * ranking reshuffles with layout animation, which is what clan analytics
+ * actually looks like week to week.
+ */
 function AnalyticsVisual() {
   const reduce = useReducedMotion();
-  const values = [32, 58, 44, 76, 62, 88, 72, 96];
+  const [members, setMembers] = useState(CLAN_MEMBERS);
+
+  // Fame drifts, and the ladder is always the sorted view of it, so a row only
+  // changes position when its score actually crosses a neighbour's.
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => {
+      setMembers((prev) =>
+        prev.map((m) => ({
+          ...m,
+          fame: Math.max(1800, Math.min(3400, m.fame + Math.round((Math.random() - 0.45) * 260))),
+        })),
+      );
+    }, 2100);
+    return () => clearInterval(id);
+  }, [reduce]);
+
+  const order = [...members].sort((a, b) => b.fame - a.fame);
+  const top = order[0].fame;
 
   return (
     <div className="h-full flex flex-col p-6 sm:p-8">
@@ -692,39 +873,162 @@ function AnalyticsVisual() {
           <p className="font-tech text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
             Weekly clan fame
           </p>
-          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums">
+          <p className="mt-1 font-display text-3xl font-bold tracking-tight tabular-nums text-foreground">
             48,620
           </p>
         </div>
         <p className="font-tech text-xs text-primary">+12.4%</p>
       </div>
-      <div className="relative flex-1 min-h-[10rem] mt-6 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-0 flex items-end gap-2.5">
-          {values.map((v, i) => (
-            <motion.div
-              key={i}
-              className="flex-1 bg-primary/15 border-t border-primary origin-bottom"
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              style={{ height: `${v}%` }}
+
+      {/* the trend, drawn rather than placed */}
+      <div className="mt-5" aria-hidden="true">
+        <svg viewBox="0 0 100 48" className="w-full h-[58px]">
+          <path d="M2 44 H 98" stroke="hsl(var(--border))" strokeWidth="0.4" fill="none" />
+          <path d="M2 25 H 98" stroke="hsl(var(--border))" strokeWidth="0.4" strokeDasharray="1 2" fill="none" />
+          <motion.path
+            d={FAME_PATH}
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.5"
+            initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+            animate={reduce ? undefined : { pathLength: [0, 1] }}
+            transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 1.1, ease: "easeInOut" }}
+          />
+          {!reduce && (
+            <motion.circle
+              r="1.9"
+              fill="hsl(var(--primary))"
+              animate={{ offsetDistance: ["0%", "100%"] }}
+              transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 1.1, ease: "easeInOut" }}
+              style={{ offsetPath: `path("${FAME_PATH}")` } as React.CSSProperties}
             />
+          )}
+        </svg>
+        <div className="flex justify-between font-tech text-[10px] text-muted-foreground">
+          <span>W01</span>
+          <span>W08</span>
+        </div>
+      </div>
+
+      {/* the ladder, reordering */}
+      <div className="flex-1 min-h-[7rem] mt-5 border-t border-border pt-3 flex flex-col">
+        <p className="font-tech text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70 mb-2.5">
+          River race ladder
+        </p>
+        <div className="flex-1 flex flex-col justify-around gap-1.5">
+          {order.map((m, i) => (
+            <motion.div
+              key={m.tag}
+              layout={!reduce}
+              transition={{ type: "spring", stiffness: 320, damping: 28 }}
+              className="grid grid-cols-[1.4rem_4.6rem_1fr_3rem] items-center gap-2"
+            >
+              <span
+                className={`font-tech text-[10px] tabular-nums ${
+                  i === 0 ? "text-primary" : "text-muted-foreground/60"
+                }`}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="font-tech text-[10.5px] text-foreground/80 truncate">{m.tag}</span>
+              <span className="relative h-1.5 bg-border/50" aria-hidden="true">
+                <motion.span
+                  className="absolute inset-y-0 left-0 bg-primary/60"
+                  animate={{ width: `${(m.fame / top) * 100}%` }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </span>
+              <span className="font-tech text-[10px] tabular-nums text-muted-foreground text-right">
+                {m.fame.toLocaleString()}
+              </span>
+            </motion.div>
           ))}
         </div>
-        {!reduce && (
-          <motion.div
-            className="absolute top-0 bottom-0 w-px bg-primary/50"
-            animate={{ left: ["0%", "100%"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          />
-        )}
-      </div>
-      <div className="mt-3 flex justify-between font-tech text-[10px] text-muted-foreground">
-        <span>W01</span>
-        <span>W08</span>
       </div>
     </div>
+  );
+}
+
+/** Which compact animation an archive row reveals when it opens. */
+const MINI_BY_TITLE: Record<string, MiniKind> = {
+  "SRP Electric MCP Server": "flow",
+  "MCP-Based GitHub PR Review Automation Agent": "flow",
+  "Real-Time Chat Application": "flow",
+  "Image Recognition as a Service": "queue",
+  "Soccer Game Result Prediction": "model",
+  "FitLife Health Tracking App": "device",
+  "E-Commerce Platform": "device",
+  "Task Management System": "device",
+  "No-Code Pipeline Builder": "graph",
+  "Reverse-Mode Automatic Differentiation": "graph",
+  "Survey Intelligence Platform — Target Architecture": "graph",
+};
+
+/**
+ * An archive row. Native <details> keeps the semantics and the no-JS fallback;
+ * the open state is mirrored into React only so the animation mounts on expand
+ * rather than looping forever inside a closed row.
+ */
+function ArchiveRow({ project }: { project: Project }) {
+  const [open, setOpen] = useState(false);
+  const reduce = useReducedMotion();
+  const mini = MINI_BY_TITLE[project.title];
+
+  return (
+    <details
+      className="group/row border-b border-border transition-opacity duration-300 group-hover/list:opacity-40 hover:!opacity-100 open:!opacity-100"
+      onToggle={(e) => setOpen((e.currentTarget as HTMLDetailsElement).open)}
+    >
+      <summary className="cursor-pointer list-none py-5 grid sm:grid-cols-[9rem_1fr_auto] gap-x-6 gap-y-1 items-baseline">
+        <span className="font-tech text-xs uppercase tracking-wider text-muted-foreground">
+          {project.date}
+        </span>
+        <span className="font-display text-lg sm:text-xl font-bold uppercase tracking-tight text-foreground transition-transform duration-300 group-hover/row:translate-x-2">
+          {project.title}
+        </span>
+        <span className="font-tech text-xs uppercase tracking-[0.2em] text-primary justify-self-start sm:justify-self-end">
+          <span className="group-open/row:hidden">+ View details</span>
+          <span className="hidden group-open/row:inline">− Hide details</span>
+        </span>
+      </summary>
+
+      <div className="pb-7 sm:pl-[9.5rem] grid lg:grid-cols-[minmax(0,1fr)_15rem] gap-x-10 gap-y-6 items-start">
+        <div className="max-w-3xl">
+          <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
+          <ul className="mt-4 space-y-2.5">
+            {project.achievements.map((achievement, i) => (
+              <motion.li
+                key={i}
+                className="flex items-start gap-3"
+                initial={reduce || !open ? false : { opacity: 0, y: 6 }}
+                animate={open ? { opacity: 1, y: 0 } : undefined}
+                transition={{ duration: 0.32, delay: Math.min(i, 12) * 0.035, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <span className="mt-2 w-1 h-1 bg-primary/50 shrink-0" />
+                <span className="text-xs text-foreground/80 font-mono leading-relaxed">
+                  {achievement}
+                </span>
+              </motion.li>
+            ))}
+          </ul>
+          <p className="mt-5 font-tech text-xs uppercase tracking-wider text-muted-foreground leading-relaxed">
+            {project.technologies.join(" · ")}
+          </p>
+          <ProjectLinks demoUrl={project.demoUrl} githubUrl={project.githubUrl} />
+        </div>
+
+        {mini && open && (
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="lg:sticky lg:top-24"
+          >
+            <ProjectMini kind={mini} />
+          </motion.div>
+        )}
+      </div>
+    </details>
   );
 }
 
@@ -835,7 +1139,7 @@ export default function Projects() {
                     {meta.highlights.map((highlight) => (
                       <li key={highlight} className="flex items-start gap-3">
                         <span className="mt-2 w-1.5 h-1.5 bg-primary shrink-0" />
-                        <span className="text-sm text-foreground/85 leading-relaxed">
+                        <span className="text-sm text-foreground/80 leading-relaxed">
                           {highlight}
                         </span>
                       </li>
@@ -909,47 +1213,9 @@ export default function Projects() {
           </p>
 
           <div className="border-t border-border group/list">
-            {archiveIndexes.map((index) => {
-              const project = projects[index];
-              return (
-                <details
-                  key={project.title}
-                  className="group/row border-b border-border transition-opacity duration-300 group-hover/list:opacity-40 hover:!opacity-100 open:!opacity-100"
-                >
-                  <summary className="cursor-pointer list-none py-5 grid sm:grid-cols-[9rem_1fr_auto] gap-x-6 gap-y-1 items-baseline">
-                    <span className="font-tech text-xs uppercase tracking-wider text-muted-foreground">
-                      {project.date}
-                    </span>
-                    <span className="font-display text-lg sm:text-xl font-bold uppercase tracking-tight text-foreground transition-transform duration-300 group-hover/row:translate-x-2">
-                      {project.title}
-                    </span>
-                    <span className="font-tech text-xs uppercase tracking-[0.2em] text-primary justify-self-start sm:justify-self-end">
-                      <span className="group-open/row:hidden">+ View details</span>
-                      <span className="hidden group-open/row:inline">− Hide details</span>
-                    </span>
-                  </summary>
-                  <div className="pb-7 sm:pl-[9.5rem] max-w-3xl">
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {project.description}
-                    </p>
-                    <ul className="mt-4 space-y-2.5">
-                      {project.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <span className="mt-2 w-1 h-1 bg-primary/50 shrink-0" />
-                          <span className="text-xs text-foreground/80 font-mono leading-relaxed">
-                            {achievement}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-5 font-tech text-xs uppercase tracking-wider text-muted-foreground leading-relaxed">
-                      {project.technologies.join(" · ")}
-                    </p>
-                    <ProjectLinks demoUrl={project.demoUrl} githubUrl={project.githubUrl} />
-                  </div>
-                </details>
-              );
-            })}
+            {archiveIndexes.map((index) => (
+              <ArchiveRow key={projects[index].title} project={projects[index]} />
+            ))}
           </div>
         </div>
       </div>

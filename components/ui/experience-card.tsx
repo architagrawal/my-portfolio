@@ -156,7 +156,7 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
                     >
                     <div className={`mt-2.5 w-1.5 h-1.5 ${theme.bullet} group-hover/item:scale-125 transition-all`} />
 
-                    <span className="text-base text-foreground/85 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
+                    <span className="text-base text-foreground/80 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
                         {achievementData.text}
                     </span>
                     </li>

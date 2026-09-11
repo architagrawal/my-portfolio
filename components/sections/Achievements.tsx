@@ -132,7 +132,7 @@ export default function Achievements() {
                 {h.project}
               </h3>
 
-              <p className="text-sm text-foreground/85 leading-relaxed">{h.summary}</p>
+              <p className="text-sm text-foreground/80 leading-relaxed">{h.summary}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">{h.detail}</p>
 
               <div className="mt-auto pt-4 flex flex-wrap gap-2">

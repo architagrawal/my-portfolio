@@ -187,7 +187,7 @@ function Notes({ items }: { items: string[] }) {
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3">
           <span className="mt-2 w-1.5 h-1.5 bg-primary shrink-0" />
-          <span className="text-sm text-foreground/85 leading-relaxed">{item}</span>
+          <span className="text-sm text-foreground/80 leading-relaxed">{item}</span>
         </li>
       ))}
     </ul>
@@ -352,7 +352,7 @@ export default function SurveyAgentsCaseStudy() {
                     {stages.map((s) => (
                       <tr key={s.stage} className="border-b border-border last:border-0">
                         <td className="p-3 font-tech text-xs text-primary whitespace-nowrap align-top">{s.stage}</td>
-                        <td className="p-3 text-xs text-foreground/85 leading-relaxed">{s.decides}</td>
+                        <td className="p-3 text-xs text-foreground/80 leading-relaxed">{s.decides}</td>
                         <td className="p-3 text-xs text-muted-foreground leading-relaxed">{s.gate}</td>
                       </tr>
                     ))}
