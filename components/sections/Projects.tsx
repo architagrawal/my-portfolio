@@ -55,6 +55,14 @@ const projects = [
       "Most expenses aren't split 50/50 — you order a steak, they order a salad. PrismSplit splits bills at the item level: scan a receipt, AI extracts every item, and everyone pays exactly what they owe.",
     date: "2025 – Present",
     achievements: [
+      "Shipped a web target alongside the native app: 116 .web.tsx surfaces sharing the same stores and services, with keyboard focus rings, pointer affordances and claim-link visitors kept out of signed-in chrome.",
+      "Built the insights surface: personal and group spend charts computed server-side through Postgres RPCs (get_user_insights, versioned to v3), a ranked people list that replaced a balance bar chart, an activity heatmap, a category breakdown, a spending radar and a trend line.",
+      "Wrote the insights copy to describe what happened rather than grade the reader, after a pass that removed every word implying fault.",
+      "Held charts to one currency per axis and a net position line over Friends and Spaces, so a balance that mixes currencies cannot be drawn as if it were one number.",
+      "Gated multi-payer bills and raised free-tier limits behind versioned Supabase migrations, with a quota system surfacing usage and a blocked-state sheet rather than a silent failure.",
+      "Ran a pre-launch audit across app, web and charts: contrast and theme tokens, an adaptive-ink rule for conditional fills with a validator enforcing the class, keyboard and tap targets, font scaling, and visible focus on every control including auth.",
+      "Added settlement claims awaiting confirmation to the activity feed, and made the settle screen state what the settlement leaves behind rather than reporting a bare success.",
+      "Built one search model across the tabs with recents as the resting state, and versioned every persisted store so a cache written by an older build cannot crash a screen.",
       "Architected feature-sliced Zustand state (billsStore/activityStore/networkStore/uiStore/alertStore) split into actions/selectors for testability; normalized billsById index killing O(n) lookups on detail screens.",
       "Built idempotency-key + MMKV persistence layer as foundation for offline writes and conflict resolution; real-time Supabase channel subscriptions with lifecycle-aware cleanup.",
       "Wrote Postgres RPC functions (Supabase migrations) for atomic bill creation, settlement, and group-balance compute — multi-table writes stay transactional.",
@@ -306,9 +314,16 @@ const projects = [
   {
     title: "Survey Agents — Coding & Analysis Platform",
     description:
-      "A five-agent platform that converts raw survey exports into coded responses, verified facts, accessible charts, and reproducible answers—without asking a language model to calculate report figures.",
+      "A ten-agent platform that turns a raw survey export into coded responses, tool-verified facts, charts and reproducible answers. Every deterministic operation is a tool, so no figure in a report is ever computed by a model.",
     date: "June 2026 – Present",
     achievements: [
+      "Ten agents with their own tool sets: intake, label, qa, curate, adjudicate, analysis, analytics, viz and conclude, under an orchestrator whose tools are the other agents.",
+      "A curate agent that repairs the codebook itself: cluster confusable codes, find the gaps, draft the distinction that separates two of them, then freeze the profile so labelling runs against a fixed target.",
+      "An adjudicate agent that locates contested rows and re-decides only those, turning ensemble disagreement into a bounded second pass rather than a full re-label.",
+      "The ask path as eight tools around a single model call: describe the survey, bind the question, choose a rung, execute the plan, compose the answer, compare runs, propose follow-ups.",
+      "A visualization agent of seven tools (propose, check, draw, repair, restyle, describe, shorten labels) over nine marks, where the request vocabulary is deliberately wider than the draw vocabulary so a refusal can name the word it could not honour.",
+      "Charts you can talk to: a reader asks about the chart in front of them and the reply lands where they are looking, still resolving to the facts the analytics stage computed.",
+      "A 14-page Nuxt 4 front end over a NestJS API of ten modules (uploads, surveys, codebooks, analysis, comparisons, exports, governance, templates, jobs), all compiling against one shared TypeScript contract.",
       "Five-stage intake pipeline (frame, repair, retype, classify, review) where the orchestrator is ordinary code and a model is consulted only where the rules are visibly unsure; every decision lands in one JSON recipe that replays without it. Over 30 hand-written export shapes: 6 files need a stage, 11 model calls, $0.0023, and 0 divergences between a run and its replay.",
       "Label integrity by construction: a schema enum makes an out-of-codebook code unrepresentable rather than discouraged (the prompt this replaced threatened a $1,000 penalty and got 9 invented tags anyway), and a per-response correlation token catches batch scrambles that count-matching cannot see.",
       "Escalation ladder for failed batches: discard the batch whole, re-label at batch size 1, then quarantine and ABSTAIN, capped at 2 iterations. Correlation integrity 100%, 114/114 rows joined, 0 rows carrying a destroyed label against 13 of 102 (12.7%) on the pipeline it was benchmarked against.",
@@ -326,7 +341,7 @@ const projects = [
       "Chart agent held to improve-or-discard behind four gates: over 36 cases, 0 of 36 proposals beat the rule table, 1 case had headroom, and 5 identical runs on it disagreed (0.80/0.40/0.40/0.40/0.64). An oracle over the agent's own search space found the scorer's exploits first: a word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
       "Nuxt 4 web app over a NestJS API, both compiling against one shared TypeScript contract, rendering the same specs the CLI prints; DuckDB in-process as the compute engine with no server, and Lance serving vector plus BM25 search straight from S3.",
       "Intake hardened against real files: UTF-16 headers full of null bytes, a duplicate header silently overwriting a column, 0/1 flags typed as rating scales, report titles in the header row, and 22 of 32 CSVs hiding their timestamp inside the identifier so every survey reported no date column while holding dates the whole time.",
-      "74k lines of TypeScript across 353 modules, 1,021 tests, 253 recorded runs and 40 measured experiments, each stating what it establishes and what it does not, including that every accuracy number is self-graded and the fixture corpus is a monoculture.",
+      "116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs and 40 measured experiments, each stating what it establishes and what it does not, including that every accuracy number is self-graded and the fixture corpus is a monoculture.",
       "Codebook fit is checked before any spend: question scope is embedded and 25 responses are sample-labeled, giving mean best match 0.598 with a 4% abstain rate on the right codebook against 0.316 and 88% on the wrong one, for about $0.001. The thresholds written from a guess before calibration ran would have let the wrong codebook through with a warning.",
       "Upload identity is content, not filename: a normalized content hash means two people uploading the same export get one run instead of two conflicting sets of numbers for one survey, and the first sighting wins for the wave's date.",
       "Run lineage on two axes with four relations (relabel, recode, wave, wave_recoded), because only a new wave may claim topic movement. A second labeling pass over the same responses cannot present itself as a trend.",
@@ -337,7 +352,7 @@ const projects = [
       "Chart properties are classified rather than opened up: 75 styling properties each carry a class, which is how three accepted-and-inert bugs were found where a restyle answered a field no branch ever read.",
       "Capability menus are generated from the registry rather than hand-written, after the same staleness bug appeared three times, and a panel's declared requirement is the same predicate the validator enforces, so the interface cannot offer what the run will refuse.",
       "Spend control that actually binds: caps on both tokens and dollars, checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing at all.",
-      "The graph is data with load-time gates rather than a trusted stage list, and the pipeline emits one replayable recipe; eight agent harnesses were deployed with per-agent tool sets, one withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs.",
+      "The graph is data with load-time gates rather than a trusted stage list, and the pipeline emits one replayable recipe; ten agent harnesses were deployed with per-agent tool sets, one withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs.",
       "Progressive transcript compaction borrowed from production harnesses, then measured: batch size rather than compaction is the dominant cost lever, and the 8,192-token output cap is the real constraint on batch size.",
       "Five reproducible scaling proofs instead of slides: 200x rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, zero-model-call replays, namespace and entitlement checks, and byte-identical re-execution from a passport.",
       "Skills authored in the open Agent Skills standard and loaded into the cached system prefix, then held to the same bar as everything else: the first one changed no outcome on the batch and cost slightly less, which is the result rather than the pitch.",
@@ -356,6 +371,44 @@ const projects = [
       "Lance",
       "Vitest",
       "llama.cpp",
+    ],
+    demoUrl: "",
+    githubUrl: "",
+  },
+  {
+    title: "Survey Intelligence Platform — Target Architecture",
+    description:
+      "The production platform the POC argues for: departments bring any survey, schema or taxonomy and get analysis they can trace, with no custom pipeline per upload. Six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates.",
+    date: "August 2026",
+    achievements: [
+      "A novelty ledger recording eight mechanisms with no published counterpart, each paired with the instrument that would measure it, so a claim of novelty is falsifiable rather than decorative: continuous audit-sample QC, promotion criteria for local-to-global learning, confusion-driven codebook merge and split, the two-call versus combined-call ablation on arbitrary codebooks, the tokens-per-card knee, fitted non-uniform class-definition rendering, cluster-shared versus per-row candidate sets, and fork-versus-fix for shared vocabularies.",
+      "A four-rung candidate-presentation ladder that makes a large codebook affordable: send it whole, split it by its own top level, cluster similar responses behind one shared shortlist, then retrieve per response. The rung that was missing is the one for codebooks with no usable top level, which used to fall straight to the expensive answer.",
+      "Two measurements decide when a project drops a rung, total prompt size and label count, whichever is hit first, because one number alone let oversized prompts through.",
+      "Learning scopes, so a fix travels exactly as far as its evidence: a correction fixes one row, a codebook edit reaches one project's future runs, a shared definition change needs every affected department to sign off, and a prompt change needs evidence from many projects. Nothing alters a run already in flight.",
+      "Fork-with-provenance for shared vocabularies: when two departments pull a definition in opposite directions it forks with its history kept, instead of one team silently winning. Error, ambiguity and perspective are triaged differently.",
+      "Continuous QC as a blind random audit sample per run, powering both the quality score and a corrected estimate published with an honest margin of error beside the raw number.",
+      "Conformal accept and abstain thresholds so the error rate on accepted labels stays under a stated bound, with every label carrying a calibrated 0–100 confidence rather than a vibe.",
+      "Correction history that is never overwritten: the model's original answer and each human change with who and when, plus run versions that reuse unchanged rows so a re-run shows the edit's effect rather than model randomness, at no cost.",
+      "An estimator registry where published numbers come only from registered statistical code, weighted designs carry correct variance, and a model can never produce a published figure.",
+      "One model gateway with a one-way valve stated as model authority never widens, rather than the weaker no-model-call-below-the-boundary it replaced.",
+      "Four agent surfaces with bounded jobs (DataPlan, Discovery, Diagnosis, Findings Assistant), none of which owns control flow.",
+      "Managed agent frameworks ruled out of the control path with a reason: Bedrock Agents, Knowledge Bases and Flows own prompt construction, retrieval and orchestration, three of the four artifacts a published number's reproducibility depends on. Step Functions as run truth is out for the same reason, with run state assigned to a Postgres state machine.",
+      "A technology radar written as scope markers instead of a wish list: in scope, out of scope, or field survey only, after the document was twice misread as a build list and once as a commitment to train models. Training, fine-tuning and self-hosted weights are a permanent product boundary.",
+      "PII redaction ahead of every model call, sensitive-disclosure triage with escalation, sign-in on Cognito while every permission decision stays in code we own, and browser-direct uploads so large files never pass through the services.",
+      "Bedrock Batch designed in as a run mode with its fencing pattern resolved, immutable model versions pinned where the provider offers them, and multi-region warm standby as the target recovery posture.",
+      "Four sequenced layers, core AI system then platform services then product surfaces then operations, each with exit criteria rather than dates, because delivery is one developer working in sequence.",
+      "An interactive diagram set alongside the prose: a system map, a stakeholder view, an AI explorer, and a Structurizr DSL model, so a reader can see the platform rather than read 8,600 lines about it.",
+    ],
+    technologies: [
+      "AWS Bedrock",
+      "PostgreSQL",
+      "pgvector",
+      "TypeScript",
+      "Zod",
+      "DuckDB",
+      "AWS Cognito",
+      "OpenTelemetry",
+      "Structurizr",
     ],
     demoUrl: "",
     githubUrl: "",
@@ -380,11 +433,11 @@ const featuredMeta: FeaturedMeta[] = [
     caption: "Illustrative system view, drawn in code — not a product screenshot",
     caseStudyUrl: "/work/survey-agents",
     highlights: [
-      "Every figure must resolve to a tool-computed fact. If verification fails, the sentence is redrafted and ultimately removed, preventing unsupported model-generated numbers from passing review.",
-      "Schema-constrained decoding and per-response correlation tokens reduced invalid labels from 9 to 0 and silently overwritten rows from 12.7% to 0.",
-      "A controlled comparison showed that model choice affected F1 about 30× more than architecture; the agent pipeline's measurable advantage was reliability, not accuracy.",
-      "Questions compile into auditable plans, metrics bind to column types rather than names, and the system tries valid alternatives before refusing a request.",
-      "Charts remain deterministic specifications: the agent may propose presentation choices, but it never supplies data and cannot bypass four validation gates.",
+      "Ten agents over 75 typed tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker. 116k lines of TypeScript, 1,255 tests.",
+      "Schema-constrained decoding plus per-response correlation tokens: invented labels 9 → 0, silently overwritten rows 13 of 102 → 0, join integrity 100%.",
+      "Questions compile to MBQL plans, clear seven validation checks, then execute over stored facts with DuckDB on a miss. Metrics bind to column kinds, so an unseen survey is answerable on arrival.",
+      "Charts are specs, never images: one constrained Vega-Lite spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection deterministic.",
+      "Every number in a drafted report resolves to a fact the analytics stage computed, or the sentence is redrafted naming the offending figure and then removed.",
     ],
   },
   {
@@ -425,9 +478,30 @@ const featuredMeta: FeaturedMeta[] = [
 ];
 
 const featuredIndexes = featuredMeta.map((f) => f.index);
+
+const MONTHS: Record<string, number> = {
+  jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+  jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+};
+
+/**
+ * Sort key for a free-text date range ("Sept 2024 – Dec 2024", "2025 – Present").
+ * Ranks on when the work ENDED, so ongoing work leads and a finished 2023 project
+ * cannot outrank it. Unparseable dates sort last rather than to the top.
+ */
+function recencyKey(date: string): number {
+  if (/present|ongoing/i.test(date)) return Number.MAX_SAFE_INTEGER;
+  const tail = date.split(/[–—-]/).pop() ?? date;
+  const year = tail.match(/\d{4}/)?.[0] ?? date.match(/\d{4}/g)?.pop();
+  if (!year) return 0;
+  const month = tail.toLowerCase().match(/[a-z]{3}/)?.[0];
+  return Number(year) * 12 + (month && month in MONTHS ? MONTHS[month] : 11);
+}
+
 const archiveIndexes = projects
   .map((_, i) => i)
-  .filter((i) => !featuredIndexes.includes(i));
+  .filter((i) => !featuredIndexes.includes(i))
+  .sort((a, b) => recencyKey(projects[b].date) - recencyKey(projects[a].date));
 
 /* --- Bespoke animated visuals (no stock photos) --- */
 

@@ -7,18 +7,23 @@ import Footer from "@/components/layout/Footer";
 import { AgentGraph, ToolBudget, AnswerPath, DataModel } from "./_diagrams";
 
 const stats = [
-  { value: "74k", label: "lines of TypeScript" },
-  { value: "1,021", label: "tests" },
-  { value: "253", label: "recorded runs" },
-  { value: "40", label: "measured experiments" },
+  { value: "116k", label: "lines of TypeScript" },
+  { value: "1,255", label: "tests" },
+  { value: "75", label: "typed tools" },
+  { value: "258", label: "recorded runs" },
 ];
 
 const agents = [
-  { name: "intake", tools: "profile_csv · detect_header_shape · validate_mapping · emit_dispositions · check_codebook_fit", model: "none" },
-  { name: "label", tools: "load_codebook · calibrate_density · build_prefix · verify_correlation · validate_enum · check_sentiment_consistency", model: "label_batch" },
-  { name: "qa", tools: "join_integrity · invalid_label_rate · abstain_rate · sentiment_contradictions · outlier_detect · calibrate_threshold · route · requeue_rows", model: "none" },
-  { name: "analytics", tools: "count_by · crosstab · coverage · top_n", model: "none" },
-  { name: "conclude", tools: "read_facts · verify_citations", model: "draft_summary" },
+  { name: "intake", tools: "profile_csv · detect_header_shape · detect_embedded_dates · validate_mapping · emit_dispositions · check_codebook_fit · list_questions · sample_rows", model: "none" },
+  { name: "curate", tools: "cluster_confusables · codebook_gaps · draft_distinctions · freeze_profile", model: "draft_distinctions" },
+  { name: "label", tools: "load_codebook · calibrate_density · build_prefix · verify_correlation · validate_enum · check_sentiment_consistency · augment_labels · commit", model: "label_batch" },
+  { name: "adjudicate", tools: "find_contested_rows", model: "adjudicate_batch" },
+  { name: "qa", tools: "join_integrity · invalid_label_rate · abstain_rate · outlier_detect · calibrate_threshold · score_consensus · score_decision_risk · route_rows · requeue_rows · codebook_rules", model: "none" },
+  { name: "analytics", tools: "count_by · crosstab · cooccurrence · coverage · aggregate · compare · bucket_dates · codebook_use · dimensions · facts", model: "none" },
+  { name: "analysis", tools: "describe_survey · choose_rung · execute_plan · compose_answer · compare_runs · propose_followups", model: "bind_question" },
+  { name: "viz", tools: "check_chart · draw_chart · repair_chart · restyle_chart · describe_chart · shorten_labels", model: "propose_chart" },
+  { name: "conclude", tools: "read_facts · verify_citations · verify_grounding", model: "draft_summary" },
+  { name: "orchestrator", tools: "its tools are the other agents", model: "none" },
 ];
 
 const stages = [
@@ -105,7 +110,7 @@ const awsFindings = [
   "The first fully succeeded run labeled 100 of 102 while all three slices reported success. Concurrent map iterations wrote the same slot and one overwrote another, so fan-out needed partitioned writes and a real fan-in before green meant anything.",
   "The circuit breaker is the capability nothing else here has. ToleratedFailurePercentage 5 halts the execution once that share of batches fails; a sequential driver grinds through the remaining 190 and pays for every one.",
   "AgentCore earns its place at the stage level, where its harness took labeling from 50 of 102 to 102 of 102 after our own loop failed, and not at the orchestration level, where the one thing the agentic orchestrator was buying, repair, is a Choice state plus a counter.",
-  "Eight agent harnesses deployed with per-agent tool sets, one tool withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs. The graph itself is data with load-time gates rather than a trusted stage list.",
+  "Ten agent harnesses deployed with per-agent tool sets, one tool withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs. The graph itself is data with load-time gates rather than a trusted stage list.",
   "Governance is deployed alongside: personal-data classification inside intake, Bedrock guardrails as their own stack, and spend caps on tokens and dollars checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing.",
   "Deployment surfaced defects nothing else did: six in the Step Functions path, seven in the Flows path, none reachable by typecheck, unit tests or cdk synth.",
 ];
@@ -240,7 +245,7 @@ export default function SurveyAgentsCaseStudy() {
               Survey Agents
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              A five-agent platform that turns raw survey exports into coded responses,
+              A ten-agent platform that turns raw survey exports into coded responses,
               verified facts, accessible charts, and reproducible answers. I built it to
               test one question honestly: does agentic architecture outperform three
               direct API calls—and what does the added reliability cost?
@@ -316,11 +321,14 @@ export default function SurveyAgentsCaseStudy() {
                 than halfway through one.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed">
-                <span className="font-tech text-sm text-primary">study</span> and{" "}
-                <span className="font-tech text-sm text-primary">review</span> are in the local
-                graph and skipped by the deployed one, measured F1-neutral. Eight harnesses are
-                deployed with per-agent tool sets, and one tool is withheld at runtime until its
-                precondition exists after it executed 0 times in 19 recorded runs.
+                Node ids in the graph are stage names bound to agent handlers, so{" "}
+                <span className="font-tech text-sm text-primary">read</span> invokes intake,{" "}
+                <span className="font-tech text-sm text-primary">check</span> invokes qa,{" "}
+                <span className="font-tech text-sm text-primary">count</span> invokes analytics
+                and <span className="font-tech text-sm text-primary">report</span> invokes
+                conclude. One dispatch table holds the binding, so a rename cannot update the
+                graph and miss the runtime. Curate, adjudicate, analysis and viz run outside this
+                labelling graph, on the ask path.
               </p>
             </Section>
 

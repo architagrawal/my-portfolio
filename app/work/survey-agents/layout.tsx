@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Survey Agents — Case Study",
   description:
-    "How a five-agent survey-analysis platform achieved deterministic reporting, zero destroyed labels, and reproducible answers—and what 40 experiments showed about its cost and accuracy.",
+    "How a ten-agent survey-analysis platform achieved deterministic reporting, zero destroyed labels, and reproducible answers—and what 40 experiments showed about its cost and accuracy.",
   alternates: { canonical: "/work/survey-agents" },
   openGraph: {
     title: "Survey Agents — Case Study | Archit Agrawal",

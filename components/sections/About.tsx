@@ -115,10 +115,13 @@ export default function About() {
 
               <p className="leading-relaxed">
                 I hold an MS in Computer Science from Arizona State University
-                (4.0 GPA). At EdPlus, I own the architecture of an agentic
-                survey-analysis platform. At MyStage, I build LangGraph
-                workflows, LLM-powered entity resolution, and data pipelines
-                that process more than 70,000 records a day.
+                (4.0 GPA). At EdPlus I own the architecture of an agentic
+                survey-analysis platform: ten agents over 75 typed tools, 116k
+                lines of TypeScript on Bedrock and Step Functions, plus the
+                target architecture for the production system that follows it.
+                At MyStage I build LangGraph workflows, LLM-powered entity
+                resolution, and pipelines that process more than 70,000 records
+                a day.
               </p>
 
               <p className="leading-relaxed">
@@ -153,14 +156,16 @@ export default function About() {
             <div className="pt-4">
               <div className="flex items-center gap-2 mb-3">
                 <Award className="w-4 h-4 text-muted-foreground" />
-                <span className="font-tech text-xs uppercase tracking-[0.2em] text-muted-foreground">Certifications</span>
+                <span className="font-tech text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  Recognition
+                </span>
               </div>
               <ul className="space-y-2 text-sm font-tech text-muted-foreground">
                 <li className="flex items-center gap-2 before:content-[''] before:w-1.5 before:h-1.5 before:bg-primary/70 before:shrink-0">
-                  LangChain Chat with Your Data
+                  3 hackathon podium finishes
                 </li>
                 <li className="flex items-center gap-2 before:content-[''] before:w-1.5 before:h-1.5 before:bg-primary/70 before:shrink-0">
-                  Building Systems with the ChatGPT API
+                  6 certifications, listed in full below
                 </li>
               </ul>
             </div>

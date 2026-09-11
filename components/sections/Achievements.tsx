@@ -1,181 +1,186 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Trophy, Award, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
+import { SectionHeading } from "@/components/ui/section-heading";
 
-const achievements = [
+interface Hackathon {
+  event: string;
+  year: string;
+  placement: string;
+  project: string;
+  summary: string;
+  detail: string;
+  stack: string[];
+}
+
+const hackathons: Hackathon[] = [
   {
-    title: "Orion Space Hackathon 2025",
-    position: "3rd Place",
-    description: "Light Pollution Explorer project",
-    icon: Trophy,
+    event: "Orion Space Hackathon",
+    year: "2025",
+    placement: "3rd place",
+    project: "Light Pollution Explorer",
+    summary:
+      "Turns satellite radiance data into an answer to one question: where is the nearest sky dark enough to see anything from.",
+    detail:
+      "Night-lights raster tiles are resampled to a viewing-quality scale, then scored against travel time from wherever you are, so the recommendation trades darkness against how far you would have to drive rather than reporting the darkest pixel on the map.",
+    stack: ["Python", "Geospatial rasters", "React", "Mapping"],
   },
   {
-    title: "SpaceCode Hackathon",
-    position: "3rd Place",
-    description: "AI-Powered Pulsar Detection",
-    icon: Award,
+    event: "SpaceCode Hackathon",
+    year: "2025",
+    placement: "3rd place",
+    project: "AI-Powered Pulsar Detection",
+    summary:
+      "Classifies pulsar candidates from radio-telescope statistics, on a corpus where the honest baseline is doing nothing.",
+    detail:
+      "Real candidate sets are roughly 9% signal, so a model that answers no every time scores above 90% and finds not one pulsar. Scoring on recall at a fixed false-alarm budget instead of accuracy is what made the model's improvement visible at all.",
+    stack: ["Python", "scikit-learn", "Class imbalance", "Signal features"],
   },
   {
-    title: "KrackHack 2.0 (GDG)",
-    position: "3rd Place",
-    description: "Dealora Marketplace project",
-    icon: Award,
-  },
-  {
-    title: "KrackHack 2.0 (GDG)",
-    position: "3rd Place",
-    description: "Dealora Marketplace project",
-    icon: Award,
+    event: "KrackHack 2.0 · GDG",
+    year: "2025",
+    placement: "3rd place",
+    project: "Dealora Marketplace",
+    summary:
+      "A peer-to-peer marketplace built inside a hackathon weekend, with listings, search and settlement working end to end.",
+    detail:
+      "Scope was cut deliberately on the first evening: one category, one currency, no messaging, so what shipped was a complete path from listing to settled transaction rather than four features that each stopped halfway.",
+    stack: ["React", "Node.js", "Postgres", "Auth"],
   },
 ];
 
-const certifications = [
+interface Certification {
+  title: string;
+  issuer: string;
+  link?: string;
+}
+
+const certifications: Certification[] = [
   {
-    title: "Google Cloud Public Profile",
-    description: "Comprehensive cloud skills and achievements",
+    title: "LangChain: Chat with Your Data",
+    issuer: "DeepLearning.AI",
+  },
+  {
+    title: "Building Systems with the ChatGPT API",
+    issuer: "DeepLearning.AI",
+  },
+  {
+    title: "Google Cloud Skills Boost",
+    issuer: "Google Cloud · public profile",
     link: "https://www.cloudskillsboost.google/public_profiles/d4bd12d2-80fb-43a7-ba30-536890e3e09f",
   },
   {
     title: "Advanced Python: Working with Data",
-    description: "LinkedIn Learning Certification",
+    issuer: "LinkedIn Learning",
     link: "https://www.linkedin.com/learning/certificates/cbaafd2959fdd9c1f7582a234173da86cd0bfed1cf7f05d66c4ffa2c9b6773f7",
   },
   {
     title: "DevOps with AWS",
-    description: "LinkedIn Learning Certification",
-    link: "https://www.linkedin.com/learning/certificates/0a554bf6692410db2e6064d5fe1cdf41ad584cef0705577cd3842005ddbab24c?lipi=urn:li:page:d_flagship3_profile_view_base_certifications_details;tq+kjguvQNyolStsUlEIpg==",
+    issuer: "LinkedIn Learning",
+    link: "https://www.linkedin.com/learning/certificates/0a554bf6692410db2e6064d5fe1cdf41ad584cef0705577cd3842005ddbab24c",
   },
   {
     title: "Career Essentials in Generative AI",
-    description: "Microsoft and LinkedIn Certification",
-    link: "https://www.linkedin.com/learning/certificates/cbaafd2959fdd9c1f7582a234173da86cd0bfed1cf7f05d66c4ffa2c9b6773f7",
+    issuer: "Microsoft · LinkedIn",
   },
 ];
 
 export default function Achievements() {
   return (
-    <section id="achievements" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="section-heading text-3xl sm:text-4xl font-bold mb-4 text-foreground font-display uppercase tracking-wide">
-            Achievements
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Recognition for innovation and technical excellence
+    <section id="achievements" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <SectionHeading eyebrow="05 // Recognition" title="Achievements" />
+
+        <div className="flex flex-wrap gap-x-12 gap-y-4 -mt-6 mb-14">
+          {[
+            [String(hackathons.length), "podium finishes"],
+            ["48h", "typical build window"],
+            [String(certifications.length), "certifications"],
+          ].map(([value, label]) => (
+            <div key={label}>
+              <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground tabular-nums">
+                {value}
+              </span>
+              <span className="ml-2 font-tech text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-px bg-border border border-border">
+          {hackathons.map((h, i) => (
+            <motion.article
+              key={h.project}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              viewport={{ once: true, margin: "-80px" }}
+              className="group bg-background p-7 flex flex-col gap-4 transition-colors duration-200 hover:bg-card/40"
+            >
+              <div className="flex items-baseline justify-between gap-4">
+                <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  {h.event} · {h.year}
+                </span>
+                <span className="font-tech text-[10px] uppercase tracking-[0.15em] text-primary whitespace-nowrap">
+                  {h.placement}
+                </span>
+              </div>
+
+              <h3 className="font-display text-2xl font-extrabold uppercase tracking-tight leading-[0.95] text-foreground">
+                {h.project}
+              </h3>
+
+              <p className="text-sm text-foreground/85 leading-relaxed">{h.summary}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{h.detail}</p>
+
+              <div className="mt-auto pt-4 flex flex-wrap gap-2">
+                {h.stack.map((t) => (
+                  <span
+                    key={t}
+                    className="px-2.5 py-1 text-xs font-medium border border-primary/10 bg-primary/5 text-muted-foreground transition-colors group-hover:text-primary group-hover:border-primary/25"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        <div className="mt-16">
+          <p className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-6">
+            Certifications
           </p>
-        </motion.div>
-
-        <div className="space-y-12">
-          {/* Hackathon Achievements */}
-          <div>
-            <motion.h3
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-2xl font-semibold mb-6 flex items-center gap-2 text-foreground"
-            >
-              <Trophy className="w-6 h-6 text-primary" />
-              Hackathon Wins
-            </motion.h3>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {achievements.map((achievement, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/50 bg-background/50 backdrop-blur-sm rounded-none">
-                    <CardHeader className="text-center">
-                      <div className="mx-auto w-12 h-12 bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
-                        <achievement.icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <CardTitle className="text-lg text-foreground">
-                        {achievement.title}
-                      </CardTitle>
-                      <Badge className="mx-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                        {achievement.position}
-                      </Badge>
-                    </CardHeader>
-                    <CardContent className="text-center">
-                      <p className="text-sm text-muted-foreground">
-                        {achievement.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Certifications */}
-          <div>
-            <motion.h3
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-2xl font-semibold mb-6 flex items-center gap-2 text-foreground"
-            >
-              <Award className="w-6 h-6 text-secondary" />
-              Certifications
-            </motion.h3>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-secondary/50 bg-background/50 backdrop-blur-sm rounded-none">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-3 text-foreground">
-                        <div className="w-10 h-10 bg-secondary/10 border border-secondary/20 flex items-center justify-center">
-                          <Award className="w-5 h-5 text-secondary" />
-                        </div>
-                        {cert.title}
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground">
-                        {cert.description}
-                      </p>
-                    </CardHeader>
-                    <CardContent>
-                      <Button
-                        variant="outline"
-                        asChild
-                        className="w-full bg-background/50 backdrop-blur-sm hover:bg-secondary/10 hover:text-secondary rounded-none border-border"
-                      >
-                        <a
-                          href={cert.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          View Certificate
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+          <ul className="border-t border-border">
+            {certifications.map((c) => (
+              <li
+                key={c.title}
+                className="group grid sm:grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-border py-4 transition-colors hover:bg-card/30"
+              >
+                <span className="flex flex-wrap items-baseline gap-x-3">
+                  <span className="text-base text-foreground/90">{c.title}</span>
+                  <span className="font-tech text-[11px] text-muted-foreground">{c.issuer}</span>
+                </span>
+                {c.link ? (
+                  <a
+                    href={c.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 font-tech text-[10px] uppercase tracking-[0.2em] text-primary hover:text-foreground transition-colors"
+                  >
+                    Verify
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                ) : (
+                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground/40">
+                    On file
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

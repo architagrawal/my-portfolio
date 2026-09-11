@@ -23,6 +23,9 @@ const Projects = dynamic(() => import("@/components/sections/Projects"), {
 const Skills = dynamic(() => import("@/components/sections/Skills"), {
   loading: () => <div className="min-h-screen" />,
 });
+const Achievements = dynamic(() => import("@/components/sections/Achievements"), {
+  loading: () => <div className="min-h-screen" />,
+});
 const Contact = dynamic(() => import("@/components/sections/Contact"), {
   loading: () => <div className="min-h-screen" />,
 });
@@ -36,7 +39,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const ids = ["hero", "about", "experience", "projects", "skills", "contact"];
+    const ids = ["hero", "about", "experience", "projects", "skills", "achievements", "contact"];
     const visible = new Map<string, number>();
     const io = new IntersectionObserver(
       (entries) => {
@@ -74,6 +77,7 @@ export default function Home() {
               <Experience />
               <Projects />
               <Skills />
+              <Achievements />
               <Contact />
               <Analytics />
               <SpeedInsights />

@@ -257,18 +257,20 @@ export function AgentGraph() {
 /* ------------------------------------------------------------------ */
 
 const TOOL_CAPS = [
-  { agent: "orchestrator", cap: 14, note: "its tools are the other agents" },
-  { agent: "read", cap: 8, note: "shape, mapping, dispositions" },
-  { agent: "study", cap: 8, note: "enrich a thin codebook" },
   { agent: "label", cap: 24, note: "codes + sentiment, per row" },
-  { agent: "review", cap: 12, note: "drop weakly evidenced codes" },
-  { agent: "check", cap: 14, note: "coverage, invalid, contradictions" },
-  { agent: "count", cap: 20, note: "build the facts" },
-  { agent: "report", cap: 8, note: "draft, every number tied to a fact" },
+  { agent: "analytics", cap: 20, note: "build the facts" },
+  { agent: "analysis", cap: 18, note: "bind, execute, compose, compare" },
+  { agent: "qa", cap: 14, note: "coverage, invalid, contradictions" },
+  { agent: "adjudicate", cap: 12, note: "re-decide contested rows only" },
+  { agent: "viz", cap: 12, note: "propose, check, draw, repair, restyle" },
+  { agent: "orchestrator", cap: 10, note: "its tools are the other agents" },
+  { agent: "intake", cap: 8, note: "shape, mapping, dispositions" },
+  { agent: "curate", cap: 8, note: "repair the codebook itself" },
+  { agent: "conclude", cap: 8, note: "draft, every number tied to a fact" },
 ];
 
 const LOOP_BOUNDS = [
-  { loop: "tool loop", bound: "8 calls", then: "graceful exit" },
+  { loop: "tool loop", bound: "each agent's own cap", then: "graceful exit" },
   { loop: "repair loop", bound: "2 iterations", then: "quarantine" },
   { loop: "verify loop", bound: "2 redrafts", then: "strip the sentence" },
 ];

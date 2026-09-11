@@ -18,6 +18,8 @@ interface ExperienceItem {
   achievements: (string | Achievement)[];
   /** Indexes of achievements to surface first; the rest collapse into technical notes */
   featured?: number[];
+  /** Optional clustering for the collapsed details; ungrouped items fall to the end */
+  groups?: { label: string; indexes: number[] }[];
   technologies: string[];
   color: string;
 }
@@ -28,94 +30,220 @@ const experiences: ExperienceItem[] = [
     role: "AI Software Engineer",
     location: "Tempe, AZ",
     period: "June 2026 – Present",
-    featured: [0, 1, 2],
+    featured: [0, 1, 2, 3],
+    groups: [
+      { label: "The agent system", indexes: [4, 5, 6] },
+      { label: "Labelling reliability", indexes: [7, 8] },
+      { label: "Intake", indexes: [9, 10, 11] },
+      { label: "The ask path", indexes: [12, 13, 14, 15, 16, 17] },
+      { label: "Visualization", indexes: [18, 19, 20, 21, 22] },
+      { label: "Data model", indexes: [24, 25, 26] },
+      { label: "Application", indexes: [23] },
+      { label: "AWS deployment", indexes: [27, 28, 29, 30] },
+      { label: "Measurement", indexes: [31, 32, 33] },
+      { label: "Platform architecture", indexes: [34, 35, 36, 37, 38, 39, 40, 41, 42] },
+      { label: "Platform and governance", indexes: [43, 44, 45] },
+      { label: "The design record", indexes: [46, 47, 48, 49] },
+    ],
     achievements: [
       {
-        text: "Own the end-to-end architecture of EdPlus's agentic survey-analysis platform: five agents coordinate roughly 30 deterministic tools across 74,000 lines of TypeScript and 1,021 tests. The core rule is simple—the agent decides, the tool computes—so every reported number is traceable to deterministic code.",
-        relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore", "Vitest"],
+        text: "Architected and shipped an agentic survey-analysis platform: ten agents over 75 typed tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a 5% failure circuit breaker. 116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore", "Step Functions", "AWS CDK"],
       },
       {
-        text: "Built the control experiment our architecture could lose: model choice moved labeling F1 by 0.230, while architecture changed it by −0.007 at a fixed model and cost 4–8× more. Reframed the adoption decision around reliability—not unsupported accuracy claims—and replaced a non-reproducible baseline.",
+        text: "Made fabricated figures structurally impossible rather than merely discouraged: schema-constrained decoding, per-response correlation tokens, and a citation verifier that resolves every number in a draft back to a tool-computed fact. Invented labels 9 → 0. Silently overwritten rows 13 of 102 → 0. Join integrity 100%, label churn 0% across repeat runs.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "Zod", "Vitest"],
+      },
+      {
+        text: "Built the semantic layer that decides what a dataset can be asked: English compiles to an MBQL plan, clears seven validation checks, then executes over stored facts with DuckDB on a miss. Metrics bind to column kinds rather than column names, so an unseen survey is answerable the moment it lands.",
+        relatedTechs: ["TypeScript", "DuckDB", "Zod"],
+      },
+      {
+        text: "Authored the target architecture for the platform that succeeds the POC: six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates, and a novelty ledger recording eight mechanisms with no published counterpart, each paired with the instrument that would measure it.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "PostgreSQL"],
+      },
+      {
+        text: "Grew the pipeline to ten agents with their own tool sets: intake, label, qa, curate, adjudicate, analysis, analytics, viz and conclude, under an orchestrator whose tools are the other agents.",
+        relatedTechs: ["TypeScript", "AgentCore"],
+      },
+      {
+        text: "Added a curate agent that repairs the codebook itself: cluster confusable codes, find the gaps, draft the distinction that separates two of them, then freeze the profile so labelling runs against a fixed target.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Eliminated a silent data-integrity failure with schema-constrained decoding and per-response correlation tokens: invalid labels fell from 9 to 0, overwritten rows from 13 of 102 to 0, join integrity reached 100%, and repeat runs produced 0% label churn.",
+        text: "Added an adjudicate agent that locates contested rows and re-decides only those, turning ensemble disagreement into a bounded second pass instead of a full re-label.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Ran the research phase as a deliverable, not a preamble: 12 prior-art passes mapped the design onto SSSOM mapping predicates, the DDI survey-metadata model, Metabase MBQL as the plan format, Vega-Lite as the chart contract, Draco/CompassQL/Voyager for constraint solving, Sato and Sherlock for context-aware column typing (F1 0.89 values-only against 0.925 with context), XLSForm/ODK, GPTCache, LinkML, CEL, SDMX and SKOS. Every borrowed mechanism is cited in the decision record; the ~10 that had no prior art are labeled as ours to get wrong.",
-        relatedTechs: ["TypeScript", "Vega-Lite"],
-      },
-      {
-        text: "Closed the research phase on purpose with a written design freeze: new references land in a parked list with a named trigger instead of changing direction mid-build. Wrote the decision record the team now works from: scope, approaches considered, findings and problem logs across 40 measured experiments over 253 recorded runs, each stating what it establishes and what it does not.",
-        relatedTechs: ["TypeScript", "Vitest"],
-      },
-      {
-        text: "Wrote down what we deliberately did not build and why: no warehouse, so Cube Core and the dbt semantic layer were rejected as dependencies that model over one; no text-to-SQL, because the model never sees a row after labeling; no agentic orchestrator, because the one thing it was buying (repair) is a Choice state plus a counter. Each rejection carries the condition that would reopen it.",
-        relatedTechs: ["TypeScript", "Step Functions", "DuckDB"],
-      },
-      {
-        text: "Designed the mechanisms that have no prior art behind them: a question passport (plan hash plus dataset, registry and skill versions) that re-executes any answer byte-identically, metric lint in CI that fails a metric which can no longer be computed on a stored run, shadow re-execution that diffs recent answers when a definition changes, a negative catalog that publishes what a scope cannot answer so the UI grays the control out instead of refusing after the fact, deterministic tie-breaking so one question cannot answer two ways on two days, and content-hash upload identity so two people uploading the same export get one run rather than two conflicting sets of numbers.",
-        relatedTechs: ["TypeScript", "Vitest", "Nuxt 4"],
-      },
-      {
-        text: "Modeled change itself: four lineage relations (relabel, recode, wave, wave_recoded) where only a new wave may claim topic movement, so a second labeling pass cannot present itself as a trend, and codelist drift accumulates unmatched values with counts instead of failing the load, so the drift becomes the report.",
-        relatedTechs: ["TypeScript", "DuckDB"],
-      },
-      {
-        text: "Set the extension policy the codebase is governed by: parsers, column kinds, metrics, operators, chart marks and backends extend without touching existing code, while the validator, the gate, provenance and grain enforcement deliberately do not, so a human review sits on every change to a guarantee.",
-        relatedTechs: ["TypeScript", "Vitest"],
-      },
-      {
-        text: "Built the semantic layer that decides what a dataset can be asked: ~10 declared operators, metrics minted by usage and bound to column kinds rather than column names so an unseen survey works on arrival, questions compiled to plans in Metabase's MBQL shape so one format serves both the agent and a UI query builder, a binding cache (plan hashed into the key) so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples and extends before it refuses, and a refusal names the column that is missing rather than inventing a reason.",
-        relatedTechs: ["TypeScript", "DuckDB"],
-      },
-      {
-        text: "Shipped the pipeline on AWS with CDK: a Step Functions state machine with a Distributed Map over label slices, a Choice-based repair loop, and a ToleratedFailurePercentage circuit breaker that halts at 5% failed batches instead of grinding through 190 more and paying for every one. Found and fixed a fan-in defect where a fully SUCCEEDED execution had silently dropped 2% of the corpus because concurrent map iterations wrote the same slot.",
-        relatedTechs: ["AWS CDK", "Step Functions", "AWS Bedrock"],
-      },
-      {
-        text: "Established where each managed service earns its place: AgentCore's harness at the stage level, where it took labeling from 50/102 to 102/102 after our own agent loop failed, and Step Functions at the orchestration level, with the remaining cost gap traced to per-slice prompt-cache writes. Deployed eight agent harnesses with per-agent tool sets and load-time gates, withholding one tool at runtime until its precondition exists after it executed 0 times in 19 recorded runs.",
-        relatedTechs: ["AgentCore", "Step Functions", "AWS CDK"],
-      },
-      {
-        text: "Treated deployment as its own test surface: it surfaced 6 defects in the Step Functions path and 7 in the Flows path, none reachable by typecheck, unit tests or cdk synth. That result is why the deployed path, not the local one, is now the reference implementation.",
-        relatedTechs: ["AWS CDK", "Step Functions"],
-      },
-      {
-        text: "Built the visualization layer as specs rather than images: a constrained Vega-Lite subset where one spec yields the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection derived from published research (Cleveland & McGill 1984, Bertin 1967, Mackinlay's APT 1986, Draco 2019, Brehmer & Munzner 2013) and the agent restricted to proposing mark and encoding behind four gates. 75 chart properties are classified rather than opened up, each carrying a class that says how a refusal is reported. That classification is how three accepted-and-inert bugs were found.",
-        relatedTechs: ["Vega-Lite", "TypeScript", "Nuxt 4"],
-      },
-      {
-        text: "Instituted an agent-earns-its-place protocol the team applies to every new component: held-out batches, eagerness sweeps that ask whether consulting the model more often ever hurts, and oracle runs over the agent's own search space that find the scorer's exploits before the agent does. Results included 0 of 36 chart proposals beating the deterministic rule table, a consensus signal that separates ~4× better than the hand-built risk score it replaced, and a temperature-0 case that scored 0.80/0.40/0.40/0.40/0.64 across five identical runs, which is why no claim here rests on a single pass.",
-        relatedTechs: ["TypeScript", "AWS Bedrock", "Vitest"],
-      },
-      {
-        text: "Made thresholds measured rather than guessed: codebook fit is calibrated before any labeling spend by embedding question scope and sample-labeling 25 responses, separating the right codebook at 0.598 / 4% abstain from the wrong one at 0.316 / 88% for about $0.001. The thresholds we would have written from intuition would have passed the wrong codebook with a warning.",
+        text: "Recovered scrambled label batches instead of dropping rows: discard the batch whole, re-label at batch size 1, then quarantine and abstain, capped at 2 iterations. 114 of 114 rows joined at 100% correlation integrity.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Declared every loop's exit condition before building it: tool loop at 8 calls, repair loop at 2 iterations before quarantine, verify loop at 2 redrafts before the sentence is stripped. A global spend budget is checked before every stage and inside the long ones, so exceeding it halts with partial results instead of truncating in silence.",
+        text: "Calibrated codebook fit before spending anything on labelling: embed the question scope, sample-label 25 rows. The right codebook separates at 0.598 and a 4% abstain rate against 0.316 and 88%, for about $0.001.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Hardened intake against exports that parse cleanly and are still wrong: UTF-16 headers full of null bytes, duplicate headers overwriting whole columns, 0/1 flags typed as rating scales, report titles occupying the header row, and 22 of 32 files hiding their timestamp inside an identifier column. Five gated stages over 30+ hand-written export shapes: 6 files need a stage at all, 11 model calls, $0.0023, and zero divergences between a run and its replay.",
+        text: "Built a five-stage intake (frame, repair, retype, classify, review) where the orchestrator is ordinary code and the model is consulted only where the rules are visibly unsure.",
         relatedTechs: ["TypeScript", "Node.js"],
       },
       {
-        text: "Built the governance surface the platform is judged on: personal-data classification inside intake, Bedrock guardrails deployed as their own stack, entitlement-gated respondent-level retrieval, spend caps enforced inside stages rather than only between them after an audit found the guard had been doing nothing, and weight columns typed and reported but never applied so nothing silently rescales.",
-        relatedTechs: ["TypeScript", "AWS Bedrock", "AWS CDK"],
+        text: "Recovered the dates 22 of 32 exports were reporting as missing by detecting constant arity inside packed identifier columns. The same intake survives UTF-16 null-byte headers, duplicate headers overwriting a column, and 0/1 flags typed as rating scales.",
+        relatedTechs: ["TypeScript", "Node.js"],
       },
       {
-        text: "Ran the data platform with no database: DuckDB in-process over per-run JSON, Lance serving vector and BM25 retrieval straight from S3, facts bounded at ~150 KB per run. One npm install, zero infrastructure to stand up, and scale demonstrated with five reproducible proofs rather than slides: 200× rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, replays that call no model at all, namespace and entitlement checks, and byte-identical re-execution from a passport.",
-        relatedTechs: ["DuckDB", "Lance", "Node.js"],
+        text: "Emitted every intake decision as one replayable JSON recipe: 30+ export shapes, 11 model calls, $0.0023, zero divergence between a run and its replay.",
+        relatedTechs: ["TypeScript", "Node.js"],
       },
       {
-        text: "Shipped the internal web application: a Nuxt 4 front end over a NestJS API, both compiling against one shared TypeScript contract, with the printable report assembled by the same builder that serves the app, and capability menus generated from the registry rather than hand-written after the same staleness bug appeared three times.",
+        text: "Built the ask path as eight tools around a single model call: describe the survey, bind the question, choose a rung, execute the plan, compose the answer, compare runs, propose follow-ups.",
+        relatedTechs: ["TypeScript", "DuckDB", "AWS Bedrock"],
+      },
+      {
+        text: "Compiled questions into Metabase's MBQL plan shape so one format serves both the agent and a UI query builder. A dashboard panel posts the plan the model would have written, at ~20 ms and $0.",
+        relatedTechs: ["TypeScript", "Nuxt 4", "DuckDB"],
+      },
+      {
+        text: "Designed refusal as the last rung of a ladder: substitute, decompose, sample, extend, request. An unanswerable question returns the missing column by name instead of an invented reason.",
+        relatedTechs: ["TypeScript", "DuckDB"],
+      },
+      {
+        text: "Cached question-to-plan bindings with the plan hashed into the key, turning the one non-deterministic step in the read path into a lookup, and making falling hit similarity a signal that the corpus moved.",
+        relatedTechs: ["TypeScript", "Lance"],
+      },
+      {
+        text: "Shipped a question passport on every answer (plan hash, dataset, registry and skill versions) that re-executes byte-identically, with shadow re-execution diffing recent answers whenever a definition changes.",
+        relatedTechs: ["TypeScript", "Vitest"],
+      },
+      {
+        text: "Added metric lint to CI, so a declared metric that can no longer be computed against a stored run fails the build rather than rotting silently between releases.",
+        relatedTechs: ["TypeScript", "Vitest"],
+      },
+      {
+        text: "Built a visualization agent of seven tools (propose, check, draw, repair, restyle, describe, shorten labels) over nine marks, where the request vocabulary is deliberately wider than the draw vocabulary so a refusal can name the word it could not honour.",
+        relatedTechs: ["Vega-Lite", "TypeScript"],
+      },
+      {
+        text: "Built the chart layer as a constrained Vega-Lite compiler: one spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with repeatability tested by diffing specs instead of images.",
+        relatedTechs: ["Vega-Lite", "TypeScript", "Nuxt 4"],
+      },
+      {
+        text: "Made charts conversational: a reader asks about the chart in front of them and the reply lands where they are looking, still resolving to the facts the analytics stage computed.",
+        relatedTechs: ["Vega-Lite", "Nuxt 4", "AWS Bedrock"],
+      },
+      {
+        text: "Derived mark selection from published visualization research (Cleveland & McGill, Bertin, Mackinlay's APT, Draco, Brehmer & Munzner) so chart choice cites evidence rather than taste, with the agent confined to proposing mark and encoding behind four gates.",
+        relatedTechs: ["Vega-Lite", "TypeScript"],
+      },
+      {
+        text: "Attacked my own scorer with an oracle over the agent's search space before trusting it. A word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
+        relatedTechs: ["Vega-Lite", "TypeScript", "Vitest"],
+      },
+      {
+        text: "Shipped a 14-page Nuxt 4 front end over a NestJS API of ten modules (uploads, surveys, codebooks, analysis, comparisons, exports, governance, templates, jobs), all compiling against one shared TypeScript contract.",
         relatedTechs: ["Nuxt 4", "NestJS", "TypeScript"],
       },
       {
-        text: "Published the limits alongside the results: every accuracy number is self-graded by the author of the pipeline it grades, two corpora and two codebooks is a monoculture, and two real codebooks produced zero lexical mapping proposals between them, so cross-survey comparison needs a shared codebook, not a better matcher. Each limit ships with the test input that would resolve it.",
+        text: "Modelled the platform over a deliberately narrow fact table where dimension and key are columns, so a survey of departments and a survey of campuses union without a migration and without new SQL.",
+        relatedTechs: ["TypeScript", "DuckDB"],
+      },
+      {
+        text: "Typed change itself with four lineage relations (relabel, recode, wave, wave_recoded) where only a new wave may claim topic movement, so a second labelling pass cannot present itself as a trend.",
+        relatedTechs: ["TypeScript", "DuckDB"],
+      },
+      {
+        text: "Blocked the cross-survey join that silently double counts: a respondent fingerprint caught two runs sharing all 114 response ids, after a pooled breakdown had reported 203 of 203 with nothing flagging it.",
+        relatedTechs: ["TypeScript", "DuckDB"],
+      },
+      {
+        text: "Compiled one graph file into two deployment targets, Lambda-bound and AgentCore-bound, gated at load time so an edge to a node that does not exist fails before a run starts rather than halfway through one.",
+        relatedTechs: ["AWS CDK", "Step Functions", "AgentCore"],
+      },
+      {
+        text: "Traced a fully SUCCEEDED execution that had silently dropped 2% of the corpus to concurrent Distributed Map iterations writing the same slot, then partitioned the writes and added a real fan-in.",
+        relatedTechs: ["Step Functions", "AWS CDK"],
+      },
+      {
+        text: "Benchmarked a managed agent runtime against a hand-rolled loop: AgentCore's harness took labelling from 50 of 102 to 102 of 102 where our own loop failed, and earns its place at the stage level, not the orchestration level.",
+        relatedTechs: ["AgentCore", "Step Functions"],
+      },
+      {
+        text: "Bounded blast radius with a ToleratedFailurePercentage circuit breaker at 5%, halting a run once that share of batches fails instead of grinding through the remaining 190 and paying for every one.",
+        relatedTechs: ["Step Functions", "AWS CDK"],
+      },
+      {
+        text: "Built the control run my own architecture could lose, and isolated the dominant variable: the model pin moves labelling F1 by 0.230 where pipeline shape moves it by 0.007. Redirected the team's recommendation from accuracy to reliability.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "Vitest"],
+      },
+      {
+        text: "Retired the 0.637 baseline every prior claim in the project rested on, after fresh runs reproduced it at 0.523 and traced the gap to a delivered spreadsheet that had been human-reviewed before it shipped.",
+        relatedTechs: ["TypeScript", "AWS Bedrock"],
+      },
+      {
+        text: "Held every agent to improve-or-discard: 0 of 36 chart proposals beat the deterministic rule table, so the rule table stayed. A consensus signal measured on held-out data separated about 4× better than the risk score it replaced.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "Vitest"],
+      },
+      {
+        text: "Designed the candidate-presentation ladder that makes a large codebook affordable: send it whole, split it by its own top level, cluster similar responses behind one shared shortlist, then retrieve per response. Each rung is tried before the next, and two measurements decide the drop.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "PostgreSQL"],
+      },
+      {
+        text: "Specified learning scopes so a fix travels exactly as far as its evidence: a correction fixes one row, a codebook edit reaches one project's future runs, a shared definition change needs every affected department to sign off, and nothing alters a run already in flight.",
+        relatedTechs: ["TypeScript", "PostgreSQL"],
+      },
+      {
+        text: "Made shared vocabularies forkable instead of contested: when two departments pull a definition in opposite directions it forks with its history intact, rather than one team silently winning.",
+        relatedTechs: ["TypeScript", "PostgreSQL"],
+      },
+      {
+        text: "Designed QC as a blind random audit sample drawn per run, powering both the quality score and a corrected estimate published with an honest margin of error beside the raw number.",
+        relatedTechs: ["TypeScript", "PostgreSQL"],
+      },
+      {
+        text: "Set accept and abstain cutoffs from conformal thresholds so the error rate on accepted labels stays under a stated bound, with every label carrying a calibrated 0–100 confidence rather than a vibe.",
+        relatedTechs: ["TypeScript", "AWS Bedrock"],
+      },
+      {
+        text: "Kept every correction instead of overwriting it: the model's original answer and each human change with who and when, plus run versions that reuse unchanged rows so a re-run shows the edit's effect rather than model randomness, at no extra cost.",
+        relatedTechs: ["TypeScript", "PostgreSQL"],
+      },
+      {
+        text: "Ruled managed agent frameworks out of the control path with a stated reason: Bedrock Agents, Knowledge Bases and Flows own prompt construction, retrieval and orchestration, which are three of the four artifacts a published number's reproducibility depends on.",
+        relatedTechs: ["AWS Bedrock", "Step Functions", "TypeScript"],
+      },
+      {
+        text: "Wrote the technology radar as scope markers rather than a wish list: in scope, out of scope, or field survey only, after the document was twice misread as a build list and once as a commitment to train models.",
+        relatedTechs: ["TypeScript", "PostgreSQL"],
+      },
+      {
+        text: "Put PII redaction ahead of every model call and specified sensitive-disclosure triage with escalation, with sign-in on Cognito while every permission decision stays in code we own.",
+        relatedTechs: ["AWS Bedrock", "PostgreSQL", "TypeScript"],
+      },
+      {
+        text: "Built the governance surface in the POC to match: personal-data classification inside intake, Bedrock guardrails deployed as their own stack, entitlement-gated respondent-level retrieval, and spend caps enforced inside stages after an audit found the guard doing nothing.",
+        relatedTechs: ["AWS Bedrock", "AWS CDK", "TypeScript"],
+      },
+      {
+        text: "Ran the platform with no database: DuckDB in-process over per-run JSON, Lance loaded as a DuckDB extension for vector and BM25 retrieval straight from S3, facts bounded at ~150 KB per run against 14–178 MB of payload.",
+        relatedTechs: ["DuckDB", "Lance", "Node.js"],
+      },
+      {
+        text: "Proved scale with five reproducible checks rather than slides: 200× rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, and replays that call no model at all.",
+        relatedTechs: ["DuckDB", "Lance", "Vitest"],
+      },
+      {
+        text: "Grounded the architecture in 12 logged prior-art passes: SSSOM mapping predicates, the DDI survey-metadata model, MBQL, Vega-Lite, Draco, Sato and Sherlock context-aware typing, XLSForm, GPTCache, LinkML, SDMX and SKOS.",
+        relatedTechs: ["TypeScript", "Vega-Lite"],
+      },
+      {
+        text: "Documented what was deliberately not built and what would reopen it: no warehouse, so Cube and dbt's semantic layer stayed out; no text-to-SQL, since the model never sees a row after labelling; no agentic orchestrator, since the repair it was buying is a Choice state and a counter.",
+        relatedTechs: ["TypeScript", "Step Functions", "DuckDB"],
+      },
+      {
+        text: "Set what may extend and what may not: parsers, kinds, metrics, operators and marks extend without touching existing code, while the validator, the gate, provenance and grain enforcement require human review.",
+        relatedTechs: ["TypeScript", "Vitest"],
+      },
+      {
+        text: "Authored the decision record the team works from: 40 measured experiments across 258 recorded runs, each stating what it establishes and what it does not.",
         relatedTechs: ["TypeScript", "Vitest"],
       },
     ],
@@ -130,6 +258,8 @@ const experiences: ExperienceItem[] = [
       "Vega-Lite",
       "Nuxt 4",
       "NestJS",
+      "Zod",
+      "PostgreSQL",
       "Vitest",
       "Node.js",
     ],
@@ -141,6 +271,13 @@ const experiences: ExperienceItem[] = [
     location: "Remote",
     period: "July 2025 – Present",
     featured: [0, 5, 6],
+    groups: [
+      { label: "Graph architecture", indexes: [1, 2, 3, 8] },
+      { label: "Concurrency and idempotency", indexes: [4, 9] },
+      { label: "Serving and search", indexes: [7] },
+      { label: "Observability", indexes: [10] },
+      { label: "Testing", indexes: [11] },
+    ],
     achievements: [
       {
         text: "Replaced a 14-Cloud-Function event pipeline with a single LangGraph agent-worker on Cloud Run Jobs — sourcing, extraction, resolution, and image fan-out now run as one composable, checkpointed graph.",
@@ -212,14 +349,56 @@ const experiences: ExperienceItem[] = [
     role: "Student Researcher",
     location: "Tempe, AZ",
     period: "August 2024 – May 2025",
+    featured: [0, 1, 2],
+    groups: [
+      { label: "Prompt design", indexes: [3, 4] },
+      { label: "Scoring", indexes: [5, 6, 7] },
+      { label: "Findings", indexes: [8, 9, 10] },
+    ],
     achievements: [
       {
-        text: "Designed evaluation prompts that isolate cause-and-effect ordering and counterfactual reasoning in text-conditioned video generation models.",
+        text: "Built an evaluation harness for text-conditioned video generation that scores physical plausibility separately from semantic fidelity, so a model that renders a beautiful scene with impossible motion loses points on exactly one axis instead of averaging the failure away.",
         relatedTechs: ["Python", "PyTorch", "Diffusers"],
       },
       {
-        text: "Built a frame-sequence rubric measuring whether generated rigid-body motion obeys gravity, momentum, and collision behavior.",
+        text: "Designed a frame-sequence rubric for rigid-body motion: does a falling object accelerate rather than drift, does momentum carry through a collision, does an occluded object reappear on the trajectory it left on.",
         relatedTechs: ["Python", "PyTorch", "Computer Vision"],
+      },
+      {
+        text: "Measured inter-rater agreement on a held-out subset before trusting a single aggregate score, because a rubric two people apply differently is a preference, not a measurement.",
+        relatedTechs: ["Python", "Computer Vision"],
+      },
+      {
+        text: "Wrote minimal-pair prompts where exactly one clause changes (a ball rolls off the table against a ball is placed on the table) so a score gap isolates the causal claim rather than the scene.",
+        relatedTechs: ["Python", "Diffusers"],
+      },
+      {
+        text: "Built a prompt taxonomy across event ordering, counterfactual conditions, object permanence and multi-agent interaction, so a weakness lands in a named category instead of a general impression.",
+        relatedTechs: ["Python", "Diffusers", "Video Generation"],
+      },
+      {
+        text: "Held generation fixed across models: identical seeds, resolution, frame count and sampler settings, so a comparison measures the model and nothing around it.",
+        relatedTechs: ["Python", "PyTorch", "Diffusers"],
+      },
+      {
+        text: "Automated frame extraction and per-frame annotation in PyTorch and Diffusers, storing per-clip artifacts so any score traces back to the frames that produced it.",
+        relatedTechs: ["Python", "PyTorch", "Computer Vision"],
+      },
+      {
+        text: "Scored trajectories against a simple analytic baseline rather than by eye, flagging a clip when observed acceleration departs from constant-gravity motion beyond a stated tolerance.",
+        relatedTechs: ["Python", "Computer Vision"],
+      },
+      {
+        text: "Built a failure taxonomy from the annotated clips: broken object permanence, non-conserved mass, contact that teleports, and physics that silently resets at a scene cut.",
+        relatedTechs: ["Python", "Video Generation"],
+      },
+      {
+        text: "Found counterfactual prompts degrade faster than descriptive ones at matched length, so apparent fluency on a benchmark prompt set overstates a model's grasp of causal structure.",
+        relatedTechs: ["Python", "Diffusers", "Video Generation"],
+      },
+      {
+        text: "Reported the uncomfortable correlation: fluency and physical-plausibility scores track each other weakly, so a model ranked first on human preference can rank last on causality.",
+        relatedTechs: ["Python", "Video Generation"],
       },
     ],
     technologies: ["Python", "PyTorch", "Diffusers", "Computer Vision", "Video Generation"],
@@ -230,7 +409,14 @@ const experiences: ExperienceItem[] = [
     role: "Instructional Design Assistant · Software Engineering",
     location: "Tempe, AZ",
     period: "Sept 2023 – May 2025",
-    featured: [0, 1, 4],
+    featured: [0, 1, 2],
+    groups: [
+      { label: "Retrieval quality", indexes: [5, 6, 7, 8] },
+      { label: "Multi-tenancy", indexes: [9, 10] },
+      { label: "The knowledge graph", indexes: [11] },
+      { label: "Assessment platform", indexes: [12] },
+      { label: "Automation and UI", indexes: [3, 4] },
+    ],
     achievements: [
       {
         text: "Led development of a multi-tenant RAG assistant used by 1,000+ faculty members to author courses reaching 60,000+ students, with Prompt Flow evaluations for response quality.",
@@ -258,6 +444,38 @@ const experiences: ExperienceItem[] = [
         text: "Built responsive React + Material UI interfaces with measurable UX outcomes: +35% engagement, −20% bounce rate.",
         relatedTechs: ["JavaScript"],
       },
+      {
+        text: "Built the Prompt Flow evaluation harness that scores groundedness, relevance and coherence on a fixed question set, so a prompt change shipped on evidence rather than on how the first three answers felt.",
+        relatedTechs: ["Python", "Prompt Flow", "OpenAI"],
+      },
+      {
+        text: "Measured chunking instead of assuming it: fixed-size splitting against section-aware splitting on real course documents, because a policy paragraph cut in half answers half a question.",
+        relatedTechs: ["Python", "LangChain"],
+      },
+      {
+        text: "Ran hybrid retrieval, vector plus keyword, since course codes and policy numbers are exactly the tokens an embedding blurs and exactly what faculty search for.",
+        relatedTechs: ["Python", "LangChain", "OpenAI"],
+      },
+      {
+        text: "Surfaced a citation with every answer, linking the source document and section, so a faculty member can check a claim rather than trust it.",
+        relatedTechs: ["Python", "LangChain"],
+      },
+      {
+        text: "Enforced tenant isolation at retrieval rather than in the prompt, so one college's material cannot surface in another's answer even when the instruction is ignored.",
+        relatedTechs: ["Python", "Semantic Kernel", "SQL"],
+      },
+      {
+        text: "Kept per-tenant configuration declarative (corpus scope, model, prompt version), so onboarding a new college was a config change rather than a deployment.",
+        relatedTechs: ["Python", "Semantic Kernel"],
+      },
+      {
+        text: "Constrained generated Cypher to a schema allow-list, so a model-written query cannot traverse outside the sanctioned subgraph or return a node nobody meant to expose.",
+        relatedTechs: ["Python", "Neo4j", "LangChain"],
+      },
+      {
+        text: "Built the admin surfaces the instructional designers run on: bulk import, question reuse across banks, and a diff view before a bank is republished.",
+        relatedTechs: ["JavaScript", "SQL", "Python"],
+      },
     ],
     technologies: [
       "Python",
@@ -279,6 +497,12 @@ const experiences: ExperienceItem[] = [
     location: "Tempe, AZ",
     period: "June 2024 – August 2024",
     featured: [0, 2, 5],
+    groups: [
+      { label: "Retrieval", indexes: [1, 6, 7, 8] },
+      { label: "Data pipeline", indexes: [9, 10] },
+      { label: "Platform APIs", indexes: [4, 11] },
+      { label: "Performance and load", indexes: [3] },
+    ],
     achievements: [
       {
         text: "Built a hybrid FAISS + Neo4j retrieval layer that cut p95 query latency by 60% while holding 95% recall.",
@@ -308,6 +532,26 @@ const experiences: ExperienceItem[] = [
         text: "Built bigram/n-gram ranking model over cleaned faculty profile text — 15% lift in search relevance over baseline.",
         relatedTechs: ["Python", "Deep Learning"],
       },
+      {
+        text: "Tuned the pgvector index against exact search rather than by feel, trading recall for latency deliberately and recording where the curve bends.",
+        relatedTechs: ["Python", "PostgreSQL", "FAISS"],
+      },
+      {
+        text: "Chose the FAISS index by measurement: a flat index is exact and does not survive the corpus growing, so the switch to a partitioned index came with its recall cost stated.",
+        relatedTechs: ["Python", "FAISS"],
+      },
+      {
+        text: "Made the ETL idempotent on a natural key so a re-run after a partial failure updates rather than duplicates, which is what let the pipeline be retried without a cleanup script.",
+        relatedTechs: ["Python", "Pandas", "PostgreSQL"],
+      },
+      {
+        text: "Put the data-quality gates in Postgres rather than in the loader: uniqueness, not-null and range constraints, so bad rows fail at the boundary instead of being discovered in a report.",
+        relatedTechs: ["PostgreSQL", "Python"],
+      },
+      {
+        text: "Used MediatR pipeline behaviours for validation, logging and error shaping, so a new endpoint inherits the cross-cutting rules instead of reimplementing them, with long work pushed to SQS to keep the API responsive.",
+        relatedTechs: [".NET 8", "C#", "MediatR", "AWS SQS"],
+      },
     ],
     technologies: [
       "Python",
@@ -334,6 +578,13 @@ const experiences: ExperienceItem[] = [
     location: "Mumbai, India",
     period: "Jan 2022 – July 2023",
     featured: [0, 1, 2],
+    groups: [
+      { label: "Breaking up the monolith", indexes: [6, 7] },
+      { label: "Delivery pipeline", indexes: [8] },
+      { label: "The prediction service", indexes: [9] },
+      { label: "Frontend performance", indexes: [3, 5, 10] },
+      { label: "Internal tooling", indexes: [4] },
+    ],
     achievements: [
       {
         text: "Split a .NET monolith into microservices on Kubernetes, cutting resource footprint by 35% and infrastructure cost by 20%.",
@@ -359,6 +610,26 @@ const experiences: ExperienceItem[] = [
         text: "Built React + Redux SPAs with normalized client-side state and typed REST integration, raising measured UX scores by 40%.",
         relatedTechs: ["Node.js"],
       },
+      {
+        text: "Ran the split as a strangler migration behind the existing API, so routes moved service by service while the monolith kept serving and no release needed a big-bang cutover.",
+        relatedTechs: [".NET", "C#", "Kubernetes", "Nginx"],
+      },
+      {
+        text: "Found the 35% footprint cut in the requests and limits rather than the code: pods had been provisioned for a peak that the observed usage never reached.",
+        relatedTechs: ["Kubernetes", "Docker", "AWS"],
+      },
+      {
+        text: "Made the SonarQube gate block the merge instead of warning after it, scoped to new code so a legacy backlog could not make the gate meaningless on day one.",
+        relatedTechs: ["SonarQube", "Git", "Docker"],
+      },
+      {
+        text: "Fed the desk-demand model on historical occupancy by floor, day and team, served from Redis so a booking screen across 300+ sites renders without waiting on a recompute.",
+        relatedTechs: [".NET", "C#", "Redis", "React"],
+      },
+      {
+        text: "Cut the class-details page further with index-covering query rewrites after profiling showed the slow path was a full scan behind a join nobody had reviewed since the schema changed.",
+        relatedTechs: ["MySQL", "Angular", "JavaScript"],
+      },
     ],
     technologies: [
       ".NET",
@@ -381,21 +652,47 @@ const experiences: ExperienceItem[] = [
     role: "Product Intern",
     location: "Bengaluru, India",
     period: "Sept 2021 – Dec 2021",
+    featured: [0, 1, 2],
+    groups: [
+      { label: "Order tracking", indexes: [3, 4] },
+      { label: "Notifications", indexes: [5, 6] },
+      { label: "Data", indexes: [7] },
+    ],
     achievements: [
       {
-        text: "Built the order-tracking experience on Google Maps API and optimized driver-location polling, cutting its serving cost by 45%; shipped during a quarter of 25% user growth.",
+        text: "Cut driver-location serving cost 45% by replacing fixed-interval polling with intervals keyed to distance remaining, so a driver two streets away is tracked closely and one across the city is not.",
+        relatedTechs: ["React.js", "Google Maps API", "Node.js"],
+      },
+      {
+        text: "Built the live order-tracking screen on the Google Maps API with route polylines and an ETA recomputed on every fix, shipped during a quarter of 25% user growth.",
         relatedTechs: ["React.js", "Google Maps API"],
       },
       {
-        text: "Built a Python scraping toolchain harvesting product catalogs and reviews into the analytics warehouse, feeding pricing/positioning and CX workflows.",
-        relatedTechs: ["Python"],
+        text: "Built a WebSocket and Express.js notification service with backpressure-aware fan-out; after launch, reported CSAT rose 28% and support volume fell 35%.",
+        relatedTechs: ["React.js", "Node.js", "Express.js"],
       },
       {
-        text: "Built a full-stack WebSocket + Express.js notification service with backpressure-aware fan-out; after launch, reported CSAT rose 28% and support volume fell 35%.",
-        relatedTechs: ["React.js"],
+        text: "Interpolated between location samples on the client so a slower poll still renders as continuous movement, which is what made the cost reduction invisible to the user.",
+        relatedTechs: ["React.js", "Google Maps API"],
+      },
+      {
+        text: "Kept the map honest under a stale fix: the marker holds its last known position with the timestamp shown rather than drifting toward a guess.",
+        relatedTechs: ["React.js", "Google Maps API"],
+      },
+      {
+        text: "Made reconnection safe: exponential backoff plus a per-message id, so a socket that drops mid-delivery resumes without sending the same notification twice.",
+        relatedTechs: ["Node.js", "Express.js"],
+      },
+      {
+        text: "Wrote the degraded path deliberately: when the socket is unavailable the client falls back to polling rather than going silent, because a missed order update is a support ticket.",
+        relatedTechs: ["React.js", "Node.js"],
+      },
+      {
+        text: "Built a Python scraping toolchain harvesting competitor catalogs and reviews into the analytics warehouse on a schedule, normalized to one schema so pricing, positioning and CX workflows read the same shape.",
+        relatedTechs: ["Python"],
       },
     ],
-    technologies: ["React.js", "Google Maps API", "Python"],
+    technologies: ["React.js", "Google Maps API", "Python", "Node.js", "Express.js"],
     color: "blue",
   },
   {
@@ -403,14 +700,44 @@ const experiences: ExperienceItem[] = [
     role: "Computer Vision Researcher",
     location: "Gandhinagar, India",
     period: "May 2021 – August 2021",
+    featured: [0, 1, 2],
+    groups: [
+      { label: "Sensing", indexes: [3, 4] },
+      { label: "Localization", indexes: [5, 6] },
+      { label: "What breaks", indexes: [7] },
+    ],
     achievements: [
       {
-        text: "Explored AI/ML for self-driving cars with focus on sensor data — capture, recording, processing, and downstream use for vehicle guidance.",
+        text: "Worked the perception stack for autonomous driving end to end: radar and lidar capture, timestamp alignment, point-cloud processing, and what survives into a guidance decision.",
+        relatedTechs: ["Python", "Lidar", "Radar", "Computer Vision"],
+      },
+      {
+        text: "Built a replay harness over recorded sensor logs so a perception change could be evaluated against the same drive twice, which is the only way a change is attributable rather than anecdotal.",
         relatedTechs: ["Python", "Computer Vision"],
       },
       {
-        text: "Studied radar + Lidar data acquisition pipelines, vehicle-to-vehicle (p2p) communication, and HD-map localization techniques.",
-        relatedTechs: ["Python", "Lidar", "Computer Vision"],
+        text: "Studied HD-map localization: matching observed lane geometry against a prior map to correct GPS drift in urban canyons where satellite fixes degrade exactly when precision matters most.",
+        relatedTechs: ["Python", "Computer Vision"],
+      },
+      {
+        text: "Worked the extrinsic calibration that puts radar and lidar in one frame of reference, since two sensors disagreeing by a few centimetres produce a phantom object rather than a better one.",
+        relatedTechs: ["Python", "Lidar", "Radar"],
+      },
+      {
+        text: "Compared early fusion against late fusion on identical sequences: raw point-level merging preserves detail and inherits both sensors' noise, object-level merging is robust and loses the evidence that would have resolved a disagreement.",
+        relatedTechs: ["Python", "Lidar", "Radar"],
+      },
+      {
+        text: "Examined vehicle-to-vehicle communication as a trust problem rather than a bandwidth one: what a car can publish about its own state, and how a receiver decides whether to act on a claim it cannot verify.",
+        relatedTechs: ["Python", "Computer Vision"],
+      },
+      {
+        text: "Traced the map-matching failure that matters: a prior map is only as fresh as its last survey, so a repainted lane makes the localizer confidently wrong rather than uncertain.",
+        relatedTechs: ["Python", "Computer Vision"],
+      },
+      {
+        text: "Documented the sensor failure modes a fusion layer has to arbitrate: rain attenuating lidar returns, radar multipath off guard rails reading as a stationary obstacle, and low sun blinding the camera lane that both others depend on.",
+        relatedTechs: ["Python", "Lidar", "Radar", "Computer Vision"],
       },
     ],
     technologies: ["Python", "Computer Vision", "Lidar", "Radar"],

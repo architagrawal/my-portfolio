@@ -9,6 +9,13 @@ interface Achievement {
   relatedTechs?: string[];
 }
 
+interface AchievementGroup {
+  /** Short mono label shown above the cluster, e.g. "The ask path" */
+  label: string;
+  /** Indexes into `achievements`, in the order they should read */
+  indexes: number[];
+}
+
 interface ExperienceItem {
   company: string;
   role: string;
@@ -16,6 +23,8 @@ interface ExperienceItem {
   period: string;
   achievements: (string | Achievement)[];
   featured?: number[];
+  /** Optional clustering for the collapsed details; ungrouped items fall to the end */
+  groups?: AchievementGroup[];
   technologies: string[];
   color: string;
 }
@@ -74,6 +83,20 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
   const noteIdx = exp.achievements
     .map((_, i) => i)
     .filter((i) => !featuredIdx.includes(i));
+
+  // Cluster the details when the role declares groups; anything not claimed by a
+  // group keeps its order at the end, so adding a bullet never silently hides it.
+  const clusters = (() => {
+    if (!exp.groups?.length) return [{ label: "", indexes: noteIdx }];
+    const claimed = new Set<number>();
+    const named = exp.groups.map((g) => {
+      const indexes = g.indexes.filter((i) => noteIdx.includes(i) && !claimed.has(i));
+      indexes.forEach((i) => claimed.add(i));
+      return { label: g.label, indexes };
+    }).filter((g) => g.indexes.length > 0);
+    const rest = noteIdx.filter((i) => !claimed.has(i));
+    return rest.length ? [...named, { label: "More", indexes: rest }] : named;
+  })();
 
   return (
     <motion.div
@@ -147,30 +170,47 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
                   <span className="group-open/details:hidden">+ View {noteIdx.length} engineering details</span>
                   <span className="hidden group-open/details:inline">Hide engineering details</span>
                 </summary>
-                <ul className="space-y-3 mt-4">
-                  {noteIdx.map((achIndex) => {
-                    const achievement = exp.achievements[achIndex];
-                    const achievementData =
-                      typeof achievement === "string"
-                        ? { text: achievement, relatedTechs: [] }
-                        : achievement;
+                <div className="mt-5 space-y-7">
+                  {clusters.map((cluster, cIndex) => (
+                    <div key={cluster.label || cIndex}>
+                      {cluster.label && (
+                        <div className="flex items-center gap-3 mb-3 pl-2">
+                          <span className="font-tech text-[10px] uppercase tracking-[0.22em] text-primary/90 whitespace-nowrap">
+                            {cluster.label}
+                          </span>
+                          <span className="h-px flex-1 bg-border" aria-hidden="true" />
+                          <span className="font-tech text-[10px] tabular-nums text-muted-foreground/60">
+                            {cluster.indexes.length}
+                          </span>
+                        </div>
+                      )}
+                      <ul className="space-y-3">
+                        {cluster.indexes.map((achIndex) => {
+                          const achievement = exp.achievements[achIndex];
+                          const achievementData =
+                            typeof achievement === "string"
+                              ? { text: achievement, relatedTechs: [] }
+                              : achievement;
 
-                    return (
-                      <li
-                        key={achIndex}
-                        className="flex items-start gap-4 experience-bullet-item group/item relative pl-2"
-                        onMouseEnter={() => setHoveredAchIndex(achIndex)}
-                        onMouseLeave={() => setHoveredAchIndex(null)}
-                      >
-                        <div className={`mt-2 w-1.5 h-1.5 ${theme.bullet} group-hover/item:scale-125 transition-all`} />
+                          return (
+                            <li
+                              key={achIndex}
+                              className="flex items-start gap-4 experience-bullet-item group/item relative pl-2"
+                              onMouseEnter={() => setHoveredAchIndex(achIndex)}
+                              onMouseLeave={() => setHoveredAchIndex(null)}
+                            >
+                              <div className={`mt-2 w-1.5 h-1.5 ${theme.bullet} group-hover/item:scale-125 transition-all`} />
 
-                        <span className="text-sm text-muted-foreground/90 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
-                          {achievementData.text}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
+                              <span className="text-sm text-muted-foreground/90 leading-relaxed transition-colors duration-300 group-hover/item:text-foreground">
+                                {achievementData.text}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
               </details>
             )}
             </div>
