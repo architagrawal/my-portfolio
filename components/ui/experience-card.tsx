@@ -144,8 +144,8 @@ export function ExperienceCard({ exp, expIndex }: ExperienceCardProps) {
             {noteIdx.length > 0 && (
               <details className="group/details">
                 <summary className="cursor-pointer list-none inline-flex items-center gap-2 font-tech text-xs uppercase tracking-[0.2em] text-primary hover:text-foreground transition-colors pl-2">
-                  <span className="group-open/details:hidden">+ {noteIdx.length} technical notes</span>
-                  <span className="hidden group-open/details:inline">show less</span>
+                  <span className="group-open/details:hidden">+ View {noteIdx.length} engineering details</span>
+                  <span className="hidden group-open/details:inline">Hide engineering details</span>
                 </summary>
                 <ul className="space-y-3 mt-4">
                   {noteIdx.map((achIndex) => {

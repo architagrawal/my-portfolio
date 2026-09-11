@@ -46,11 +46,11 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   metadataBase: new URL("https://agrawal-archit.vercel.app"),
   title: {
-    default: "Archit Agrawal | Founding AI Engineer & Software Engineer",
+    default: "Archit Agrawal | AI/ML Engineer & Software Engineer",
     template: "%s | Archit Agrawal",
   },
   description:
-    "Archit Agrawal is a founding AI/ML engineer at MyStage Music building production agent systems — LangGraph orchestration, retrieval, entity resolution — and full-stack products. MSCS, Arizona State University.",
+    "Archit Agrawal builds reliable AI systems and full-stack products, from agent orchestration and evaluation to retrieval, data pipelines, APIs, and cloud infrastructure.",
   keywords: [
     "Archit Agrawal",
     "Software Engineer",
@@ -85,9 +85,9 @@ export const metadata: Metadata = {
   creator: "Archit Agrawal",
   publisher: "Archit Agrawal",
   openGraph: {
-    title: "Archit Agrawal | Founding AI Engineer & Software Engineer",
+    title: "Archit Agrawal | AI/ML Engineer & Software Engineer",
     description:
-      "Production agent systems, retrieval infrastructure, and full-stack products. Founding AI/ML engineer at MyStage Music.",
+      "Production agent systems, retrieval infrastructure, and full-stack products backed by evaluation, testing, and observability.",
     type: "profile",
     locale: "en_US",
     url: "https://agrawal-archit.vercel.app",
@@ -103,9 +103,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Archit Agrawal | Founding AI Engineer & Software Engineer",
+    title: "Archit Agrawal | AI/ML Engineer & Software Engineer",
     description:
-      "Production agent systems, retrieval infrastructure, and full-stack products. Founding AI/ML engineer at MyStage Music.",
+      "Production agent systems, retrieval infrastructure, and full-stack products backed by evaluation, testing, and observability.",
     images: ["https://agrawal-archit.vercel.app/archit-profile.png"],
   },
   robots: {

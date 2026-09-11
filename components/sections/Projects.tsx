@@ -10,7 +10,7 @@ const projects = [
   {
     title: "AiJockey — AI DJ Pipeline",
     description:
-      "An AI DJ system that separates stems, analyzes musical structure, plans transitions with an LLM Director, applies DSP, and masters the final mix — closed-loop preference tuning over audio critics, running on ROCm/MI300X.",
+      "An end-to-end AI DJ system that separates stems, understands musical structure, plans and renders transitions, and masters the final mix—with audio-quality feedback improving future decisions.",
     date: "2025 – Present",
     achievements: [
       "Built multi-stage AI DJ pipeline: ingest → stem-sep (Demucs + Mel-Band Roformer) → BPM/key/phrase analysis → LLM Director plan → segment picker → transition execute → multi-band mastering, end-to-end in a single FastAPI service.",
@@ -89,7 +89,7 @@ const projects = [
   {
     title: "SRP Electric MCP Server",
     description:
-      "TypeScript MCP server exposing a legacy utility portal to LLM agents — reverse-engineered authentication, structured JSON tools for energy data reasoning.",
+      "A TypeScript MCP server that turns an undocumented utility portal into validated, structured tools for secure energy-data analysis by AI agents.",
     date: "Dec 2025 – Jan 2026",
     achievements: [
       "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
@@ -104,7 +104,7 @@ const projects = [
   {
     title: "MCP-Based GitHub PR Review Automation Agent",
     description:
-      "MCP workflow automation service integrating GitHub webhooks, LLM reasoning, and pull-request analysis pipelines across GitHub Actions + Asana.",
+      "An MCP-based review service that combines repository context, ticket metadata, CI results, and LLM reasoning to automate pull-request analysis and workflow updates.",
     date: "Jul 2025 – Aug 2025",
     achievements: [
       "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
@@ -119,7 +119,7 @@ const projects = [
   {
     title: "No-Code Pipeline Builder",
     description:
-      "React 18 + ReactFlow 11 visual DAG editor with typed nodes, Zustand-backed undo/redo, debounced localStorage autosave, and FastAPI DAG-validation backend.",
+      "A visual DAG editor with typed nodes, reliable undo and redo, autosave, keyboard workflows, and server-side graph validation.",
     date: "2025",
     achievements: [
       "Built no-code pipeline builder on React 18 + ReactFlow 11 modeling a DAG of typed nodes (input, output, LLM, text + 5 demo nodes) with smoothstep edges and animated markers.",
@@ -153,7 +153,7 @@ const projects = [
   {
     title: "Clash Royale Clan Analytics Platform",
     description:
-      "A serverless clan-analytics platform: scheduled data collection into a Cloudflare D1 warehouse, a Next.js 16 / React 19 frontend, and an interactive cross-filtering D3 visualization gallery.",
+      "A serverless analytics platform that collects and transforms clan data on a schedule, then turns it into responsive, cross-filtered D3 visualizations and decision tools.",
     date: "2025",
     achievements: [
       "Built serverless analytics platform on Cloudflare Workers + D1 (SQLite) with Drizzle ORM, fronted by Next.js 16 / React 19 App Router on Vercel.",
@@ -194,7 +194,7 @@ const projects = [
   {
     title: "Image Recognition as a Service",
     description:
-      "Elastic cloud infrastructure SaaS for image recognition using deep learning models.",
+      "An elastic image-recognition service that scales compute automatically with request volume.",
     date: "Jan 2024 – Feb 2024",
     achievements: [
       "Developed an elastic cloud infrastructure SaaS using AWS EC2, AWS SQS, and Lambda.",
@@ -207,7 +207,7 @@ const projects = [
   {
     title: "Soccer Game Result Prediction",
     description:
-      "Enhanced soccer game result prediction accuracy using advanced ML techniques.",
+      "A match-outcome prediction pipeline combining sequence models, tree ensembles, sentiment, and betting data.",
     date: "Oct 2023 – Dec 2023",
     achievements: [
       "Increased prediction accuracy by 12% using LSTM, RNN, and Random Forest with XGBoost.",
@@ -220,20 +220,20 @@ const projects = [
   {
     title: "FitLife Health Tracking App",
     description:
-      "Android app for tracking heart/breath rates and personalized workout routines.",
+      "An Android health app that measures heart and breathing rates and recommends personalized workout routines.",
     date: "Oct 2023 – Dec 2023",
     achievements: [
       "Programmed an Android app measuring heart and breath rates.",
       "Suggested personalized workout routines using machine learning and Fuzzy Logic Control.",
     ],
-    technologies: ["Android Studio", "Matlab", "Machine Learning"],
+    technologies: ["Android Studio", "MATLAB", "Machine Learning"],
     demoUrl: "",
     githubUrl: "",
   },
   {
     title: "Reverse-Mode Automatic Differentiation",
     description:
-      "Implemented reverse-mode auto-differentiation for training neural networks.",
+      "A reverse-mode automatic-differentiation engine with custom gradient operators and CUDA kernels for neural-network training.",
     date: "Feb 2024 – Mar 2024",
     achievements: [
       "Developed operators like Add and Matrix Multiplication for gradient node construction.",
@@ -246,11 +246,11 @@ const projects = [
   {
     title: "E-Commerce Platform",
     description:
-      "Full-featured online shopping platform with auth, product catalog, Stripe payments, React frontend, and Django REST backend on PostgreSQL + Redis.",
+      "An online storefront with authentication, product discovery, Stripe payments, a React interface, and a Django REST backend backed by PostgreSQL and Redis.",
     date: "Sept 2024 – Dec 2024",
     achievements: [
-      "Built a full-featured online shopping platform with user authentication, product catalog, and payment processing",
-      "Implemented responsive front-end using React.js and back-end using Django REST framework",
+      "Built an online shopping platform with user authentication, a searchable product catalog, and Stripe payment processing.",
+      "Delivered a responsive React interface and a Django REST API.",
       "Integrated PostgreSQL database with Redis caching for optimized performance.",
     ],
     technologies: [
@@ -270,26 +270,26 @@ const projects = [
   {
     title: "Task Management System",
     description:
-      "Collaborative project management tool with task assignment, progress tracking, and deadline notifications — Flask REST API, SQLAlchemy ORM, JWT auth, React UI.",
+      "A collaborative project-management tool with task ownership, progress tracking, deadline notifications, JWT authentication, and a React interface.",
     date: "Feb 2024 – May 2024",
     achievements: [
-      "Created a collaborative project management tool with task assignment, progress tracking, and deadline notifications",
-      "Built RESTful API with Flask and SQL Alchemy ORM for database interactions",
-      "Designed intuitive UI with React.js and implemented JWT authentication",
+      "Built collaborative workflows for task assignment, progress tracking, and deadline notifications.",
+      "Developed a Flask REST API with SQLAlchemy for persistence.",
+      "Designed the React interface and implemented JWT authentication.",
     ],
-    technologies: ["React", "Flask", "SQL Alchemy", "JWT", "Docker", "AWS"],
+    technologies: ["React", "Flask", "SQLAlchemy", "JWT", "Docker", "AWS"],
     demoUrl: "",
     githubUrl: "",
   },
   {
     title: "Real-Time Chat Application",
     description:
-      "Scalable chat platform with private/group messaging — Django Channels WebSockets, Redis message queue, geolocation features, Plotly user-location viz.",
+      "A real-time messaging platform with private and group conversations, Redis-backed WebSockets, geolocation features, and interactive usage maps.",
     date: "July 2024 – October 2024",
     achievements: [
-      "Developed a scalable chat platform with private messaging and group chat functionality",
-      "Utilized Django Channels for WebSocket connections and Redis for message queuing",
-      "Implemented geolocation features and interactive data visualizations with Plotly to visualize the location of users.",
+      "Built private and group messaging over Django Channels WebSockets.",
+      "Used Redis for message queuing and real-time event delivery.",
+      "Added geolocation features and Plotly visualizations for user-location analysis.",
     ],
     technologies: [
       "Django",
@@ -306,7 +306,7 @@ const projects = [
   {
     title: "Survey Agents — Coding & Analysis Platform",
     description:
-      "A five-agent pipeline that turns a raw survey export into coded responses, tool-computed facts and charts, plus a semantic layer that decides what a dataset can be asked. Everything is an agent, every deterministic operation is a tool, and no number in a report is ever produced by a model.",
+      "A five-agent platform that converts raw survey exports into coded responses, verified facts, accessible charts, and reproducible answers—without asking a language model to calculate report figures.",
     date: "June 2026 – Present",
     achievements: [
       "Five-stage intake pipeline (frame, repair, retype, classify, review) where the orchestrator is ordinary code and a model is consulted only where the rules are visibly unsure; every decision lands in one JSON recipe that replays without it. Over 30 hand-written export shapes: 6 files need a stage, 11 model calls, $0.0023, and 0 divergences between a run and its replay.",
@@ -317,19 +317,19 @@ const projects = [
       "Batch size measured as a quality parameter rather than a throughput knob: the sweep leaves F1 flat and moves the precision/recall split, so the ladder is a dial with a documented shape instead of a guess.",
       "Consensus routing wired in after ensemble voting was tested on runs already on disk: the consensus signal separates ~4× better than the hand-built risk score, which measured as useless. Nested ensemble arms carry no information and nearly shipped.",
       "Corrected my own published finding twice on reasoning: non-termination came from an unbounded reasoning budget and a rules block, not from an incompatibility between reasoning and constrained decoding. Reasoning then won on F1 and lost the product.",
-      "Deployed on AWS with CDK: Step Functions state machine (Distributed Map over 3 label slices, merge, Choice-based repair loop, ToleratedFailurePercentage circuit breaker) reaching 4 consecutive succeeded runs at 102/102, after the first green run silently labelled 100 of 102 because concurrent map iterations overwrote one slot.",
-      "Established where AgentCore earns its place: its harness took labelling from 50/102 to 102/102 where our own agent loop failed, and at the orchestration level a state machine is faster, durable and cheaper once the fan-out shares its prompt prefix (106,951 of 109,969 cache-write tokens sat in three slices each writing its own).",
+      "Deployed on AWS with CDK: Step Functions state machine (Distributed Map over 3 label slices, merge, Choice-based repair loop, ToleratedFailurePercentage circuit breaker) reaching 4 consecutive succeeded runs at 102/102, after the first green run silently labeled 100 of 102 because concurrent map iterations overwrote one slot.",
+      "Established where AgentCore earns its place: its harness took labeling from 50/102 to 102/102 where our own agent loop failed, and at the orchestration level a state machine is faster, durable and cheaper once the fan-out shares its prompt prefix (106,951 of 109,969 cache-write tokens sat in three slices each writing its own).",
       "Semantic layer over the facts: ~10 declared operators, metrics minted by usage and bound to column kinds rather than names, a binding cache so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples, extends and requests before it refuses.",
       "Question passport on every answer (plan hash, dataset version, registry version, skill version) so an answer re-executes byte-identically and a stale one is detectable; shadow re-execution diffs recent answers when a definition changes, so a moved number is found before a reader finds it.",
-      "Negative catalog computed at intake: what a dataset cannot answer and why, so the interface greys out the control instead of refusing after the fact.",
+      "Negative catalog computed at intake: what a dataset cannot answer and why, so the interface grays out the control instead of refusing after the fact.",
       "Visualization layer on a constrained Vega-Lite subset: one spec produces the chart, an accessible data table, alt text, a CSV and an ASCII rendering. Mark selection is deterministic, borrowed from Cleveland & McGill, Bertin, Mackinlay's APT, Draco's constraint split and Brehmer & Munzner's task vocabulary.",
       "Chart agent held to improve-or-discard behind four gates: over 36 cases, 0 of 36 proposals beat the rule table, 1 case had headroom, and 5 identical runs on it disagreed (0.80/0.40/0.40/0.40/0.64). An oracle over the agent's own search space found the scorer's exploits first: a word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
       "Nuxt 4 web app over a NestJS API, both compiling against one shared TypeScript contract, rendering the same specs the CLI prints; DuckDB in-process as the compute engine with no server, and Lance serving vector plus BM25 search straight from S3.",
       "Intake hardened against real files: UTF-16 headers full of null bytes, a duplicate header silently overwriting a column, 0/1 flags typed as rating scales, report titles in the header row, and 22 of 32 CSVs hiding their timestamp inside the identifier so every survey reported no date column while holding dates the whole time.",
       "74k lines of TypeScript across 353 modules, 1,021 tests, 253 recorded runs and 40 measured experiments, each stating what it establishes and what it does not, including that every accuracy number is self-graded and the fixture corpus is a monoculture.",
-      "Codebook fit is checked before any spend: question scope is embedded and 25 responses are sample-labelled, giving mean best match 0.598 with a 4% abstain rate on the right codebook against 0.316 and 88% on the wrong one, for about $0.001. The thresholds written from a guess before calibration ran would have let the wrong codebook through with a warning.",
-      "Upload identity is content, not filename: a normalised content hash means two people uploading the same export get one run instead of two conflicting sets of numbers for one survey, and the first sighting wins for the wave's date.",
-      "Run lineage on two axes with four relations (relabel, recode, wave, wave_recoded), because only a new wave may claim topic movement. A second labelling pass over the same responses cannot present itself as a trend.",
+      "Codebook fit is checked before any spend: question scope is embedded and 25 responses are sample-labeled, giving mean best match 0.598 with a 4% abstain rate on the right codebook against 0.316 and 88% on the wrong one, for about $0.001. The thresholds written from a guess before calibration ran would have let the wrong codebook through with a warning.",
+      "Upload identity is content, not filename: a normalized content hash means two people uploading the same export get one run instead of two conflicting sets of numbers for one survey, and the first sighting wins for the wave's date.",
+      "Run lineage on two axes with four relations (relabel, recode, wave, wave_recoded), because only a new wave may claim topic movement. A second labeling pass over the same responses cannot present itself as a trend.",
       "Cross-run comparison guarded by what the runs actually are: 9 of 13 recorded runs are the same respondents, so a pooled total is refused where a dimension is missing, drift across unequal runs is reported as a share rather than a count, and the axis is never assumed to be time.",
       "Cross-codebook mappings earn trust by behaving alike: a proposal is checked against the co-occurrence and sentiment profiles of both codes before confirmation, and carries an SSSOM predicate so a narrowMatch is never aggregated as an exact match. Two real codebooks produced 0 lexical proposals, which is itself the finding.",
       "Time buckets follow the academic calendar rather than the Gregorian one, because a month boundary falls mid-semester and term-to-term is the comparison a reader can act on.",
@@ -380,11 +380,11 @@ const featuredMeta: FeaturedMeta[] = [
     caption: "Illustrative system view, drawn in code — not a product screenshot",
     caseStudyUrl: "/work/survey-agents",
     highlights: [
-      "The agent decides, a tool computes. Every figure in a report has to resolve to a fact a tool produced, or the sentence is redrafted and then removed. The result is a system that structurally cannot fabricate a number.",
-      "Constrained decoding plus a per-response correlation token: zero invalid labels and zero silently overwritten rows, against 9 invented tags and 12.7% destroyed rows on the pipeline it was benchmarked against.",
-      "Measured against its own premise: at a fixed model the two architectures tie on F1, the model pin moves F1 thirty times more than the architecture does, and what the agents buy is reliability rather than accuracy.",
-      "Questions compile to MBQL-shaped plans; metrics bind to column kinds, not names; refusal is the last rung of a ladder that substitutes, decomposes and samples first.",
-      "Charts are specs, never images. The agent proposes a mark and an encoding, never data, and four gates mean an eagerly invoked agent can cost a call but cannot damage a chart.",
+      "Every figure must resolve to a tool-computed fact. If verification fails, the sentence is redrafted and ultimately removed, preventing unsupported model-generated numbers from passing review.",
+      "Schema-constrained decoding and per-response correlation tokens reduced invalid labels from 9 to 0 and silently overwritten rows from 12.7% to 0.",
+      "A controlled comparison showed that model choice affected F1 about 30× more than architecture; the agent pipeline's measurable advantage was reliability, not accuracy.",
+      "Questions compile into auditable plans, metrics bind to column types rather than names, and the system tries valid alternatives before refusing a request.",
+      "Charts remain deterministic specifications: the agent may propose presentation choices, but it never supplies data and cannot bypass four validation gates.",
     ],
   },
   {
@@ -393,8 +393,8 @@ const featuredMeta: FeaturedMeta[] = [
     badge: "Active build",
     caption: "Actual product UI — in active development",
     highlights: [
-      "Scan → itemize → split → settle: AI receipt scanning extracts merchant, items, tax, and tip; every item splits by equal, percentage, shares, or exact amounts.",
-      "Postgres RPC ledger keeps bill creation, settlement, and balance math transactional — money lives as integer cents, so splits never drift.",
+      "Scan → itemize → split → settle: receipt scanning extracts the merchant, items, tax, and tip, while each item supports equal, percentage, share-based, or exact splits.",
+      "A Postgres RPC ledger keeps bill creation, settlement, and balance calculations transactional; integer-cent arithmetic prevents rounding drift.",
       "Debt-edge reduction algorithm minimizes the number of settlement transactions inside a group.",
       "Offline-aware core: idempotency keys and MMKV persistence underneath real-time Supabase subscriptions.",
       "Maestro E2E flows and enforced coverage thresholds guard every release build.",
@@ -405,10 +405,10 @@ const featuredMeta: FeaturedMeta[] = [
     visual: "audio",
     caption: "Illustrative system view, drawn in code — not a product screenshot",
     highlights: [
-      "Full render path — stem separation, BPM/key/phrase analysis, LLM Director planning, 25+ DSP transitions, multi-band mastering — in one FastAPI service.",
-      "Closed-loop tuning: rendered variants are scored by Audiobox critics and fed back to the Director as DPO preference pairs.",
-      "Trained a MERT reward head that predicts aesthetic scores at pick time, skipping full critic inference per render.",
-      "Runs on a DigitalOcean MI300X (192 GB) ROCm container — the whole torch/Demucs/VampNet stack ported off CUDA.",
+      "One FastAPI service runs the full render path: stem separation, BPM/key/phrase analysis, LLM-directed planning, 25+ DSP transitions, and multiband mastering.",
+      "A closed feedback loop scores rendered variants with Audiobox critics and turns the results into DPO preference pairs for the Director.",
+      "A trained MERT reward head predicts aesthetic quality during selection, avoiding full critic inference for every render.",
+      "The PyTorch, Demucs, and VampNet stack runs in a ROCm container on a DigitalOcean MI300X with 192 GB of HBM3.",
     ],
   },
   {
@@ -416,10 +416,10 @@ const featuredMeta: FeaturedMeta[] = [
     visual: "analytics",
     caption: "Illustrative system view, drawn in code — not a product screenshot",
     highlights: [
-      "Scheduled Workers cron polls the Clash Royale API, dedupes battles, and incrementally hydrates a D1 warehouse.",
-      "D3 gallery — bump chart, sunburst, ridgeline, force-directed bubbles, chord diagram — cross-filtering through one shared context.",
-      "Worked around D1's 100-parameter SQL limit; fixed upstream week-bucketing and duel-winner attribution bugs.",
-      "Accessibility built in: skip-nav, focus traps, reduced-motion support, 44px touch targets.",
+      "Scheduled Cloudflare Workers collect and deduplicate battle data before incrementally loading a D1 analytics store.",
+      "A D3 visualization suite—bump, sunburst, ridgeline, force, chord, and radial charts—cross-filters through shared application state.",
+      "Resolved D1's 100-parameter SQL constraint and corrected upstream defects in week bucketing and duel-winner attribution.",
+      "Accessibility includes skip navigation, focus traps, reduced-motion support, and 44-pixel touch targets.",
     ],
   },
 ];
@@ -771,9 +771,9 @@ export default function Projects() {
                   <details className="mt-5 group/details">
                     <summary className="cursor-pointer list-none inline-flex items-center gap-2 font-tech text-xs uppercase tracking-[0.2em] text-primary hover:text-foreground transition-colors">
                       <span className="group-open/details:hidden">
-                        + {project.achievements.length} implementation notes
+                        + View {project.achievements.length} implementation notes
                       </span>
-                      <span className="hidden group-open/details:inline">show less</span>
+                      <span className="hidden group-open/details:inline">Hide implementation notes</span>
                     </summary>
                     <ul className="mt-4 space-y-2.5">
                       {project.achievements.map((achievement, i) => (
@@ -828,10 +828,10 @@ export default function Projects() {
             transition={{ duration: 0.5 }}
             className="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-foreground mb-2"
           >
-            More builds
+            Additional Projects
           </motion.h3>
           <p className="text-sm text-muted-foreground mb-8">
-            Agents, tooling, and earlier work — expand any row for the details.
+            More AI, cloud, data, and full-stack work. Expand a project for implementation details.
           </p>
 
           <div className="border-t border-border group/list">
@@ -850,8 +850,8 @@ export default function Projects() {
                       {project.title}
                     </span>
                     <span className="font-tech text-xs uppercase tracking-[0.2em] text-primary justify-self-start sm:justify-self-end">
-                      <span className="group-open/row:hidden">+ expand</span>
-                      <span className="hidden group-open/row:inline">− close</span>
+                      <span className="group-open/row:hidden">+ View details</span>
+                      <span className="hidden group-open/row:inline">− Hide details</span>
                     </span>
                   </summary>
                   <div className="pb-7 sm:pl-[9.5rem] max-w-3xl">

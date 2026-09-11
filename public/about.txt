@@ -1,18 +1,19 @@
 # Archit Agrawal
 
-Archit Agrawal is a founding AI/ML engineer at MyStage Music, based in the
-United States and open to relocation anywhere (remote or hybrid welcome).
-His current work includes LangGraph workflows, entity
-resolution, scraping pipelines, search infrastructure, and backend services.
+Archit Agrawal is an AI/ML and software engineer based in the United States
+and open to relocation. He builds reliable production systems across agent
+orchestration, evaluation, retrieval, data pipelines, APIs, and product UI.
 
-He previously built retrieval and knowledge-graph systems at Arizona State
-University and worked on backend, cloud, and product systems at Zeus Learning
-and EAT.FIT.
+At EdPlus, Arizona State University, he owns the architecture of an agentic
+survey-analysis platform. At MyStage Music, he builds LangGraph workflows,
+LLM-powered entity resolution, search infrastructure, and backend services.
+His earlier work includes retrieval and knowledge-graph systems at Arizona
+State University and backend, cloud, and product systems at Zeus Learning and
+EAT.FIT.
 
-He works AI-natively — Claude Code, OpenAI Codex, and Kiro are daily drivers —
-building and deploying MCP servers, agent skills, custom slash commands, and
-hooks, and has tracked agentic techniques (CoT, ReAct, RAG, structured outputs,
-function calling, LLM evals) through every industry iteration since 2023.
+His work emphasizes measurable outcomes, deterministic safeguards around model
+behavior, and the testing and observability required to operate AI systems in
+production.
 
 Education: MS Computer Science, Arizona State University, 4.0 GPA
 

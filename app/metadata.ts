@@ -2,9 +2,9 @@ export const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Archit Agrawal",
-  jobTitle: "Founding AI/ML Engineer",
+  jobTitle: "AI/ML Engineer and Software Engineer",
   description:
-    "Founding AI/ML Engineer at MyStage Music. Builds agent workflows, retrieval systems, data pipelines, backend services, and full-stack applications.",
+    "AI/ML and software engineer who builds reliable agent workflows, retrieval systems, data pipelines, backend services, and full-stack products.",
   url: "https://agrawal-archit.vercel.app",
   image: "https://agrawal-archit.vercel.app/archit-profile.png",
   alumniOf: [
@@ -76,7 +76,7 @@ export const websiteSchema = {
   name: "Archit Agrawal Portfolio",
   url: "https://agrawal-archit.vercel.app",
   description:
-    "Work and project notes from Archit Agrawal, a founding AI/ML engineer and software engineer.",
+    "Selected experience, engineering projects, and technical case studies from AI/ML and software engineer Archit Agrawal.",
   author: {
     "@type": "Person",
     name: "Archit Agrawal",

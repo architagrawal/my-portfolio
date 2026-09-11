@@ -28,7 +28,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "agents-llm",
     title: "Agents & LLM Engineering",
-    tagline: "Agentic systems end to end, tracking every iteration since 2023.",
+    tagline: "Production orchestration, retrieval, evaluation, and safety.",
     icon: Bot,
     skills: [
       "LangChain",
@@ -68,7 +68,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "mcp-tooling",
     title: "MCP & AI-Native Tooling",
-    tagline: "MCP server dev & deploy, agent skills, hooks, agentic coding daily drivers.",
+    tagline: "Servers, tools, skills, and AI-assisted engineering workflows.",
     icon: Plug,
     skills: [
       "MCP (Model Context Protocol)",
@@ -93,7 +93,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "ai-ml",
     title: "AI & ML",
-    tagline: "Model training, fine-tuning, audio ML, RL preference tuning.",
+    tagline: "Model training, preference tuning, retrieval, and audio ML.",
     icon: Brain,
     skills: [
       "PyTorch",
@@ -128,14 +128,14 @@ const skillCategories: SkillCategory[] = [
   {
     id: "languages",
     title: "Languages",
-    tagline: "Daily-driver syntax across web, systems, scripting.",
+    tagline: "Production languages across applications, services, and systems.",
     icon: Code2,
     skills: ["Python", "JavaScript", "TypeScript", "C#", "Go", "C", "C++", "SQL", "Bash", "PowerShell", "HTML/CSS"],
   },
   {
     id: "frameworks",
     title: "Frameworks & UI",
-    tagline: "Production-grade web and mobile stack.",
+    tagline: "Web and mobile products from interface to API.",
     icon: Layers,
     skills: [
       "React",
@@ -170,7 +170,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "cloud-devops",
     title: "Cloud & DevOps",
-    tagline: "GCP-heavy, multi-cloud, GPU infra.",
+    tagline: "Multi-cloud delivery, containers, CI/CD, and observability.",
     icon: Cloud,
     skills: [
       "AWS",
@@ -214,7 +214,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "hpc",
     title: "HPC & Compute",
-    tagline: "GPU systems, parallel compute, profiling.",
+    tagline: "GPU systems, accelerated workloads, and performance profiling.",
     icon: Terminal,
     skills: [
       "CUDA",
@@ -229,7 +229,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "databases",
     title: "Databases & Search",
-    tagline: "Relational, document, vector, edge.",
+    tagline: "Relational, document, vector, graph, and search systems.",
     icon: Database,
     skills: [
       "PostgreSQL",
@@ -238,7 +238,7 @@ const skillCategories: SkillCategory[] = [
       "SQLite",
       "Cloudflare D1",
       "Drizzle ORM",
-      "SQL Alchemy",
+      "SQLAlchemy",
       "Redis",
       "MMKV",
       "Algolia",
@@ -250,7 +250,7 @@ const skillCategories: SkillCategory[] = [
   {
     id: "testing",
     title: "Testing & Tooling",
-    tagline: "Unit, integration, property-based, E2E.",
+    tagline: "Unit, integration, property-based, load, and end-to-end testing.",
     icon: FlaskConical,
     skills: [
       "pytest",
@@ -379,10 +379,9 @@ export default function Skills() {
           className="mt-10 border-t border-border/50 pt-6 text-sm text-muted-foreground"
         >
           <span className="font-tech text-xs uppercase tracking-[0.2em] text-primary mr-3">
-            Next rabbit holes
+            Currently exploring
           </span>
-          Multi-agent orchestration patterns · LLM evals at scale · audio ML —
-          the list never really ends.
+          Multi-agent orchestration · LLM evaluation at scale · audio ML
         </motion.p>
 
         <div className="sr-only">

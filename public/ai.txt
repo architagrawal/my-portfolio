@@ -1,22 +1,23 @@
 # Archit Agrawal portfolio
 
 name: Archit Agrawal
-role: Founding AI/ML Engineer, MyStage Music
+role: AI/ML Engineer and Software Engineer
 location: United States
 relocation: open to relocating anywhere in the US; remote and hybrid welcome
 education: MS Computer Science, Arizona State University
 
 current_work:
+  - agentic survey analysis at EdPlus, Arizona State University
   - LangGraph agent workflows
   - data acquisition and entity resolution
   - retrieval and search systems
-  - Python backend services
-  - production testing and observability
+  - full-stack product development
+  - evaluation, testing, and observability for production AI
 
 core_stack:
   - Python, TypeScript, Go, SQL
   - LangGraph, LangChain, PyTorch, RAG, vector search
-  - agent techniques: CoT, ReAct, structured outputs, function calling, guardrails, LLM evals
+  - agent techniques: structured outputs, function calling, guardrails, and LLM evals
   - MCP: server development and deployment (stdio / Streamable HTTP), FastMCP, A2A
   - AI-native dev tools: Claude Code, OpenAI Codex, Kiro (daily drivers)
   - agent skills, custom slash commands, hooks, CLAUDE.md / AGENTS.md, spec-driven development

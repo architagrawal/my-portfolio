@@ -18,9 +18,9 @@ export default function Footer() {
               Archit Agrawal
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Designed and built by me — Next.js, Tailwind CSS, and Framer
-              Motion, with type set in Syne and Space Grotesk. The starfield is
-              a hand-rolled canvas.
+              I built this site with Next.js, Tailwind CSS, and Framer Motion.
+              Typography uses Syne and Space Grotesk, and the starfield runs on
+              a custom canvas animation.
             </p>
             <a
               href="https://github.com/architagrawal/my-portfolio"

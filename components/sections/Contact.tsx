@@ -47,7 +47,7 @@ export default function Contact() {
   return (
     <section id="contact" className="pt-8 pb-24 px-4 sm:px-6 lg:px-8">
       <div className="-mx-4 sm:-mx-6 lg:-mx-8 mb-20">
-        <Marquee items={["Let's Talk", "Open to Work", "Ship It", "AI/ML", "Full-Stack"]} />
+        <Marquee items={["Let's Talk", "Open to Roles", "AI Engineering", "Software Engineering", "Full-Stack"]} />
       </div>
 
       <motion.div
@@ -66,7 +66,7 @@ export default function Contact() {
             Let&apos;s Work Together
           </h2>
           <p className="mt-6 text-lg sm:text-xl opacity-90 max-w-2xl mx-auto font-light">
-            Got a project, a role, or just want to talk shop? I&apos;m always up for building something worth shipping.
+            Hiring for an AI or software engineering role, or building a system that needs to move from prototype to production? I&apos;d like to hear about it.
           </p>
         </motion.div>
       </motion.div>
@@ -79,7 +79,7 @@ export default function Contact() {
         className="max-w-7xl mx-auto"
       >
         <p className="font-tech text-xs sm:text-sm uppercase tracking-[0.3em] text-muted-foreground mb-6">
-          Drop me a line
+          Start a conversation
         </p>
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -101,7 +101,7 @@ export default function Contact() {
 
         <p className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
           <MapPin className="w-4 h-4 text-primary" />
-          USA · open to relocation anywhere · AI/ML and full-stack roles
+          Based in the United States · open to relocation · available for AI and software engineering roles
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">

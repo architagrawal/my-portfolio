@@ -19,7 +19,13 @@ const socials = [
   { icon: Github, href: "https://github.com/architagrawal", label: "GitHub" },
 ];
 
-const crafts = ["AI agents", "agentic workflows", "RAG systems", "LLM evals", "full-stack products"];
+const crafts = [
+  "AI agents",
+  "agentic workflows",
+  "retrieval systems",
+  "evaluation systems",
+  "full-stack products",
+];
 
 /* Rotating craft word with blur dissolve; container width animates to each word */
 function CraftRotator() {
@@ -105,10 +111,10 @@ function RevealLine({ text, delay }: { text: string; delay: number }) {
 }
 
 const impact = [
-  { value: <>70,000<span className="text-primary">+</span></>, label: "records indexed daily" },
-  { value: <>60,000<span className="text-primary">+</span></>, label: "students served at ASU" },
-  { value: <>4h <span className="text-primary">→</span> 15m</>, label: "transcript insight loop" },
-  { value: <>200<span className="text-primary">+</span></>, label: "tests on prod agents" },
+  { value: <>70,000<span className="text-primary">+</span></>, label: "records processed daily" },
+  { value: <>60,000<span className="text-primary">+</span></>, label: "students supported by platform" },
+  { value: <>4h <span className="text-primary">→</span> 15m</>, label: "analysis time reduced" },
+  { value: <>200<span className="text-primary">+</span></>, label: "tests for production agents" },
 ];
 
 const marqueeItems = [
@@ -161,7 +167,7 @@ export default function Hero() {
             <span className="relative inline-flex h-2 w-2 bg-primary" />
           </span>
           <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-muted-foreground group-hover:text-foreground transition-colors">
-            Open to AI/ML &amp; full-stack roles
+            Open to AI &amp; software engineering roles
           </span>
         </motion.a>
 
@@ -171,7 +177,7 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="font-tech text-xs sm:text-sm uppercase tracking-[0.3em] text-muted-foreground mb-8"
         >
-          AI Engineer · Software Engineer · Full-Stack
+          AI/ML Engineer · Full-Stack Software Engineer
         </motion.p>
 
         <div className="flex flex-col lg:flex-row lg:items-end gap-10 lg:gap-16">
@@ -221,7 +227,7 @@ export default function Hero() {
               href="#projects"
               className="font-hand text-xl sm:text-2xl text-primary -rotate-2 hover:rotate-0 transition-transform leading-tight text-center max-w-[11rem]"
             >
-              currently building
+              building in public
               <br />
               PrismSplit ↓
             </a>
@@ -234,8 +240,8 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.9 }}
           className="mt-10 text-lg sm:text-2xl text-muted-foreground max-w-2xl leading-relaxed"
         >
-          I ship <CraftRotator /> to production. Currently building the
-          agent infrastructure behind MyStage&apos;s live-events platform.
+          I take <CraftRotator /> from prototype to production—with the
+          evaluation, observability, and infrastructure to keep them reliable.
         </motion.p>
 
         <motion.div
@@ -261,7 +267,7 @@ export default function Hero() {
               onClick={scrollToAbout}
               className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors"
             >
-              See My Work
+              View Selected Work
               <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
             </button>
           </Magnetic>

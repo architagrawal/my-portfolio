@@ -110,26 +110,28 @@ export default function About() {
 
             <div className="space-y-6 text-muted-foreground">
               <p className="text-lg font-light leading-relaxed">
-                Founding AI/ML Engineer shipping <span className="text-foreground font-medium">production agentic systems</span>.
+                AI/ML engineer building <span className="text-foreground font-medium">reliable agentic systems for real users</span>.
               </p>
 
               <p className="leading-relaxed">
-                I&apos;m an AI engineer (MSCS, Arizona State University, 4.0 GPA)
-                building the agent infrastructure at MyStage: LangGraph
-                orchestration, entity resolution with LLMs, and data pipelines
-                indexing 70,000+ records a day.
+                I hold an MS in Computer Science from Arizona State University
+                (4.0 GPA). At EdPlus, I own the architecture of an agentic
+                survey-analysis platform. At MyStage, I build LangGraph
+                workflows, LLM-powered entity resolution, and data pipelines
+                that process more than 70,000 records a day.
               </p>
 
               <p className="leading-relaxed">
-                Before that: multi-tenant RAG serving 60,000+ students, hybrid
-                vector + knowledge-graph retrieval, and microservices used by
-                Fortune 500 clients. I work across the full stack, from React
-                frontends to model inference and cloud infra.
+                Earlier, I led a multi-tenant RAG platform supporting course
+                development for 60,000+ students, built hybrid vector and
+                knowledge-graph retrieval, and shipped microservices used by
+                Fortune 500 clients. I work across the system—from product UI
+                and APIs to model evaluation, data, and cloud infrastructure.
               </p>
 
               <p className="leading-relaxed">
-                Off the clock, I&apos;m usually running my own playlists
-                through AiJockey — the AI DJ project below — and tweaking
+                Outside work, I&apos;m usually running my own playlists through
+                AiJockey—the AI DJ project below—and tuning
                 transitions until they stop sounding like a robot made them.
               </p>
             </div>
@@ -144,7 +146,7 @@ export default function About() {
               </div>
               <div className="inline-flex items-center space-x-2 px-4 py-2 border border-secondary/50 bg-muted/20">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span className="font-tech text-sm">USA · Open to Relocation</span>
+                <span className="font-tech text-sm">United States · Open to Relocation</span>
               </div>
             </div>
 
@@ -177,20 +179,20 @@ export default function About() {
             >
               {[
                 {
-                  line: "I figure things out.",
-                  desc: "Throw a vague spec, a gnarly bug, or an unfamiliar stack at me and I'll map a path through it. I'm at home in the messy part of a project, turning ambiguity into working architecture.",
+                  line: "I turn ambiguity into architecture.",
+                  desc: "Give me an unclear requirement, a hard failure, or an unfamiliar system and I'll create a practical path forward—from the first decision record to production behavior.",
                 },
                 {
-                  line: "I build things people use.",
-                  desc: "Demos are easy, production is the job. I've shipped AI agents, voice bots, and full-stack apps that real users depend on, not just prototypes that sit in a repo.",
+                  line: "I ship beyond the prototype.",
+                  desc: "I build AI agents and full-stack products for real users, then add the tests, observability, failure handling, and operating discipline that production requires.",
                 },
                 {
-                  line: "I own the full stack.",
-                  desc: "Comfortable from a polished React UI down to model inference, database schema, and the cloud infra that keeps it all running.",
+                  line: "I own the system end to end.",
+                  desc: "I work comfortably from a polished React interface through APIs, model inference, data design, and the cloud infrastructure that keeps the product running.",
                 },
                 {
-                  line: "I keep learning.",
-                  desc: "AI/ML moves fast. I stay close to the frontier, currently deep in agentic workflows and automation systems.",
+                  line: "I measure before I claim.",
+                  desc: "I use baselines, evaluations, and failure analysis to separate useful architecture from impressive-looking complexity—and I document what the evidence does not prove.",
                 },
               ].map((item, i) => (
                 <StatementRow key={item.line} line={item.line} desc={item.desc} index={i} />
@@ -202,8 +204,8 @@ export default function About() {
             <motion.div className="sm:col-span-2">
                <TechBlock
                 icon={Terminal}
-                title="Agentic Systems"
-                description="LangGraph agent-workers in production: checkpointed pause/resume, idempotent task claims, parallel fan-out, distributed tracing. Not demos. Systems that survive retries and concurrency."
+                title="Production Agent Systems"
+                description="LangGraph workers with checkpointed pause and resume, idempotent task claims, parallel fan-out, and distributed tracing—designed to survive retries and concurrency."
                 delay={0.2}
               />
             </motion.div>
@@ -211,14 +213,14 @@ export default function About() {
             <TechBlock
               icon={Zap}
               title="LLM Engineering"
-              description="RAG at scale, entity resolution with Gemini, preference tuning (DPO/KTO), eval harnesses, and prompt pipelines with measurable accuracy lifts."
+              description="RAG at scale, Gemini-based entity resolution, preference tuning (DPO/KTO), evaluation harnesses, and prompt pipelines with measured quality improvements."
               delay={0.3}
             />
 
             <TechBlock
               icon={Heart}
               title="Full-Stack Delivery"
-              description="React/Next.js frontends, FastAPI and .NET services, Postgres/Firestore data layers, CI/CD on GCP and AWS. Owned end to end."
+              description="React and Next.js interfaces, FastAPI and .NET services, Postgres and Firestore data layers, plus CI/CD across GCP and AWS."
               delay={0.4}
             />
 
@@ -226,7 +228,7 @@ export default function About() {
                <TechBlock
                 icon={Cpu}
                 title="Reliability & Testing"
-                description="200+ pytest suites on agent pipelines, property-based testing, load testing with SLOs, observability with Logfire. AI systems earn trust through evals and tests."
+                description="200+ pytest cases for production agents, plus property-based testing, load testing against SLOs, and distributed observability with Logfire."
                 delay={0.5}
               />
             </div>

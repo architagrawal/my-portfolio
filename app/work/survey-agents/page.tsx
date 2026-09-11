@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/layout/Footer";
+import { AgentGraph, ToolBudget, AnswerPath, DataModel } from "./_diagrams";
 
 const stats = [
   { value: "74k", label: "lines of TypeScript" },
@@ -31,9 +32,9 @@ const stages = [
 const intakeNotes = [
   "22 of 32 real CSVs carry their timestamp inside the identifier column, so every survey built on that corpus reported \"no date column survived intake\" while holding dates the whole time. Constant arity is what tells a compound key from prose.",
   "Files that parse cleanly and are still wrong: UTF-16 headers full of null bytes, a duplicate header silently overwriting a whole column, a 0/1 flag typed as a rating scale, a report title sitting in the header row.",
-  "A recovered date is usually the export stamp, not when anyone answered. Where one period holds over 90% of responses the tool refuses the time axis rather than drawing a collapse that is an artefact of when somebody ran an export.",
+  "A recovered date is usually the export stamp, not when anyone answered. Where one period holds over 90% of responses the tool refuses the time axis rather than drawing a collapse that is an artifact of when somebody ran an export.",
   "The review stage reads the finished profile instead of each decision, because per-decision gates are blind to upstream bugs. It was verified by reintroducing a sampler defect whose stride aliased against alternating data and silently halved a dimension's values on any file over ~200 rows.",
-  "Codebook fit is measured before any labelling spend: question scope is embedded and 25 responses are sample-labelled. The right codebook scores mean best match 0.598 at a 4% abstain rate; the wrong one scores 0.316 at 88%, for about $0.001. Thresholds written from a guess before that calibration would have passed the wrong codebook with a warning.",
+  "Codebook fit is measured before any labeling spend: question scope is embedded and 25 responses are sample-labeled. The right codebook scores mean best match 0.598 at a 4% abstain rate; the wrong one scores 0.316 at 88%, for about $0.001. Thresholds written from a guess before that calibration would have passed the wrong codebook with a warning.",
 ];
 
 const reliability = [
@@ -57,11 +58,11 @@ const measurementNotes = [
   "The pipeline costs roughly 4 to 8 times as much and takes about 6 times the wall clock of three plain API calls, for the same F1.",
   "The 0.637 baseline every earlier claim was anchored to turned out not to be reproducible. Fresh runs average 0.523, most likely because the delivered spreadsheet had been human-reviewed before it shipped.",
   "Batch size is a quality parameter, not a throughput knob. Sweeping it leaves F1 flat and moves the precision and recall split, so the escalation ladder is a dial with a known shape rather than a guess.",
-  "Reasoning was published as structurally incompatible with constrained decoding, then corrected twice: the cause was an unbounded reasoning budget and a rules block. With that fixed, reasoning wins on F1 and loses on product behaviour.",
+  "Reasoning was published as structurally incompatible with constrained decoding, then corrected twice: the cause was an unbounded reasoning budget and a rules block. With that fixed, reasoning wins on F1 and loses on product behavior.",
 ];
 
 const analysisDecisions = [
-  "The model never computes, never writes SQL and never sees the rows. Rows meet a model once, at labelling.",
+  "The model never computes, never writes SQL and never sees the rows. Rows meet a model once, at labeling.",
   "Questions compile to plans in Metabase's MBQL shape, so one format serves both the agent and a UI query builder.",
   "Metrics bind to column kinds rather than column names, so an unseen survey works on arrival. A metric is minted by usage; a human blessing it is a trust label, never a gate.",
   "Facts are a cache, not a boundary: about ten bounded operators, unlimited composition, roughly 150 KB of facts per run.",
@@ -80,11 +81,11 @@ const ours = [
   { name: "Metric lint in CI", changed: "Every declared metric must be computable on a stored run, so a definition cannot rot unnoticed between releases." },
   { name: "Shadow re-execution", changed: "When a definition changes, recent questions are re-run and diffed, so a moved number is found by us before a reader finds it." },
   { name: "Mappings that behave alike", changed: "A proposed cross-codebook mapping is checked against the co-occurrence and sentiment profiles of both codes before confirmation, rather than resting on the claim that a human once clicked yes." },
-  { name: "The negative catalog", changed: "Publish what a scope cannot answer, so the interface greys out the control instead of refusing after the fact." },
+  { name: "The negative catalog", changed: "Publish what a scope cannot answer, so the interface grays out the control instead of refusing after the fact." },
   { name: "Deterministic tie-breaking", changed: "When two plans are equally valid a declared rule picks, so the same question cannot answer two ways on two days." },
   { name: "Codelist drift as a signal", changed: "Unmatched values accumulate with counts instead of failing the load, and the accumulation itself becomes the report." },
-  { name: "Upload identity is content", changed: "A normalised content hash, so two people uploading the same export get one run rather than two conflicting sets of numbers, and the first sighting wins for the wave's date." },
-  { name: "Lineage with four relations", changed: "relabel, recode, wave, wave_recoded. Only a new wave may claim topic movement, so a second labelling pass cannot present itself as a trend." },
+  { name: "Upload identity is content", changed: "A normalized content hash, so two people uploading the same export get one run rather than two conflicting sets of numbers, and the first sighting wins for the wave's date." },
+  { name: "Lineage with four relations", changed: "relabel, recode, wave, wave_recoded. Only a new wave may claim topic movement, so a second labeling pass cannot present itself as a trend." },
   { name: "Extension points, not pluggable guarantees", changed: "Parsers, kinds, metrics, operators, marks and backends extend without touching existing code. The validator, the gate, provenance and grain enforcement do not, so a human review sits on every guarantee change." },
 ];
 
@@ -100,10 +101,10 @@ const chartFindings = [
 ];
 
 const awsFindings = [
-  "Step Functions: four consecutive succeeded executions at 102 of 102 rows, with labelling fanned out through a Distributed Map over three slices and merged.",
-  "The first fully succeeded run labelled 100 of 102 while all three slices reported success. Concurrent map iterations wrote the same slot and one overwrote another, so fan-out needed partitioned writes and a real fan-in before green meant anything.",
+  "Step Functions: four consecutive succeeded executions at 102 of 102 rows, with labeling fanned out through a Distributed Map over three slices and merged.",
+  "The first fully succeeded run labeled 100 of 102 while all three slices reported success. Concurrent map iterations wrote the same slot and one overwrote another, so fan-out needed partitioned writes and a real fan-in before green meant anything.",
   "The circuit breaker is the capability nothing else here has. ToleratedFailurePercentage 5 halts the execution once that share of batches fails; a sequential driver grinds through the remaining 190 and pays for every one.",
-  "AgentCore earns its place at the stage level, where its harness took labelling from 50 of 102 to 102 of 102 after our own loop failed, and not at the orchestration level, where the one thing the agentic orchestrator was buying, repair, is a Choice state plus a counter.",
+  "AgentCore earns its place at the stage level, where its harness took labeling from 50 of 102 to 102 of 102 after our own loop failed, and not at the orchestration level, where the one thing the agentic orchestrator was buying, repair, is a Choice state plus a counter.",
   "Eight agent harnesses deployed with per-agent tool sets, one tool withheld at runtime until its precondition exists after it executed 0 times in 19 recorded runs. The graph itself is data with load-time gates rather than a trusted stage list.",
   "Governance is deployed alongside: personal-data classification inside intake, Bedrock guardrails as their own stack, and spend caps on tokens and dollars checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing.",
   "Deployment surfaced defects nothing else did: six in the Step Functions path, seven in the Flows path, none reachable by typecheck, unit tests or cdk synth.",
@@ -132,7 +133,7 @@ const priorArt = [
   { name: "GPTCache", changed: "Prior art for the binding cache, and the semantic drift signal that comes with it: falling hit similarity means the corpus moved." },
   { name: "QuickInsights · MetaInsight", changed: "The unprompted \"what stands out\" sweep after an upload, corrected for multiple comparisons, every claim resolving to a fact." },
   { name: "Cortex Analyst", changed: "Its verified query repository is the confirmed-binding tier, productized. Exports ship with a data contract." },
-  { name: "LinkML · CEL · W3C reconciliation", changed: "Layer schemas modelled once, policies as versioned expressions, matching over a standard interface so OpenRefine becomes a free bulk-confirmation UI." },
+  { name: "LinkML · CEL · W3C reconciliation", changed: "Layer schemas modeled once, policies as versioned expressions, matching over a standard interface so OpenRefine becomes a free bulk-confirmation UI." },
   { name: "SDMX · SKOS", changed: "Dimensions that identify a cell separated from attributes that describe it, and a standard vocabulary for broader and narrower concepts." },
   { name: "CatLLM", changed: "Ensemble voting, tested on runs that were already on disk rather than on new spend." },
   { name: "Agent Skills standard", changed: "Skills authored as SKILL.md, so the same file works in Claude Code and in the pipeline's own loader." },
@@ -140,9 +141,9 @@ const priorArt = [
 ];
 
 const caveats = [
-  "Every accuracy number is self-graded. The gold set was labelled by the author of the pipeline it grades, and a grading pack with two graders is the fix, not a footnote.",
+  "Every accuracy number is self-graded. The gold set was labeled by the author of the pipeline it grades, and a grading pack with two graders is the fix, not a footnote.",
   "Two corpora and two codebooks is a monoculture. A third real codebook is the highest-value test input available.",
-  "The local-model era proved plumbing, not quality. A 15B model on llama.cpp is a flow harness, and the synthetic fixture makes the labelling task easier than real verbatims.",
+  "The local-model era proved plumbing, not quality. A 15B model on llama.cpp is a flow harness, and the synthetic fixture makes the labeling task easier than real verbatims.",
   "Two real codebooks produced zero lexical mapping proposals between them, so cross-survey comparison needs a shared codebook, not a better matcher.",
   "The deployed path's quality is not measured. Two Step Functions runs sat 0.066 apart, wider than the local spread, which cannot separate it from any other shape.",
 ];
@@ -239,10 +240,10 @@ export default function SurveyAgentsCaseStudy() {
               Survey Agents
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              A five-agent pipeline that turns a raw survey export into coded responses,
-              tool-computed facts and charts, plus a semantic layer that decides what a
-              dataset can be asked. Built to answer one question: does an agentic
-              architecture beat three API calls, and at what cost.
+              A five-agent platform that turns raw survey exports into coded responses,
+              verified facts, accessible charts, and reproducible answers. I built it to
+              test one question honestly: does agentic architecture outperform three
+              direct API calls—and what does the added reliability cost?
             </p>
 
             <dl className="mt-10 grid grid-cols-2 sm:grid-cols-4 border-t border-border">
@@ -260,19 +261,18 @@ export default function SurveyAgentsCaseStudy() {
           </header>
 
           <div className="mt-16 md:mt-24 space-y-16 md:space-y-24">
-            <Section eyebrow="01 // The principle" title="The agent decides, the tool computes">
+            <Section eyebrow="01 // Design principle" title="The agent decides; the tool computes">
               <p className="text-base text-muted-foreground leading-relaxed">
-                Everything is an agent, and every deterministic operation is a tool. No number
-                in a report is produced by a model; it is produced by a tool the model chose to
-                call. That makes a system which structurally cannot fabricate a figure, rather
-                than one merely forbidden from doing so.
+                Each workflow stage is an agent, and every deterministic operation is a tool.
+                Report figures come from code, never model arithmetic: the model chooses the
+                operation, and the tool computes the result. This prevents unsupported
+                model-generated figures from passing the verification boundary.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed">
                 <span className="font-tech text-sm text-primary">verify_citations</span> is that
-                rule made mechanical. Every figure in the drafted prose has to resolve to a fact
-                the analytics stage actually computed, or the sentence is redrafted naming the
-                offending number, and then removed. The model drafts the sentence; a tool proves
-                the number.
+                rule executable. Every figure in drafted prose must resolve to a fact produced by
+                the analytics stage. If it does not, the sentence is redrafted and then removed.
+                The model writes the sentence; deterministic code verifies the number.
               </p>
 
               <div className="overflow-x-auto border border-border">
@@ -296,16 +296,35 @@ export default function SurveyAgentsCaseStudy() {
                 </table>
               </div>
 
+              <ToolBudget />
+
               <p className="text-base text-muted-foreground leading-relaxed">
-                Three loops exist and every one declared its exit condition before it was built:
-                the tool loop stops at 8 calls, the repair loop at 2 iterations before
-                quarantine, the verify loop at 2 redrafts before the sentence is stripped. A
-                global spend budget is checked before every stage and inside the long ones, so
-                exceeding it halts with partial results instead of truncating in silence.
+                Every loop declared its exit condition before it was written, and a global spend
+                budget is checked before every stage and inside the long ones, so exceeding it
+                halts with partial results instead of truncating in silence.
               </p>
             </Section>
 
-            <Section eyebrow="02 // Intake" title="Five gated stages, one replayable recipe">
+            <Section eyebrow="02 // Orchestration" title="The workflow graph is versioned data">
+              <AgentGraph />
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Nodes, edges, verdicts, capability gates and fan-out parameters are declared in
+                one JSON file, and the Step Functions definition is generated from that source of
+                truth. Two deployments compile from the same graph: one binds each
+                node to a Lambda, and the other binds it to an AgentCore runtime. Both are gated at load
+                time, so an edge to a node that does not exist fails before a run starts rather
+                than halfway through one.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                <span className="font-tech text-sm text-primary">study</span> and{" "}
+                <span className="font-tech text-sm text-primary">review</span> are in the local
+                graph and skipped by the deployed one, measured F1-neutral. Eight harnesses are
+                deployed with per-agent tool sets, and one tool is withheld at runtime until its
+                precondition exists after it executed 0 times in 19 recorded runs.
+              </p>
+            </Section>
+
+            <Section eyebrow="03 // Intake" title="Five gated stages, one replayable recipe">
               <p className="text-base text-muted-foreground leading-relaxed">
                 The orchestrator is ordinary code. A model is consulted only where the rules are
                 visibly unsure, and every decision it makes lands in one JSON recipe that
@@ -341,7 +360,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={intakeNotes} />
             </Section>
 
-            <Section eyebrow="03 // Reliability" title="The axis where the architectures differ">
+            <Section eyebrow="04 // Reliability" title="Where the architecture creates value">
               <div className="overflow-x-auto border border-border">
                 <table className="w-full text-left border-collapse">
                   <thead>
@@ -368,7 +387,7 @@ export default function SurveyAgentsCaseStudy() {
                 out-of-codebook code is unrepresentable rather than discouraged: the prompt this
                 replaced threatened a $1,000 penalty for inventing tags and got nine anyway.
                 Early on essentially every batch of ten failed to echo its tokens, and each
-                failing batch was discarded whole and re-labelled one row at a time, which is
+                failing batch was discarded whole and re-labeled one row at a time, which is
                 why correlation integrity is still 100%.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed">
@@ -379,7 +398,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="04 // The measurement" title="The model pin beat the architecture, thirty to one">
+            <Section eyebrow="05 // Measurement" title="Model choice mattered more than architecture">
               <div className="overflow-x-auto border border-border">
                 <table className="w-full text-left border-collapse">
                   <thead>
@@ -406,15 +425,16 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={measurementNotes} />
 
               <blockquote className="border-l-2 border-primary pl-5 text-base text-foreground/90 leading-relaxed">
-                So the adoption question is not whether the multi-agent pipeline is more
-                accurate. It is whether zero destroyed labels, verified correlation and per-row
-                triage are worth 4x. For 102 rows a human can eyeball, they are not. For a
-                recurring pipeline where a silently overwritten label reaches a stakeholder
-                deck, they plausibly are. That is a judgement about consequences, not about F1.
+                The adoption question is not whether the multi-agent pipeline is more accurate.
+                It is whether zero destroyed labels, verified correlation, and per-row triage are
+                worth the additional cost. For 102 rows a person can inspect, probably not. For a
+                recurring pipeline where a silently overwritten label can reach a stakeholder
+                report, plausibly yes. The decision depends on consequences, not F1 alone.
               </blockquote>
             </Section>
 
-            <Section eyebrow="05 // Analysis" title="A semantic layer, not a text-to-SQL box">
+            <Section eyebrow="06 // Analysis" title="A governed semantic layer—not text to SQL">
+              <AnswerPath />
               <Notes items={analysisDecisions} />
               <p className="text-base text-muted-foreground leading-relaxed">
                 Scaling is demonstrated with five reproducible proofs rather than slides: 200x
@@ -424,7 +444,28 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="06 // Ours, not borrowed" title="The mechanisms with no prior art behind them">
+            <Section eyebrow="07 // The data model" title="Five bands, one narrow fact table, no respondent table">
+              <DataModel />
+              <p className="text-base text-muted-foreground leading-relaxed">
+                There is no respondent table on purpose. Cross-survey is an alignment ladder over{" "}
+                <span className="font-tech text-sm text-primary">mapping</span>, never a row-level
+                join, because two teams&apos; surveys do not share a respondent.{" "}
+                <span className="font-tech text-sm text-primary">run.respondent_fingerprint</span>{" "}
+                exists to prevent one: two recorded runs share all 114 response ids, and before
+                that field a breakdown over both reported 203 responses out of a denominator of
+                203 with nothing flagging it.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Stated as it stands, not as it is drawn: no DDL exists. The model is derived from
+                the TypeScript interfaces the pipeline already writes, and facts live today as
+                JSON per run plus S3 behind a{" "}
+                <span className="font-tech text-sm text-primary">FactStore</span> port. Both
+                implementations pass the same ten-test conformance suite, which is what makes the
+                Postgres swap a CI run rather than a rewrite.
+              </p>
+            </Section>
+
+            <Section eyebrow="08 // Original mechanisms" title="What the team designed from first principles">
               <p className="text-base text-muted-foreground leading-relaxed">
                 Recorded deliberately, so it is clear which parts stand on published work and
                 which are ours to get wrong.
@@ -432,19 +473,19 @@ export default function SurveyAgentsCaseStudy() {
               <NamedList items={ours} />
             </Section>
 
-            <Section eyebrow="07 // Visualization" title="Charts are specs, never images">
+            <Section eyebrow="09 // Visualization" title="Charts are specs, never images">
               <Notes items={chartFindings} />
             </Section>
 
-            <Section eyebrow="08 // Deployment" title="Where each piece actually earns its place">
+            <Section eyebrow="10 // Deployment" title="Where each managed service earns its place">
               <Notes items={awsFindings} />
             </Section>
 
-            <Section eyebrow="09 // Method" title="A component earns its place only if measured">
+            <Section eyebrow="11 // Method" title="Every component must prove its value">
               <Notes items={earningItsPlace} />
             </Section>
 
-            <Section eyebrow="10 // Prior art" title="Twelve research passes, then a design freeze">
+            <Section eyebrow="12 // Prior art" title="Twelve research passes, then a design freeze">
               <p className="text-base text-muted-foreground leading-relaxed">
                 Twelve passes were logged before the analysis code was written, and the phase was
                 then closed on purpose: new references land in a parked list with a named trigger
@@ -453,7 +494,7 @@ export default function SurveyAgentsCaseStudy() {
               <NamedList items={priorArt} />
             </Section>
 
-            <Section eyebrow="11 // Limits" title="What this does not prove">
+            <Section eyebrow="13 // Limits" title="What this does not prove">
               <Notes items={caveats} />
               <p className="text-sm text-muted-foreground/80 leading-relaxed">
                 Internal work, so there is no public repository. Every figure on this page comes

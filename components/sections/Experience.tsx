@@ -24,66 +24,98 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    company: "Edplus, Arizona State University",
+    company: "EdPlus, Arizona State University",
     role: "AI Software Engineer",
     location: "Tempe, AZ",
-    period: "June 2026 - Present",
+    period: "June 2026 – Present",
     featured: [0, 1, 2],
     achievements: [
       {
-        text: "Designed and built an agentic survey-analysis platform in TypeScript: five agents (intake, label, qa, analytics, conclude) over ~30 deterministic tools, on one rule: the agent decides, the tool computes, so no number that reaches a stakeholder is ever produced by a model.",
-        relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore"],
+        text: "Own the end-to-end architecture of EdPlus's agentic survey-analysis platform: five agents coordinate roughly 30 deterministic tools across 74,000 lines of TypeScript and 1,021 tests. The core rule is simple—the agent decides, the tool computes—so every reported number is traceable to deterministic code.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore", "Vitest"],
       },
       {
-        text: "Delivered the adoption decision on measurement rather than assertion: built the control run the architecture could lose, and showed model choice moves labelling F1 by 0.230 while the architecture moves it by −0.007 at fixed model, for 4–8× the cost. Reframed the recommendation from accuracy to reliability.",
+        text: "Built the control experiment our architecture could lose: model choice moved labeling F1 by 0.230, while architecture changed it by −0.007 at a fixed model and cost 4–8× more. Reframed the adoption decision around reliability—not unsupported accuracy claims—and replaced a non-reproducible baseline.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Eliminated the failure mode the previous pipeline could not detect: schema-constrained decoding plus per-response correlation tokens took invented labels from 9 to 0 and silently overwritten rows from 13 of 102 to 0, at 100% join integrity and 0% label churn across repeat runs.",
+        text: "Eliminated a silent data-integrity failure with schema-constrained decoding and per-response correlation tokens: invalid labels fell from 9 to 0, overwritten rows from 13 of 102 to 0, join integrity reached 100%, and repeat runs produced 0% label churn.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Shipped the pipeline on AWS with CDK: a Step Functions state machine with a Distributed Map over label slices, a Choice-based repair loop and a ToleratedFailurePercentage circuit breaker, after finding a fan-in defect where a fully SUCCEEDED execution had silently dropped 2% of the corpus.",
-        relatedTechs: ["AWS CDK", "Step Functions", "AWS Bedrock"],
+        text: "Ran the research phase as a deliverable, not a preamble: 12 prior-art passes mapped the design onto SSSOM mapping predicates, the DDI survey-metadata model, Metabase MBQL as the plan format, Vega-Lite as the chart contract, Draco/CompassQL/Voyager for constraint solving, Sato and Sherlock for context-aware column typing (F1 0.89 values-only against 0.925 with context), XLSForm/ODK, GPTCache, LinkML, CEL, SDMX and SKOS. Every borrowed mechanism is cited in the decision record; the ~10 that had no prior art are labeled as ours to get wrong.",
+        relatedTechs: ["TypeScript", "Vega-Lite"],
       },
       {
-        text: "Established where each managed service earns its place: AgentCore's harness at the stage level, where it took labelling from 50/102 to 102/102 after our own agent loop failed, and Step Functions at the orchestration level, with the remaining cost gap traced to per-slice prompt-cache writes.",
-        relatedTechs: ["AgentCore", "Step Functions"],
-      },
-      {
-        text: "Built the semantic layer that decides what a dataset can be asked: ~10 declared operators, metrics minted by usage and bound to column kinds rather than column names, a binding cache so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples and extends before it refuses.",
-        relatedTechs: ["TypeScript", "DuckDB"],
-      },
-      {
-        text: "Made every answer reproducible and auditable: a question passport (plan hash plus dataset, registry and skill versions) re-executes an answer byte-identically, shadow re-execution diffs recent answers when a definition changes, and metric lint in CI fails any metric that cannot be computed on a stored run.",
+        text: "Closed the research phase on purpose with a written design freeze: new references land in a parked list with a named trigger instead of changing direction mid-build. Wrote the decision record the team now works from: scope, approaches considered, findings and problem logs across 40 measured experiments over 253 recorded runs, each stating what it establishes and what it does not.",
         relatedTechs: ["TypeScript", "Vitest"],
       },
       {
-        text: "Built the visualization layer as specs rather than images: a constrained Vega-Lite subset where one spec yields the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with deterministic mark selection from published visualization research and the agent restricted to proposing mark and encoding behind four gates.",
+        text: "Wrote down what we deliberately did not build and why: no warehouse, so Cube Core and the dbt semantic layer were rejected as dependencies that model over one; no text-to-SQL, because the model never sees a row after labeling; no agentic orchestrator, because the one thing it was buying (repair) is a Choice state plus a counter. Each rejection carries the condition that would reopen it.",
+        relatedTechs: ["TypeScript", "Step Functions", "DuckDB"],
+      },
+      {
+        text: "Designed the mechanisms that have no prior art behind them: a question passport (plan hash plus dataset, registry and skill versions) that re-executes any answer byte-identically, metric lint in CI that fails a metric which can no longer be computed on a stored run, shadow re-execution that diffs recent answers when a definition changes, a negative catalog that publishes what a scope cannot answer so the UI grays the control out instead of refusing after the fact, deterministic tie-breaking so one question cannot answer two ways on two days, and content-hash upload identity so two people uploading the same export get one run rather than two conflicting sets of numbers.",
+        relatedTechs: ["TypeScript", "Vitest", "Nuxt 4"],
+      },
+      {
+        text: "Modeled change itself: four lineage relations (relabel, recode, wave, wave_recoded) where only a new wave may claim topic movement, so a second labeling pass cannot present itself as a trend, and codelist drift accumulates unmatched values with counts instead of failing the load, so the drift becomes the report.",
+        relatedTechs: ["TypeScript", "DuckDB"],
+      },
+      {
+        text: "Set the extension policy the codebase is governed by: parsers, column kinds, metrics, operators, chart marks and backends extend without touching existing code, while the validator, the gate, provenance and grain enforcement deliberately do not, so a human review sits on every change to a guarantee.",
+        relatedTechs: ["TypeScript", "Vitest"],
+      },
+      {
+        text: "Built the semantic layer that decides what a dataset can be asked: ~10 declared operators, metrics minted by usage and bound to column kinds rather than column names so an unseen survey works on arrival, questions compiled to plans in Metabase's MBQL shape so one format serves both the agent and a UI query builder, a binding cache (plan hashed into the key) so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples and extends before it refuses, and a refusal names the column that is missing rather than inventing a reason.",
+        relatedTechs: ["TypeScript", "DuckDB"],
+      },
+      {
+        text: "Shipped the pipeline on AWS with CDK: a Step Functions state machine with a Distributed Map over label slices, a Choice-based repair loop, and a ToleratedFailurePercentage circuit breaker that halts at 5% failed batches instead of grinding through 190 more and paying for every one. Found and fixed a fan-in defect where a fully SUCCEEDED execution had silently dropped 2% of the corpus because concurrent map iterations wrote the same slot.",
+        relatedTechs: ["AWS CDK", "Step Functions", "AWS Bedrock"],
+      },
+      {
+        text: "Established where each managed service earns its place: AgentCore's harness at the stage level, where it took labeling from 50/102 to 102/102 after our own agent loop failed, and Step Functions at the orchestration level, with the remaining cost gap traced to per-slice prompt-cache writes. Deployed eight agent harnesses with per-agent tool sets and load-time gates, withholding one tool at runtime until its precondition exists after it executed 0 times in 19 recorded runs.",
+        relatedTechs: ["AgentCore", "Step Functions", "AWS CDK"],
+      },
+      {
+        text: "Treated deployment as its own test surface: it surfaced 6 defects in the Step Functions path and 7 in the Flows path, none reachable by typecheck, unit tests or cdk synth. That result is why the deployed path, not the local one, is now the reference implementation.",
+        relatedTechs: ["AWS CDK", "Step Functions"],
+      },
+      {
+        text: "Built the visualization layer as specs rather than images: a constrained Vega-Lite subset where one spec yields the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection derived from published research (Cleveland & McGill 1984, Bertin 1967, Mackinlay's APT 1986, Draco 2019, Brehmer & Munzner 2013) and the agent restricted to proposing mark and encoding behind four gates. 75 chart properties are classified rather than opened up, each carrying a class that says how a refusal is reported. That classification is how three accepted-and-inert bugs were found.",
         relatedTechs: ["Vega-Lite", "TypeScript", "Nuxt 4"],
       },
       {
-        text: "Instituted an agent-earns-its-place protocol: held-out batches, eagerness sweeps and oracle runs over the agent's own search space. Results included 0 of 36 chart proposals beating the deterministic rule table and a consensus signal that separates ~4× better than the hand-built risk score it replaced.",
+        text: "Instituted an agent-earns-its-place protocol the team applies to every new component: held-out batches, eagerness sweeps that ask whether consulting the model more often ever hurts, and oracle runs over the agent's own search space that find the scorer's exploits before the agent does. Results included 0 of 36 chart proposals beating the deterministic rule table, a consensus signal that separates ~4× better than the hand-built risk score it replaced, and a temperature-0 case that scored 0.80/0.40/0.40/0.40/0.64 across five identical runs, which is why no claim here rests on a single pass.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "Vitest"],
+      },
+      {
+        text: "Made thresholds measured rather than guessed: codebook fit is calibrated before any labeling spend by embedding question scope and sample-labeling 25 responses, separating the right codebook at 0.598 / 4% abstain from the wrong one at 0.316 / 88% for about $0.001. The thresholds we would have written from intuition would have passed the wrong codebook with a warning.",
         relatedTechs: ["TypeScript", "AWS Bedrock"],
       },
       {
-        text: "Hardened intake against exports that parse cleanly and are still wrong: UTF-16 headers full of null bytes, duplicate headers overwriting whole columns, 0/1 flags typed as rating scales, report titles occupying the header row, and 22 of 32 files hiding their timestamp inside an identifier column.",
+        text: "Declared every loop's exit condition before building it: tool loop at 8 calls, repair loop at 2 iterations before quarantine, verify loop at 2 redrafts before the sentence is stripped. A global spend budget is checked before every stage and inside the long ones, so exceeding it halts with partial results instead of truncating in silence.",
+        relatedTechs: ["TypeScript", "AWS Bedrock"],
+      },
+      {
+        text: "Hardened intake against exports that parse cleanly and are still wrong: UTF-16 headers full of null bytes, duplicate headers overwriting whole columns, 0/1 flags typed as rating scales, report titles occupying the header row, and 22 of 32 files hiding their timestamp inside an identifier column. Five gated stages over 30+ hand-written export shapes: 6 files need a stage at all, 11 model calls, $0.0023, and zero divergences between a run and its replay.",
         relatedTechs: ["TypeScript", "Node.js"],
       },
       {
-        text: "Shipped the internal web application: a Nuxt 4 front end over a NestJS API, both compiling against one shared TypeScript contract, with the printable report assembled by the same builder that serves the app.",
-        relatedTechs: ["Nuxt 4", "NestJS", "TypeScript"],
+        text: "Built the governance surface the platform is judged on: personal-data classification inside intake, Bedrock guardrails deployed as their own stack, entitlement-gated respondent-level retrieval, spend caps enforced inside stages rather than only between them after an audit found the guard had been doing nothing, and weight columns typed and reported but never applied so nothing silently rescales.",
+        relatedTechs: ["TypeScript", "AWS Bedrock", "AWS CDK"],
       },
       {
-        text: "Ran the data platform with no database: DuckDB in-process over per-run JSON, Lance serving vector and BM25 retrieval straight from S3, and facts bounded at ~150 KB per run. One npm install, zero infrastructure to stand up.",
+        text: "Ran the data platform with no database: DuckDB in-process over per-run JSON, Lance serving vector and BM25 retrieval straight from S3, facts bounded at ~150 KB per run. One npm install, zero infrastructure to stand up, and scale demonstrated with five reproducible proofs rather than slides: 200× rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, replays that call no model at all, namespace and entitlement checks, and byte-identical re-execution from a passport.",
         relatedTechs: ["DuckDB", "Lance", "Node.js"],
       },
       {
-        text: "Built the governance surface the pipeline is judged on: personal-data classification inside intake, entitlement-gated respondent-level retrieval, spend caps enforced inside stages rather than between them, and weight columns typed and reported but never applied so nothing silently rescales.",
-        relatedTechs: ["TypeScript", "AWS Bedrock"],
+        text: "Shipped the internal web application: a Nuxt 4 front end over a NestJS API, both compiling against one shared TypeScript contract, with the printable report assembled by the same builder that serves the app, and capability menus generated from the registry rather than hand-written after the same staleness bug appeared three times.",
+        relatedTechs: ["Nuxt 4", "NestJS", "TypeScript"],
       },
       {
-        text: "Authored the decision record the team works from: scope, approaches, findings and problem logs covering 40 measured experiments across 253 recorded runs, each stating what it establishes and what it does not, including that every accuracy number is self-graded.",
+        text: "Published the limits alongside the results: every accuracy number is self-graded by the author of the pipeline it grades, two corpora and two codebooks is a monoculture, and two real codebooks produced zero lexical mapping proposals between them, so cross-survey comparison needs a shared codebook, not a better matcher. Each limit ships with the test input that would resolve it.",
         relatedTechs: ["TypeScript", "Vitest"],
       },
     ],
@@ -107,7 +139,7 @@ const experiences: ExperienceItem[] = [
     company: "MyStage Music Inc",
     role: "Founding AI/ML Engineer",
     location: "Remote",
-    period: "July 2025 - Present",
+    period: "July 2025 – Present",
     featured: [0, 5, 6],
     achievements: [
       {
@@ -194,14 +226,14 @@ const experiences: ExperienceItem[] = [
     color: "purple",
   },
   {
-    company: "Edplus, Arizona State University",
+    company: "EdPlus, Arizona State University",
     role: "Instructional Design Assistant · Software Engineering",
     location: "Tempe, AZ",
     period: "Sept 2023 – May 2025",
     featured: [0, 1, 4],
     achievements: [
       {
-        text: "Led development of a multi-tenant RAG assistant (LangChain + Semantic Kernel, Prompt Flow evals) used by 1,000+ faculty authoring courses for 60,000+ students.",
+        text: "Led development of a multi-tenant RAG assistant used by 1,000+ faculty members to author courses reaching 60,000+ students, with Prompt Flow evaluations for response quality.",
         relatedTechs: [
           "Python",
           "LangChain",
@@ -312,7 +344,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Git", "Docker", "Kubernetes", "SonarQube"],
       },
       {
-        text: "Shipped a Redis-backed demand-prediction service for desk reservations across 300+ Fortune 500 sites (incl. Goldman Sachs, Merck); reported occupancy improved 30% under COVID hot-desk constraints.",
+        text: "Shipped a Redis-backed demand-prediction service for desk reservations across 300+ Fortune 500 sites, including Goldman Sachs and Merck; reported occupancy improved 30% under COVID-era hot-desk constraints.",
         relatedTechs: [".NET", "C#", "Redis", "React", "Node.js"],
       },
       {
@@ -397,7 +429,7 @@ export default function Experience() {
           {[
             ["4+", "years"],
             [String(experiences.length), "roles"],
-            ["∞", "iteration"],
+            ["End-to-end", "ownership"],
           ].map(([value, label]) => (
             <div key={label}>
               <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
@@ -433,4 +465,3 @@ export default function Experience() {
     </section>
   );
 }
-
