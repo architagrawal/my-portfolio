@@ -115,11 +115,11 @@ export default function About() {
 
               <p className="leading-relaxed">
                 I hold an MS in Computer Science from Arizona State University
-                (4.0 GPA). At EdPlus I own the architecture of an agentic
-                survey-analysis platform: ten agents over 65 registered tools, 116k
-                lines of TypeScript on Bedrock and Step Functions, plus the
-                target architecture for the production system that follows it.
-                At MyStage I build LangGraph workflows, LLM-powered entity
+                (4.0 GPA). At EdPlus I architect and ship an agentic survey-analysis
+                platform end to end: ten agents over 65 registered tools,
+                built with TypeScript, Bedrock, and Step Functions. I also authored
+                the target architecture for the production system that follows it.
+                As MyStage&apos;s founding AI/ML engineer, I build LangGraph workflows, LLM-powered entity
                 resolution, and pipelines that process more than 70,000 records
                 a day.
               </p>
@@ -128,13 +128,13 @@ export default function About() {
                 Earlier, I led a multi-tenant RAG platform supporting course
                 development for 60,000+ students, built hybrid vector and
                 knowledge-graph retrieval, and shipped microservices used by
-                Fortune 500 clients. I work across the system—from product UI
+                Fortune 500 clients. I work across the system - from product UI
                 and APIs to model evaluation, data, and cloud infrastructure.
               </p>
 
               <p className="leading-relaxed">
                 Outside work, I&apos;m usually running my own playlists through
-                AiJockey—the AI DJ project below—and tuning
+                AiJockey - the AI DJ project below - and tuning
                 transitions until they stop sounding like a robot made them.
               </p>
             </div>
@@ -170,19 +170,19 @@ export default function About() {
               {[
                 {
                   line: "I turn ambiguity into architecture.",
-                  desc: "Give me an unclear requirement, a hard failure, or an unfamiliar system and I'll create a practical path forward—from the first decision record to production behavior.",
+                  desc: "Give me an unclear requirement, a hard failure, or an unfamiliar system and I'll create a practical path forward - from the first decision record to production behavior.",
                 },
                 {
                   line: "I ship beyond the prototype.",
                   desc: "I build AI agents and full-stack products for real users, then add the tests, observability, failure handling, and operating discipline that production requires.",
                 },
                 {
-                  line: "I own the system end to end.",
-                  desc: "I work comfortably from a polished React interface through APIs, model inference, data design, and the cloud infrastructure that keeps the product running.",
+                  line: "I build across the system.",
+                  desc: "My work spans polished React interfaces, typed APIs, model inference, data design, and the cloud infrastructure that keeps the product running.",
                 },
                 {
                   line: "I measure before I claim.",
-                  desc: "I use baselines, evaluations, and failure analysis to separate useful architecture from impressive-looking complexity—and I document what the evidence does not prove.",
+                  desc: "I use baselines, evaluations, and failure analysis to separate useful architecture from impressive-looking complexity - and I document what the evidence does not prove.",
                 },
               ].map((item, i) => (
                 <StatementRow key={item.line} line={item.line} desc={item.desc} index={i} />
@@ -195,7 +195,7 @@ export default function About() {
                <TechBlock
                 icon={Terminal}
                 title="Production Agent Systems"
-                description="LangGraph workers with checkpointed pause and resume, idempotent task claims, parallel fan-out, and distributed tracing—designed to survive retries and concurrency."
+                description="LangGraph workers with checkpointed pause and resume, idempotent task claims, parallel fan-out, and distributed tracing - designed to survive retries and concurrency."
                 delay={0.2}
               />
             </motion.div>

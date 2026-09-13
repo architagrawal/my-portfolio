@@ -413,7 +413,7 @@ export default function SurveyAgentsCaseStudy() {
               </blockquote>
             </Section>
 
-            <Section eyebrow="06 // Analysis" title="A governed semantic layer—not text to SQL">
+            <Section eyebrow="06 // Analysis" title="A governed semantic layer - not text to SQL">
               <AnswerPath />
               <Notes items={analysisDecisions} />
               <p className="text-base text-muted-foreground leading-relaxed">

@@ -12,28 +12,28 @@ type Project = (typeof projects)[number];
 
 const projects = [
   {
-    title: "AiJockey — AI DJ Pipeline",
+    title: "AiJockey - AI DJ Pipeline",
     description:
-      "An end-to-end AI DJ system that separates stems, understands musical structure, plans and renders transitions, and masters the final mix—with audio-quality feedback improving future decisions.",
+      "An end-to-end AI DJ system that separates stems, understands musical structure, plans and renders transitions, and masters the final mix - with audio-quality feedback improving future decisions.",
     date: "2025 – Present",
     achievements: [
       "Built multi-stage AI DJ pipeline: ingest → stem-sep (Demucs + Mel-Band Roformer) → BPM/key/phrase analysis → LLM Director plan → segment picker → transition execute → multi-band mastering, end-to-end in a single FastAPI service.",
       "Implemented 25+ DSP transition modules: sidechain ducking, frequency-masked EQ swaps, echo-throw, beat juggle, spectral hold, reverse reverb, riser synth, MS multiband widen, bass-mono fold, LUFS-arc, BPM grid snap, glitch repair, de-esser, double-drop, EDM smile EQ.",
-      "Wrote fx_orchestrator with mutex effect groups + per-set FX budget (35%) — fixes too-many-effects-per-junction without killing variety; mutex groups model perceptual conflicts.",
+      "Wrote fx_orchestrator with mutex effect groups + per-set FX budget (35%) - fixes too-many-effects-per-junction without killing variety; mutex groups model perceptual conflicts.",
       "Phrase-aware crossfade scheduling with vocal-phrase boundary snapping + section-pair validator (intro→verse, drop→breakdown legality); 3-tier vocal_guard (SHREDDERS/HEAVY/ARTIFACT_PRONE) gating stem isolation per source-clip artifact risk.",
       "Adaptive LUFS targeting + tape saturation mastering chain; Matchering reference-match alt-path; DeepAFx-ST learned mastering wrapper.",
       "Trained MERT-reward head: MERT-95M embeddings → 4-axis regressor predicting Audiobox aesthetics (PQ/PC/CE/CU); grid-sweep renders n=32, final MSE 0.127. Used as picker-time reward without running Audiobox inference every render.",
       "Fine-tuned VampNet coarse model on user clips (2 epochs); debugged token-vs-latent input shape, vocab×T×n_pred interleaving bug, weights_only=False Lightning ckpt patch, removed deprecated return_signal kwarg.",
       "Built DPO/KTO/IPO/DPO-P trainer variants for VampNet preference tuning; DPO converged loss 0.68 → 0.47 on 4 Audiobox-PQ-labeled preference pairs.",
       "Generated 145 VampNet bridges (Apache + CC-clean) as synthetic library expansion; vampnet_register.py promotes bridges to first-class clips with proper manifest schema (BPM/key/phrase re-run on synthetic audio).",
-      "Wired CLAP-rerank + MERT-rerank + Audiobox-aesthetic critics into picker scoring — multi-critic ensemble with per-critic-error fallback.",
+      "Wired CLAP-rerank + MERT-rerank + Audiobox-aesthetic critics into picker scoring - multi-critic ensemble with per-critic-error fallback.",
       "Reference-free audio quality eval stack: Audiobox Aesthetics, MuQ-Eval, AudioMOS DORA-MOS, CLAP coherence. PQ ceiling 7.61 (mashup mode); variant deltas tracked via composite (PQ+CE)/2.",
       "Closed-loop refinement: render N variants → score with Audiobox → feed best/worst as DPO preference pairs into Director LLM; plan_stats.jsonl collects KTO-compatible thumbs-up/down for future training; per-segment Audiobox slice prescore at cache-build so picker scores 30s windows pre-render.",
-      "Ran GPU stack on DigitalOcean MI300X (192 GB HBM3) ROCm container — non-CUDA path, ported torch/Demucs/VampNet/MERT/Audiobox to ROCm builds; restore-from-checkpoint runbook (cache + sidecars + ckpts = 80 MB → re-spin ~30 min).",
+      "Ran GPU stack on DigitalOcean MI300X (192 GB HBM3) ROCm container - non-CUDA path, ported torch/Demucs/VampNet/MERT/Audiobox to ROCm builds; restore-from-checkpoint runbook (cache + sidecars + ckpts = 80 MB → re-spin ~30 min).",
       "FastAPI backend + Gradio UI on HF Space, ngrok reserved-domain tunnel, sign-in + 1-render/user/day rate limit, SSE streaming progress ticker.",
-      "Multi-stage caching: per-clip JSON sidecar (BPM/key/phrase), NPZ stem features, Audiobox slice JSON, MERT prediction JSON, stem-level Audiobox prescore — 186 clips × 5 sidecars = O(1) re-picker without re-analysis.",
+      "Multi-stage caching: per-clip JSON sidecar (BPM/key/phrase), NPZ stem features, Audiobox slice JSON, MERT prediction JSON, stem-level Audiobox prescore - 186 clips × 5 sidecars = O(1) re-picker without re-analysis.",
       "Auto-recovery: yt-dlp re-pull on missing source audio, tar checkpoint + RESTORE.md so a destroyed droplet costs 30 min not a day.",
-      "Diagnosed a class of PSNR-up-but-sounds-worse bugs — Audiobox PQ ≠ DJ-ear quality; designed mutex-budget orchestrator after measuring v5 PQ 7.60 felt messier than v4 PQ 7.51.",
+      "Diagnosed a class of PSNR-up-but-sounds-worse bugs - Audiobox PQ ≠ DJ-ear quality; designed mutex-budget orchestrator after measuring v5 PQ 7.60 felt messier than v4 PQ 7.51.",
     ],
     technologies: [
       "Python",
@@ -56,7 +56,7 @@ const projects = [
   {
     title: "PrismSplit",
     description:
-      "Most expenses aren't split 50/50 — you order a steak, they order a salad. PrismSplit splits bills at the item level: scan a receipt, AI extracts every item, and everyone pays exactly what they owe.",
+      "Most expenses aren't split 50/50 - you order a steak, they order a salad. PrismSplit splits bills at the item level: scan a receipt, AI extracts every item, and everyone pays exactly what they owe.",
     date: "2025 – Present",
     achievements: [
       "Shipped a web target alongside the native app: 116 .web.tsx surfaces sharing the same stores and services, with keyboard focus rings, pointer affordances and claim-link visitors kept out of signed-in chrome.",
@@ -69,14 +69,14 @@ const projects = [
       "Built one search model across the tabs with recents as the resting state, and versioned every persisted store so a cache written by an older build cannot crash a screen.",
       "Architected feature-sliced Zustand state (billsStore/activityStore/networkStore/uiStore/alertStore) split into actions/selectors for testability; normalized billsById index killing O(n) lookups on detail screens.",
       "Built idempotency-key + MMKV persistence layer as foundation for offline writes and conflict resolution; real-time Supabase channel subscriptions with lifecycle-aware cleanup.",
-      "Wrote Postgres RPC functions (Supabase migrations) for atomic bill creation, settlement, and group-balance compute — multi-table writes stay transactional.",
+      "Wrote Postgres RPC functions (Supabase migrations) for atomic bill creation, settlement, and group-balance compute - multi-table writes stay transactional.",
       "Renamed Group → Space across schema, RPCs, store, and UI via versioned migrations with zero data loss.",
       "Implemented direct-ledger clustering algorithm minimizing settlement transactions between users (graph reduction over debt edges); integer-cent money/currency module eliminating float drift in splits.",
-      "Unified reportError reporting system replacing scattered console.error — severity-tagged, routed to logging sink, wired through every catch; screen-level React ErrorBoundary surfacing recovery UI.",
+      "Unified reportError reporting system replacing scattered console.error - severity-tagged, routed to logging sink, wired through every catch; screen-level React ErrorBoundary surfacing recovery UI.",
       "Added Android release-build preflight (npm run preflight) + Maestro E2E flows catching ProGuard/native/env regressions Jest can't; authored explicit ProGuard keep rules for Google Sign-In, Firebase, and other native SDKs after diagnosing release-only silent failures.",
       "Perf: memoization audits, Tamagui style hoisting, dead-code removal, batched activity subs, selective balance invalidation on bill mutation, deferred non-critical fetches, Android build-flag tuning, spring → 250ms cubic easing for low-end Android frame-time wins.",
       "Designed 4-font typography system (Sora/Space Grotesk/Outfit/SpaceMono) enforced via Title/Body/Label/Numeric wrappers; useThemeColors() hook with light/dark token sets (lavender primary, peach secondary).",
-      "Built LedgerItemRow — focus-driven expand/collapse row replacing modal-based item editing; auto-advance Enter, validate-on-blur, integer-only qty.",
+      "Built LedgerItemRow - focus-driven expand/collapse row replacing modal-based item editing; auto-advance Enter, validate-on-blur, integer-only qty.",
       "Receipt-scan pipeline UI (scan → processing → review → create) with draft persistence surviving app kill; reusable primitives: ModernAlert, ConfirmDialog, EmptyState, Avatar, Skeleton, ListItem, SplitModeSelector.",
       "Lifted test coverage from near-zero to enforced thresholds: unit tests across stores/services/actions/helpers/UI; interaction tests for LedgerItemRow (focus, expand, validation); full action-suite tests for billsStore (create, update, delete, item toggle); shared render helpers + store mocks + fixture factories.",
       "Product: AI receipt scanning with reviewable OCR drafts; deep-linked friend-add flow with auto profile fetch from invite code; Privacy/ToS/OSS-Licenses screens; lightweight i18n helpers (interpolation + pluralization) without a full runtime.",
@@ -105,7 +105,7 @@ const projects = [
     date: "Dec 2025 – Jan 2026",
     achievements: [
       "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
-      "Reverse-engineered undocumented authentication flow of a legacy utility portal under highly ambiguous constraints — no docs, no spec.",
+      "Reverse-engineered undocumented authentication flow of a legacy utility portal under highly ambiguous constraints - no docs, no spec.",
       "Converted unstructured enterprise portal data into structured JSON tools surfaced through MCP for secure, deterministic LLM reasoning.",
       "Designed tool schemas enforcing argument validation and safe downstream automation against the third-party portal.",
       "Recovered the session contract by observation, not documentation: the portal issues a short-lived token behind a multi-step form post, so the server re-authenticates on expiry and retries the original call once rather than surfacing a 401 to the agent.",
@@ -127,7 +127,7 @@ const projects = [
     achievements: [
       "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
       "Designed context-routing logic letting agents retrieve repository state, ticket metadata, and CI/CD execution context before generating review decisions.",
-      "Automated engineering workflows across GitHub Actions and Asana — status updates, ticket linking, review summaries without manual coordination.",
+      "Automated engineering workflows across GitHub Actions and Asana - status updates, ticket linking, review summaries without manual coordination.",
       "Surfaced structured review verdicts to PR comments, gating merges on automated reasoning checks.",
       "Assembled context in a fixed order before any reasoning: the diff, the touched files' neighbours, the linked ticket's acceptance criteria, then the CI result, so a review cannot comment on intent it was never given.",
       "Budgeted the diff rather than truncating it: large PRs are reviewed file by file with a per-file verdict, because one 8,000-line diff in a single prompt produces a summary, not a review.",
@@ -149,17 +149,17 @@ const projects = [
     achievements: [
       "Built no-code pipeline builder on React 18 + ReactFlow 11 modeling a DAG of typed nodes (input, output, LLM, text + 5 demo nodes) with smoothstep edges and animated markers.",
       "Centralized graph state in Zustand store exposing onNodesChange/onEdgesChange/onConnect reducers wrapping ReactFlow's applyNodeChanges/applyEdgeChanges/addEdge helpers.",
-      "Designed config-driven BaseNode: each node type declares {title, handles, fields, category}; renders text/textarea/select/display fields and distributes handles via top: distribute(i, n) — eliminated per-node boilerplate.",
+      "Designed config-driven BaseNode: each node type declares {title, handles, fields, category}; renders text/textarea/select/display fields and distributes handles via top: distribute(i, n) - eliminated per-node boilerplate.",
       "Implemented bounded undo/redo (50-entry ring) with past/future stacks of deep-cloned snapshots; gated pushes on semantic changes only (add/remove/replace, dimension-resize-end, drag-start) so position deltas don't flood history.",
       "Tracked in-flight drags via _draggingIds Set for exactly one snapshot per drag gesture; _isReplaying reentrancy flag so undo/redo don't recursively push history.",
       "Debounced localStorage autosave (300ms trailing-edge timer, single pending payload) with sanitized node/edge serialization stripping ReactFlow runtime fields.",
-      "Hydration on store init seeds nodeIDs counters by regex-parsing existing IDs (/^(.+)-(\\d+)$/) — new-node IDs never collide post-reload; useAutosave hook bumps a savedPulse counter the SavedIndicator listens to.",
-      "useKeyboardShortcuts wires Cmd/Ctrl+Z/Shift+Z, Cmd/Ctrl+D, Delete/Backspace, F (fitView) — suppressed inside inputs/textareas/contenteditable.",
+      "Hydration on store init seeds nodeIDs counters by regex-parsing existing IDs (/^(.+)-(\\d+)$/) - new-node IDs never collide post-reload; useAutosave hook bumps a savedPulse counter the SavedIndicator listens to.",
+      "useKeyboardShortcuts wires Cmd/Ctrl+Z/Shift+Z, Cmd/Ctrl+D, Delete/Backspace, F (fitView) - suppressed inside inputs/textareas/contenteditable.",
       "Selection-aware mutations: deleteSelection cascades edge removal for deleted nodes; duplicateSelection offsets by (+30,+30), allocates fresh IDs, clears selection on originals.",
       "Text node parses {{ var }} Handlebars-style refs with deduped regex extraction (/\\{\\{\\s*([A-Za-z_$][A-Za-z0-9_$]*)\\s*\\}\\}/g); derived input handles update reactively as user types.",
       "SubmitButton POSTs {nodes, edges} to FastAPI /pipelines/parse, surfaces num_nodes/num_edges/is_dag via toast banner; handles HTTP + network failure paths with disabled-while-pending guard.",
       "~20 Jest + RTL suites covering store reducers, persistence round-trips, selection logic, keyboard shortcuts, edge presentation, header, rail.",
-      "Property-based tests with fast-check for history invariants, persistence sanitization, node-category mapping, duplicate semantics, edge presentation — catches edge cases unit tests miss.",
+      "Property-based tests with fast-check for history invariants, persistence sanitization, node-category mapping, duplicate semantics, edge presentation - catches edge cases unit tests miss.",
       "UX: light/dark theme via CSS custom-property tokenization persisted across reload; data-category visual accenting, EmptyStateOverlay on empty canvas, ResultBanner for submit feedback, SavedIndicator pulse animation.",
     ],
     technologies: [
@@ -194,7 +194,7 @@ const projects = [
       "Reusable D3 theme utility (shared scales, color tokens, typography, responsive margins) used across every chart; ResizeObserver + viewport-scaled font sizes + dynamic SVG margins for clean mobile→desktop reflow.",
       "Cross-filtering between charts (FameDistribution, InsightsQuadrant, BattleModePanel, MomentumGrid) sharing single InsightsFilterContext with Escape-key reset.",
       "What-If simulator + projected-finish banner with guarded division-by-zero math and dropdown overflow fixes for clipped Radix dialogs.",
-      "PlayerProfileModal: Combat DNA radar, deck history, evo insights, percentile bars, recommendations — replaced legacy radar modal; PlayerDetailPanel as responsive bottom-sheet (mobile) / side-pushed sidebar (tablet+) with skeleton states matching final grid breakpoints.",
+      "PlayerProfileModal: Combat DNA radar, deck history, evo insights, percentile bars, recommendations - replaced legacy radar modal; PlayerDetailPanel as responsive bottom-sheet (mobile) / side-pushed sidebar (tablet+) with skeleton states matching final grid breakpoints.",
       "Perf: TanStack Query for server-state caching/deduping/background refetch; tabular-nums on stat numerics; replaced blanket transition-all with property-scoped transition-colors across 23 elements to cut paint cost; responsive Recharts/D3 heights eliminating CLS on small viewports.",
       "A11y: skip-nav link, <main> landmark, self-hosted fonts, prefers-reduced-motion, viewport-fit=cover for iOS safe areas; focus traps in modals, keyboard focus rings on tooltips, 44×44px min touch targets (WCAG 2.5.5).",
       "Wired aria-expanded / aria-controls with persistent DOM nodes, roles on chart SVGs, descriptive aria-labels on delta/filter buttons; suppressed Recharts' inner accessibility tree to avoid duplicate announcements; fixed MemberTable contrast, swapped indigo/purple decorative colors for brand tokens, corrected backdrop-filter fallbacks via @supports.",
@@ -283,7 +283,7 @@ const projects = [
     date: "Feb 2024 – Mar 2024",
     achievements: [
       "Built the tape: every forward operation records its inputs and a local gradient rule, so backward is a reverse walk over the recorded graph rather than a hand-derived formula per model.",
-      "Implemented the operator set with its adjoints — add, multiply, matmul, transpose, reshape, ReLU, softmax and cross-entropy — each one a forward rule plus a vector-Jacobian product.",
+      "Implemented the operator set with its adjoints - add, multiply, matmul, transpose, reshape, ReLU, softmax and cross-entropy - each one a forward rule plus a vector-Jacobian product.",
       "Got broadcasting right, which is where a hand-rolled engine usually breaks: a gradient flowing back into a broadcast dimension has to be summed over that axis or the shapes silently stop matching.",
       "Wrote CUDA kernels for the matmul and elementwise paths, with the reduction in the backward pass done in shared memory rather than with an atomic per element.",
       "Verified every adjoint against central-difference numerical gradients before trusting a single training run, since a wrong gradient trains to a worse loss instead of crashing.",
@@ -361,7 +361,7 @@ const projects = [
     githubUrl: "",
   },
   {
-    title: "Survey Agents — Coding & Analysis Platform",
+    title: "Survey Agents - Coding & Analysis Platform",
     description:
       "A ten-agent platform that turns any raw survey export into coded responses, tool-verified facts, charts and reproducible answers, with no per-survey pipeline to maintain. Every deterministic operation is a tool, so no figure that reaches a stakeholder is ever computed by a model.",
     date: "June 2026 – Present",
@@ -425,7 +425,7 @@ const projects = [
     githubUrl: "",
   },
   {
-    title: "Survey Intelligence Platform — Target Architecture",
+    title: "Survey Intelligence Platform - Target Architecture",
     description:
       "The production platform the POC argues for: departments bring any survey, schema or taxonomy and get analysis they can trace, with no custom pipeline per upload. Six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates.",
     date: "August 2026",
@@ -479,11 +479,11 @@ const featuredMeta: FeaturedMeta[] = [
     index: 13,
     visual: "agents",
     badge: "Case study",
-    caption: "Illustrative system view, drawn in code — not a product screenshot",
+    caption: "Illustrative system view, drawn in code - not a product screenshot",
     caseStudyUrl: "/work/survey-agents",
     highlights: [
-      "Ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker. 116k lines of TypeScript, 1,255 tests.",
-      "Schema-constrained decoding plus per-response correlation tokens: out-of-codebook labels unrepresentable, silently overwritten rows eliminated, join integrity 100% on every run. The pipeline it replaced destroyed roughly one row in eight and flagged none of it.",
+      "Architected and shipped ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker, 116k lines of TypeScript, and 1,255 tests.",
+      "Schema-constrained decoding plus per-response correlation tokens: out-of-codebook labels rejected, silently overwritten rows detected, and 100% join integrity across recorded runs. The benchmark pipeline lost roughly one row in eight without flagging it.",
       "Questions compile to MBQL plans, clear seven validation checks, then execute over stored facts with DuckDB on a miss. Metrics bind to column kinds, so an unseen survey is answerable on arrival.",
       "Charts are specs, never images: one constrained Vega-Lite spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection deterministic.",
       "Every number in a drafted report resolves to a fact the analytics stage computed, or the sentence is redrafted naming the offending figure and then removed.",
@@ -493,7 +493,7 @@ const featuredMeta: FeaturedMeta[] = [
     index: 1,
     visual: "appshot",
     badge: "Active build",
-    caption: "Actual product UI — in active development",
+    caption: "Actual product UI - in active development",
     highlights: [
       "Scan → itemize → split → settle: receipt scanning extracts the merchant, items, tax, and tip, while each item supports equal, percentage, share-based, or exact splits.",
       "A Postgres RPC ledger keeps bill creation, settlement, and balance calculations transactional; integer-cent arithmetic prevents rounding drift.",
@@ -505,7 +505,7 @@ const featuredMeta: FeaturedMeta[] = [
   {
     index: 0,
     visual: "audio",
-    caption: "Illustrative system view, drawn in code — not a product screenshot",
+    caption: "Illustrative system view, drawn in code - not a product screenshot",
     highlights: [
       "One FastAPI service runs the full render path: stem separation, BPM/key/phrase analysis, LLM-directed planning, 25+ DSP transitions, and multiband mastering.",
       "A closed feedback loop scores rendered variants with Audiobox critics and turns the results into DPO preference pairs for the Director.",
@@ -516,10 +516,10 @@ const featuredMeta: FeaturedMeta[] = [
   {
     index: 5,
     visual: "analytics",
-    caption: "Illustrative system view, drawn in code — not a product screenshot",
+    caption: "Illustrative system view, drawn in code - not a product screenshot",
     highlights: [
       "Scheduled Cloudflare Workers collect and deduplicate battle data before incrementally loading a D1 analytics store.",
-      "A D3 visualization suite—bump, sunburst, ridgeline, force, chord, and radial charts—cross-filters through shared application state.",
+      "A D3 visualization suite - bump, sunburst, ridgeline, force, chord, and radial charts - cross-filters through shared application state.",
       "Resolved D1's 100-parameter SQL constraint and corrected upstream defects in week bucketing and duel-winner attribution.",
       "Accessibility includes skip navigation, focus traps, reduced-motion support, and 44-pixel touch targets.",
     ],
@@ -540,7 +540,7 @@ const MONTHS: Record<string, number> = {
  */
 function recencyKey(date: string): number {
   if (/present|ongoing/i.test(date)) return Number.MAX_SAFE_INTEGER;
-  const tail = date.split(/[–—-]/).pop() ?? date;
+  const tail = date.split(/[–-]/).pop() ?? date;
   const year = tail.match(/\d{4}/)?.[0] ?? date.match(/\d{4}/g)?.pop();
   if (!year) return 0;
   const month = tail.toLowerCase().match(/[a-z]{3}/)?.[0];
@@ -593,7 +593,7 @@ function segment(from: number, to: number, rOut: number, rIn: number) {
 }
 
 /**
- * 03 — drawn as a ring because the system closes on itself: every render is
+ * 03 - drawn as a ring because the system closes on itself: every render is
  * scored on four aesthetic axes and the best and worst become preference pairs
  * that retrain the director. The spokes inside are the live critic scores; the
  * outer arc is the FX budget that caps effects per junction.
@@ -762,7 +762,7 @@ function AppShotVisual() {
 }
 
 /**
- * 01 — a run in flight rather than a static diagram. A phase machine walks the
+ * 01 - a run in flight rather than a static diagram. A phase machine walks the
  * pipeline, the label stage fans out into slices, QA occasionally returns
  * repairable and kicks the run back, and the counters follow the phase.
  * Reduced motion gets the finished state with no ticking.
@@ -794,7 +794,7 @@ const OUTS = [
 ] as const;
 
 /**
- * 01 — drawn as a Sankey because fan-out and merge *is* the architecture: one
+ * 01 - drawn as a Sankey because fan-out and merge *is* the architecture: one
  * export widens across parallel label slices, narrows back through QA, and
  * splits again into facts, charts and prose. Ribbon width is volume; the thin
  * strand peeling off QA is the bounded repair pass.
@@ -1018,7 +1018,7 @@ const BW = 34; // horizontal gap per week
 const BH = 26; // vertical gap per rank
 
 /**
- * 04 — a bump chart, because a clan ladder is a story about positions changing
+ * 04 - a bump chart, because a clan ladder is a story about positions changing
  * hands, and a bar chart cannot show a crossing. Each line is one member's
  * finishing rank across eight river races; the lines draw in, then the leader
  * separates.
@@ -1153,7 +1153,7 @@ const MINI_BY_TITLE: Record<string, MiniKind> = {
   "E-Commerce Platform": "funnel",
   "Task Management System": "state-machine",
   "Real-Time Chat Application": "fanout",
-  "Survey Intelligence Platform — Target Architecture": "ladder",
+  "Survey Intelligence Platform - Target Architecture": "ladder",
 };
 
 /**

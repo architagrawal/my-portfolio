@@ -47,11 +47,11 @@ const experiences: ExperienceItem[] = [
     ],
     achievements: [
       {
-        text: "Architected and shipped an agentic platform that takes any survey any team uploads and returns analysis they can defend line by line: ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a failure circuit breaker. 116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs, and no per-survey pipeline to maintain.",
+        text: "Architected and shipped an agentic platform that takes any survey a team uploads and returns analysis traceable to its source: ten agents over 65 registered tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a failure circuit breaker. 116k lines of TypeScript across 592 modules, 1,255 tests, 258 recorded runs, and no per-survey pipeline to maintain.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "AgentCore", "Step Functions", "AWS CDK"],
       },
       {
-        text: "Closed the failure mode nobody upstream was even measuring. Schema-constrained decoding, per-response correlation tokens and a citation verifier make a fabricated figure structurally impossible rather than merely discouraged: out-of-codebook labels are unrepresentable, silently overwritten rows are eliminated, join integrity is 100% and label churn is zero across repeat runs. The pipeline this replaced was quietly destroying roughly one row in eight and flagging none of it.",
+        text: "Eliminated a previously unmeasured failure mode with schema-constrained decoding, per-response correlation tokens and citation verification: out-of-codebook labels are rejected, silently overwritten rows are detected, join integrity reached 100% and label churn was zero across repeat runs. The benchmark pipeline lost roughly one row in eight without flagging it.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "Zod", "Vitest"],
       },
       {
@@ -59,7 +59,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["TypeScript", "DuckDB", "Zod"],
       },
       {
-        text: "Authored the target architecture for the production platform that succeeds it, and the case for building it: six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates, and a novelty ledger of eight mechanisms that sit ahead of the published literature, each paired with the instrument that would prove or kill it.",
+        text: "Authored the target architecture for the production platform that succeeds it: six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates, and eight candidate mechanisms each paired with an experiment that can validate or reject it.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "PostgreSQL"],
       },
       {
@@ -171,7 +171,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Step Functions", "AWS CDK"],
       },
       {
-        text: "Built the control run my own architecture could lose, and isolated the dominant variable: the model pin moves labelling F1 by 0.230 where pipeline shape moves it by 0.007. Redirected the team's recommendation from accuracy to reliability.",
+        text: "Built the control run my own architecture could lose and isolated the dominant variable: model choice moved labelling F1 by 0.230, roughly 33× the 0.007 movement from pipeline shape. Redirected the team's recommendation from accuracy to reliability.",
         relatedTechs: ["TypeScript", "AWS Bedrock", "Vitest"],
       },
       {
@@ -280,7 +280,7 @@ const experiences: ExperienceItem[] = [
     ],
     achievements: [
       {
-        text: "Replaced a 14-Cloud-Function event pipeline with a single LangGraph agent-worker on Cloud Run Jobs — sourcing, extraction, resolution, and image fan-out now run as one composable, checkpointed graph.",
+        text: "As founding AI/ML engineer, re-architected a 14-Cloud-Function event pipeline into a single LangGraph agent-worker on Cloud Run Jobs - sourcing, extraction, resolution, and image fan-out now run as one composable, checkpointed graph.",
         relatedTechs: ["Python", "LangGraph", "GCP", "Cloud Run"],
       },
       {
@@ -312,7 +312,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: ["Python", "FastAPI", "GCP", "Algolia", "Google Firestore"],
       },
       {
-        text: "Refactored a monolithic 1,600-LOC source-generic Cloud Run service into a callable subgraph inside packages/mystage-agents/scraping/ via git mv (history preserved), full import-path rewrite, and dep relocation — service deps trimmed 14 → 5.",
+        text: "Refactored a monolithic 1,600-LOC Cloud Run service into a callable subgraph with history preserved, a full import-path rewrite, and dependency relocation - cutting service dependencies 64% from 14 to 5.",
         relatedTechs: ["Python", "Cloud Run"],
       },
       {
@@ -406,7 +406,7 @@ const experiences: ExperienceItem[] = [
   },
   {
     company: "EdPlus, Arizona State University",
-    role: "Instructional Design Assistant · Software Engineering",
+    role: "Software Engineer",
     location: "Tempe, AZ",
     period: "Sept 2023 – May 2025",
     featured: [0, 1, 2],
@@ -419,7 +419,7 @@ const experiences: ExperienceItem[] = [
     ],
     achievements: [
       {
-        text: "Led development of a multi-tenant RAG assistant used by 1,000+ faculty members to author courses reaching 60,000+ students, with Prompt Flow evaluations for response quality.",
+        text: "Led the end-to-end development of a multi-tenant RAG assistant used by 1,000+ faculty members to author courses reaching 60,000+ students, with Prompt Flow evaluations for response quality.",
         relatedTechs: [
           "Python",
           "LangChain",
@@ -429,7 +429,7 @@ const experiences: ExperienceItem[] = [
         ],
       },
       {
-        text: "Combined a Neo4j knowledge graph with LLM-generated Cypher queries, cutting transcript analysis from 4 hours to 15 minutes.",
+        text: "Combined a Neo4j knowledge graph with LLM-generated Cypher queries, making transcript analysis 16× faster by cutting it from 4 hours to 15 minutes.",
         relatedTechs: ["Python", "Neo4j", "OpenAI", "LangChain"],
       },
       {
@@ -525,11 +525,11 @@ const experiences: ExperienceItem[] = [
         relatedTechs: [".NET 8", "C#", "Dapper", "MediatR", "JWT", "AWS SQS"],
       },
       {
-        text: "Cut API latency from 198ms to 20ms with a Redis caching layer and SQL query rewrites, then verified the result under simulated peak load.",
+        text: "Cut API latency nearly 90%, from 198ms to 20ms, with Redis caching and SQL query rewrites, then verified the result under simulated peak load.",
         relatedTechs: ["Redis", "SQL", ".NET 8"],
       },
       {
-        text: "Built bigram/n-gram ranking model over cleaned faculty profile text — 15% lift in search relevance over baseline.",
+        text: "Built bigram/n-gram ranking model over cleaned faculty profile text - 15% lift in search relevance over baseline.",
         relatedTechs: ["Python", "Deep Learning"],
       },
       {
@@ -591,7 +591,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: [".NET", "C#", "Docker", "Kubernetes", "AWS"],
       },
       {
-        text: "Hardened CI/CD with SonarQube quality gates and containerized release pipelines — deploy time down 70%, production incidents down 40%.",
+        text: "Hardened CI/CD with SonarQube quality gates and containerized release pipelines - deploy time down 70%, production incidents down 40%.",
         relatedTechs: ["Git", "Docker", "Kubernetes", "SonarQube"],
       },
       {
@@ -599,7 +599,7 @@ const experiences: ExperienceItem[] = [
         relatedTechs: [".NET", "C#", "Redis", "React", "Node.js"],
       },
       {
-        text: "Optimized Angular student-listing screen with paginated fetching and AWS S3-backed asset delivery — 30% faster screen load; streamlined MySQL queries on class-details page for additional 10% latency reduction.",
+        text: "Optimized Angular student-listing screen with paginated fetching and AWS S3-backed asset delivery - 30% faster screen load; streamlined MySQL queries on class-details page for additional 10% latency reduction.",
         relatedTechs: ["Angular", "JavaScript", "AWS S3", "MySQL"],
       },
       {
@@ -745,6 +745,13 @@ const experiences: ExperienceItem[] = [
   },
 ];
 
+// Lead with the roles a recruiter expects from the resume, then preserve the
+// research work in its own visible tier rather than burying or deleting it.
+const resumeExperienceIndexes = [0, 1, 3, 4, 5, 6];
+const resumeExperiences = resumeExperienceIndexes.map((index) => experiences[index]);
+const researchExperienceIndexes = [2, 7];
+const researchExperiences = researchExperienceIndexes.map((index) => experiences[index]);
+
 export default function Experience() {
 
   return (
@@ -755,7 +762,7 @@ export default function Experience() {
         <div className="flex flex-wrap gap-x-12 gap-y-4 -mt-6 mb-14">
           {[
             ["4+", "years"],
-            [String(experiences.length), "roles"],
+            [String(resumeExperiences.length), "roles"],
             ["End-to-end", "ownership"],
           ].map(([value, label]) => (
             <div key={label}>
@@ -772,7 +779,7 @@ export default function Experience() {
         <div className="relative pl-6 md:pl-12">
 
           <div className="space-y-16 group/list">
-            {experiences.map((exp, expIndex) => (
+            {resumeExperiences.map((exp, expIndex) => (
               <div
                 key={expIndex}
                 className="relative pl-10 sm:pl-12 md:pl-16 transition-opacity duration-300 group-hover/list:opacity-40 hover:!opacity-100"
@@ -780,11 +787,36 @@ export default function Experience() {
 
                 {/* Timeline Star & Path */}
                 <div className="absolute left-0 top-0 bottom-0 -ml-[5px] md:-ml-[9px] w-12 flex flex-col items-center pt-8">
-                    <TimelineNode color={exp.color} isLast={expIndex === experiences.length - 1} />
+                    <TimelineNode color={exp.color} isLast={expIndex === resumeExperiences.length - 1} />
                 </div>
 
                 <ExperienceCard exp={exp} expIndex={expIndex} />
               </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-24 border-t border-border pt-12">
+          <div className="mb-10 max-w-3xl">
+            <p className="font-tech text-xs uppercase tracking-[0.25em] text-primary">
+              Research experience
+            </p>
+            <h3 className="mt-3 font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-foreground">
+              Applied research behind the systems
+            </h3>
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              Evaluation and computer-vision work that shaped how I isolate failure
+              modes and distinguish measured performance from a convincing demo.
+            </p>
+          </div>
+
+          <div className="space-y-12">
+            {researchExperiences.map((exp, expIndex) => (
+              <ExperienceCard
+                key={exp.company + exp.period}
+                exp={exp}
+                expIndex={resumeExperiences.length + expIndex}
+              />
             ))}
           </div>
         </div>

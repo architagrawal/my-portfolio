@@ -113,8 +113,8 @@ function RevealLine({ text, delay }: { text: string; delay: number }) {
 const impact = [
   { value: <>70,000<span className="text-primary">+</span></>, label: "records processed daily" },
   { value: <>60,000<span className="text-primary">+</span></>, label: "students supported by platform" },
-  { value: <>4h <span className="text-primary">→</span> 15m</>, label: "analysis time reduced" },
-  { value: <>200<span className="text-primary">+</span></>, label: "tests for production agents" },
+  { value: <>16<span className="text-primary">×</span></>, label: "faster analysis · 4h → 15m" },
+  { value: <>1,255</>, label: "tests in flagship AI platform" },
 ];
 
 const marqueeItems = [
@@ -240,7 +240,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.9 }}
           className="mt-10 text-lg sm:text-2xl text-muted-foreground max-w-2xl leading-relaxed"
         >
-          I take <CraftRotator /> from prototype to production—with the
+          I take <CraftRotator /> from architecture to production - with the
           evaluation, observability, and infrastructure to keep them reliable.
         </motion.p>
 
@@ -252,7 +252,7 @@ export default function Hero() {
         >
           <Magnetic>
             <a
-              href="/Archit_Agrawal_Resume.pdf"
+              href="/Archit_Agrawal_Resume_Short.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-1 hover:text-primary hover:border-primary transition-colors"

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Archit Agrawal - Detailed Resume</title>
+  <style>
+    @page { size: Letter; margin: 0.38in 0.48in; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #111; font-family: Arial, Helvetica, sans-serif; font-size: 9.2pt; line-height: 1.23; }
+    h1 { margin: 0; text-align: center; font-size: 18pt; letter-spacing: 0.08em; }
+    .contact { margin: 2px 0 6px; text-align: center; font-size: 8.4pt; }
+    a { color: #111; text-decoration: none; }
+    h2 { margin: 6px 0 3px; border-bottom: 1px solid #111; font-size: 10pt; letter-spacing: 0.06em; }
+    .role { margin-top: 4px; break-inside: avoid; }
+    .role-head { display: flex; justify-content: space-between; gap: 12px; font-size: 9pt; }
+    .role-head strong { font-size: 9.2pt; }
+    .meta { white-space: nowrap; }
+    ul { margin: 2px 0 0 14px; padding: 0; }
+    li { margin: 0 0 1.5px; padding-left: 1px; }
+    .education, .project, .skills { margin: 1.5px 0; }
+    .education { display: flex; justify-content: space-between; gap: 12px; }
+    .education span:last-child { white-space: nowrap; }
+    .label { font-weight: 700; }
+    .summary { margin: 5px 0 3px; text-align: left; }
+    .projects-heading { break-before: page; }
+    .project-block { margin: 5px 0 7px; break-inside: avoid; }
+    .project-title { font-weight: 700; font-size: 9.6pt; }
+  </style>
+</head>
+<body>
+  <h1>ARCHIT AGRAWAL</h1>
+  <div class="contact">
+    Tempe, AZ | 623-312-0435 | <a href="mailto:architagrawal000@gmail.com">architagrawal000@gmail.com</a> |
+    <a href="https://linkedin.com/in/agrawal-archit">linkedin.com/in/agrawal-archit</a> |
+    <a href="https://github.com/architagrawal">github.com/architagrawal</a> |
+    <a href="https://agrawal-archit.vercel.app">agrawal-archit.vercel.app</a>
+  </div>
+
+  <div class="summary">AI Software Engineer with 4+ years building production agent systems, retrieval infrastructure, and full-stack products. Specializes in turning experimental AI workflows into reliable systems through evaluation, schema enforcement, idempotency, observability, and measurable performance.</div>
+
+  <h2>EXPERIENCE</h2>
+  <div class="role">
+    <div class="role-head"><strong>AI Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | Jun 2026–Present</span></div>
+    <ul>
+      <li>Architected and shipped a reusable survey-analysis platform of 10 agents and 65 registered tools; replaced bespoke pipelines with a declarative TypeScript architecture on Bedrock, AgentCore, Step Functions, and CDK.</li>
+      <li>Prevented roughly 12% silent row loss through schema-constrained decoding, response correlation tokens, and citation verification; achieved 100% join integrity and zero label churn across repeat runs.</li>
+      <li>Made newly uploaded surveys immediately queryable without dataset-specific configuration by building a natural-language semantic layer over DuckDB.</li>
+      <li>Held query latency flat at 200× row volume using in-process DuckDB over Lance on S3.</li>
+      <li>Redirected the team roadmap through a controlled evaluation showing model choice moved labeling F1 by 0.230 - roughly 33× the 0.007 movement from pipeline architecture.</li>
+      <li>Eliminated a Distributed Map race that reported success while dropping data through partitioned writes and fan-in, verified across 258 runs.</li>
+      <li>Delivered the platform through a 14-page Nuxt 4 application and 10-module NestJS API compiled against one shared TypeScript contract.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Founding AI/ML Engineer - MyStage Music Inc.</strong><span class="meta">Remote | Jul 2025–Present</span></div>
+    <ul>
+      <li>As founding AI/ML engineer, cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.</li>
+      <li>Indexed 70,000+ records daily across 650+ venues through a Playwright service with proxy rotation and adaptive backoff.</li>
+      <li>Improved downstream search accuracy 25% by resolving and deduplicating entities with Gemini before Firestore ingestion.</li>
+      <li>Served search at sub-50 ms latency through FastAPI and Algolia with real-time Firestore synchronization.</li>
+      <li>Made concurrent retries safe with atomic Firestore claims and deterministic task IDs; added human-in-the-loop pause and resume.</li>
+      <li>Made failures diagnosable and changes safe with Logfire distributed tracing and 200+ pytest tests.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | Sep 2023–May 2025</span></div>
+    <ul>
+      <li>Led the end-to-end development of a multi-tenant RAG assistant used by 1,000+ faculty authoring courses for 60,000+ students.</li>
+      <li>Made transcript analysis 16× faster, reducing it from four hours to 15 minutes with a Neo4j knowledge graph and schema-constrained, LLM-generated Cypher.</li>
+      <li>Reduced college onboarding from a deployment to a configuration change while enforcing tenant isolation at retrieval rather than prompt level.</li>
+      <li>Improved exact-token retrieval for queries such as course codes with hybrid vector and keyword search; evaluated groundedness, relevance, and coherence.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Data Research Aide - Knowledge Exchange for Resilience, ASU</strong><span class="meta">Tempe, AZ | Jun 2024–Aug 2024</span></div>
+    <ul>
+      <li>Reduced p95 retrieval latency 60% at 95% recall with hybrid FAISS and Neo4j retrieval over Postgres/pgvector.</li>
+      <li>Reduced API latency nearly 90%, from 198 ms to 20 ms, through Redis and SQL optimization, verified under Locust load.</li>
+      <li>Delivered 20+ .NET 8 REST APIs for an NSF-funded platform and an idempotent ETL pipeline ingesting 10,000+ faculty profiles daily.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Software Engineer - Zeus Learning</strong><span class="meta">Mumbai, India | Jan 2022–Jul 2023</span></div>
+    <ul>
+      <li>Reduced resource usage 35% and infrastructure cost 20% by migrating a .NET monolith to Kubernetes microservices through a strangler pattern.</li>
+      <li>Reduced deployment time 70% and incidents 40% with SonarQube merge gates and containerized delivery.</li>
+      <li>Shipped a Redis-backed demand-prediction service across 300+ enterprise sites, including Goldman Sachs and Merck; reported occupancy increased 30%.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Product Intern - EAT.FIT</strong><span class="meta">Bengaluru, India | Sep 2021–Dec 2021</span></div>
+    <ul>
+      <li>Reduced driver-location serving cost 45% through distance-aware polling and client interpolation.</li>
+      <li>Built a backpressure-aware WebSocket notification service with idempotent redelivery.</li>
+    </ul>
+  </div>
+
+  <h2>EDUCATION</h2>
+  <div class="education"><span><strong>M.S., Computer Science</strong>, Arizona State University - GPA: 4.0</span><span>Aug 2023–May 2025</span></div>
+  <div class="education"><span><strong>B.Tech., Information and Communication Technology</strong>, DA-IICT</span><span>Aug 2018–May 2022</span></div>
+
+  <h2 class="projects-heading">SELECTED PROJECTS</h2>
+  <div class="project-block">
+    <div class="project-title">MCP GitHub PR Review Agent</div>
+    <ul>
+      <li>Built a webhook-triggered MCP service that combines repository state, ticket metadata, and CI context to automate review decisions.</li>
+      <li>Designed the tool boundary so review logic receives typed, current repository evidence rather than relying on prompt-only context.</li>
+      <li>Separated evidence collection from review policy so repositories can change review criteria without rebuilding the integration layer.</li>
+    </ul>
+  </div>
+  <div class="project-block">
+    <div class="project-title">SRP Electric MCP Server</div>
+    <ul>
+      <li>Exposed an undocumented utility portal as validated TypeScript tools for secure energy-data analysis by AI agents.</li>
+      <li>Reverse-engineered the authentication flow and translated unstable portal behavior into typed tool contracts with explicit validation.</li>
+      <li>Normalized legacy responses behind MCP schemas so downstream agents operate on predictable data rather than portal-specific markup.</li>
+    </ul>
+  </div>
+  <div class="project-block">
+    <div class="project-title">Video Generation Physics Evaluation - ASU Research</div>
+    <ul>
+      <li>Built an evaluation harness that scores physical plausibility separately from semantic fidelity instead of hiding both behind one aggregate score.</li>
+      <li>Designed controlled prompt comparisons and found counterfactual prompts degraded faster than descriptive prompts at matched length.</li>
+      <li>Automated frame extraction and artifact capture so every score remains traceable to the generated evidence that produced it.</li>
+    </ul>
+  </div>
+  <div class="project-block">
+    <div class="project-title">PrismSplit - Item-Level Expense Sharing</div>
+    <ul>
+      <li>Built a React Native and TypeScript product that scans receipts, assigns individual items, and calculates multi-party balances using integer-cent arithmetic.</li>
+      <li>Kept bill creation and settlement transactional through Postgres RPCs; added idempotency keys, offline persistence, real-time synchronization, and Maestro release tests.</li>
+      <li>Implemented debt-edge reduction to minimize settlement transactions and a shared web target over the same stores and services.</li>
+    </ul>
+  </div>
+  <div class="project-block">
+    <div class="project-title">AiJockey - AI DJ Pipeline</div>
+    <ul>
+      <li>Built an end-to-end FastAPI pipeline for stem separation, musical analysis, LLM-directed transition planning, DSP rendering, and mastering.</li>
+      <li>Evaluated rendered variants with audio-quality critics and trained a MERT reward head to predict aesthetic quality during selection.</li>
+      <li>Ran PyTorch, Demucs, VampNet, MERT, and Audiobox in a ROCm container on an MI300X GPU; checkpointed artifacts for rapid recovery.</li>
+    </ul>
+  </div>
+
+  <h2>ADDITIONAL RESEARCH</h2>
+  <div class="project-block">
+    <div class="role-head"><strong>Student Researcher - Arizona State University</strong><span class="meta">Tempe, AZ | Aug 2024–May 2025</span></div>
+    <ul>
+      <li>Designed minimal-pair prompts and a failure taxonomy spanning object permanence, event ordering, counterfactual conditions, and rigid-body motion.</li>
+      <li>Measured inter-rater agreement before aggregating results and held seeds, resolution, frame count, and sampling settings fixed across model comparisons.</li>
+    </ul>
+  </div>
+  <div class="project-block">
+    <div class="role-head"><strong>Computer Vision Researcher - DA-IICT</strong><span class="meta">Gandhinagar, India | May–Aug 2021</span></div>
+    <ul>
+      <li>Worked across radar/lidar capture, timestamp alignment, point-cloud processing, sensor calibration, and HD-map localization for autonomous-driving research.</li>
+      <li>Built a replay harness over recorded sensor logs so perception changes could be evaluated against identical drives and attributable failure cases.</li>
+    </ul>
+  </div>
+
+  <h2>SKILLS</h2>
+  <div class="skills"><span class="label">Languages:</span> Python, TypeScript, C#, SQL, JavaScript</div>
+  <div class="skills"><span class="label">AI &amp; Data:</span> LangGraph, MCP, Bedrock/AgentCore, Vertex AI, OpenAI, RAG, DuckDB, PostgreSQL/pgvector, Neo4j, FAISS, Lance, Algolia, Redis, Firestore</div>
+  <div class="skills"><span class="label">Backend &amp; Cloud:</span> FastAPI, NestJS, .NET 8, React, Nuxt 4, AWS, GCP, Docker, Kubernetes, Terraform, GitHub Actions</div>
+  <div class="skills"><span class="label">Quality:</span> pytest, Vitest, Locust, Logfire, distributed tracing</div>
+</body>
+</html>

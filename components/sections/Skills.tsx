@@ -24,7 +24,7 @@ interface SkillCategory {
   skills: string[];
 }
 
-const skillCategories: SkillCategory[] = [
+const skillInventory: SkillCategory[] = [
   {
     id: "agents-llm",
     title: "Agents & LLM Engineering",
@@ -266,6 +266,54 @@ const skillCategories: SkillCategory[] = [
       "ESLint",
       "Prettier",
       "Postman",
+    ],
+  },
+];
+
+// A hiring manager should see depth, not a keyword wall. This curated view is
+// intentionally limited to technologies supported by the resume and case studies.
+const skillCategories: SkillCategory[] = [
+  {
+    id: "agents-llm",
+    title: "Agents & LLM Engineering",
+    tagline: "Production orchestration, retrieval, evaluation, and reliability.",
+    icon: Bot,
+    skills: [
+      "LangGraph", "MCP", "Pydantic AI", "LangChain",
+      "AWS Bedrock / AgentCore", "Vertex AI", "OpenAI API", "RAG",
+      "Structured Outputs", "Human-in-the-Loop", "LLM Evals", "Observability & Tracing",
+    ],
+  },
+  {
+    id: "languages",
+    title: "Languages",
+    tagline: "Languages used across production applications and data systems.",
+    icon: Code2,
+    skills: ["Python", "TypeScript", "C#", "SQL", "JavaScript"],
+  },
+  {
+    id: "data-retrieval",
+    title: "Data & Retrieval",
+    tagline: "Analytical, relational, graph, vector, and search infrastructure.",
+    icon: Database,
+    skills: ["DuckDB", "PostgreSQL / pgvector", "Neo4j", "FAISS", "Lance", "Algolia", "Redis", "Firestore"],
+  },
+  {
+    id: "backend-product",
+    title: "Backend & Product",
+    tagline: "Typed APIs and interfaces delivered as complete products.",
+    icon: Layers,
+    skills: ["FastAPI", "NestJS", ".NET 8", "Node.js", "Nuxt 4", "React"],
+  },
+  {
+    id: "cloud-quality",
+    title: "Cloud & Quality",
+    tagline: "Durable delivery, testing, load measurement, and tracing.",
+    icon: Cloud,
+    skills: [
+      "AWS Step Functions", "Lambda / CDK / SQS / S3", "GCP Cloud Run",
+      "Docker", "Kubernetes", "Terraform", "GitHub Actions",
+      "pytest / Vitest / Locust", "Logfire",
     ],
   },
 ];

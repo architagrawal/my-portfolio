@@ -35,4 +35,4 @@ website: https://agrawal-archit.vercel.app
 email: architagrawal000@gmail.com
 github: https://github.com/architagrawal
 linkedin: https://www.linkedin.com/in/agrawal-archit
-resume: /Archit_Agrawal_Resume.pdf
+resume: /Archit_Agrawal_Resume_Short.pdf

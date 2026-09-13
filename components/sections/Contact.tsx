@@ -12,7 +12,7 @@ import { Marquee } from "@/components/ui/marquee";
 import { Magnetic } from "@/components/ui/magnetic";
 
 const links = [
-  { label: "Resume", href: "/Archit_Agrawal_Resume.pdf" },
+  { label: "Resume", href: "/Archit_Agrawal_Resume_Short.pdf" },
   { label: "GitHub", href: "https://github.com/architagrawal", icon: Github },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/agrawal-archit", icon: Linkedin },
 ];

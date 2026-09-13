@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Archit Agrawal - Short Resume</title>
+  <style>
+    @page { size: Letter; margin: 0.38in 0.48in; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #111; font-family: Arial, Helvetica, sans-serif; font-size: 9.15pt; line-height: 1.2; }
+    h1 { margin: 0; text-align: center; font-size: 18pt; letter-spacing: 0.08em; }
+    .contact { margin: 2px 0 6px; text-align: center; font-size: 8.4pt; }
+    a { color: #111; text-decoration: none; }
+    h2 { margin: 6px 0 3px; border-bottom: 1px solid #111; font-size: 10pt; letter-spacing: 0.06em; }
+    .role { margin-top: 4px; break-inside: avoid; }
+    .role-head { display: flex; justify-content: space-between; gap: 12px; font-size: 9pt; }
+    .role-head strong { font-size: 9.2pt; }
+    .meta { white-space: nowrap; }
+    ul { margin: 2px 0 0 14px; padding: 0; }
+    li { margin: 0 0 1.5px; padding-left: 1px; }
+    .education, .project, .skills { margin: 1.5px 0; }
+    .education { display: flex; justify-content: space-between; gap: 12px; }
+    .education span:last-child { white-space: nowrap; }
+    .label { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>ARCHIT AGRAWAL</h1>
+  <div class="contact">
+    Tempe, AZ | 623-312-0435 | <a href="mailto:architagrawal000@gmail.com">architagrawal000@gmail.com</a> |
+    <a href="https://linkedin.com/in/agrawal-archit">linkedin.com/in/agrawal-archit</a> |
+    <a href="https://github.com/architagrawal">github.com/architagrawal</a> |
+    <a href="https://agrawal-archit.vercel.app">agrawal-archit.vercel.app</a>
+  </div>
+
+  <h2>EXPERIENCE</h2>
+  <div class="role">
+    <div class="role-head"><strong>AI Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | Jun 2026–Present</span></div>
+    <ul>
+      <li>Architected and shipped a reusable survey-analysis platform of 10 agents and 65 registered tools; replaced bespoke pipelines with a declarative TypeScript architecture on Bedrock, AgentCore, Step Functions, and CDK.</li>
+      <li>Prevented roughly 12% silent row loss through schema-constrained decoding, response correlation tokens, and citation verification; achieved 100% join integrity and zero label churn across repeat runs.</li>
+      <li>Made newly uploaded surveys immediately queryable without dataset-specific configuration by building a natural-language semantic layer over DuckDB.</li>
+      <li>Redirected the team roadmap through a controlled evaluation showing model choice moved labeling F1 by 0.230 - roughly 33× the 0.007 movement from pipeline architecture.</li>
+      <li>Eliminated a Distributed Map race through partitioned writes and fan-in, verified across 258 runs; held query latency flat at 200× row volume with DuckDB over Lance on S3.</li>
+      <li>Delivered the platform through a 14-page Nuxt 4 application and 10-module NestJS API compiled against one shared TypeScript contract.</li>
+      <li>Built 1,255 tests across 592 modules, covering deterministic transforms, agent tools, repair paths, replay behavior, and end-to-end platform contracts.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Founding AI/ML Engineer - MyStage Music Inc.</strong><span class="meta">Remote | Jul 2025–Present</span></div>
+    <ul>
+      <li>As founding AI/ML engineer, cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.</li>
+      <li>Indexed 70,000+ records daily across 650+ venues through a Playwright service with proxy rotation and adaptive backoff.</li>
+      <li>Improved downstream search accuracy 25% with Gemini entity resolution and deduplication before Firestore ingestion.</li>
+      <li>Served search at sub-50 ms latency through FastAPI and Algolia with real-time Firestore synchronization.</li>
+      <li>Made concurrent retries safe with atomic Firestore claims and deterministic task IDs; added human-in-the-loop pause and resume.</li>
+      <li>Instrumented cross-worker execution with Logfire distributed tracing and wrote 200+ pytest tests covering routing, retries, and failure isolation.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | Sep 2023–May 2025</span></div>
+    <ul>
+      <li>Led the end-to-end development of a multi-tenant RAG assistant used by 1,000+ faculty authoring courses for 60,000+ students.</li>
+      <li>Made transcript analysis 16× faster, reducing it from four hours to 15 minutes with a Neo4j knowledge graph and schema-constrained, LLM-generated Cypher.</li>
+      <li>Reduced college onboarding from a deployment to a configuration change while enforcing tenant isolation at retrieval rather than prompt level.</li>
+      <li>Improved exact-token queries such as course codes with hybrid vector and keyword retrieval; evaluated groundedness, relevance, and coherence.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Data Research Aide - Knowledge Exchange for Resilience, ASU</strong><span class="meta">Tempe, AZ | Jun 2024–Aug 2024</span></div>
+    <ul>
+      <li>Reduced p95 retrieval latency 60% at 95% recall with hybrid FAISS and Neo4j retrieval; cut API latency nearly 90% (198 ms to 20 ms) through Redis and SQL optimization.</li>
+      <li>Delivered 20+ REST APIs for an NSF-funded platform using .NET 8, Dapper, MediatR, JWT, and SQS.</li>
+      <li>Ingested 10,000+ faculty profiles daily through an idempotent ETL pipeline with Postgres quality gates.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Software Engineer - Zeus Learning</strong><span class="meta">Mumbai, India | Jan 2022–Jul 2023</span></div>
+    <ul>
+      <li>Reduced resource usage 35% and infrastructure cost 20% by migrating a .NET monolith to Kubernetes microservices through a strangler pattern.</li>
+      <li>Reduced deployment time 70% and incidents 40% with SonarQube merge gates and containerized delivery.</li>
+      <li>Shipped Redis-backed demand prediction across 300+ enterprise sites, including Goldman Sachs and Merck; reported occupancy increased 30%.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head"><strong>Product Intern - EAT.FIT</strong><span class="meta">Bengaluru, India | Sep 2021–Dec 2021</span></div>
+    <ul>
+      <li>Reduced driver-location serving cost 45% through distance-aware polling and client interpolation.</li>
+      <li>Built a backpressure-aware WebSocket notification service with idempotent redelivery.</li>
+    </ul>
+  </div>
+
+  <h2>EDUCATION</h2>
+  <div class="education"><span><strong>M.S., Computer Science</strong>, Arizona State University - GPA: 4.0</span><span>Aug 2023–May 2025</span></div>
+  <div class="education"><span><strong>B.Tech., Information and Communication Technology</strong>, DA-IICT</span><span>Aug 2018–May 2022</span></div>
+
+  <h2>SKILLS</h2>
+  <div class="skills"><span class="label">Languages:</span> Python, TypeScript, C#, SQL, JavaScript</div>
+  <div class="skills"><span class="label">AI &amp; Data:</span> LangGraph, MCP, Bedrock/AgentCore, Vertex AI, OpenAI, RAG, DuckDB, PostgreSQL/pgvector, Neo4j, FAISS, Lance, Algolia, Redis, Firestore</div>
+  <div class="skills"><span class="label">Backend &amp; Cloud:</span> FastAPI, NestJS, .NET 8, React, Nuxt 4, AWS, GCP, Docker, Kubernetes, Terraform, GitHub Actions</div>
+  <div class="skills"><span class="label">Quality:</span> pytest, Vitest, Locust, Logfire, distributed tracing</div>
+</body>
+</html>

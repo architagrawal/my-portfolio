@@ -422,7 +422,7 @@ const BANDS = [
       { t: "run", cols: "run_id PK · instrument_id FK · codebook_hash FK · term_id FK · respondent_fingerprint" },
       { t: "dimension", cols: "kind · ordered · scale_min/max · codelist_name FK" },
       { t: "dimension_value", cols: "(run_id, dimension, key) PK · provisional" },
-      { t: "unavailable", cols: "panel · reason — which layer refused, and why" },
+      { t: "unavailable", cols: "panel · reason - which layer refused, and why" },
     ],
   },
   {

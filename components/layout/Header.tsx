@@ -126,7 +126,7 @@ export default function Header({ activeSection }: HeaderProps) {
 
             {/* Desktop Resume Link */}
             <a
-              href="/Archit_Agrawal_Resume.pdf"
+              href="/Archit_Agrawal_Resume_Short.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:inline-flex text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-0.5 hover:text-primary hover:border-primary transition-colors"
@@ -221,7 +221,7 @@ export default function Header({ activeSection }: HeaderProps) {
                 className="px-6 pb-10 flex flex-wrap items-center gap-x-7 gap-y-4"
               >
                 <a
-                  href="/Archit_Agrawal_Resume.pdf"
+                  href="/Archit_Agrawal_Resume_Short.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-0.5"
