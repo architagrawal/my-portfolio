@@ -19,7 +19,7 @@ const nodes: Node[] = [
 
   // experiences (orbit 1)
   { id: "e-mystage", kind: "experience", label: "MyStage Music", sub: "AI/ML Eng", x: 50, y: 12, r: 20,
-    detail: { title: "AI/ML Engineer · MyStage Music Inc", date: "Jul 2025 – Present",
+    detail: { title: "AI/ML Engineer · MyStage Music Inc", date: "Jul 2025 – May 2026",
       body: "RESTful APIs on GCP, Playwright scraping pipelines with proxy rotation, Algolia + Firestore dedup with Gemini Vertex AI.",
       metrics: ["Remote", "Python · FastAPI · GCP"] } },
   { id: "e-edplus", kind: "experience", label: "ASU Edplus", sub: "Student SWE", x: 85, y: 28, r: 22,

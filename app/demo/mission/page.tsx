@@ -16,7 +16,7 @@ type Mission = {
 const missions: Mission[] = [
   {
     code: "AA-05", name: "MYSTAGE", status: "active",
-    org: "MyStage Music Inc.", location: "REMOTE", period: "Jul 2025 — present", duration: "ongoing",
+    org: "MyStage Music Inc.", location: "REMOTE", period: "Jul 2025 – May 2026", duration: "11 months",
     coords: "33.42°N · 111.93°W",
     payload: ["Python", "FastAPI", "Playwright", "GCP", "Gemini Vertex AI", "Algolia", "Firestore"],
     objective: "Build scalable data & retrieval infrastructure for a live-music discovery product.",

@@ -252,7 +252,7 @@ export default function Hero() {
         >
           <Magnetic>
             <a
-              href="/Archit_Agrawal_Resume_Short.pdf"
+              href="/Archit_Agrawal_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-foreground border-b border-foreground pb-1 hover:text-primary hover:border-primary transition-colors"

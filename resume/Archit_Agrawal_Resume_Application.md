@@ -7,19 +7,19 @@ Tempe, AZ | 623-312-0435 | architagrawal000@gmail.com
 
 ### AI Software Engineer - EdPlus, Arizona State University
 
-Tempe, AZ | Jun 2026–Present
+Tempe, AZ | May 2026–Present
 
 - Architected and shipped a reusable survey-analysis platform of 10 agents and 65 registered tools; replaced bespoke pipelines with a declarative TypeScript architecture on Bedrock, AgentCore, Step Functions, and CDK.
 - Prevented roughly 12% silent row loss through schema-constrained decoding, response correlation tokens, and citation verification; achieved 100% join integrity and zero label churn across repeat runs.
 - Made newly uploaded surveys immediately queryable without dataset-specific configuration by building a natural-language semantic layer over DuckDB.
-- Redirected the team roadmap through a controlled evaluation showing model choice moved labeling F1 by 0.230 - roughly 33× the 0.007 movement from pipeline architecture.
+- Redirected the team roadmap through a controlled evaluation showing model choice changed labeling F1 by 0.230, compared with 0.007 for pipeline architecture.
 - Eliminated a Distributed Map race that reported success while dropping data through partitioned writes and fan-in, verified across 258 runs; held query latency flat at 200× row volume.
 
 ### Founding AI/ML Engineer - MyStage Music Inc.
 
-Remote | Jul 2025–Present
+Remote | Jul 2025–May 2026
 
-- As founding AI/ML engineer, cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.
+- Cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.
 - Indexed 70,000+ records per day across 650+ venues through a Playwright service with proxy rotation and adaptive backoff; improved search accuracy 25% with Gemini entity resolution and deduplication.
 - Served search at sub-50 ms latency through FastAPI and Algolia with real-time Firestore synchronization.
 - Made concurrent retries safe with atomic claim transactions and deterministic task IDs; added human-in-the-loop pause/resume, Logfire tracing, and 200+ pytest tests.
@@ -68,4 +68,4 @@ Bengaluru, India | Sep 2021–Dec 2021
 **Languages:** Python, TypeScript, C#, SQL, JavaScript  
 **AI and data:** LangGraph, MCP, Bedrock/AgentCore, Vertex AI, OpenAI, RAG, DuckDB, PostgreSQL/pgvector, Neo4j, FAISS, Lance, Algolia, Redis, Firestore  
 **Backend and cloud:** FastAPI, NestJS, .NET 8, React, Nuxt 4, AWS, GCP, Docker, Kubernetes, Terraform, GitHub Actions  
-**Quality:** pytest, Vitest, Locust, Logfire, distributed tracing
+**Testing & Observability:** pytest, Vitest, Locust, Logfire, distributed tracing

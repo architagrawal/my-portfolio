@@ -6,7 +6,7 @@
   <style>
     @page { size: Letter; margin: 0.38in 0.48in; }
     * { box-sizing: border-box; }
-    body { margin: 0; color: #111; font-family: Arial, Helvetica, sans-serif; font-size: 8.65pt; line-height: 1.22; }
+    body { margin: 0; color: #111; font-family: Arial, Helvetica, sans-serif; font-size: 9pt; line-height: 1.22; }
     h1 { margin: 0; text-align: center; font-size: 18pt; letter-spacing: 0.08em; }
     .contact { margin: 2px 0 6px; text-align: center; font-size: 8.4pt; }
     a { color: #111; text-decoration: none; }
@@ -21,6 +21,7 @@
     .education { display: flex; justify-content: space-between; gap: 12px; }
     .education span:last-child { white-space: nowrap; }
     .label { font-weight: 700; }
+    .summary { margin: 5px 0 3px; }
   </style>
 </head>
 <body>
@@ -32,9 +33,11 @@
     <a href="https://agrawal-archit.vercel.app">agrawal-archit.vercel.app</a>
   </div>
 
+  <div class="summary">AI Software Engineer building production agent systems, retrieval infrastructure, and full-stack products, with an emphasis on evaluation, reliability, and measurable performance.</div>
+
   <h2>EXPERIENCE</h2>
   <div class="role">
-    <div class="role-head"><strong>AI Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | Jun 2026–Present</span></div>
+    <div class="role-head"><strong>AI Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | May 2026–Present</span></div>
     <ul>
       <li>Replaced bespoke per-survey pipelines with a reusable platform of 10 agents and 65 registered tools, orchestrated from a declarative graph with TypeScript, Bedrock, AgentCore, Step Functions, and CDK.</li>
       <li>Prevented roughly 12% silent row loss through schema-constrained decoding, response correlation tokens, and citation verification; achieved 100% join integrity and zero label churn across repeat runs.</li>
@@ -45,7 +48,7 @@
   </div>
 
   <div class="role">
-    <div class="role-head"><strong>Founding AI/ML Engineer - MyStage Music Inc.</strong><span class="meta">Remote | Jul 2025–Present</span></div>
+    <div class="role-head"><strong>Founding AI/ML Engineer - MyStage Music Inc.</strong><span class="meta">Remote | Jul 2025–May 2026</span></div>
     <ul>
       <li>Reduced service dependencies from 14 to 5 by replacing a 14-Cloud-Function pipeline with one checkpointed LangGraph worker on Cloud Run.</li>
       <li>Indexed 70,000+ records daily across 650+ venues through a Playwright service; improved search accuracy 25% with Gemini entity resolution and deduplication.</li>
@@ -97,6 +100,6 @@
   <div class="skills"><span class="label">Languages:</span> Python, TypeScript, C#, SQL, JavaScript</div>
   <div class="skills"><span class="label">AI &amp; Data:</span> LangGraph, MCP, Bedrock/AgentCore, Vertex AI, OpenAI, RAG, DuckDB, PostgreSQL/pgvector, Neo4j, FAISS, Lance, Algolia, Redis, Firestore</div>
   <div class="skills"><span class="label">Backend &amp; Cloud:</span> FastAPI, NestJS, .NET 8, React, Nuxt 4, AWS, GCP, Docker, Kubernetes, Terraform, GitHub Actions</div>
-  <div class="skills"><span class="label">Quality:</span> pytest, Vitest, Locust, Logfire, distributed tracing</div>
+  <div class="skills"><span class="label">Testing &amp; Observability:</span> pytest, Vitest, Locust, Logfire, distributed tracing</div>
 </body>
 </html>

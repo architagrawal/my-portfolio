@@ -5,7 +5,7 @@ and open to relocation. He builds reliable production systems across agent
 orchestration, evaluation, retrieval, data pipelines, APIs, and product UI.
 
 At EdPlus, Arizona State University, he owns the architecture of an agentic
-survey-analysis platform. At MyStage Music, he builds LangGraph workflows,
+survey-analysis platform. At MyStage Music, he built LangGraph workflows,
 LLM-powered entity resolution, search infrastructure, and backend services.
 His earlier work includes retrieval and knowledge-graph systems at Arizona
 State University and backend, cloud, and product systems at Zeus Learning and

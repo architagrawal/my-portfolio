@@ -29,7 +29,7 @@ const experiences: ExperienceItem[] = [
     company: "EdPlus, Arizona State University",
     role: "AI Software Engineer",
     location: "Tempe, AZ",
-    period: "June 2026 – Present",
+    period: "May 2026 – Present",
     featured: [0, 1, 2, 3],
     groups: [
       { label: "The agent system", indexes: [4, 5, 6] },
@@ -269,7 +269,7 @@ const experiences: ExperienceItem[] = [
     company: "MyStage Music Inc",
     role: "Founding AI/ML Engineer",
     location: "Remote",
-    period: "July 2025 – Present",
+    period: "July 2025 – May 2026",
     featured: [0, 5, 6],
     groups: [
       { label: "Graph architecture", indexes: [1, 2, 3, 8] },

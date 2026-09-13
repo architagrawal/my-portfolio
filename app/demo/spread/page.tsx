@@ -173,7 +173,7 @@ export default function Spread() {
           </p>
 
           <p>
-            Today, as an AI/ML engineer at <em>MyStage Music</em>, he is back at the intersection he prefers:
+            At MyStage Music, he worked at the intersection he prefers:
             retrieval, scraping, pipelines, and — increasingly — agents. The tools have changed (Gemini Vertex
             AI, Playwright, Algolia) but the posture has not.
           </p>
@@ -230,7 +230,7 @@ export default function Spread() {
           </div>
           <dl className="mt-6 grid md:grid-cols-2 gap-x-10 gap-y-6">
             {[
-              ["Jul 2025 — ", "AI/ML Engineer · MyStage Music Inc.", "GCP · FastAPI · Playwright · Gemini Vertex AI"],
+              ["Jul 2025 – May 2026", "AI/ML Engineer · MyStage Music Inc.", "GCP · FastAPI · Playwright · Gemini Vertex AI"],
               ["Sep 2023 — May 2025", "Student SWE · ASU Edplus", "RAG · Neo4j · LangChain · OpenAI"],
               ["Jun — Aug 2024", "Data Research · ASU KER", "FAISS · FastAPI · Postgres · Neo4j"],
               ["Jan 2022 — Jul 2023", "Software Engineer · Zeus Learning, Mumbai", ".NET · C# · Kubernetes · AWS"],

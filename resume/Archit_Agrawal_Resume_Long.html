@@ -40,22 +40,22 @@
 
   <h2>EXPERIENCE</h2>
   <div class="role">
-    <div class="role-head"><strong>AI Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | Jun 2026–Present</span></div>
+    <div class="role-head"><strong>AI Software Engineer - EdPlus, Arizona State University</strong><span class="meta">Tempe, AZ | May 2026–Present</span></div>
     <ul>
       <li>Architected and shipped a reusable survey-analysis platform of 10 agents and 65 registered tools; replaced bespoke pipelines with a declarative TypeScript architecture on Bedrock, AgentCore, Step Functions, and CDK.</li>
       <li>Prevented roughly 12% silent row loss through schema-constrained decoding, response correlation tokens, and citation verification; achieved 100% join integrity and zero label churn across repeat runs.</li>
       <li>Made newly uploaded surveys immediately queryable without dataset-specific configuration by building a natural-language semantic layer over DuckDB.</li>
       <li>Held query latency flat at 200× row volume using in-process DuckDB over Lance on S3.</li>
-      <li>Redirected the team roadmap through a controlled evaluation showing model choice moved labeling F1 by 0.230 - roughly 33× the 0.007 movement from pipeline architecture.</li>
+      <li>Redirected the team roadmap through a controlled evaluation showing model choice changed labeling F1 by 0.230, compared with 0.007 for pipeline architecture.</li>
       <li>Eliminated a Distributed Map race that reported success while dropping data through partitioned writes and fan-in, verified across 258 runs.</li>
       <li>Delivered the platform through a 14-page Nuxt 4 application and 10-module NestJS API compiled against one shared TypeScript contract.</li>
     </ul>
   </div>
 
   <div class="role">
-    <div class="role-head"><strong>Founding AI/ML Engineer - MyStage Music Inc.</strong><span class="meta">Remote | Jul 2025–Present</span></div>
+    <div class="role-head"><strong>Founding AI/ML Engineer - MyStage Music Inc.</strong><span class="meta">Remote | Jul 2025–May 2026</span></div>
     <ul>
-      <li>As founding AI/ML engineer, cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.</li>
+      <li>Cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.</li>
       <li>Indexed 70,000+ records daily across 650+ venues through a Playwright service with proxy rotation and adaptive backoff.</li>
       <li>Improved downstream search accuracy 25% by resolving and deduplicating entities with Gemini before Firestore ingestion.</li>
       <li>Served search at sub-50 ms latency through FastAPI and Algolia with real-time Firestore synchronization.</li>
@@ -122,14 +122,6 @@
     </ul>
   </div>
   <div class="project-block">
-    <div class="project-title">Video Generation Physics Evaluation - ASU Research</div>
-    <ul>
-      <li>Built an evaluation harness that scores physical plausibility separately from semantic fidelity instead of hiding both behind one aggregate score.</li>
-      <li>Designed controlled prompt comparisons and found counterfactual prompts degraded faster than descriptive prompts at matched length.</li>
-      <li>Automated frame extraction and artifact capture so every score remains traceable to the generated evidence that produced it.</li>
-    </ul>
-  </div>
-  <div class="project-block">
     <div class="project-title">PrismSplit - Item-Level Expense Sharing</div>
     <ul>
       <li>Built a React Native and TypeScript product that scans receipts, assigns individual items, and calculates multi-party balances using integer-cent arithmetic.</li>
@@ -166,6 +158,6 @@
   <div class="skills"><span class="label">Languages:</span> Python, TypeScript, C#, SQL, JavaScript</div>
   <div class="skills"><span class="label">AI &amp; Data:</span> LangGraph, MCP, Bedrock/AgentCore, Vertex AI, OpenAI, RAG, DuckDB, PostgreSQL/pgvector, Neo4j, FAISS, Lance, Algolia, Redis, Firestore</div>
   <div class="skills"><span class="label">Backend &amp; Cloud:</span> FastAPI, NestJS, .NET 8, React, Nuxt 4, AWS, GCP, Docker, Kubernetes, Terraform, GitHub Actions</div>
-  <div class="skills"><span class="label">Quality:</span> pytest, Vitest, Locust, Logfire, distributed tracing</div>
+  <div class="skills"><span class="label">Testing &amp; Observability:</span> pytest, Vitest, Locust, Logfire, distributed tracing</div>
 </body>
 </html>

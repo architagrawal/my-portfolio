@@ -9,21 +9,21 @@ AI Software Engineer with 4+ years building production agent systems, retrieval 
 
 ### AI Software Engineer - EdPlus, Arizona State University
 
-Tempe, AZ | Jun 2026–Present
+Tempe, AZ | May 2026–Present
 
 - Architected and shipped a reusable survey-analysis platform comprising 10 agents and 65 registered tools; replaced bespoke per-survey pipelines with a declarative TypeScript architecture on Bedrock, AgentCore, Step Functions, and CDK.
 - Prevented roughly 12% silent row loss through schema-constrained decoding, response correlation tokens, and citation verification; achieved 100% join integrity and zero label churn across repeat runs.
 - Made newly uploaded surveys queryable without dataset-specific configuration by building a natural-language semantic layer over DuckDB.
 - Held query latency flat at 200× row volume using in-process DuckDB over Lance on S3.
-- Redirected the team roadmap through a controlled evaluation showing model choice moved labeling F1 by 0.230 - roughly 33× the 0.007 movement from pipeline architecture.
+- Redirected the team roadmap through a controlled evaluation showing model choice changed labeling F1 by 0.230, compared with 0.007 for pipeline architecture.
 - Eliminated a Distributed Map race that reported success while dropping data by introducing partitioned writes and fan-in, verified across 258 runs.
 - Delivered the platform through a 14-page Nuxt 4 application and 10-module NestJS API compiled against one shared TypeScript contract.
 
 ### Founding AI/ML Engineer - MyStage Music Inc.
 
-Remote | Jul 2025–Present
+Remote | Jul 2025–May 2026
 
-- As founding AI/ML engineer, cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.
+- Cut service dependencies 64% (14 to 5) by re-architecting a 14-Cloud-Function pipeline as one checkpointed LangGraph worker on Cloud Run.
 - Indexed 70,000+ records per day across 650+ venues through a Playwright scraping service with proxy rotation and adaptive backoff.
 - Improved downstream search accuracy 25% by resolving and deduplicating entities with Gemini before Firestore ingestion.
 - Served search at sub-50 ms latency through FastAPI and Algolia with real-time Firestore synchronization.

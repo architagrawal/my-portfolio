@@ -119,8 +119,8 @@ export default function About() {
                 platform end to end: ten agents over 65 registered tools,
                 built with TypeScript, Bedrock, and Step Functions. I also authored
                 the target architecture for the production system that follows it.
-                As MyStage&apos;s founding AI/ML engineer, I build LangGraph workflows, LLM-powered entity
-                resolution, and pipelines that process more than 70,000 records
+                As MyStage&apos;s founding AI/ML engineer, I built LangGraph workflows, LLM-powered entity
+                resolution, and pipelines that processed more than 70,000 records
                 a day.
               </p>
 

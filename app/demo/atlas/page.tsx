@@ -367,7 +367,7 @@ export default function Atlas() {
               <div className="text-[10px] tracking-[0.3em] uppercase text-neutral-500 mb-4" style={mono}>Roles</div>
               <ul className="space-y-5">
                 {[
-                  ["Jul 2025 —", "AI/ML Engineer · MyStage Music Inc.", "GCP · FastAPI · Playwright · Gemini Vertex AI"],
+                  ["Jul 2025 – May 2026", "AI/ML Engineer · MyStage Music Inc.", "GCP · FastAPI · Playwright · Gemini Vertex AI"],
                   ["Sep 2023 — May 2025", "Student SWE · ASU Edplus", "RAG for 60,000+ students · Neo4j KG 4h→15min"],
                   ["Jun — Aug 2024", "Data Research · ASU KER", "FAISS + Neo4j · 60% faster, 95% accurate"],
                   ["Jan 2022 — Jul 2023", "Software Engineer · Zeus Learning", ".NET · Kubernetes · −35% resources, −70% deploy"],
