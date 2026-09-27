@@ -6,30 +6,39 @@ Disallow: /og
 # Specifically allow AI crawlers
 User-agent: GPTBot
 Allow: /
+Disallow: /og
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /og
 
 User-agent: CCBot
 Allow: /
+Disallow: /og
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /og
 
 User-agent: Claude-Web
 Allow: /
+Disallow: /og
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /og
 
 User-agent: Applebot
 Allow: /
+Disallow: /og
 
 User-agent: Bingbot
 Allow: /
+Disallow: /og
 
 User-agent: Googlebot
 Allow: /
+Disallow: /og
 
 # Sitemap location
 Sitemap: https://agrawal-archit.vercel.app/sitemap.xml

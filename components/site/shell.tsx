@@ -31,6 +31,11 @@ export function PageHeader({ eyebrow, title, children }: { eyebrow?: string; tit
   );
 }
 
-export function SectionTitle({ children }: { children: ReactNode; count?: number }) {
-  return <h2 className="mt-20 mb-6 font-display text-2xl font-extrabold tracking-tight">{children}</h2>;
+export function SectionTitle({ children, count }: { children: ReactNode; count?: number }) {
+  return (
+    <h2 className="mt-20 mb-6 font-display text-2xl font-extrabold tracking-tight">
+      {children}
+      {count != null && <span className="ml-3 font-sans text-base font-medium text-muted-foreground tabular-nums">{count}</span>}
+    </h2>
+  );
 }

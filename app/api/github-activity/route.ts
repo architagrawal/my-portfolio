@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-// Re-fetch from GitHub at most once a day
+// Static export: fetched once at build time, refreshed on each deploy
 export const revalidate = 86400;
 
 const LOGIN = "architagrawal";
