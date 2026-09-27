@@ -14,12 +14,14 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-outfit)", "sans-serif"],
-        heading: ["var(--font-outfit)", "sans-serif"],
-        display: ["var(--font-syne)", "sans-serif"],
+        sans: ["var(--font-figtree)", "system-ui", "sans-serif"],
+        heading: ["var(--display-font)", "system-ui", "sans-serif"],
+        display: ["var(--display-font)", "system-ui", "sans-serif"],
         sanskrit: ["var(--font-outfit)", "sans-serif"],
         tech: ["var(--font-space)", "monospace"],
         hand: ["var(--font-caveat)", "cursive"],
+        serif: ["var(--font-fraunces)", "Georgia", "serif"],
+        soft: ["var(--font-figtree)", "system-ui", "sans-serif"],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

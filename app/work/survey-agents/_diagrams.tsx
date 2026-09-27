@@ -54,8 +54,8 @@ function Frame({
           {children}
         </svg>
       </div>
-      <figcaption className="mt-3 font-tech text-[10px] uppercase tracking-[0.15em] text-muted-foreground/70">
-        <span className="lg:hidden text-primary/80">scroll to pan · </span>
+      <figcaption className="mt-3 font-tech text-[10px] text-muted-foreground/70">
+        <span className="lg:hidden text-primary/80">scroll to pan, </span>
         {caption}
       </figcaption>
     </figure>
@@ -199,7 +199,7 @@ const GRAPH_NODES: {
 }[] = [
   { x: 110, id: "read", lines: ["maxAttempts 2", "toolCap 8"], kind: "solid" },
   { x: 262, id: "codebook_gate", lines: ["taxonomy_owner", "autoApprove"], kind: "gate" },
-  { x: 414, id: "label", lines: ["Map · batch 50", "conc 4 · tol 5%", "toolCap 24"], kind: "solid" },
+  { x: 414, id: "label", lines: ["Map, batch 50", "conc 4, tol 5%", "toolCap 24"], kind: "solid" },
   { x: 566, id: "check", lines: ["toolCap 14", "→ repairable"], kind: "solid" },
   { x: 718, id: "count", lines: ["toolCap 20"], kind: "solid" },
   { x: 870, id: "report", lines: ["verify_citations", "toolCap 8"], kind: "solid" },
@@ -217,7 +217,7 @@ export function AgentGraph() {
   return (
     <Frame
       label="The deployed agent graph: read, codebook gate, label with a distributed map, check with a repair edge, count, report, publication gate"
-      caption="graph/survey-coding-v1.json → generated ASL · 8 nodes · 13 edges · 2 capability gates · 1 repair cycle"
+      caption="graph/survey-coding-v1.json → generated ASL, 8 nodes, 13 edges, 2 capability gates, 1 repair cycle"
       viewBox="0 0 1320 420"
       minWidth={1040}
     >
@@ -242,7 +242,7 @@ export function AgentGraph() {
       {/* repair cycle */}
       <Edge d={`M ${cx(566)} ${NY + NH} V 330 H ${cx(414)} V ${NY + NH + 4}`} hot />
       <Label x={cx(490)} y={352} anchor="middle" hot>
-        verdict = repairable → relabel flagged rows · maxIterations 2
+        verdict = repairable → relabel flagged rows, maxIterations 2
       </Label>
 
       {GRAPH_NODES.map((n) => (
@@ -284,7 +284,7 @@ export function ToolBudget() {
   return (
     <div className="my-2 border border-border">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border px-4 py-3">
-        <p className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="font-tech text-[10px] text-muted-foreground">
           One square = one permitted tool call
         </p>
         <p className="font-tech text-[10px] text-muted-foreground/80">
@@ -338,12 +338,12 @@ export function AnswerPath() {
   return (
     <Frame
       label="The answer path: the semantic layer written at upload, a four-step analysis agent with one model call, and a deterministic visualization agent"
-      caption="diagrams/answer-flow · 1 paid node of 10 · dashboard panels post the plan the model would have written, ~20 ms, $0"
+      caption="diagrams/answer-flow, 1 paid node of 10, dashboard panels post the plan the model would have written, ~20 ms, $0"
       viewBox="0 0 1200 660"
       minWidth={1000}
     >
       {/* band 1: semantic layer, written at upload */}
-      <BandFrame x={40} y={70} w={1120} h={120} label="SEMANTIC LAYER · WRITTEN AT UPLOAD" />
+      <BandFrame x={40} y={70} w={1120} h={120} label="SEMANTIC LAYER, WRITTEN AT UPLOAD" />
       <Box x={70} y={105} w={240} h={64} id="survey_index" lines={["dimensions this run carries"]} kind="store" />
       <Box x={330} y={105} w={300} h={64} id="codebook + metric_registry" lines={["kinds, grains, denominators"]} kind="store" />
       <Box x={890} y={105} w={240} h={64} id="facts" lines={["fact_id on every number"]} kind="store" />
@@ -351,7 +351,7 @@ export function AnswerPath() {
       {/* band 2: analysis agent */}
       <BandFrame x={40} y={250} w={1120} h={220} label="ANALYSIS AGENT" />
       <Box x={70} y={300} w={190} h={66} id="catalog" lines={["only what this", "run can answer"]} />
-      <Box x={300} y={300} w={190} h={66} id="bind" lines={["LLM → MBQL plan", "1 call · ~$0.0005"]} kind="hot" />
+      <Box x={300} y={300} w={190} h={66} id="bind" lines={["LLM → MBQL plan", "1 call, ~$0.0005"]} kind="hot" />
       <Box x={530} y={300} w={190} h={66} id="validate" lines={["seven checks", "grain, denominator"]} />
       <Box x={760} y={300} w={190} h={66} id="answerable?" lines={["hard constraints"]} kind="gate" />
       <Box x={990} y={300} w={150} h={66} id="execute" lines={["facts hit", "DuckDB on miss"]} />
@@ -361,7 +361,7 @@ export function AnswerPath() {
       <BandFrame x={40} y={500} w={1120} h={118} label="VISUALIZATION AGENT" />
       <Box x={70} y={536} w={240} h={64} id="fitness_table" lines={["no model call", "mark chosen deterministically"]} />
       <Box x={350} y={536} w={240} h={64} id="ChartSpec" lines={["factId on every point"]} />
-      <Box x={630} y={536} w={500} h={64} id="chart · data_table · alt_text · csv · ascii" lines={["one spec, five renderings"]} />
+      <Box x={630} y={536} w={500} h={64} id="chart, data_table, alt_text, csv, ascii" lines={["one spec, five renderings"]} />
 
       {/* inputs */}
       <Box x={70} y={198} w={190} h={34} id="question (EN)" kind="term" />
@@ -386,7 +386,7 @@ export function AnswerPath() {
 
       {/* the bypass */}
       <Edge d="M 750 232 V 272 H 625 V 296" dashed />
-      <Label x={642} y={266}>no model call · ~20 ms · $0</Label>
+      <Label x={642} y={266}>no model call, ~20 ms, $0</Label>
 
       {/* into the visualization band */}
       <Edge d="M 1065 366 V 485 H 230 V 532" />
@@ -404,25 +404,25 @@ export function AnswerPath() {
 const BANDS = [
   {
     band: "DEFINITIONS",
-    written: "authored by people · versioned in git · published to S3 on merge",
+    written: "authored by people, versioned in git, published to S3 on merge",
     tables: [
-      { t: "concept", cols: "concept_id PK · vocabulary · parent_id FK" },
-      { t: "mapping", cols: "source_code · target_concept_id · predicate · confidence" },
-      { t: "codelist / codelist_member", cols: "value · status · uploads" },
-      { t: "metric", cols: "grain · denominators · accepts_kinds · usage_count" },
-      { t: "instrument", cols: "instrument_id PK · question_ids" },
-      { t: "codebook", cols: "codebook_hash PK · provenance" },
-      { t: "term", cols: "starts_on · ends_on · session" },
+      { t: "concept", cols: "concept_id PK, vocabulary, parent_id FK" },
+      { t: "mapping", cols: "source_code, target_concept_id, predicate, confidence" },
+      { t: "codelist / codelist_member", cols: "value, status, uploads" },
+      { t: "metric", cols: "grain, denominators, accepts_kinds, usage_count" },
+      { t: "instrument", cols: "instrument_id PK, question_ids" },
+      { t: "codebook", cols: "codebook_hash PK, provenance" },
+      { t: "term", cols: "starts_on, ends_on, session" },
     ],
   },
   {
     band: "CATALOG",
-    written: "computed per upload · one run = one labeling pass over one file",
+    written: "computed per upload, one run = one labeling pass over one file",
     tables: [
-      { t: "run", cols: "run_id PK · instrument_id FK · codebook_hash FK · term_id FK · respondent_fingerprint" },
-      { t: "dimension", cols: "kind · ordered · scale_min/max · codelist_name FK" },
-      { t: "dimension_value", cols: "(run_id, dimension, key) PK · provisional" },
-      { t: "unavailable", cols: "panel · reason - which layer refused, and why" },
+      { t: "run", cols: "run_id PK, instrument_id FK, codebook_hash FK, term_id FK, respondent_fingerprint" },
+      { t: "dimension", cols: "kind, ordered, scale_min/max, codelist_name FK" },
+      { t: "dimension_value", cols: "(run_id, dimension, key) PK, provisional" },
+      { t: "unavailable", cols: "panel, reason - which layer refused, and why" },
     ],
   },
   {
@@ -431,23 +431,23 @@ const BANDS = [
     tables: [
       {
         t: "fact",
-        cols: "fact_id PK · metric_id FK · dimension + key FK · kind (count | share | coverage | crosstab_cell | cooccurrence) · value · denominator",
+        cols: "fact_id PK, metric_id FK, dimension + key FK, kind (count | share | coverage | crosstab_cell | cooccurrence), value, denominator",
       },
     ],
   },
   {
     band: "CACHES",
-    written: "keyed on content hashes · no foreign key into facts",
+    written: "keyed on content hashes, no foreign key into facts",
     tables: [
       { t: "binding_cache", cols: "question → plan, the only non-deterministic step, so it is cached not re-rolled" },
-      { t: "question_passport", cols: "plan_hash · dataset · registry + skill versions" },
+      { t: "question_passport", cols: "plan_hash, dataset, registry + skill versions" },
     ],
   },
   {
     band: "PAYLOAD",
-    written: "not a table · an S3 directory per run, addressed by run_id",
+    written: "not a table, an S3 directory per run, addressed by run_id",
     tables: [
-      { t: "runs/RUN_ID/payload.lance", cols: "verbatims · per-row labels · vectors + BM25 index · 14–178 MB against ~150 KB of facts" },
+      { t: "runs/RUN_ID/payload.lance", cols: "verbatims, per-row labels, vectors + BM25 index, 14–178 MB against ~150 KB of facts" },
     ],
   },
 ];
@@ -478,7 +478,7 @@ export function DataModel() {
         {BANDS.map((b) => (
           <div key={b.band} className="grid md:grid-cols-[11rem_1fr]">
             <div className="px-4 py-3 border-b md:border-b-0 md:border-r border-border bg-muted/20">
-              <p className="font-tech text-[11px] uppercase tracking-[0.18em] text-primary">{b.band}</p>
+              <p className="font-tech text-[11px] text-primary">{b.band}</p>
               <p className="mt-1.5 font-tech text-[10px] leading-relaxed text-muted-foreground/80">{b.written}</p>
             </div>
             <ul className="px-4 py-3 space-y-2">
@@ -494,7 +494,7 @@ export function DataModel() {
       </div>
 
       <div>
-        <p className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-4">
+        <p className="font-tech text-[10px] text-muted-foreground mb-4">
           The four keys that carry the model
         </p>
         <ul className="space-y-3">
@@ -511,7 +511,7 @@ export function DataModel() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 5. The tool surface: ten agents, every tool named                   */
+/* 5. The tool surface: twelve agents, every tool named                */
 /* ------------------------------------------------------------------ */
 
 const TOOL_MATRIX: { agent: string; model: string[]; tools: string[] }[] = [
@@ -561,9 +561,19 @@ const TOOL_MATRIX: { agent: string; model: string[]; tools: string[] }[] = [
     tools: ["read_numbers", "write_summary", "check_claims", "check_numbers"],
   },
   {
+    agent: "coordinator",
+    model: ["inspect_question", "answer_question_part"],
+    tools: ["inspect_question", "answer_question_part", "record_capability_gap", "assemble_coordinated_answer"],
+  },
+  {
+    agent: "explore",
+    model: ["investigate_question"],
+    tools: ["survey_landscape", "investigate_question", "assemble_insight_brief"],
+  },
+  {
     agent: "semantic",
     model: ["judge_sensitivity"],
-    tools: ["judge_sensitivity"],
+    tools: ["judge_sensitivity", "test_codebook_fit", "match_codebooks", "review_profile"],
   },
   {
     agent: "orchestrator",
@@ -579,7 +589,7 @@ export function ToolMatrix() {
   return (
     <div className="my-2 border border-border">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border px-4 py-3">
-        <p className="font-tech text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="font-tech text-[10px] text-muted-foreground">
           The whole tool surface
         </p>
         <p className="font-tech text-[10px] text-muted-foreground/80">

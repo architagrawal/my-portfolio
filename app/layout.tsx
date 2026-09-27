@@ -1,8 +1,7 @@
+import { SpotlightEffect } from "@/components/site/spotlight";
 import "./globals.css";
-import "./skills-animation.css";
-import "./lenis.css";
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk, Cinzel, Syne, Caveat } from "next/font/google";
+import { Outfit, Space_Grotesk, Caveat, Fraunces, Figtree } from "next/font/google";
 import Script from "next/script";
 import {
   personSchema,
@@ -15,6 +14,26 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  axes: ["SOFT", "opsz"],
+  display: "swap",
+});
+
+const figtree = Figtree({
+  subsets: ["latin"],
+  variable: "--font-figtree",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-caveat",
+  display: "swap",
+});
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
@@ -22,31 +41,10 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600"],
 });
 
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-cinzel",
-  weight: ["600", "700"],
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-syne",
-  weight: ["600", "700", "800"],
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-caveat",
-  weight: ["600"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://agrawal-archit.vercel.app"),
   title: {
-    default: "Archit Agrawal | AI/ML Engineer & Software Engineer",
+    default: "Archit Agrawal | AI Software Engineer",
     template: "%s | Archit Agrawal",
   },
   description:
@@ -85,28 +83,21 @@ export const metadata: Metadata = {
   creator: "Archit Agrawal",
   publisher: "Archit Agrawal",
   openGraph: {
-    title: "Archit Agrawal | AI/ML Engineer & Software Engineer",
+    title: "Archit Agrawal | AI Software Engineer",
     description:
       "Production agent systems, retrieval infrastructure, and full-stack products backed by evaluation, testing, and observability.",
     type: "profile",
     locale: "en_US",
     url: "https://agrawal-archit.vercel.app",
     siteName: "Archit Agrawal Portfolio",
-    images: [
-      {
-        url: "https://agrawal-archit.vercel.app/archit-profile.png",
-        width: 1200,
-        height: 630,
-        alt: "Portrait of Archit Agrawal",
-      },
-    ],
+    images: [{ url: "/og-card.png", width: 1200, height: 630, alt: "Archit Agrawal, AI Software Engineer" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Archit Agrawal | AI/ML Engineer & Software Engineer",
+    images: ["/og-card.png"],
+    title: "Archit Agrawal | AI Software Engineer",
     description:
       "Production agent systems, retrieval infrastructure, and full-stack products backed by evaluation, testing, and observability.",
-    images: ["https://agrawal-archit.vercel.app/archit-profile.png"],
   },
   robots: {
     index: true,
@@ -130,7 +121,6 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-import CustomCursor from "@/components/ui/custom-cursor";
 
 export default function RootLayout({
   children,
@@ -138,7 +128,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning>
+    <html lang="en" className={`light ${outfit.variable} ${spaceGrotesk.variable} ${caveat.variable} ${fraunces.variable} ${figtree.variable}`} suppressHydrationWarning>
       <head>
         {/* Performance optimizations */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -161,13 +151,18 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
+        {/* Pick a random theme before first paint, never the same one twice in a row */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=["midnight","graphite","ember","forest","steel"],l=sessionStorage.getItem("theme"),c=t.filter(function(x){return x!==l}),p=c[Math.floor(Math.random()*c.length)];sessionStorage.setItem("theme",p);var h=document.documentElement;h.dataset.theme=p;h.style.colorScheme=p==="steel"?"light":"dark"}catch(e){}`,
+          }}
+        />
         <meta name="author" content="Archit Agrawal" />
         <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
-      <body className={`${outfit.variable} ${spaceGrotesk.variable} ${cinzel.variable} ${syne.variable} ${caveat.variable} antialiased font-sans`}>
-        <CustomCursor />
-        <div className="film-grain" aria-hidden="true" />
+      <body className="antialiased font-sans">
         {children}
+        <SpotlightEffect />
       </body>
     </html>
   );

@@ -1,0 +1,547 @@
+// Every project. Featured ones carry curated highlights; each gets its own page.
+export interface Project {
+  slug: string;
+  title: string;
+  subtitle?: string;
+  date: string;
+  tier: "featured" | "build" | "coursework";
+  description: string;
+  highlights: string[];
+  visual?: "agents" | "appshot" | "audio" | "analytics";
+  caseStudyUrl?: string;
+  achievements: string[];
+  technologies: string[];
+  githubUrl?: string;
+  demoUrl?: string;
+}
+
+export const projects: Project[] = [
+  {
+    "slug": "survey-agents",
+    "title": "Survey Agents",
+    "subtitle": "Coding & Analysis Platform",
+    "date": "June 2026 – Present",
+    "tier": "featured",
+    "description": "Owned end to end, architecture through deployment. Takes any structured dataset from a custom pipeline to zero engineering work: a reader asks a question in plain English, gets a chart, and edits it directly with stacking, sorting, top-N, filters and undo. Proven on public datasets it was never designed for, and every deterministic operation is a tool, so no figure that reaches a stakeholder is ever computed by a model.",
+    "highlights": [
+      "Architected and shipped twelve agents over 76 registered tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker, 290k lines of TypeScript and Vue, and 4,077 tests.",
+      "Schema-constrained decoding plus per-response correlation tokens: out-of-codebook labels rejected, silently overwritten rows detected, and 100% join integrity across recorded runs. The benchmark pipeline lost roughly one row in eight without flagging it.",
+      "Questions compile to MBQL plans, clear seven validation checks, then execute over stored facts with DuckDB on a miss. Metrics bind to column kinds, so an unseen survey is answerable on arrival.",
+      "Charts are specs, never images: one constrained Vega-Lite spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection deterministic.",
+      "Every number in a drafted report resolves to a fact the analytics stage computed, or the sentence is redrafted naming the offending figure and then removed."
+    ],
+    "visual": "agents",
+    "caseStudyUrl": "/work/survey-agents",
+    "achievements": [
+      "Ten agents with their own tool sets: intake, label, qa, curate, adjudicate, analysis, analytics, viz and conclude, under an orchestrator whose tools are the other agents.",
+      "A curate agent that repairs the codebook itself: cluster confusable codes, find the gaps, draft the distinction that separates two of them, then freeze the profile so labelling runs against a fixed target.",
+      "An adjudicate agent that locates contested rows and re-decides only those, turning ensemble disagreement into a bounded second pass rather than a full re-label.",
+      "The ask path as eight tools around a single model call: describe the survey, bind the question, choose a rung, execute the plan, compose the answer, compare runs, propose follow-ups.",
+      "A visualization agent of seven tools (propose, check, draw, repair, restyle, describe, shorten labels) over nine marks, where the request vocabulary is deliberately wider than the draw vocabulary so a refusal can name the word it could not honour.",
+      "Charts you can talk to: a reader asks about the chart in front of them and the reply lands where they are looking, still resolving to the facts the analytics stage computed.",
+      "A 14-page Nuxt 4 front end over a NestJS API of ten modules (uploads, surveys, codebooks, analysis, comparisons, exports, governance, templates, jobs), all compiling against one shared TypeScript contract.",
+      "Five-stage intake pipeline (frame, repair, retype, classify, review) where the orchestrator is ordinary code and a model is consulted only where the rules are visibly unsure; every decision lands in one JSON recipe that replays without it. Over 30 hand-written export shapes: 6 files need a stage, 11 model calls, $0.0023, and 0 divergences between a run and its replay.",
+      "Label integrity by construction: a schema enum makes an out-of-codebook code unrepresentable rather than discouraged (the prompt this replaced threatened a $1,000 penalty and got 9 invented tags anyway), and a per-response correlation token catches batch scrambles that count-matching cannot see.",
+      "Escalation ladder for failed batches: discard the batch whole, re-label at batch size 1, then quarantine and ABSTAIN, capped at 2 iterations. Correlation integrity 100%, every row joined, and zero rows carrying a destroyed label against roughly one in eight on the pipeline it was benchmarked against.",
+      "verify_citations makes the reporting valve mechanical: every figure in the drafted prose must resolve to a fact the analytics stage computed, or the sentence is redrafted naming the offending number and then removed.",
+      "Ran the control experiment that the architecture could lose: at a fixed model the two pipelines tie on F1 (0.685 vs 0.692, overlapping ranges), model choice moves F1 by 0.230 and architecture by −0.007, and the pipeline costs ~4–8× and ~6× the wall clock of three plain API calls. Also showed the 0.637 baseline every earlier claim rested on was never reproducible.",
+      "Batch size measured as a quality parameter rather than a throughput knob: the sweep leaves F1 flat and moves the precision/recall split, so the ladder is a dial with a documented shape instead of a guess.",
+      "Consensus routing wired in after ensemble voting was tested on runs already on disk: the consensus signal separates ~4× better than the hand-built risk score, which measured as useless. Nested ensemble arms carry no information and nearly shipped.",
+      "Corrected my own published finding twice on reasoning: non-termination came from an unbounded reasoning budget and a rules block, not from an incompatibility between reasoning and constrained decoding. Reasoning then won on F1 and lost the product.",
+      "Deployed on AWS with CDK: Step Functions state machine (Distributed Map over label slices, merge, Choice-based repair loop, ToleratedFailurePercentage circuit breaker) reaching complete coverage on consecutive executions, after an early green run silently dropped part of the corpus because concurrent map iterations overwrote a shared slot.",
+      "Established where a managed agent runtime earns its place and then measured it away: AgentCore took labeling from partial to complete coverage where our own loop stalled, but a state machine beats it at the orchestration level, and on a repeat benchmark both remaining stages turned out to make one tool call and stop, paying 49.8s of a 65.4s stage for a container boot.",
+      "Semantic layer over the facts: ~10 declared operators, metrics minted by usage and bound to column kinds rather than names, a binding cache so repeat questions are lookups, and a refusal ladder that substitutes, decomposes, samples, extends and requests before it refuses.",
+      "Question passport on every answer (plan hash, dataset version, registry version, skill version) so an answer re-executes byte-identically and a stale one is detectable; shadow re-execution diffs recent answers when a definition changes, so a moved number is found before a reader finds it.",
+      "Negative catalog computed at intake: what a dataset cannot answer and why, so the interface grays out the control instead of refusing after the fact.",
+      "Visualization layer on a constrained Vega-Lite subset: one spec produces the chart, an accessible data table, alt text, a CSV and an ASCII rendering. Mark selection is deterministic, borrowed from Cleveland & McGill, Bertin, Mackinlay's APT, Draco's constraint split and Brehmer & Munzner's task vocabulary.",
+      "Chart agent held to improve-or-discard behind four gates: across the whole evaluation corpus not one proposal beat the rule table, and the single case with headroom scored five different ways across five identical runs. An oracle over the agent's own search space found the scorer's exploits first: a word cloud sized by a free-text column scored a perfect 1.00, which is where the measure gate came from.",
+      "Nuxt 4 web app over a NestJS API, both compiling against one shared TypeScript contract, rendering the same specs the CLI prints; DuckDB in-process as the compute engine with no server, and Lance serving vector plus BM25 search straight from S3.",
+      "Intake hardened against real files: UTF-16 headers full of null bytes, a duplicate header silently overwriting a column, 0/1 flags typed as rating scales, report titles in the header row, and roughly seven in ten exports hiding their timestamp inside the identifier so a header-trusting pipeline reports no date column while holding the dates the whole time.",
+      "290k lines of TypeScript and Vue across 12 workspace packages, 4,077 tests and roughly 200 measured experiments, each stating what it establishes and what it does not, including that at equal model the pipeline ties a single prompt on F1, that every accuracy number is self-graded, and that the page answered 6 of 32 questions a survey asked while every chart-level score looked healthy.",
+      "Located where agency pays rather than assuming it: the agent ties or loses at executing a chart, coding a response and sequencing a pipeline, and beats its rule baseline 13% to 52-59% on held-out surveys when it chooses which of a survey's questions deserve a chart at all.",
+      "Codebook fit is checked before any spend: question scope is embedded and 25 responses are sample-labeled, giving mean best match 0.598 with a 4% abstain rate on the right codebook against 0.316 and 88% on the wrong one, for about $0.001. The thresholds written from a guess before calibration ran would have let the wrong codebook through with a warning.",
+      "Upload identity is content, not filename: a normalized content hash means two people uploading the same export get one run instead of two conflicting sets of numbers for one survey, and the first sighting wins for the wave's date.",
+      "Run lineage on two axes with four relations (relabel, recode, wave, wave_recoded), because only a new wave may claim topic movement. A second labeling pass over the same responses cannot present itself as a trend.",
+      "Cross-run comparison guarded by what the runs actually are: 9 of 13 recorded runs are the same respondents, so a pooled total is refused where a dimension is missing, drift across unequal runs is reported as a share rather than a count, and the axis is never assumed to be time.",
+      "Cross-codebook mappings earn trust by behaving alike: a proposal is checked against the co-occurrence and sentiment profiles of both codes before confirmation, and carries an SSSOM predicate so a narrowMatch is never aggregated as an exact match. Two real codebooks produced 0 lexical proposals, which is itself the finding.",
+      "Time buckets follow the academic calendar rather than the Gregorian one, because a month boundary falls mid-semester and term-to-term is the comparison a reader can act on.",
+      "Deterministic insight sweep says what stands out the moment an upload finishes, corrected for multiple comparisons, every claim resolving to a fact. Building it surfaced two false-discovery traps: correcting after an effect-size filter, and a null model that preserved the sparsity pattern, both of which made noise look like findings.",
+      "Chart properties are classified rather than opened up: 75 styling properties each carry a class, which is how three accepted-and-inert bugs were found where a restyle answered a field no branch ever read.",
+      "Capability menus are generated from the registry rather than hand-written, after the same staleness bug appeared three times, and a panel's declared requirement is the same predicate the validator enforces, so the interface cannot offer what the run will refuse.",
+      "Spend control that actually binds: caps on both tokens and dollars, checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing at all.",
+      "The graph is data with load-time gates rather than a trusted stage list, and the pipeline emits one replayable recipe; ten agent harnesses were deployed with per-agent tool sets, one withheld at runtime until its precondition exists after telemetry showed it never firing.",
+      "Progressive transcript compaction borrowed from production harnesses, then measured: batch size rather than compaction is the dominant cost lever, and the 8,192-token output cap is the real constraint on batch size.",
+      "Five reproducible scaling proofs instead of slides: 200x rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, zero-model-call replays, namespace and entitlement checks, and byte-identical re-execution from a passport.",
+      "Skills authored in the open Agent Skills standard and loaded into the cached system prefix, then held to the same bar as everything else: the first one changed no outcome on the batch and cost slightly less, which is the result rather than the pitch.",
+      "A review stage that reads the finished profile instead of each decision, because per-decision gates are blind to upstream bugs. Verified by reintroducing a known sampler defect (a stride that aliased against alternating data and silently halved a dimension's values on any file over ~200 rows) and confirming the stage catches what the gates missed."
+    ],
+    "technologies": [
+      "TypeScript",
+      "AWS Bedrock",
+      "AgentCore",
+      "Step Functions",
+      "AWS CDK",
+      "Nuxt 4",
+      "NestJS",
+      "Vega-Lite",
+      "DuckDB",
+      "Lance",
+      "Vitest",
+      "llama.cpp"
+    ]
+  },
+  {
+    "slug": "prismsplit",
+    "title": "PrismSplit",
+    "date": "2025 – Present",
+    "tier": "featured",
+    "description": "Most expenses aren't split 50/50 - you order a steak, they order a salad. PrismSplit splits bills at the item level: scan a receipt, AI extracts every item, and everyone pays exactly what they owe.",
+    "highlights": [
+      "Scan → itemize → split → settle: receipt scanning extracts the merchant, items, tax, and tip, while each item supports equal, percentage, share-based, or exact splits.",
+      "A Postgres RPC ledger keeps bill creation, settlement, and balance calculations transactional; integer-cent arithmetic prevents rounding drift.",
+      "Debt-edge reduction algorithm minimizes the number of settlement transactions inside a group.",
+      "Offline-aware core: idempotency keys and MMKV persistence underneath real-time Supabase subscriptions.",
+      "Maestro E2E flows and enforced coverage thresholds guard every release build."
+    ],
+    "visual": "appshot",
+    "achievements": [
+      "Shipped a web target alongside the native app: 116 .web.tsx surfaces sharing the same stores and services, with keyboard focus rings, pointer affordances and claim-link visitors kept out of signed-in chrome.",
+      "Built the insights surface: personal and group spend charts computed server-side through Postgres RPCs (get_user_insights, versioned to v3), a ranked people list that replaced a balance bar chart, an activity heatmap, a category breakdown, a spending radar and a trend line.",
+      "Wrote the insights copy to describe what happened rather than grade the reader, after a pass that removed every word implying fault.",
+      "Held charts to one currency per axis and a net position line over Friends and Spaces, so a balance that mixes currencies cannot be drawn as if it were one number.",
+      "Gated multi-payer bills and raised free-tier limits behind versioned Supabase migrations, with a quota system surfacing usage and a blocked-state sheet rather than a silent failure.",
+      "Ran a pre-launch audit across app, web and charts: contrast and theme tokens, an adaptive-ink rule for conditional fills with a validator enforcing the class, keyboard and tap targets, font scaling, and visible focus on every control including auth.",
+      "Added settlement claims awaiting confirmation to the activity feed, and made the settle screen state what the settlement leaves behind rather than reporting a bare success.",
+      "Built one search model across the tabs with recents as the resting state, and versioned every persisted store so a cache written by an older build cannot crash a screen.",
+      "Architected feature-sliced Zustand state (billsStore/activityStore/networkStore/uiStore/alertStore) split into actions/selectors for testability; normalized billsById index killing O(n) lookups on detail screens.",
+      "Built idempotency-key + MMKV persistence layer as foundation for offline writes and conflict resolution; real-time Supabase channel subscriptions with lifecycle-aware cleanup.",
+      "Wrote Postgres RPC functions (Supabase migrations) for atomic bill creation, settlement, and group-balance compute - multi-table writes stay transactional.",
+      "Renamed Group → Space across schema, RPCs, store, and UI via versioned migrations with zero data loss.",
+      "Implemented direct-ledger clustering algorithm minimizing settlement transactions between users (graph reduction over debt edges); integer-cent money/currency module eliminating float drift in splits.",
+      "Unified reportError reporting system replacing scattered console.error - severity-tagged, routed to logging sink, wired through every catch; screen-level React ErrorBoundary surfacing recovery UI.",
+      "Added Android release-build preflight (npm run preflight) + Maestro E2E flows catching ProGuard/native/env regressions Jest can't; authored explicit ProGuard keep rules for Google Sign-In, Firebase, and other native SDKs after diagnosing release-only silent failures.",
+      "Perf: memoization audits, Tamagui style hoisting, dead-code removal, batched activity subs, selective balance invalidation on bill mutation, deferred non-critical fetches, Android build-flag tuning, spring → 250ms cubic easing for low-end Android frame-time wins.",
+      "Designed 4-font typography system (Sora/Space Grotesk/Outfit/SpaceMono) enforced via Title/Body/Label/Numeric wrappers; useThemeColors() hook with light/dark token sets (lavender primary, peach secondary).",
+      "Built LedgerItemRow - focus-driven expand/collapse row replacing modal-based item editing; auto-advance Enter, validate-on-blur, integer-only qty.",
+      "Receipt-scan pipeline UI (scan → processing → review → create) with draft persistence surviving app kill; reusable primitives: ModernAlert, ConfirmDialog, EmptyState, Avatar, Skeleton, ListItem, SplitModeSelector.",
+      "Lifted test coverage from near-zero to enforced thresholds: unit tests across stores/services/actions/helpers/UI; interaction tests for LedgerItemRow (focus, expand, validation); full action-suite tests for billsStore (create, update, delete, item toggle); shared render helpers + store mocks + fixture factories.",
+      "Product: AI receipt scanning with reviewable OCR drafts; deep-linked friend-add flow with auto profile fetch from invite code; Privacy/ToS/OSS-Licenses screens; lightweight i18n helpers (interpolation + pluralization) without a full runtime.",
+      "DX: EAS configured with .easignore slimming build uploads; UI strings extracted to constants module; centralized URL config; long-press dev-only /experiment route for pre-port UI prototyping."
+    ],
+    "technologies": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Zustand",
+      "Supabase",
+      "Postgres",
+      "Tamagui",
+      "MMKV",
+      "Maestro",
+      "Jest",
+      "EAS"
+    ]
+  },
+  {
+    "slug": "aijockey",
+    "title": "AiJockey",
+    "subtitle": "AI DJ Pipeline",
+    "date": "2025 – Present",
+    "tier": "featured",
+    "description": "An end-to-end AI DJ system that separates stems, understands musical structure, plans and renders transitions, and masters the final mix - with audio-quality feedback improving future decisions.",
+    "highlights": [
+      "One FastAPI service runs the full render path: stem separation, BPM/key/phrase analysis, LLM-directed planning, 25+ DSP transitions, and multiband mastering.",
+      "A closed feedback loop scores rendered variants with Audiobox critics and turns the results into DPO preference pairs for the Director.",
+      "A trained MERT reward head predicts aesthetic quality during selection, avoiding full critic inference for every render.",
+      "The PyTorch, Demucs, and VampNet stack runs in a ROCm container on a DigitalOcean MI300X with 192 GB of HBM3."
+    ],
+    "visual": "audio",
+    "achievements": [
+      "Built multi-stage AI DJ pipeline: ingest → stem-sep (Demucs + Mel-Band Roformer) → BPM/key/phrase analysis → LLM Director plan → segment picker → transition execute → multi-band mastering, end-to-end in a single FastAPI service.",
+      "Implemented 25+ DSP transition modules: sidechain ducking, frequency-masked EQ swaps, echo-throw, beat juggle, spectral hold, reverse reverb, riser synth, MS multiband widen, bass-mono fold, LUFS-arc, BPM grid snap, glitch repair, de-esser, double-drop, EDM smile EQ.",
+      "Wrote fx_orchestrator with mutex effect groups + per-set FX budget (35%) - fixes too-many-effects-per-junction without killing variety; mutex groups model perceptual conflicts.",
+      "Phrase-aware crossfade scheduling with vocal-phrase boundary snapping + section-pair validator (intro→verse, drop→breakdown legality); 3-tier vocal_guard (SHREDDERS/HEAVY/ARTIFACT_PRONE) gating stem isolation per source-clip artifact risk.",
+      "Adaptive LUFS targeting + tape saturation mastering chain; Matchering reference-match alt-path; DeepAFx-ST learned mastering wrapper.",
+      "Trained MERT-reward head: MERT-95M embeddings → 4-axis regressor predicting Audiobox aesthetics (PQ/PC/CE/CU); grid-sweep renders n=32, final MSE 0.127. Used as picker-time reward without running Audiobox inference every render.",
+      "Fine-tuned VampNet coarse model on user clips (2 epochs); debugged token-vs-latent input shape, vocab×T×n_pred interleaving bug, weights_only=False Lightning ckpt patch, removed deprecated return_signal kwarg.",
+      "Built DPO/KTO/IPO/DPO-P trainer variants for VampNet preference tuning; DPO converged loss 0.68 → 0.47 on 4 Audiobox-PQ-labeled preference pairs.",
+      "Generated 145 VampNet bridges (Apache + CC-clean) as synthetic library expansion; vampnet_register.py promotes bridges to first-class clips with proper manifest schema (BPM/key/phrase re-run on synthetic audio).",
+      "Wired CLAP-rerank + MERT-rerank + Audiobox-aesthetic critics into picker scoring - multi-critic ensemble with per-critic-error fallback.",
+      "Reference-free audio quality eval stack: Audiobox Aesthetics, MuQ-Eval, AudioMOS DORA-MOS, CLAP coherence. PQ ceiling 7.61 (mashup mode); variant deltas tracked via composite (PQ+CE)/2.",
+      "Closed-loop refinement: render N variants → score with Audiobox → feed best/worst as DPO preference pairs into Director LLM; plan_stats.jsonl collects KTO-compatible thumbs-up/down for future training; per-segment Audiobox slice prescore at cache-build so picker scores 30s windows pre-render.",
+      "Ran GPU stack on DigitalOcean MI300X (192 GB HBM3) ROCm container - non-CUDA path, ported torch/Demucs/VampNet/MERT/Audiobox to ROCm builds; restore-from-checkpoint runbook (cache + sidecars + ckpts = 80 MB → re-spin ~30 min).",
+      "FastAPI backend + Gradio UI on HF Space, ngrok reserved-domain tunnel, sign-in + 1-render/user/day rate limit, SSE streaming progress ticker.",
+      "Multi-stage caching: per-clip JSON sidecar (BPM/key/phrase), NPZ stem features, Audiobox slice JSON, MERT prediction JSON, stem-level Audiobox prescore - 186 clips × 5 sidecars = O(1) re-picker without re-analysis.",
+      "Auto-recovery: yt-dlp re-pull on missing source audio, tar checkpoint + RESTORE.md so a destroyed droplet costs 30 min not a day.",
+      "Diagnosed a class of PSNR-up-but-sounds-worse bugs - Audiobox PQ ≠ DJ-ear quality; designed mutex-budget orchestrator after measuring v5 PQ 7.60 felt messier than v4 PQ 7.51."
+    ],
+    "technologies": [
+      "Python",
+      "PyTorch",
+      "ROCm",
+      "FastAPI",
+      "Demucs",
+      "VampNet",
+      "MERT",
+      "Audiobox",
+      "CLAP",
+      "Matchering",
+      "Gradio",
+      "DPO/KTO",
+      "DSP"
+    ],
+    "githubUrl": "https://github.com/architagrawal/aiJockey"
+  },
+  {
+    "slug": "clash-royale-clan-analytics-platform",
+    "title": "Clash Royale Clan Analytics Platform",
+    "date": "2025",
+    "tier": "featured",
+    "description": "A serverless analytics platform that collects and transforms clan data on a schedule, then turns it into responsive, cross-filtered D3 visualizations and decision tools.",
+    "highlights": [
+      "Scheduled Cloudflare Workers collect and deduplicate battle data before incrementally loading a D1 analytics store.",
+      "A D3 visualization suite - bump, sunburst, ridgeline, force, chord, and radial charts - cross-filters through shared application state.",
+      "Resolved D1's 100-parameter SQL constraint and corrected upstream defects in week bucketing and duel-winner attribution.",
+      "Accessibility includes skip navigation, focus traps, reduced-motion support, and 44-pixel touch targets."
+    ],
+    "visual": "analytics",
+    "achievements": [
+      "Built serverless analytics platform on Cloudflare Workers + D1 (SQLite) with Drizzle ORM, fronted by Next.js 16 / React 19 App Router on Vercel.",
+      "Designed multi-route Worker (admin, analytics, data, invites, notes, settings) with custom router/middleware layer and typed request handlers.",
+      "Scheduled cron pipeline (worker/src/cron.ts) polling upstream Clash Royale API, deduping battles, incrementally hydrating warehouse.",
+      "ETL pipeline (worker/src/etl/) split into aggregate / extract / load / processor / transform stages with Vitest unit coverage; backfill jobs (backfill.ts, agg-backfill.ts, backfill_facts.ts) reprocess historical data without blocking live cron, plus /api/admin/fix/backfill-enrichment admin endpoint.",
+      "Worked around D1 100-parameter SQL limit by chunking IN (...) lists to 99 ids/statement, killing too-many-SQL-variables failures at scale.",
+      "Fixed per-week fame misattribution by switching week-bucketing key from broken upstream battle.seasonId to playerWarStats.timestamp.",
+      "Enriched deck/card transformer with evoCount, avgCardLevel, maxLevel, iconUrlEvolution, gameModeDetail; extended Drizzle schema and shipped migration.",
+      "Fixed upstream-API edge case where duel rounds resolved 2-1 produced incorrect winner attribution.",
+      "Designed REST endpoints for clan/member analytics, war logs, weekly trends, invites, player profile aggregations (handlePlayerAnalytics, getInsightsClanData, getInsightsHistory, getMemberBattleStats); weekStart query param serves per-week fame slices on demand; weeklyTrends payload powers 10-week sparklines.",
+      "D3 v7 viz gallery: bump chart (rank ribbons across war weeks), sunburst (hierarchical fame by role/player), ridgeline plot, force-directed bubble with quadrant clustering + in-bounds clamping, chord diagram, radial fame distribution.",
+      "Reusable D3 theme utility (shared scales, color tokens, typography, responsive margins) used across every chart; ResizeObserver + viewport-scaled font sizes + dynamic SVG margins for clean mobile→desktop reflow.",
+      "Cross-filtering between charts (FameDistribution, InsightsQuadrant, BattleModePanel, MomentumGrid) sharing single InsightsFilterContext with Escape-key reset.",
+      "What-If simulator + projected-finish banner with guarded division-by-zero math and dropdown overflow fixes for clipped Radix dialogs.",
+      "PlayerProfileModal: Combat DNA radar, deck history, evo insights, percentile bars, recommendations - replaced legacy radar modal; PlayerDetailPanel as responsive bottom-sheet (mobile) / side-pushed sidebar (tablet+) with skeleton states matching final grid breakpoints.",
+      "Perf: TanStack Query for server-state caching/deduping/background refetch; tabular-nums on stat numerics; replaced blanket transition-all with property-scoped transition-colors across 23 elements to cut paint cost; responsive Recharts/D3 heights eliminating CLS on small viewports.",
+      "A11y: skip-nav link, <main> landmark, self-hosted fonts, prefers-reduced-motion, viewport-fit=cover for iOS safe areas; focus traps in modals, keyboard focus rings on tooltips, 44×44px min touch targets (WCAG 2.5.5).",
+      "Wired aria-expanded / aria-controls with persistent DOM nodes, roles on chart SVGs, descriptive aria-labels on delta/filter buttons; suppressed Recharts' inner accessibility tree to avoid duplicate announcements; fixed MemberTable contrast, swapped indigo/purple decorative colors for brand tokens, corrected backdrop-filter fallbacks via @supports.",
+      "Vitest suites for ETL transform/processor and Worker middleware; PowerShell + Node scripts (db:sync-local, db:sync-manual) pulling production D1 snapshots into local dev; local runners (local-agg-runner.ts, local-process-runner.ts) executing aggregation/processing outside Worker runtime for faster iteration."
+    ],
+    "technologies": [
+      "Next.js 16",
+      "React 19",
+      "Cloudflare Workers",
+      "D1",
+      "Drizzle ORM",
+      "TanStack Query",
+      "D3 v7",
+      "Recharts",
+      "Vitest",
+      "Vercel",
+      "TypeScript"
+    ]
+  },
+  {
+    "slug": "srp-electric-mcp-server",
+    "title": "SRP Electric MCP Server",
+    "date": "Dec 2025 – Jan 2026",
+    "tier": "build",
+    "description": "A TypeScript MCP server that turns an undocumented utility portal into validated, structured tools for secure energy-data analysis by AI agents.",
+    "highlights": [],
+    "achievements": [
+      "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
+      "Reverse-engineered undocumented authentication flow of a legacy utility portal under highly ambiguous constraints - no docs, no spec.",
+      "Converted unstructured enterprise portal data into structured JSON tools surfaced through MCP for secure, deterministic LLM reasoning.",
+      "Designed tool schemas enforcing argument validation and safe downstream automation against the third-party portal.",
+      "Recovered the session contract by observation, not documentation: the portal issues a short-lived token behind a multi-step form post, so the server re-authenticates on expiry and retries the original call once rather than surfacing a 401 to the agent.",
+      "Made every tool read-only by default. Nothing in the surfaced tool set can change a billing setting or submit a form, because an agent exploring an undocumented portal should not be able to mutate an account.",
+      "Normalized interval meter data into one shape (timestamp, kWh, cost, tier) so 15-minute reads, daily rollups and billing-period totals answer through the same tool instead of three that disagree on units.",
+      "Rate-limited and cached at the server rather than trusting the caller: a portal built for humans clicking does not expect an agent asking for a year of intervals in a loop.",
+      "Returned typed errors an agent can act on, separating authentication expiry, a rate limit, a genuinely absent meter and a portal outage, so the model retries the recoverable case and reports the rest.",
+      "Wrote a fixture-backed test suite over recorded portal responses, so the server is testable without credentials and a portal HTML change fails a test instead of silently returning nothing."
+    ],
+    "technologies": [
+      "TypeScript",
+      "MCP",
+      "Node.js",
+      "REST APIs",
+      "Zod"
+    ],
+    "githubUrl": "https://github.com/architagrawal/srp-electric-mcp"
+  },
+  {
+    "slug": "mcp-based-github-pr-review-automation-agent",
+    "title": "MCP-Based GitHub PR Review Automation Agent",
+    "date": "Jul 2025 – Aug 2025",
+    "tier": "build",
+    "description": "An MCP-based review service that combines repository context, ticket metadata, CI results, and LLM reasoning to automate pull-request analysis and workflow updates.",
+    "highlights": [],
+    "achievements": [
+      "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
+      "Designed context-routing logic letting agents retrieve repository state, ticket metadata, and CI/CD execution context before generating review decisions.",
+      "Automated engineering workflows across GitHub Actions and Asana - status updates, ticket linking, review summaries without manual coordination.",
+      "Surfaced structured review verdicts to PR comments, gating merges on automated reasoning checks.",
+      "Assembled context in a fixed order before any reasoning: the diff, the touched files' neighbours, the linked ticket's acceptance criteria, then the CI result, so a review cannot comment on intent it was never given.",
+      "Budgeted the diff rather than truncating it: large PRs are reviewed file by file with a per-file verdict, because one 8,000-line diff in a single prompt produces a summary, not a review.",
+      "Returned findings as a schema (file, line, category, severity, rationale) so a verdict renders as inline comments and can be counted, instead of a paragraph a human has to re-read.",
+      "Gated the merge on category rather than on volume: a correctness finding blocks, a style note does not, so the bot cannot hold a release over formatting.",
+      "Made the bot idempotent on re-runs, updating its existing review comment instead of stacking a new one on every push, after the first version left eleven comments on one branch.",
+      "Wired Asana both ways: a PR opening moves the ticket to review and a merge closes it, with the ticket id parsed from the branch name so nobody has to remember to link it.",
+      "Kept a manual override that is logged, since a review gate with no escape hatch gets disabled entirely the first time it is wrong."
+    ],
+    "technologies": [
+      "TypeScript",
+      "MCP",
+      "GitHub Actions",
+      "Asana API",
+      "LLM"
+    ]
+  },
+  {
+    "slug": "no-code-pipeline-builder",
+    "title": "No-Code Pipeline Builder",
+    "date": "2025",
+    "tier": "build",
+    "description": "A visual DAG editor with typed nodes, reliable undo and redo, autosave, keyboard workflows, and server-side graph validation.",
+    "highlights": [],
+    "achievements": [
+      "Built no-code pipeline builder on React 18 + ReactFlow 11 modeling a DAG of typed nodes (input, output, LLM, text + 5 demo nodes) with smoothstep edges and animated markers.",
+      "Centralized graph state in Zustand store exposing onNodesChange/onEdgesChange/onConnect reducers wrapping ReactFlow's applyNodeChanges/applyEdgeChanges/addEdge helpers.",
+      "Designed config-driven BaseNode: each node type declares {title, handles, fields, category}; renders text/textarea/select/display fields and distributes handles via top: distribute(i, n) - eliminated per-node boilerplate.",
+      "Implemented bounded undo/redo (50-entry ring) with past/future stacks of deep-cloned snapshots; gated pushes on semantic changes only (add/remove/replace, dimension-resize-end, drag-start) so position deltas don't flood history.",
+      "Tracked in-flight drags via _draggingIds Set for exactly one snapshot per drag gesture; _isReplaying reentrancy flag so undo/redo don't recursively push history.",
+      "Debounced localStorage autosave (300ms trailing-edge timer, single pending payload) with sanitized node/edge serialization stripping ReactFlow runtime fields.",
+      "Hydration on store init seeds nodeIDs counters by regex-parsing existing IDs (/^(.+)-(\\d+)$/) - new-node IDs never collide post-reload; useAutosave hook bumps a savedPulse counter the SavedIndicator listens to.",
+      "useKeyboardShortcuts wires Cmd/Ctrl+Z/Shift+Z, Cmd/Ctrl+D, Delete/Backspace, F (fitView) - suppressed inside inputs/textareas/contenteditable.",
+      "Selection-aware mutations: deleteSelection cascades edge removal for deleted nodes; duplicateSelection offsets by (+30,+30), allocates fresh IDs, clears selection on originals.",
+      "Text node parses {{ var }} Handlebars-style refs with deduped regex extraction (/\\{\\{\\s*([A-Za-z_$][A-Za-z0-9_$]*)\\s*\\}\\}/g); derived input handles update reactively as user types.",
+      "SubmitButton POSTs {nodes, edges} to FastAPI /pipelines/parse, surfaces num_nodes/num_edges/is_dag via toast banner; handles HTTP + network failure paths with disabled-while-pending guard.",
+      "~20 Jest + RTL suites covering store reducers, persistence round-trips, selection logic, keyboard shortcuts, edge presentation, header, rail.",
+      "Property-based tests with fast-check for history invariants, persistence sanitization, node-category mapping, duplicate semantics, edge presentation - catches edge cases unit tests miss.",
+      "UX: light/dark theme via CSS custom-property tokenization persisted across reload; data-category visual accenting, EmptyStateOverlay on empty canvas, ResultBanner for submit feedback, SavedIndicator pulse animation."
+    ],
+    "technologies": [
+      "React 18",
+      "ReactFlow 11",
+      "Zustand",
+      "TypeScript",
+      "FastAPI",
+      "Jest",
+      "React Testing Library",
+      "fast-check"
+    ]
+  },
+  {
+    "slug": "image-recognition-as-a-service",
+    "title": "Image Recognition as a Service",
+    "date": "Jan 2024 – Feb 2024",
+    "tier": "build",
+    "description": "An elastic image-recognition service that scales compute automatically with request volume.",
+    "highlights": [],
+    "achievements": [
+      "Developed an elastic cloud infrastructure SaaS using AWS EC2, AWS SQS, and Lambda.",
+      "Enabled automatic linear scaling based on demand, serving 100 concurrent requests in 5 seconds.",
+      "Split the queue in two, requests in and results out, so a web tier can return immediately with a request id and a slow inference never holds an HTTP connection open.",
+      "Scaled on queue depth rather than CPU, because an instance waiting on a GPU-bound model looks idle to a CPU metric right when more capacity is needed.",
+      "Made the scaler decide from one number, messages in flight divided by per-instance throughput, and capped it, so a traffic spike cannot spin up an unbounded bill.",
+      "Scaled in conservatively and out aggressively, with a cooldown, after an early version thrashed instances up and down on a sawtooth load.",
+      "Used SQS visibility timeouts as the retry mechanism: a worker that dies mid-image releases the message back rather than losing it, so at-least-once delivery does the failure handling for free.",
+      "Made the workers idempotent on an input hash, since at-least-once means the same image will occasionally be classified twice and the second result must not conflict with the first.",
+      "Measured the cold path honestly: end-to-end latency for the first request after a scale-out is dominated by model load, not inference, which is what the instance warm pool exists for."
+    ],
+    "technologies": [
+      "AWS EC2",
+      "AWS SQS",
+      "AWS Lambda",
+      "Python",
+      "Docker"
+    ]
+  },
+  {
+    "slug": "reverse-mode-automatic-differentiation",
+    "title": "Reverse-Mode Automatic Differentiation",
+    "date": "Feb 2024 – Mar 2024",
+    "tier": "build",
+    "description": "A reverse-mode automatic-differentiation engine with custom gradient operators and CUDA kernels for neural-network training.",
+    "highlights": [],
+    "achievements": [
+      "Built the tape: every forward operation records its inputs and a local gradient rule, so backward is a reverse walk over the recorded graph rather than a hand-derived formula per model.",
+      "Implemented the operator set with its adjoints - add, multiply, matmul, transpose, reshape, ReLU, softmax and cross-entropy - each one a forward rule plus a vector-Jacobian product.",
+      "Got broadcasting right, which is where a hand-rolled engine usually breaks: a gradient flowing back into a broadcast dimension has to be summed over that axis or the shapes silently stop matching.",
+      "Wrote CUDA kernels for the matmul and elementwise paths, with the reduction in the backward pass done in shared memory rather than with an atomic per element.",
+      "Verified every adjoint against central-difference numerical gradients before trusting a single training run, since a wrong gradient trains to a worse loss instead of crashing.",
+      "Accumulated rather than overwrote gradients at nodes with multiple consumers, the bug that makes a network with any weight reuse train subtly wrong.",
+      "Trained MLPs end to end against a reference implementation, matching loss curves step for step on a fixed seed as the correctness bar.",
+      "Freed the tape after backward so a training loop does not retain every intermediate for the whole run, which is the difference between a toy and something that finishes an epoch."
+    ],
+    "technologies": [
+      "Python",
+      "CUDA",
+      "Neural Networks",
+      "NumPy"
+    ]
+  },
+  {
+    "slug": "survey-intelligence-platform",
+    "title": "Survey Intelligence Platform",
+    "subtitle": "Target Architecture",
+    "date": "August 2026",
+    "tier": "build",
+    "description": "The production platform the POC argues for: departments bring any survey, schema or taxonomy and get analysis they can trace, with no custom pipeline per upload. Six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates.",
+    "highlights": [],
+    "achievements": [
+      "A novelty ledger recording eight mechanisms with no published counterpart, each paired with the instrument that would measure it, so a claim of novelty is falsifiable rather than decorative: continuous audit-sample QC, promotion criteria for local-to-global learning, confusion-driven codebook merge and split, the two-call versus combined-call ablation on arbitrary codebooks, the tokens-per-card knee, fitted non-uniform class-definition rendering, cluster-shared versus per-row candidate sets, and fork-versus-fix for shared vocabularies.",
+      "A four-rung candidate-presentation ladder that makes a large codebook affordable: send it whole, split it by its own top level, cluster similar responses behind one shared shortlist, then retrieve per response. The rung that was missing is the one for codebooks with no usable top level, which used to fall straight to the expensive answer.",
+      "Two measurements decide when a project drops a rung, total prompt size and label count, whichever is hit first, because one number alone let oversized prompts through.",
+      "Learning scopes, so a fix travels exactly as far as its evidence: a correction fixes one row, a codebook edit reaches one project's future runs, a shared definition change needs every affected department to sign off, and a prompt change needs evidence from many projects. Nothing alters a run already in flight.",
+      "Fork-with-provenance for shared vocabularies: when two departments pull a definition in opposite directions it forks with its history kept, instead of one team silently winning. Error, ambiguity and perspective are triaged differently.",
+      "Continuous QC as a blind random audit sample per run, powering both the quality score and a corrected estimate published with an honest margin of error beside the raw number.",
+      "Conformal accept and abstain thresholds so the error rate on accepted labels stays under a stated bound, with every label carrying a calibrated 0–100 confidence rather than a vibe.",
+      "Correction history that is never overwritten: the model's original answer and each human change with who and when, plus run versions that reuse unchanged rows so a re-run shows the edit's effect rather than model randomness, at no cost.",
+      "An estimator registry where published numbers come only from registered statistical code, weighted designs carry correct variance, and a model can never produce a published figure.",
+      "One model gateway with a one-way valve stated as model authority never widens, rather than the weaker no-model-call-below-the-boundary it replaced.",
+      "Four agent surfaces with bounded jobs (DataPlan, Discovery, Diagnosis, Findings Assistant), none of which owns control flow.",
+      "Managed agent frameworks ruled out of the control path with a reason: Bedrock Agents, Knowledge Bases and Flows own prompt construction, retrieval and orchestration, three of the four artifacts a published number's reproducibility depends on. Step Functions as run truth is out for the same reason, with run state assigned to a Postgres state machine.",
+      "A technology radar written as scope markers instead of a wish list: in scope, out of scope, or field survey only, after the document was twice misread as a build list and once as a commitment to train models. Training, fine-tuning and self-hosted weights are a permanent product boundary.",
+      "PII redaction ahead of every model call, sensitive-disclosure triage with escalation, sign-in on Cognito while every permission decision stays in code we own, and browser-direct uploads so large files never pass through the services.",
+      "Bedrock Batch designed in as a run mode with its fencing pattern resolved, immutable model versions pinned where the provider offers them, and multi-region warm standby as the target recovery posture.",
+      "Four sequenced layers, core AI system then platform services then product surfaces then operations, each with exit criteria rather than dates, because delivery is one developer working in sequence.",
+      "An interactive diagram set alongside the prose: a system map, a stakeholder view, an AI explorer, and a Structurizr DSL model, so a reader can see the platform rather than read 8,600 lines about it."
+    ],
+    "technologies": [
+      "AWS Bedrock",
+      "PostgreSQL",
+      "pgvector",
+      "TypeScript",
+      "Zod",
+      "DuckDB",
+      "AWS Cognito",
+      "OpenTelemetry",
+      "Structurizr"
+    ]
+  },
+  {
+    "slug": "soccer-game-result-prediction",
+    "title": "Soccer Game Result Prediction",
+    "date": "Oct 2023 – Dec 2023",
+    "tier": "coursework",
+    "description": "A match-outcome prediction pipeline combining sequence models, tree ensembles, sentiment, and betting data.",
+    "highlights": [],
+    "achievements": [
+      "Increased prediction accuracy by 12% using LSTM, RNN, and Random Forest with XGBoost.",
+      "Incorporated sentiment analysis and game bet data for improved predictions.",
+      "Split the data by date, never at random: a shuffled split lets the model see future matches while predicting past ones, which inflates accuracy and would have made the 12% meaningless.",
+      "Built rolling-window form features (last five results, goal difference, rest days, home and away splits) computed only from matches already played at prediction time.",
+      "Treated the betting odds as a benchmark rather than a feature at first, because the market is a strong baseline and a model that cannot beat implied probability is not adding information.",
+      "Compared the sequence models against the tree ensemble on the same folds: LSTM captures form streaks, XGBoost handles the sparse categorical features better, and the ensemble of both beat either alone.",
+      "Scored on log loss rather than accuracy for the final comparison, since a three-outcome match with a draw rewards calibrated probability over a confident guess.",
+      "Checked calibration explicitly with a reliability plot, which is where the sentiment features helped least: they moved confidence without moving correctness.",
+      "Handled the draw as the genuinely hard class, reporting per-class recall instead of hiding a model that never predicts one behind a decent overall number."
+    ],
+    "technologies": [
+      "Python",
+      "Deep Learning",
+      "Data Science",
+      "Statistics",
+      "XGBoost"
+    ]
+  },
+  {
+    "slug": "fitlife-health-tracking-app",
+    "title": "FitLife Health Tracking App",
+    "date": "Oct 2023 – Dec 2023",
+    "tier": "coursework",
+    "description": "An Android health app that measures heart and breathing rates and recommends personalized workout routines.",
+    "highlights": [],
+    "achievements": [
+      "Programmed an Android app measuring heart and breath rates.",
+      "Suggested personalized workout routines using machine learning and Fuzzy Logic Control.",
+      "Measured heart rate from the camera and flash: the fingertip changes colour with each pulse, so the signal is the mean red channel over time rather than anything the phone exposes as a sensor.",
+      "Band-pass filtered the signal to the plausible human range before peak counting, since ambient light flicker and a shifting finger both land in the raw trace as convincing false peaks.",
+      "Derived breathing rate from accelerometer motion at the chest, a far lower frequency band, so the two measurements do not contaminate each other.",
+      "Rejected a reading rather than reporting a wrong one: low signal amplitude or an unstable peak interval returns try again, because a health number presented confidently is worse than no number.",
+      "Used fuzzy logic deliberately over hard thresholds, since a resting rate of 79 and one of 81 should not produce two different workout recommendations.",
+      "Tuned the membership functions against measurements taken alongside a commercial monitor, which is what turned the rules from a guess into something defensible.",
+      "Kept every reading on the device, with no account and no upload, because heart-rate data does not need to leave a phone to recommend a workout."
+    ],
+    "technologies": [
+      "Android Studio",
+      "MATLAB",
+      "Machine Learning",
+      "Java"
+    ]
+  },
+  {
+    "slug": "e-commerce-platform",
+    "title": "E-Commerce Platform",
+    "date": "Sept 2024 – Dec 2024",
+    "tier": "coursework",
+    "description": "An online storefront with authentication, product discovery, Stripe payments, a React interface, and a Django REST backend backed by PostgreSQL and Redis.",
+    "highlights": [],
+    "achievements": [
+      "Built an online shopping platform with user authentication, a searchable product catalog, and Stripe payment processing.",
+      "Delivered a responsive React interface and a Django REST API.",
+      "Integrated PostgreSQL database with Redis caching for optimized performance."
+    ],
+    "technologies": [
+      "React",
+      "Django",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Stripe",
+      "GCP",
+      "GitHub Actions",
+      "Jest"
+    ]
+  },
+  {
+    "slug": "task-management-system",
+    "title": "Task Management System",
+    "date": "Feb 2024 – May 2024",
+    "tier": "coursework",
+    "description": "A collaborative project-management tool with task ownership, progress tracking, deadline notifications, JWT authentication, and a React interface.",
+    "highlights": [],
+    "achievements": [
+      "Built collaborative workflows for task assignment, progress tracking, and deadline notifications.",
+      "Developed a Flask REST API with SQLAlchemy for persistence.",
+      "Designed the React interface and implemented JWT authentication.",
+      "Enforced permissions in the query rather than the view: a task list is scoped to the projects a user belongs to at the database layer, so a forgotten UI check cannot leak another team's board.",
+      "Modelled status as a state machine with declared transitions, so a task cannot go from done back to unassigned and skip the reopen that would have notified its owner.",
+      "Made deadline notifications idempotent per task and per day, because a scheduler that runs every hour will otherwise mail someone seven times about one overdue item.",
+      "Added optimistic UI updates with rollback on failure, so reassigning a task feels instant but a rejected write does not leave the board showing a lie.",
+      "Indexed the list query on (project_id, status, due_date), the three columns every board view filters on, after the first version scanned the whole table to render one column."
+    ],
+    "technologies": [
+      "React",
+      "Flask",
+      "SQLAlchemy",
+      "JWT",
+      "Docker",
+      "AWS",
+      "PostgreSQL"
+    ]
+  },
+  {
+    "slug": "real-time-chat-application",
+    "title": "Real-Time Chat Application",
+    "date": "July 2024 – October 2024",
+    "tier": "coursework",
+    "description": "A real-time messaging platform with private and group conversations, Redis-backed WebSockets, geolocation features, and interactive usage maps.",
+    "highlights": [],
+    "achievements": [
+      "Built private and group messaging over Django Channels WebSockets.",
+      "Used Redis for message queuing and real-time event delivery.",
+      "Added geolocation features and Plotly visualizations for user-location analysis."
+    ],
+    "technologies": [
+      "Django",
+      "Django Channels",
+      "Redis",
+      "React",
+      "Plotly",
+      "Docker",
+      "AWS"
+    ]
+  }
+];
+
+export const projectBySlug = (s: string) => projects.find((p) => p.slug === s);

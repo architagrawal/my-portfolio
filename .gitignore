@@ -37,3 +37,5 @@ next-env.d.ts
 
 # tailored job applications: which companies are being targeted stays private
 /resume/applications/
+.design-refs/
+.playwright-mcp/
