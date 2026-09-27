@@ -23,19 +23,17 @@ export const experience = [
     location: "Phoenix, AZ",
     period: "May 2026 – Present",
     core: [
-      "Architected and own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.",
+      "Architected and currently own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.",
       "Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, on in-process DuckDB holding latency flat at 200x row volume.",
-      "Designed a rules-based chart selector across 17 chart types grounded in visualization research; an LLM suggestion is used only if it scores better, so AI cannot worsen a chart.",
+      "Designed a rules-based chart selector across 17 chart types grounded in visualization research; LLM suggestions ship only when they outscore the rules, so AI cannot worsen a chart.",
       "Quadrupled insight recall in automated reports, 13% to 52-59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.",
       "Caught a silent bug mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation checks.",
-      "Showed model choice moves F1 33x more than pipeline architecture, across models costing $5 to $89 per 100k rows, redirecting the team roadmap toward model selection.",
-      "Found the team's headline accuracy of 0.637 could not be reproduced, fresh runs scoring 0.523, traced it to a hand-reviewed spreadsheet and reset the baseline.",
+      "Benchmarked models against pipeline variants, finding model choice moved F1 33x more than architecture at $5 to $89 per 100k rows; redirected the roadmap to model selection.",
+      "Reproduced the team's evaluation, traced a reported 0.637 accuracy to a hand-reviewed spreadsheet, and set a validated 0.523 baseline for future experiments.",
     ],
     extra: [
       "Shipped a 14-page Nuxt 4 front end over a NestJS API of ten modules, all compiling against one shared TypeScript contract.",
       "Authored the target architecture the production platform is built from: 80 logged decisions and 200 measured experiments, each stating what it does not establish, grounded in 12 prior-art passes across SSSOM, DDI, Metabase MBQL, Vega-Lite, Draco and LIDA.",
-      "Reset the benchmark the team reported against after fresh runs reproduced its 0.637 baseline at 0.523, tracing the gap to a spreadsheet hand-reviewed before delivery.",
-      "Reset the benchmark the team reported against after fresh runs reproduced its 0.637 baseline at 0.523, tracing the gap to a spreadsheet hand-reviewed before delivery.",
       "Changed what the evaluation measured after every chart-level score stayed healthy while the page answered 6 of the 32 questions a survey actually asked; scoring coverage instead of marks took it to 25 of 32.",
       "Held every agent to improve-or-discard: no chart proposal beat the deterministic rule table across the evaluation corpus, so the rule table stayed, and two managed agent runtimes were removed once a repeat benchmark showed 49.8s of a 65.4s stage was container boot for a decision that never varied.",
       "Built the governance surface: Bedrock Guardrails deployed as their own CDK stack, entitlement-gated respondent-level retrieval, and per-stage spend caps enforced in code after an audit found the existing guard doing nothing.",
@@ -114,8 +112,8 @@ export const experience = [
     period: "Jan 2022 – Jul 2023",
     core: [
       "Built a Redis-backed desk-demand forecasting service used across 300+ Fortune 500 offices including Goldman Sachs and Merck, with reported desk occupancy up 30%.",
-      "Cut deploy time 70% and production incidents 40% by containerising the release pipeline and adding SonarQube quality gates scoped to new code.",
-      "Migrated a C# and .NET monolith to Dockerised Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.",
+      "Cut deploy time 70% and production incidents 40% by containerizing the release pipeline and adding SonarQube quality gates scoped to new code.",
+      "Migrated a C# and .NET monolith to Dockerized Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.",
     ],
     extra: [
       "Sped up the student-listing screen 30% with paginated fetching and S3 asset delivery, then another 10% with index-covering query rewrites after profiling found a full scan behind a join nobody had reviewed since the schema changed.",
@@ -183,7 +181,7 @@ export const projects = [
   {
     name: "MCP GitHub PR Review Agent",
     period: "Jul 2025 – Aug 2025",
-    core: "Built a TypeScript MCP service that assembles the diff, neighbouring files, linked ticket criteria and CI result in a fixed order before reasoning, returns findings as a schema (file, line, category, severity, rationale) rendered as inline comments, and gates merges on category rather than volume.",
+    core: "Built a TypeScript MCP service that assembles the diff, neighboring files, linked ticket criteria and CI result in a fixed order before reasoning, returns findings as a schema (file, line, category, severity, rationale) rendered as inline comments, and gates merges on category rather than volume.",
     extra: [
       "Reviews large PRs file by file with a per-file verdict, because one 8,000-line diff in a single prompt produces a summary, not a review.",
       "Made the bot idempotent across pushes after the first version stacked eleven comments on one branch, and wired Asana both ways off the branch-name ticket id.",

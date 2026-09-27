@@ -15,7 +15,6 @@
   /* Header: the name carries the hierarchy, spacing does the separating. */
   .name {
     margin: 0; text-align: center; font-size: 19.5pt; font-weight: 700;
-    letter-spacing: 0.15em; text-indent: 0.15em;
   }
   .contact { margin: 6px 0 0; text-align: center; font-size: 8.6pt; color: #333; }
   .contact span { white-space: nowrap; }
@@ -26,7 +25,7 @@
     margin: 12px 0 0; padding-bottom: 2px;
     border-bottom: 0.75pt solid #111;
     font-size: 9.2pt; font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase;
+    text-transform: uppercase;
   }
   h2 + * { margin-top: 6px; }
 
@@ -39,9 +38,11 @@
   .role-meta { flex: none; font-size: 8.8pt; color: #333; white-space: nowrap; }
   .role-meta b { font-weight: 400; }
 
-  ul { margin: 3px 0 0; padding: 0 0 0 13px; list-style: none; }
-  li { position: relative; margin: 0 0 1.8px; }
-  li::before { content: "\2022"; position: absolute; left: -11px; color: #555; }
+  /* Native markers in normal flow. A positioned li paints after all other text,
+     so PDF extraction read every title and Education before any bullet. */
+  ul { margin: 3px 0 0; padding: 0 0 0 13px; list-style: disc outside; }
+  li { margin: 0 0 1.8px; padding-left: 1px; }
+  li::marker { color: #555; }
 
   .line { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 4px; }
   .line span:last-child { flex: none; font-size: 8.8pt; color: #333; white-space: nowrap; }
@@ -58,7 +59,7 @@
     <div class="role-title">AI Software Engineer, <em>EdPlus</em></div>
     <div class="role-meta">Phoenix, AZ<b>&ensp;&ensp;</b>May 2026 – Present</div>
   </div>
-  <ul><li>Architected and own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.</li><li>Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, on in-process DuckDB holding latency flat at 200x row volume.</li><li>Designed a rules-based chart selector across 17 chart types grounded in visualization research; an LLM suggestion is used only if it scores better, so AI cannot worsen a chart.</li><li>Quadrupled insight recall in automated reports, 13% to 52-59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.</li><li>Caught a silent bug mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation checks.</li><li>Showed model choice moves F1 33x more than pipeline architecture, across models costing $5 to $89 per 100k rows, redirecting the team roadmap toward model selection.</li><li>Found the team's headline accuracy of 0.637 could not be reproduced, fresh runs scoring 0.523, traced it to a hand-reviewed spreadsheet and reset the baseline.</li></ul>
+  <ul><li>Architected and currently own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.</li><li>Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, on in-process DuckDB holding latency flat at 200x row volume.</li><li>Designed a rules-based chart selector across 17 chart types grounded in visualization research; LLM suggestions ship only when they outscore the rules, so AI cannot worsen a chart.</li><li>Quadrupled insight recall in automated reports, 13% to 52-59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.</li><li>Caught a silent bug mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation checks.</li><li>Benchmarked models against pipeline variants, finding model choice moved F1 33x more than architecture at $5 to $89 per 100k rows; redirected the roadmap to model selection.</li><li>Reproduced the team's evaluation, traced a reported 0.637 accuracy to a hand-reviewed spreadsheet, and set a validated 0.523 baseline for future experiments.</li></ul>
 </div>
 <div class="role">
   <div class="role-head">
@@ -93,7 +94,7 @@
     <div class="role-title">Software Engineer, <em>Zeus Learning</em></div>
     <div class="role-meta">Mumbai, India<b>&ensp;&ensp;</b>Jan 2022 – Jul 2023</div>
   </div>
-  <ul><li>Built a Redis-backed desk-demand forecasting service used across 300+ Fortune 500 offices including Goldman Sachs and Merck, with reported desk occupancy up 30%.</li><li>Cut deploy time 70% and production incidents 40% by containerising the release pipeline and adding SonarQube quality gates scoped to new code.</li><li>Migrated a C# and .NET monolith to Dockerised Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.</li></ul>
+  <ul><li>Built a Redis-backed desk-demand forecasting service used across 300+ Fortune 500 offices including Goldman Sachs and Merck, with reported desk occupancy up 30%.</li><li>Cut deploy time 70% and production incidents 40% by containerizing the release pipeline and adding SonarQube quality gates scoped to new code.</li><li>Migrated a C# and .NET monolith to Dockerized Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.</li></ul>
 </div>
 <div class="role">
   <div class="role-head">

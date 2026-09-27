@@ -109,7 +109,6 @@ function html({ detailed, roles, projects: projs }) {
   /* Header: the name carries the hierarchy, spacing does the separating. */
   .name {
     margin: 0; text-align: center; font-size: 19.5pt; font-weight: 700;
-    letter-spacing: 0.15em; text-indent: 0.15em;
   }
   .contact { margin: 6px 0 0; text-align: center; font-size: 8.6pt; color: #333; }
   .contact span { white-space: nowrap; }
@@ -120,7 +119,7 @@ function html({ detailed, roles, projects: projs }) {
     margin: ${detailed ? 15 : 12}px 0 0; padding-bottom: 2px;
     border-bottom: 0.75pt solid #111;
     font-size: 9.2pt; font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase;
+    text-transform: uppercase;
   }
   h2 + * { margin-top: 6px; }
 
@@ -133,9 +132,11 @@ function html({ detailed, roles, projects: projs }) {
   .role-meta { flex: none; font-size: ${body - 0.5}pt; color: #333; white-space: nowrap; }
   .role-meta b { font-weight: 400; }
 
-  ul { margin: 3px 0 0; padding: 0 0 0 13px; list-style: none; }
-  li { position: relative; margin: 0 0 1.8px; }
-  li::before { content: "\\2022"; position: absolute; left: -11px; color: #555; }
+  /* Native markers in normal flow. A positioned li paints after all other text,
+     so PDF extraction read every title and Education before any bullet. */
+  ul { margin: 3px 0 0; padding: 0 0 0 13px; list-style: disc outside; }
+  li { margin: 0 0 1.8px; padding-left: 1px; }
+  li::marker { color: #555; }
 
   .line { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 4px; }
   .line span:last-child { flex: none; font-size: ${body - 0.5}pt; color: #333; white-space: nowrap; }
@@ -243,7 +244,7 @@ function docxBody({ detailed, roles, projects: projs }) {
   const sz = detailed ? 9.2 : 8.9;
   const out = [];
 
-  out.push(para(run(profile.name, { sz: 21, bold: true, spacing: 30 }), { align: "center", space: 40 }));
+  out.push(para(run(profile.name, { sz: 21, bold: true }), { align: "center", space: 40 }));
   out.push(
     para(
       run(profile.contact.map((c) => (typeof c === "string" ? c : c.text)).join("    "), {
@@ -255,7 +256,7 @@ function docxBody({ detailed, roles, projects: projs }) {
   );
 
   const heading = (t) =>
-    out.push(para(run(t.toUpperCase(), { sz: 9.2, bold: true, spacing: 32 }), { before: 160, space: 60, border: true }));
+    out.push(para(run(t.toUpperCase(), { sz: 9.2, bold: true }), { before: 160, space: 60, border: true }));
 
   const head = (left, leftPlain, right) =>
     out.push(

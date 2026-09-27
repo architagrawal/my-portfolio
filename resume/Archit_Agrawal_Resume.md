@@ -8,13 +8,13 @@ Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal00
 
 Phoenix, AZ | May 2026 – Present
 
-- Architected and own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.
+- Architected and currently own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.
 - Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, on in-process DuckDB holding latency flat at 200x row volume.
-- Designed a rules-based chart selector across 17 chart types grounded in visualization research; an LLM suggestion is used only if it scores better, so AI cannot worsen a chart.
+- Designed a rules-based chart selector across 17 chart types grounded in visualization research; LLM suggestions ship only when they outscore the rules, so AI cannot worsen a chart.
 - Quadrupled insight recall in automated reports, 13% to 52-59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.
 - Caught a silent bug mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation checks.
-- Showed model choice moves F1 33x more than pipeline architecture, across models costing $5 to $89 per 100k rows, redirecting the team roadmap toward model selection.
-- Found the team's headline accuracy of 0.637 could not be reproduced, fresh runs scoring 0.523, traced it to a hand-reviewed spreadsheet and reset the baseline.
+- Benchmarked models against pipeline variants, finding model choice moved F1 33x more than architecture at $5 to $89 per 100k rows; redirected the roadmap to model selection.
+- Reproduced the team's evaluation, traced a reported 0.637 accuracy to a hand-reviewed spreadsheet, and set a validated 0.523 baseline for future experiments.
 
 ### Founding AI/ML Engineer - MyStage Music Inc.
 
@@ -52,8 +52,8 @@ Phoenix, AZ | Jun 2024 – Aug 2024
 Mumbai, India | Jan 2022 – Jul 2023
 
 - Built a Redis-backed desk-demand forecasting service used across 300+ Fortune 500 offices including Goldman Sachs and Merck, with reported desk occupancy up 30%.
-- Cut deploy time 70% and production incidents 40% by containerising the release pipeline and adding SonarQube quality gates scoped to new code.
-- Migrated a C# and .NET monolith to Dockerised Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.
+- Cut deploy time 70% and production incidents 40% by containerizing the release pipeline and adding SonarQube quality gates scoped to new code.
+- Migrated a C# and .NET monolith to Dockerized Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.
 
 ### Product Intern - EAT.FIT
 
