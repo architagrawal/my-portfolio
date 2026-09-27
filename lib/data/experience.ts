@@ -1237,7 +1237,7 @@ export const roles: Role[] = [
         ]
       },
       {
-        "text": "Shipped a Redis-backed demand-prediction service for desk reservations across 300+ Fortune 500 sites, including Goldman Sachs and Merck; reported occupancy improved 30% under COVID-era hot-desk constraints.",
+        "text": "Shipped a Redis-backed demand-prediction service for desk reservations across 300+ offices at Fortune 500 companies; reported occupancy improved 30% under COVID-era hot-desk constraints.",
         "techs": [
           ".NET",
           "C#",

@@ -23,15 +23,14 @@ export const experience = [
     location: "Phoenix, AZ",
     period: "May 2026 – Present",
     core: [
-      "Architected and currently own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.",
-      "Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, on in-process DuckDB holding latency flat at 200x row volume.",
-      "Designed a rules-based chart selector across 17 chart types grounded in visualization research; LLM suggestions ship only when they outscore the rules, so AI cannot worsen a chart.",
-      "Quadrupled insight recall in automated reports, 13% to 52-59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.",
-      "Caught a silent bug mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation checks.",
-      "Benchmarked models against pipeline variants, finding model choice moved F1 33x more than architecture at $5 to $89 per 100k rows; redirected the roadmap to model selection.",
-      "Reproduced the team's evaluation, traced a reported 0.637 accuracy to a hand-reviewed spreadsheet, and set a validated 0.523 baseline for future experiments.",
+      "Architected and currently own a 12-agent analytics platform turning any structured dataset into interactive charts and cited answers without dataset-specific code; TypeScript, NestJS, AWS Bedrock, Step Functions.",
+      "Designed a deterministic chart selector across 17 chart types grounded in visualization research, accepting an LLM recommendation only when it outscores the rules-based baseline.",
+      "Quadrupled insight recall in automated reports, from 13% to 52–59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.",
+      "Stopped a silent defect mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation validation.",
+      "Benchmarked models and pipeline variants at $5–$89 per 100k rows, finding model choice swung F1 33x more than architecture; traced a reported 0.637 accuracy to a hand-reviewed spreadsheet and set a reproducible 0.523 baseline.",
     ],
     extra: [
+      "Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, backed by in-process DuckDB holding latency steady as data volume grew 200x.",
       "Shipped a 14-page Nuxt 4 front end over a NestJS API of ten modules, all compiling against one shared TypeScript contract.",
       "Authored the target architecture the production platform is built from: 80 logged decisions and 200 measured experiments, each stating what it does not establish, grounded in 12 prior-art passes across SSSOM, DDI, Metabase MBQL, Vega-Lite, Draco and LIDA.",
       "Changed what the evaluation measured after every chart-level score stayed healthy while the page answered 6 of the 32 questions a survey actually asked; scoring coverage instead of marks took it to 25 of 32.",
@@ -65,7 +64,7 @@ export const experience = [
     period: "Sep 2023 – May 2025",
     core: [
       "Led end-to-end development of a multi-tenant RAG assistant, React front end to retrieval layer, used by 1,000+ faculty to author courses reaching 60,000+ students.",
-      "Cut transcript analysis from 4 hours to 15 minutes, 16x, with a Neo4j knowledge graph queried by schema-validated LLM-generated Cypher.",
+      "Reduced transcript-analysis time 16x, from four hours to 15 minutes, with a Neo4j knowledge graph queried by schema-validated LLM-generated Cypher.",
       "Enforced per-college data isolation at the retrieval layer so one tenant's material cannot surface in another's, making onboarding a config change, not a deployment.",
       "Built a Prompt Flow evaluation harness scoring groundedness, relevance and coherence, so every prompt change shipped on evidence rather than opinion.",
     ],
@@ -83,7 +82,7 @@ export const experience = [
     period: "Aug 2024 – May 2025",
     core: [
       "Built a PyTorch and Diffusers benchmark for text-to-video models scoring physical plausibility separately from visual quality, with seed, resolution and sampler held fixed.",
-      "Showed visual fluency and physical plausibility correlate only weakly: the model ranked first on human preference ranked last on causality.",
+      "Demonstrated weak correlation between visual quality and physical plausibility: the model ranked first in human preference but last in causal consistency.",
     ],
     extra: [
       "Designed a frame-sequence rubric for rigid-body motion (does a falling object accelerate rather than drift, does momentum carry through a collision, does an occluded object reappear on the trajectory it left on) and measured inter-rater agreement before trusting any aggregate score.",
@@ -111,7 +110,7 @@ export const experience = [
     location: "Mumbai, India",
     period: "Jan 2022 – Jul 2023",
     core: [
-      "Built a Redis-backed desk-demand forecasting service used across 300+ Fortune 500 offices including Goldman Sachs and Merck, with reported desk occupancy up 30%.",
+      "Built a Redis-backed desk-demand forecasting service used across 300+ offices at Fortune 500 companies, with reported desk occupancy up 30%.",
       "Cut deploy time 70% and production incidents 40% by containerizing the release pipeline and adding SonarQube quality gates scoped to new code.",
       "Migrated a C# and .NET monolith to Dockerized Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.",
     ],
