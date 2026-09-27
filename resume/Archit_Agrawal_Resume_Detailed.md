@@ -1,83 +1,83 @@
 # ARCHIT AGRAWAL
 
-Tempe, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [linkedin.com/in/agrawal-archit](https://linkedin.com/in/agrawal-archit) | [github.com/architagrawal](https://github.com/architagrawal) | [agrawal-archit.vercel.app](https://agrawal-archit.vercel.app)
+Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [linkedin.com/in/agrawal-archit](https://linkedin.com/in/agrawal-archit) | [github.com/architagrawal](https://github.com/architagrawal) | [agrawal-archit.vercel.app](https://agrawal-archit.vercel.app)
 
 ## EXPERIENCE
 
-### AI Software Engineer - EdPlus, Arizona State University
+### AI Software Engineer - EdPlus
 
-Tempe, AZ | May 2026 – Present
+Phoenix, AZ | May 2026 – Present
 
-- Architected the agentic survey-analysis platform that retired every per-survey pipeline: 10 agents over 65 tools in TypeScript/NestJS on a Step Functions machine generated from a declarative graph, with Distributed Map fan-out and a 5% failure circuit breaker.
-- Eliminated a silent failure mode dropping roughly 1 row in 8 unflagged: schema-constrained decoding, correlation tokens and citation checks took join integrity to 100% and label churn to zero across 258 runs.
-- Isolated the dominant variable in labeling quality: model choice moved F1 by 0.230 against 0.007 for pipeline shape, 33x, redirecting the team's roadmap from orchestration to model selection.
-- Retired the 0.637 accuracy baseline every prior claim rested on, after fresh runs reproduced it at 0.523 and traced the gap to a spreadsheet human-reviewed before delivery.
-- Ran the platform with no database, on in-process DuckDB over per-run JSON with Lance retrieval from S3: ask latency held flat at 200x row volume, cross-scope queries over 216 runs in milliseconds.
-- Authored the target architecture the production platform is built from: 80 logged decisions and 40 measured experiments, each stating what it does not establish.
+- Architected and own a 12-agent analytics platform turning any structured dataset into charts and cited answers with zero per-dataset code; TypeScript, NestJS, AWS Bedrock, Step Functions.
+- Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, on in-process DuckDB holding latency flat at 200x row volume.
+- Designed a rules-based chart selector across 17 chart types grounded in visualization research; an LLM suggestion is used only if it scores better, so AI cannot worsen a chart.
+- Quadrupled insight recall in automated reports, 13% to 52-59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.
+- Caught a silent bug mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation checks.
+- Showed model choice moves F1 33x more than pipeline architecture, across models costing $5 to $89 per 100k rows, redirecting the team roadmap toward model selection.
+- Found the team's headline accuracy of 0.637 could not be reproduced, fresh runs scoring 0.523, traced it to a hand-reviewed spreadsheet and reset the baseline.
 - Shipped a 14-page Nuxt 4 front end over a NestJS API of ten modules, all compiling against one shared TypeScript contract.
-- Built the governance surface: personal-data classification inside intake, Bedrock Guardrails deployed as their own CDK stack, entitlement-gated respondent-level retrieval, and per-stage spend caps enforced in code after an audit found the existing guard doing nothing.
-- Cut labeling spend by calibrating codebook fit before any run: a 25-row sample separates a workable codebook (0.598 fit, 4% abstain) from an unusable one (0.316, 88%) for about $0.001.
-- Unlocked a time axis on roughly 7 in 10 real exports that reported no date column while carrying the timestamp packed inside an identifier, through a five-stage intake that also survives UTF-16 null-byte headers and duplicate headers overwriting a column.
+- Authored the target architecture the production platform is built from: 80 logged decisions and 200 measured experiments, each stating what it does not establish, grounded in 12 prior-art passes across SSSOM, DDI, Metabase MBQL, Vega-Lite, Draco and LIDA.
+- Reset the benchmark the team reported against after fresh runs reproduced its 0.637 baseline at 0.523, tracing the gap to a spreadsheet hand-reviewed before delivery.
+- Reset the benchmark the team reported against after fresh runs reproduced its 0.637 baseline at 0.523, tracing the gap to a spreadsheet hand-reviewed before delivery.
 
 ### Founding AI/ML Engineer - MyStage Music Inc.
 
 Remote | Jul 2025 – May 2026
 
-- Owned the backend as founding engineer: re-architected a 14-Cloud-Function pipeline into one checkpointed LangGraph agent-worker on Cloud Run, cutting production service dependencies 64%, from 14 to 5.
-- Built and operate a Playwright ingestion service indexing 70,000+ records a day across 650+ venues, with proxy rotation and atomic Firestore claim transactions making multi-worker retries idempotent.
-- Lifted downstream search accuracy 25% with Gemini entity resolution and dedupe applied before records reach Firestore and Algolia.
-- Delivered sub-50 ms search behind FastAPI and Algolia with real-time Firestore sync, traced by Logfire propagation that survives pause and resume, covered by 200+ pytest tests.
+- Re-architected a 14-Cloud-Function backend into one checkpointed LangGraph agent in Python on GCP Cloud Run, cutting production service dependencies 64%.
+- Built a Playwright ingestion pipeline handling 70,000+ records a day from 650+ venues, with transactional locking against duplicate work and Gemini entity resolution raising dataset accuracy 25%.
+- Delivered sub-50 ms search on FastAPI and Algolia with real-time Firestore sync, covered by 200+ pytest tests and end-to-end Logfire tracing.
 - Implemented a pause-for-research contract on LangGraph interrupt/resume: a missing domain enqueues research, the graph interrupts, then resumes from checkpoint when the external pipeline marks it ready, so a blocked record costs one venue rather than the day's batch.
 - Used deterministic task IDs with create-and-catch-AlreadyExists rather than set, because set would clobber an in-flight task on retry.
 
-### Software Engineer - EdPlus, Arizona State University
+### Software Engineer - EdPlus
 
-Tempe, AZ | Sep 2023 – May 2025
+Phoenix, AZ | Sep 2023 – May 2025
 
-- Led end-to-end development of a multi-tenant RAG assistant used by 1,000+ faculty to author courses reaching 60,000+ students.
-- Made transcript analysis 16x faster, 4 hours to 15 minutes, pairing a Neo4j knowledge graph with LLM-generated Cypher constrained to a schema allow-list.
-- Enforced tenant isolation at retrieval rather than in the prompt, so one college's material cannot surface in another's answer, and made onboarding a college a config change, not a deployment.
-- Shipped prompt changes on evidence with a Prompt Flow harness scoring groundedness, relevance and coherence on a fixed question set, plus hybrid retrieval for the course codes an embedding blurs.
+- Led end-to-end development of a multi-tenant RAG assistant, React front end to retrieval layer, used by 1,000+ faculty to author courses reaching 60,000+ students.
+- Cut transcript analysis from 4 hours to 15 minutes, 16x, with a Neo4j knowledge graph queried by schema-validated LLM-generated Cypher.
+- Enforced per-college data isolation at the retrieval layer so one tenant's material cannot surface in another's, making onboarding a config change, not a deployment.
+- Built a Prompt Flow evaluation harness scoring groundedness, relevance and coherence, so every prompt change shipped on evidence rather than opinion.
+- Added hybrid keyword and vector search to fix course-code lookups an embedding alone blurs together.
 - Raised engagement 35% and cut bounce 20% with React and Material UI surfaces over the assessment platform: bulk import, question reuse across banks, and a diff view before a bank is republished.
-- Measured chunking rather than assuming it, comparing fixed-size against section-aware splitting on real course documents, because a policy paragraph cut in half answers half a question.
 
 ### Student Researcher - Arizona State University
 
-Tempe, AZ | Aug 2024 – May 2025
+Phoenix, AZ | Aug 2024 – May 2025
 
-- Built a PyTorch and Diffusers harness for text-to-video generation scoring physical plausibility separately from semantic fidelity, holding seed, resolution and sampler fixed so a score gap measures the model.
-- Showed fluency and physical plausibility correlate only weakly, so a model ranked first on human preference can rank last on causality.
+- Built a PyTorch and Diffusers benchmark for text-to-video models scoring physical plausibility separately from visual quality, with seed, resolution and sampler held fixed.
+- Showed visual fluency and physical plausibility correlate only weakly: the model ranked first on human preference ranked last on causality.
 - Designed a frame-sequence rubric for rigid-body motion (does a falling object accelerate rather than drift, does momentum carry through a collision, does an occluded object reappear on the trajectory it left on) and measured inter-rater agreement before trusting any aggregate score.
 
 ### Data Research Aide - Knowledge Exchange for Resilience, Arizona State University
 
-Tempe, AZ | Jun 2024 – Aug 2024
+Phoenix, AZ | Jun 2024 – Aug 2024
 
-- Cut p95 retrieval latency 60% at 95% recall with a hybrid FAISS and Neo4j layer, choosing the index by measurement and stating the recall cost of leaving an exact one.
-- Surfaced collaborator recommendations at 85% top-k precision from a FastAPI embedding service over Postgres/pgvector, fed by an idempotent ETL ingesting 10,000+ profiles a day, plus 20+ REST APIs on .NET 8 with Dapper, MediatR and SQS.
-- Cut API latency 90%, from 198 ms to 20 ms, with Redis caching and SQL rewrites, verified under Locust load rather than on a single warm request.
+- Cut p95 retrieval latency 60% at 95% recall with a hybrid FAISS and Neo4j search layer.
+- Built a FastAPI and pgvector recommendation service reaching 85% top-k precision for collaborator matching, fed by an ETL ingesting 10,000+ profiles a day, alongside 20+ REST APIs on .NET 8.
+- Reduced API latency 90%, from 198 ms to 20 ms, with Redis caching and SQL rewrites, verified under Locust load rather than on a single warm request.
 
 ### Software Engineer - Zeus Learning
 
 Mumbai, India | Jan 2022 – Jul 2023
 
-- Shipped a Redis-backed desk-demand prediction service across 300+ Fortune 500 sites including Goldman Sachs and Merck, improving reported occupancy 30%.
-- Split a .NET monolith into Kubernetes microservices as a strangler migration behind the existing API, no big-bang cutover; footprint down 35%, infrastructure cost down 20%.
-- Cut deploy time 70% and production incidents 40% by making the SonarQube gate block the merge, scoped to new code so a legacy backlog could not neuter it on day one.
-- Cut student-listing screen load 30% with paginated fetching and S3 asset delivery, then another 10% with index-covering query rewrites after profiling found a full scan behind a join nobody had reviewed since the schema changed.
+- Built a Redis-backed desk-demand forecasting service used across 300+ Fortune 500 offices including Goldman Sachs and Merck, with reported desk occupancy up 30%.
+- Cut deploy time 70% and production incidents 40% by containerising the release pipeline and adding SonarQube quality gates scoped to new code.
+- Migrated a C# and .NET monolith to Dockerised Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.
+- Sped up the student-listing screen 30% with paginated fetching and S3 asset delivery, then another 10% with index-covering query rewrites after profiling found a full scan behind a join nobody had reviewed since the schema changed.
 
 ### Product Intern - EAT.FIT
 
 Bengaluru, India | Sep 2021 – Dec 2021
 
-- Cut driver-location serving cost 45% by keying poll intervals to distance remaining, interpolating client-side so slower polling still rendered as continuous movement.
+- Cut driver-tracking server cost 45% with distance-based polling and client-side interpolation that kept map movement smooth.
 - Built a WebSocket and Express notification service with backpressure-aware fan-out and duplicate-safe redelivery; reported CSAT rose 28% and support volume fell 35%.
 
 ### Computer Vision Researcher - DA-IICT
 
 Gandhinagar, India | May 2021 – Aug 2021
 
-- Worked the autonomous-driving perception stack end to end in Python: radar and lidar capture, timestamp alignment, extrinsic calibration and point-cloud processing, with a replay harness over recorded drives so a perception change was attributable rather than anecdotal.
+- Engineered an autonomous-driving perception stack in Python: radar and lidar capture, timestamp alignment, extrinsic calibration and point-cloud processing, with a replay harness over recorded drives.
 - Compared early against late sensor fusion on identical sequences: point-level merging preserves detail and inherits both sensors' noise, object-level merging is robust and discards the evidence that would have resolved the disagreement.
 
 ## PROJECTS

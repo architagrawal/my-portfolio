@@ -1,6 +1,7 @@
 # Allow all crawlers including AI bots
 User-agent: *
 Allow: /
+Disallow: /og
 
 # Specifically allow AI crawlers
 User-agent: GPTBot
