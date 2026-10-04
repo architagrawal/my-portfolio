@@ -82,7 +82,7 @@ export default function WorkPage() {
   const industry = roles.filter((r) => r.kind === "industry");
   const research = roles.filter((r) => r.kind === "research");
   return (
-    <Shell>
+    <Shell paint="work">
       <PageHeader
         eyebrow="Experience"
         title={

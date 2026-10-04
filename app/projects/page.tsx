@@ -52,7 +52,7 @@ export default function ProjectsPage() {
   const builds = projects.filter((p) => p.tier === "build");
   const coursework = projects.filter((p) => p.tier === "coursework");
   return (
-    <Shell>
+    <Shell paint="projects">
       <PageHeader
         eyebrow="Projects"
         title={

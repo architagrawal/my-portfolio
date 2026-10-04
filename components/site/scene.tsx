@@ -7,7 +7,9 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
    rendered and CSS shows the one matching <html data-theme>, so there is no flash on load.
    midnight: mountains and stars. ember: striped sun over dunes. graphite: terminal grid.
    forest: topographic contours. steel: blueprint grid. */
-export function Scene({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
+export type Paint = "hero" | "projects" | "work";
+
+export function Scene({ children, tall = false, paint }: { children: ReactNode; tall?: boolean; paint?: Paint }) {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const far = useTransform(scrollY, [0, 500], [0, reduce ? 0 : 50]);
@@ -25,6 +27,8 @@ export function Scene({ children, tall = false }: { children: ReactNode; tall?: 
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         }}
       />
+
+      {paint && <PaintLayer name={paint} />}
 
       <Stars />
       <RetroSun />
@@ -61,7 +65,7 @@ export function Scene({ children, tall = false }: { children: ReactNode; tall?: 
       {/* flat-scene themes fade into the page instead of ending on a ridge */}
       <div aria-hidden="true" className="scene-fade absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
 
-      <div className="relative">{children}</div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
@@ -206,6 +210,33 @@ function Blueprint() {
           <path d="M20 0V40M0 20H40" stroke="currentColor" />
         </svg>
       ))}
+    </div>
+  );
+}
+
+/* Triangle painting from scripts/paint-backgrounds.sh, faded out toward the bottom so the
+   ridges and page body take over. Opacity and blend live in .scene-paint (globals.css). */
+export function PaintLayer({ name, className = "inset-0" }: { name: Paint; className?: string }) {
+  const reduce = useReducedMotion();
+  return (
+    <div aria-hidden="true" className={`pointer-events-none absolute ${className}`}>
+      <div className="scene-paint absolute inset-0">
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: reduce ? 1 : 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduce ? 0 : 1.6, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            backgroundImage: `url(/paint/${name}.svg)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            maskImage: "linear-gradient(to bottom, #000 70%, transparent)",
+            WebkitMaskImage: "linear-gradient(to bottom, #000 70%, transparent)",
+          }}
+        />
+      </div>
+      {/* scrim under the text column, so saffron links keep 4.5:1 over the brightest shapes */}
+      <div className="scene-paint-scrim absolute inset-0" />
     </div>
   );
 }
