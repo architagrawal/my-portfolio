@@ -591,8 +591,8 @@
 @keyframes fg-drift { to { transform: translateX(-40px); } }
 .fg-swell { animation: fg-swell 6s ease-in-out infinite alternate; }
 @keyframes fg-swell { to { transform: translateY(8px); } }
-.fg-glint { animation: fg-glint 2.4s ease-in-out infinite alternate; }
-@keyframes fg-glint { from { opacity: 0.15; } to { opacity: 0.9; } }
+.fg-glint { animation: fg-glint 7s ease-in-out infinite alternate; }
+@keyframes fg-glint { from { opacity: 0.45; } to { opacity: 0.75; } }
 .fg-bob { animation: fg-bob 3s ease-in-out infinite alternate; }
 @keyframes fg-bob { to { transform: translate(6px, -10px); } }
 .fg-flock { animation: fg-across 26s linear infinite; }

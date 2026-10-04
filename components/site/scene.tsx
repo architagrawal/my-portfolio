@@ -223,10 +223,15 @@ const PAINT_MS = 4600; // when the last stroke starts
 const STROKE_MS = [700, 260]; // first big block, last detail
 const DEPTHS = [{ scroll: 50, pointer: 6 }, { scroll: 32, pointer: 12 }, { scroll: 16, pointer: 22 }];
 
-/* Pick a scene after mount, never the one this tab showed last. ?scene=<id> forces one. */
+/* One scene per visit: picked on the first page, kept across client navigation so the
+   header doesn't swap and repaint on every click. Never the scene the last visit showed. */
+let visitScene: SceneId | null = null;
+let replayed = false;
+const svgCache = new Map<SceneId, Promise<string>>();
 function pickScene(): SceneId {
+  if (visitScene) return visitScene;
   const forced = new URLSearchParams(window.location.search).get("scene") as SceneId | null;
-  if (forced && SCENE_IDS.includes(forced)) return forced;
+  if (forced && SCENE_IDS.includes(forced)) return (visitScene = forced);
   let last: string | null = null;
   try {
     last = sessionStorage.getItem("paint-scene");
@@ -236,7 +241,7 @@ function pickScene(): SceneId {
   try {
     sessionStorage.setItem("paint-scene", id);
   } catch {}
-  return id;
+  return (visitScene = id);
 }
 
 /* A painted scene, replayed live. primitive writes shapes coarse to fine, so each shape
@@ -262,8 +267,8 @@ export function PaintLayer({ className = "inset-0" }: { className?: string }) {
     const el = host.current;
     if (!el || !scene) return;
     let alive = true;
-    fetch(`/paint/${scene}.svg`)
-      .then((r) => r.text())
+    if (!svgCache.has(scene)) svgCache.set(scene, fetch(`/paint/${scene}.svg`).then((r) => r.text()));
+    svgCache.get(scene)!
       .then((text) => {
         if (!alive) return;
         const svg = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
@@ -271,7 +276,9 @@ export function PaintLayer({ className = "inset-0" }: { className?: string }) {
         svg.setAttribute("preserveAspectRatio", "xMidYMin slice");
         svg.removeAttribute("width");
         svg.removeAttribute("height");
-        if (!reduce) {
+        // replay once per visit; later pages show the finished painting
+        if (!reduce && !replayed) {
+          replayed = true;
           svg.querySelector(":scope > rect")?.classList.add("paint-base");
           const group = svg.querySelector(":scope > g");
           const shapes = group ? Array.from(group.children) : [];
