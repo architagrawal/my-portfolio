@@ -16,9 +16,9 @@ paint() {
   # 3 decimals -> 1, roughly a third smaller with no visible change
   sed -E -i.bak 's/([0-9]+\.[0-9])[0-9]+/\1/g' "$OUT/$1.svg" && rm "$OUT/$1.svg.bak"
 }
-paint hero 200 1
-paint projects 120 1
-paint work 150 0
+paint hero 70 1
+paint projects 55 1
+paint work 60 1
 
 rm -rf "$SRC"
 ls -l "$OUT"

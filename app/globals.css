@@ -503,6 +503,9 @@
 
 /* Painted backdrop (public/paint, made by scripts/paint-backgrounds.sh).
    Screen on dark skies lifts only the saffron; light skies get a faint multiply. */
-.scene-paint { opacity: 0.32; mix-blend-mode: screen; }
+.scene-paint { opacity: 0.55; mix-blend-mode: screen; }
 :root:not([data-theme]) .scene-paint,
-[data-theme="steel"] .scene-paint { opacity: 0.12; mix-blend-mode: multiply; }
+[data-theme="steel"] .scene-paint { opacity: 0.2; mix-blend-mode: multiply; }
+.scene-paint-scrim { background: radial-gradient(ellipse 55% 60% at 40% 55%, var(--sky-2) 40%, transparent 100%); opacity: 0.9; }
+:root:not([data-theme]) .scene-paint-scrim,
+[data-theme="steel"] .scene-paint-scrim { display: none; }

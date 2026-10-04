@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFilter
 INK = (17, 15, 14)  # hsl(30 8% 6%), dark background
 INK2 = (38, 32, 27)
 SAFFRON = (245, 142, 42)  # #F58E2A, primary
-EMBER = (150, 62, 24)
+EMBER = (190, 70, 22)
 W, H = 512, 256
 
 
@@ -21,8 +21,8 @@ def paint(seed, spots):
     for cx, cy, r, col in spots:
         layer = Image.new("RGB", (W, H), col)
         mask = Image.new("L", (W, H), 0)
-        ImageDraw.Draw(mask).ellipse([cx - r, cy - r, cx + r, cy + r], fill=220)
-        img = Image.composite(layer, img, mask.filter(ImageFilter.GaussianBlur(r * 0.9)))
+        ImageDraw.Draw(mask).ellipse([cx - r, cy - r, cx + r, cy + r], fill=255)
+        img = Image.composite(layer, img, mask.filter(ImageFilter.GaussianBlur(r * 0.35)))
     px = img.load()
     for _ in range(W * H // 6):  # grain gives the triangles edges to chase
         x, y = random.randrange(W), random.randrange(H)

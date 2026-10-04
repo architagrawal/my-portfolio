@@ -28,7 +28,7 @@ export function Scene({ children, tall = false, paint }: { children: ReactNode; 
         }}
       />
 
-      {paint && <PaintLayer name={paint} reduce={!!reduce} />}
+      {paint && <PaintLayer name={paint} />}
 
       <Stars />
       <RetroSun />
@@ -65,7 +65,7 @@ export function Scene({ children, tall = false, paint }: { children: ReactNode; 
       {/* flat-scene themes fade into the page instead of ending on a ridge */}
       <div aria-hidden="true" className="scene-fade absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
 
-      <div className="relative">{children}</div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
@@ -216,22 +216,27 @@ function Blueprint() {
 
 /* Triangle painting from scripts/paint-backgrounds.sh, faded out toward the bottom so the
    ridges and page body take over. Opacity and blend live in .scene-paint (globals.css). */
-function PaintLayer({ name, reduce }: { name: Paint; reduce: boolean }) {
+export function PaintLayer({ name, className = "inset-0" }: { name: Paint; className?: string }) {
+  const reduce = useReducedMotion();
   return (
-    <div aria-hidden="true" className="scene-paint pointer-events-none absolute inset-0">
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0, scale: reduce ? 1 : 1.04 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: reduce ? 0 : 1.6, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          backgroundImage: `url(/paint/${name}.svg)`,
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-          maskImage: "linear-gradient(to bottom, #000 45%, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, #000 45%, transparent)",
-        }}
-      />
+    <div aria-hidden="true" className={`pointer-events-none absolute ${className}`}>
+      <div className="scene-paint absolute inset-0">
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: reduce ? 1 : 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduce ? 0 : 1.6, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            backgroundImage: `url(/paint/${name}.svg)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            maskImage: "linear-gradient(to bottom, #000 70%, transparent)",
+            WebkitMaskImage: "linear-gradient(to bottom, #000 70%, transparent)",
+          }}
+        />
+      </div>
+      {/* scrim under the text column, so saffron links keep 4.5:1 over the brightest shapes */}
+      <div className="scene-paint-scrim absolute inset-0" />
     </div>
   );
 }
