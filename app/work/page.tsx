@@ -5,6 +5,7 @@ import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Reveal } from "@/components/site/reveal";
 import { ScrollSpine } from "@/components/site/scroll-spine";
 import { ThemeText } from "@/components/site/theme-text";
+import { TiltCard } from "@/components/site/tilt-card";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -21,7 +22,8 @@ function RoleEntry({ r }: { r: Role }) {
   const more = r.achievements.length - r.featured.length;
   return (
     <Reveal>
-      <article className="tcard spotlight mb-5 grid gap-x-8 gap-y-2 rounded-2xl bg-card p-7 shadow-soft sm:grid-cols-[9rem_1fr]">
+      <TiltCard className="mb-5" max={1.5}>
+      <article className="tcard spotlight grid gap-x-8 gap-y-2 rounded-2xl bg-card p-7 shadow-soft sm:grid-cols-[9rem_1fr]">
         <p className="text-sm font-semibold text-muted-foreground tabular-nums">{r.period}</p>
         <div>
           <h3 className="font-display text-2xl font-extrabold tracking-tight">
@@ -47,6 +49,7 @@ function RoleEntry({ r }: { r: Role }) {
           )}
         </div>
       </article>
+      </TiltCard>
     </Reveal>
   );
 }

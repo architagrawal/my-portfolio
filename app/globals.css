@@ -500,3 +500,13 @@
 [data-theme="ember"] .tt-ember,
 [data-theme="forest"] .tt-forest,
 [data-theme="steel"] .tt-steel { display: inline; }
+
+/* hairline figures take the theme's colours; the plate matches the card it sits on */
+.hairline-site {
+  --hairline-plate: hsl(var(--card));
+  --hairline-hi: hsl(var(--primary));
+  --hairline-edge: hsl(var(--foreground) / 0.8);
+  --hairline-mid: hsl(var(--muted-foreground) / 0.7);
+  --hairline-lo: hsl(var(--muted-foreground) / 0.3);
+}
+[data-theme="ember"] .tcard:hover .hairline-site { --hairline-plate: hsl(var(--muted)); }
