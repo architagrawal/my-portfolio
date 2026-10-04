@@ -1,37 +1,17 @@
-"""Abstract source images for scripts/paint-backgrounds.sh. Seeded, so reruns match."""
-import random
+"""Source images for scripts/paint-backgrounds.sh.
+
+Public-domain and CC0 photos in scripts/paint-src (credits in public/paint/SOURCES.md),
+cropped to 2:1 so primitive paints them at the hero's aspect. Colours are left as shot.
+Usage: paint-sources.py OUTDIR  writes OUTDIR/<scene>.png for every photo
+"""
+import os
 import sys
 
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageOps
 
-INK = (17, 15, 14)  # hsl(30 8% 6%), dark background
-INK2 = (38, 32, 27)
-SAFFRON = (245, 142, 42)  # #F58E2A, primary
-EMBER = (190, 70, 22)
-W, H = 512, 256
-
-
-def paint(seed, spots):
-    random.seed(seed)
-    img = Image.new("RGB", (W, H), INK)
-    d = ImageDraw.Draw(img)
-    for y in range(H):
-        t = y / H
-        d.line([(0, y), (W, y)], fill=tuple(int(INK2[i] * (1 - t) + INK[i] * t) for i in range(3)))
-    for cx, cy, r, col in spots:
-        layer = Image.new("RGB", (W, H), col)
-        mask = Image.new("L", (W, H), 0)
-        ImageDraw.Draw(mask).ellipse([cx - r, cy - r, cx + r, cy + r], fill=255)
-        img = Image.composite(layer, img, mask.filter(ImageFilter.GaussianBlur(r * 0.35)))
-    px = img.load()
-    for _ in range(W * H // 6):  # grain gives the triangles edges to chase
-        x, y = random.randrange(W), random.randrange(H)
-        n = random.randint(-14, 14)
-        px[x, y] = tuple(max(0, min(255, v + n)) for v in px[x, y])
-    return img
-
-
+HERE = os.path.join(os.path.dirname(__file__), "paint-src")
 out = sys.argv[1]
-paint(1, [(410, 30, 120, SAFFRON), (290, 150, 80, EMBER), (60, 230, 70, EMBER)]).save(f"{out}/hero.png")
-paint(2, [(70, 50, 100, EMBER), (460, 20, 80, SAFFRON)]).save(f"{out}/projects.png")
-paint(3, [(470, 190, 110, SAFFRON), (170, 10, 80, EMBER)]).save(f"{out}/work.png")
+for f in sorted(os.listdir(HERE)):
+    if f.endswith(".jpg"):
+        img = ImageOps.fit(Image.open(os.path.join(HERE, f)).convert("RGB"), (512, 256))
+        img.save(os.path.join(out, f[:-4] + ".png"))

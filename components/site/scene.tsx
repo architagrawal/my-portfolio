@@ -1,15 +1,16 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { foreground, SCENE_IDS, type SceneId } from "./paint-scenes";
 
 /* The backdrop behind every page header. Each theme gets its own scene; all of them are
    rendered and CSS shows the one matching <html data-theme>, so there is no flash on load.
    midnight: mountains and stars. ember: striped sun over dunes. graphite: terminal grid.
-   forest: topographic contours. steel: blueprint grid. */
-export type Paint = "hero" | "projects" | "work";
-
-export function Scene({ children, tall = false, paint }: { children: ReactNode; tall?: boolean; paint?: Paint }) {
+   forest: topographic contours. steel: blueprint grid.
+   painted: a random painted scene (PaintLayer) replaces the theme scenery and the hills.
+   "outside" leaves the PaintLayer to the caller, so it can span more than this strip. */
+export function Scene({ children, tall = false, painted }: { children: ReactNode; tall?: boolean; painted?: "inside" | "outside" }) {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const far = useTransform(scrollY, [0, 500], [0, reduce ? 0 : 50]);
@@ -28,42 +29,46 @@ export function Scene({ children, tall = false, paint }: { children: ReactNode; 
         }}
       />
 
-      {paint && <PaintLayer name={paint} />}
+      {painted ? (
+        painted === "inside" && <PaintLayer />
+      ) : (
+        <>
+          <Stars />
+          <RetroSun />
+          <TerminalGrid />
+          <Contours />
+          <Blueprint />
 
-      <Stars />
-      <RetroSun />
-      <TerminalGrid />
-      <Contours />
-      <Blueprint />
+          <div aria-hidden="true" className="scene-glow absolute -top-24 right-[8%] h-80 w-80 rounded-full" style={{ background: "radial-gradient(circle, var(--glow), transparent 65%)" }} />
 
-      <div aria-hidden="true" className="scene-glow absolute -top-24 right-[8%] h-80 w-80 rounded-full" style={{ background: "radial-gradient(circle, var(--glow), transparent 65%)" }} />
+          <div aria-hidden="true" className="scene-ridges absolute inset-x-0 bottom-0 h-[42%] sm:h-[70%]">
+            <motion.svg style={{ y: far }} viewBox="0 0 1440 320" preserveAspectRatio="none" className="absolute bottom-0 h-full w-full">
+              <defs>
+                <linearGradient id="hill-far" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" style={{ stopColor: "var(--ridge-far-1)" }} />
+                  <stop offset="1" style={{ stopColor: "var(--ridge-far-2)" }} />
+                </linearGradient>
+              </defs>
+              <path className="ridge-far" d="M0 190L110 138L200 172L330 84L450 158L560 116L700 182L830 92L960 150L1085 60L1210 146L1330 104L1440 140V320H0Z" fill="url(#hill-far)" />
+            </motion.svg>
+            <motion.svg style={{ y: near }} viewBox="0 0 1440 320" preserveAspectRatio="none" className="absolute bottom-0 h-[78%] w-full">
+              <defs>
+                <linearGradient id="hill-near" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" style={{ stopColor: "var(--ridge-near-1)" }} />
+                  <stop offset="1" style={{ stopColor: "var(--ridge-near-2)" }} />
+                </linearGradient>
+              </defs>
+              <path d="M0 214L150 166L262 204L402 146L540 208L702 156L862 214L1004 162L1152 204L1302 156L1440 192V320H0Z" fill="url(#hill-near)" />
+            </motion.svg>
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className="absolute bottom-0 h-[52%] w-full">
+              <path d="M0 236L360 204L720 232L1080 198L1440 228V320H0Z" className="fill-background" />
+            </svg>
+          </div>
 
-      <div aria-hidden="true" className="scene-ridges absolute inset-x-0 bottom-0 h-[42%] sm:h-[70%]">
-        <motion.svg style={{ y: far }} viewBox="0 0 1440 320" preserveAspectRatio="none" className="absolute bottom-0 h-full w-full">
-          <defs>
-            <linearGradient id="hill-far" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" style={{ stopColor: "var(--ridge-far-1)" }} />
-              <stop offset="1" style={{ stopColor: "var(--ridge-far-2)" }} />
-            </linearGradient>
-          </defs>
-          <path className="ridge-far" d="M0 190L110 138L200 172L330 84L450 158L560 116L700 182L830 92L960 150L1085 60L1210 146L1330 104L1440 140V320H0Z" fill="url(#hill-far)" />
-        </motion.svg>
-        <motion.svg style={{ y: near }} viewBox="0 0 1440 320" preserveAspectRatio="none" className="absolute bottom-0 h-[78%] w-full">
-          <defs>
-            <linearGradient id="hill-near" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" style={{ stopColor: "var(--ridge-near-1)" }} />
-              <stop offset="1" style={{ stopColor: "var(--ridge-near-2)" }} />
-            </linearGradient>
-          </defs>
-          <path d="M0 214L150 166L262 204L402 146L540 208L702 156L862 214L1004 162L1152 204L1302 156L1440 192V320H0Z" fill="url(#hill-near)" />
-        </motion.svg>
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className="absolute bottom-0 h-[52%] w-full">
-          <path d="M0 236L360 204L720 232L1080 198L1440 228V320H0Z" className="fill-background" />
-        </svg>
-      </div>
-
-      {/* flat-scene themes fade into the page instead of ending on a ridge */}
-      <div aria-hidden="true" className="scene-fade absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+          {/* flat-scene themes fade into the page instead of ending on a ridge */}
+          <div aria-hidden="true" className="scene-fade absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+        </>
+      )}
 
       <div className="relative z-10">{children}</div>
     </div>
@@ -214,29 +219,131 @@ function Blueprint() {
   );
 }
 
-/* Triangle painting from scripts/paint-backgrounds.sh, faded out toward the bottom so the
-   ridges and page body take over. Opacity and blend live in .scene-paint (globals.css). */
-export function PaintLayer({ name, className = "inset-0" }: { name: Paint; className?: string }) {
+const PAINT_MS = 4600; // when the last stroke starts
+const STROKE_MS = [700, 260]; // first big block, last detail
+const DEPTHS = [{ scroll: 50, pointer: 6 }, { scroll: 32, pointer: 12 }, { scroll: 16, pointer: 22 }];
+
+/* Pick a scene after mount, never the one this tab showed last. ?scene=<id> forces one. */
+function pickScene(): SceneId {
+  const forced = new URLSearchParams(window.location.search).get("scene") as SceneId | null;
+  if (forced && SCENE_IDS.includes(forced)) return forced;
+  let last: string | null = null;
+  try {
+    last = sessionStorage.getItem("paint-scene");
+  } catch {}
+  const pool = SCENE_IDS.filter((id) => id !== last);
+  const id = pool[Math.floor(Math.random() * pool.length)];
+  try {
+    sessionStorage.setItem("paint-scene", id);
+  } catch {}
+  return id;
+}
+
+/* A painted scene, replayed live. primitive writes shapes coarse to fine, so each shape
+   fades and settles in generation order: big blocks slowly, detail quickly. In front of
+   it, the scene's own foreground in three layers with scroll and pointer parallax.
+   Nothing renders on the server, so there is no hydration mismatch, and the assets load
+   after first paint. Styles: .scene-paint* and .fg-* in globals.css. */
+export function PaintLayer({ className = "inset-0" }: { className?: string }) {
   const reduce = useReducedMotion();
+  const host = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLDivElement>(null);
+  const [scene, setScene] = useState<SceneId | null>(null);
+  const [live, setLive] = useState(true);
+  const { scrollY } = useScroll();
+  const y0 = useTransform(scrollY, [0, 500], [0, reduce ? 0 : DEPTHS[0].scroll]);
+  const y1 = useTransform(scrollY, [0, 500], [0, reduce ? 0 : DEPTHS[1].scroll]);
+  const y2 = useTransform(scrollY, [0, 500], [0, reduce ? 0 : DEPTHS[2].scroll]);
+  const ys = [y0, y1, y2];
+
+  useEffect(() => setScene(pickScene()), []);
+
+  useEffect(() => {
+    const el = host.current;
+    if (!el || !scene) return;
+    let alive = true;
+    fetch(`/paint/${scene}.svg`)
+      .then((r) => r.text())
+      .then((text) => {
+        if (!alive) return;
+        const svg = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
+        svg.setAttribute("viewBox", "0 0 1024 512");
+        svg.setAttribute("preserveAspectRatio", "xMidYMin slice");
+        svg.removeAttribute("width");
+        svg.removeAttribute("height");
+        if (!reduce) {
+          svg.querySelector(":scope > rect")?.classList.add("paint-base");
+          const group = svg.querySelector(":scope > g");
+          const shapes = group ? Array.from(group.children) : [];
+          shapes.forEach((shape, i) => {
+            // wrap, so the stroke's own transform attribute survives the CSS scale
+            const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            shape.replaceWith(g);
+            g.appendChild(shape);
+            const t = i / shapes.length;
+            g.setAttribute("class", "paint-stroke");
+            g.setAttribute(
+              "style",
+              `animation-delay:${Math.round(PAINT_MS * (1 - (1 - t) ** 2))}ms;animation-duration:${Math.round(STROKE_MS[0] + (STROKE_MS[1] - STROKE_MS[0]) * t)}ms`,
+            );
+          });
+        }
+        el.replaceChildren(svg);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [scene, reduce]);
+
+  // pointer parallax as CSS vars, eased in CSS; foreground motion pauses offscreen
+  useEffect(() => {
+    const el = root.current;
+    if (!el || reduce) return;
+    let frame = 0;
+    const move = (e: PointerEvent) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        el.style.setProperty("--px", (e.clientX / window.innerWidth - 0.5).toFixed(3));
+        el.style.setProperty("--py", (e.clientY / window.innerHeight - 0.5).toFixed(3));
+      });
+    };
+    const io = new IntersectionObserver(([entry]) => setLive(entry.isIntersecting));
+    io.observe(el);
+    window.addEventListener("pointermove", move, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      io.disconnect();
+      window.removeEventListener("pointermove", move);
+    };
+  }, [reduce]);
+
+  const layers = scene ? foreground(scene) : null;
   return (
-    <div aria-hidden="true" className={`pointer-events-none absolute ${className}`}>
+    <div ref={root} aria-hidden="true" className={`pointer-events-none absolute overflow-hidden ${className} ${live ? "" : "fg-paused"}`}>
       <div className="scene-paint absolute inset-0">
-        <motion.div
-          className="absolute inset-0"
-          initial={{ opacity: 0, scale: reduce ? 1 : 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: reduce ? 0 : 1.6, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            backgroundImage: `url(/paint/${name}.svg)`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-            maskImage: "linear-gradient(to bottom, #000 70%, transparent)",
-            WebkitMaskImage: "linear-gradient(to bottom, #000 70%, transparent)",
-          }}
-        />
+        <div ref={host} className={`scene-paint-canvas absolute inset-0 ${reduce ? "" : "is-live"}`} />
       </div>
-      {/* scrim under the text column, so saffron links keep 4.5:1 over the brightest shapes */}
-      <div className="scene-paint-scrim absolute inset-0" />
+      {layers && (
+        <div className="scene-fg absolute inset-0">
+          {layers.map((markup, i) =>
+            markup ? (
+              <motion.div key={`${scene}-${i}`} className="absolute inset-0" style={{ y: ys[i] }}>
+                <svg
+                  viewBox="0 0 1600 900"
+                  preserveAspectRatio="xMidYMax slice"
+                  className="fg-layer absolute inset-0 h-full w-full"
+                  style={{ "--depth": `${DEPTHS[i].pointer}px` } as CSSProperties}
+                  dangerouslySetInnerHTML={{ __html: markup }}
+                />
+              </motion.div>
+            ) : null,
+          )}
+        </div>
+      )}
+      {/* text side gradient, then a fade into the page body */}
+      <div className="scene-paint-shade absolute inset-0" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
     </div>
   );
 }
