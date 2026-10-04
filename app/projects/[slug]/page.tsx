@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projectBySlug, projects } from "@/lib/data/projects";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
-import { LineChart } from "@/components/soft/line-chart";
+import { Viz } from "@/components/soft/viz";
 import { Reveal } from "@/components/site/reveal";
 import { ProjectVisual } from "@/components/site/project-visual";
 
@@ -75,7 +75,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </Reveal>
       )}
 
-      {p.series && <LineChart series={p.series} className="mt-12" />}
+      {p.viz && <Viz v={p.viz} className="mt-12" />}
 
       {p.highlights.length > 0 && (
         <>
