@@ -1,3 +1,4 @@
+import type { Series } from "@/components/soft/line-chart";
 // Every role with its full detail. `featured` picks the bullets shown on /work;
 // the role's own page shows everything, grouped by `groups`.
 export interface Achievement {
@@ -17,11 +18,13 @@ export interface Role {
   groups: { label: string; indexes: number[] }[];
   achievements: Achievement[];
   technologies: string[];
+  series?: Series;
 }
 
 export const roles: Role[] = [
   {
     "slug": "ai-software-engineer-edplus-2026",
+    "series": {"label": "rows losing a label, per pipeline build, illustrative", "points": [{"x": "benchmark", "y": 12.7, "label": "12.7%"}, {"x": "1", "y": 9.8}, {"x": "2", "y": 7.4}, {"x": "3", "y": 7.9}, {"x": "4", "y": 4.1}, {"x": "5", "y": 2.6}, {"x": "6", "y": 1.2}, {"x": "current", "y": 0, "label": "0 of 114"}]},
     "company": "EdPlus, Arizona State University",
     "companyShort": "EdPlus",
     "role": "AI Software Engineer",
@@ -553,6 +556,7 @@ export const roles: Role[] = [
   },
   {
     "slug": "founding-ai-ml-engineer-mystage-music-inc-2025",
+    "series": {"label": "search latency by day in ms, illustrative", "points": [{"x": "day 1", "y": 38}, {"x": "1", "y": 41}, {"x": "2", "y": 36}, {"x": "3", "y": 44}, {"x": "4", "y": 39}, {"x": "5", "y": 35}, {"x": "6", "y": 42}, {"x": "7", "y": 40}, {"x": "8", "y": 37}, {"x": "9", "y": 43}, {"x": "10", "y": 38}, {"x": "11", "y": 36}, {"x": "12", "y": 41}, {"x": "day 14", "y": 39}]},
     "company": "MyStage Music Inc",
     "companyShort": "MyStage Music Inc",
     "role": "Founding AI/ML Engineer",
@@ -713,6 +717,7 @@ export const roles: Role[] = [
   },
   {
     "slug": "student-researcher-arizona-state-university-2024",
+    "series": {"label": "inter-rater agreement per rubric revision, illustrative", "points": [{"x": "v1", "y": 0.44}, {"x": "1", "y": 0.51}, {"x": "2", "y": 0.49}, {"x": "3", "y": 0.58}, {"x": "4", "y": 0.63}, {"x": "5", "y": 0.66}, {"x": "v7", "y": 0.71}]},
     "company": "Arizona State University",
     "companyShort": "Arizona State University",
     "role": "Student Researcher",
@@ -844,6 +849,7 @@ export const roles: Role[] = [
   },
   {
     "slug": "software-engineer-edplus-2023",
+    "series": {"label": "transcript analysis time per release, illustrative", "points": [{"x": "before", "y": 240, "label": "4 h"}, {"x": "1", "y": 236}, {"x": "2", "y": 205}, {"x": "3", "y": 150}, {"x": "4", "y": 92}, {"x": "5", "y": 48}, {"x": "6", "y": 24}, {"x": "after", "y": 15, "label": "15 min"}]},
     "company": "EdPlus, Arizona State University",
     "companyShort": "EdPlus",
     "role": "Software Engineer",
@@ -1010,6 +1016,7 @@ export const roles: Role[] = [
   },
   {
     "slug": "data-research-aide-knowledge-exchange-for-resilience-2024",
+    "series": {"label": "API latency per optimization pass, illustrative", "points": [{"x": "baseline", "y": 198, "label": "198ms"}, {"x": "1", "y": 184}, {"x": "2", "y": 131}, {"x": "3", "y": 118}, {"x": "4", "y": 76}, {"x": "5", "y": 61}, {"x": "6", "y": 34}, {"x": "final", "y": 20, "label": "20ms"}]},
     "company": "Knowledge Exchange for Resilience, Arizona State University",
     "companyShort": "Knowledge Exchange for Resilience",
     "role": "Data Research Aide",
@@ -1171,6 +1178,7 @@ export const roles: Role[] = [
   },
   {
     "slug": "software-engineer-zeus-learning-2022",
+    "series": {"label": "desk occupancy across a work week, illustrative", "points": [{"x": "Mon", "y": 48}, {"x": "1", "y": 57}, {"x": "2", "y": 71}, {"x": "3", "y": 78}, {"x": "4", "y": 74}, {"x": "5", "y": 69}, {"x": "6", "y": 76}, {"x": "7", "y": 81}, {"x": "8", "y": 72}, {"x": "9", "y": 58}, {"x": "10", "y": 43}, {"x": "Fri", "y": 38}]},
     "company": "Zeus Learning",
     "companyShort": "Zeus Learning",
     "role": "Software Engineer",
@@ -1329,6 +1337,7 @@ export const roles: Role[] = [
   },
   {
     "slug": "product-intern-eat-fit-2021",
+    "series": {"label": "location poll interval as the driver approaches, illustrative", "points": [{"x": "5 km out", "y": 30}, {"x": "1", "y": 29}, {"x": "2", "y": 27}, {"x": "3", "y": 24}, {"x": "4", "y": 20}, {"x": "5", "y": 17}, {"x": "6", "y": 13}, {"x": "7", "y": 10}, {"x": "8", "y": 7}, {"x": "9", "y": 5}, {"x": "10", "y": 4}, {"x": "arrived", "y": 3}]},
     "company": "EAT.FIT",
     "companyShort": "EAT.FIT",
     "role": "Product Intern",
@@ -1431,6 +1440,7 @@ export const roles: Role[] = [
   },
   {
     "slug": "computer-vision-researcher-da-iict-2021",
+    "series": {"label": "localization error along a drive, illustrative", "points": [{"x": "start", "y": 0.4}, {"x": "1", "y": 0.5}, {"x": "2", "y": 0.4}, {"x": "3", "y": 0.6}, {"x": "4", "y": 1.8}, {"x": "5", "y": 2.3}, {"x": "6", "y": 0.7}, {"x": "7", "y": 0.5}, {"x": "8", "y": 0.4}, {"x": "9", "y": 0.5}, {"x": "10", "y": 2.1}, {"x": "11", "y": 0.6}, {"x": "12", "y": 0.4}, {"x": "13", "y": 0.5}, {"x": "end", "y": 0.4}]},
     "company": "Dhirubhai Ambani Institute of Information and Communication Technology",
     "companyShort": "DA-IICT",
     "role": "Computer Vision Researcher",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { roles, type Role } from "@/lib/data/experience";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
+import { LineChart } from "@/components/soft/line-chart";
 import { Reveal } from "@/components/site/reveal";
 import { ScrollSpine } from "@/components/site/scroll-spine";
 import { ThemeText } from "@/components/site/theme-text";
@@ -63,6 +64,7 @@ function RoleEntry({ r }: { r: Role }) {
                   </li>
                 ))}
             </ul>
+            {r.series && <LineChart series={r.series} className="mt-6" />}
             {more > 0 && (
               <Link
                 href={`/work/${r.slug}`}

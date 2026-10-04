@@ -83,7 +83,7 @@ function Stars() {
         <motion.span
           key={i}
           className="absolute rounded-full bg-white"
-          style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.s, height: s.s, opacity: 0.45 }}
+          style={{ left: `${s.x.toFixed(3)}%`, top: `${s.y.toFixed(3)}%`, width: s.s, height: s.s, opacity: 0.45 }}
           animate={s.tw && !reduce ? { opacity: [0.2, 0.6, 0.2] } : undefined}
           transition={s.tw ? { duration: 6 + s.d, repeat: Infinity, delay: s.d } : undefined}
         />

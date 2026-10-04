@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { roleBySlug, roles } from "@/lib/data/experience";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
+import { LineChart } from "@/components/soft/line-chart";
 import { Reveal } from "@/components/site/reveal";
 
 export function generateStaticParams() {
@@ -38,6 +39,8 @@ export default function RolePage({ params }: { params: { slug: string } }) {
           {r.company}
         </PageHeader>
       </div>
+
+      {r.series && <LineChart series={r.series} className="mt-10" />}
 
       {groups.map((g) => (
         <section key={g.label}>
