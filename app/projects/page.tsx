@@ -31,7 +31,7 @@ export default function ProjectsPage() {
   const builds = projects.filter((p) => p.tier === "build");
   const coursework = projects.filter((p) => p.tier === "coursework");
   return (
-    <Shell>
+    <Shell paint="projects">
       <PageHeader eyebrow="Projects" title={<ThemeText v={{ midnight: "Things I've built", graphite: "Builds", ember: "Stuff I've shipped", forest: "Things I've made", steel: "Selected projects" }} />}>
         Production AI at work, and side projects where I try ideas end to end. Each one opens into the
         full write-up.

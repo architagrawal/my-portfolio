@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 import { SiteNav } from "./nav";
-import { Scene } from "./scene";
+import { Scene, type Paint } from "./scene";
 import { SiteFooter } from "./footer";
 import { Reveal } from "./reveal";
 
 /* Page frame shared by every sub-page */
-export function Shell({ children }: { children: ReactNode }) {
+export function Shell({ children, paint }: { children: ReactNode; paint?: Paint }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Scene>
+      <Scene paint={paint}>
         <SiteNav />
       </Scene>
       <main className="mx-auto max-w-3xl px-6 pt-4">{children}</main>

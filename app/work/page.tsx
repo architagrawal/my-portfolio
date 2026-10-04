@@ -55,7 +55,7 @@ export default function WorkPage() {
   const industry = roles.filter((r) => r.kind === "industry");
   const research = roles.filter((r) => r.kind === "research");
   return (
-    <Shell>
+    <Shell paint="work">
       <PageHeader eyebrow="Experience" title={<ThemeText v={{ midnight: "Where I've worked", graphite: "Work log", ember: "Where I've shipped", forest: "The path so far", steel: "Experience" }} />}>
         Five years across AI platforms, data pipelines and product engineering, plus research in evaluation
         and computer vision. Each role opens into the full detail.

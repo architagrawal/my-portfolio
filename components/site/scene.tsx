@@ -7,7 +7,9 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
    rendered and CSS shows the one matching <html data-theme>, so there is no flash on load.
    midnight: mountains and stars. ember: striped sun over dunes. graphite: terminal grid.
    forest: topographic contours. steel: blueprint grid. */
-export function Scene({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
+export type Paint = "hero" | "projects" | "work";
+
+export function Scene({ children, tall = false, paint }: { children: ReactNode; tall?: boolean; paint?: Paint }) {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const far = useTransform(scrollY, [0, 500], [0, reduce ? 0 : 50]);
@@ -25,6 +27,8 @@ export function Scene({ children, tall = false }: { children: ReactNode; tall?: 
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         }}
       />
+
+      {paint && <PaintLayer name={paint} reduce={!!reduce} />}
 
       <Stars />
       <RetroSun />
@@ -206,6 +210,28 @@ function Blueprint() {
           <path d="M20 0V40M0 20H40" stroke="currentColor" />
         </svg>
       ))}
+    </div>
+  );
+}
+
+/* Triangle painting from scripts/paint-backgrounds.sh, faded out toward the bottom so the
+   ridges and page body take over. Opacity and blend live in .scene-paint (globals.css). */
+function PaintLayer({ name, reduce }: { name: Paint; reduce: boolean }) {
+  return (
+    <div aria-hidden="true" className="scene-paint pointer-events-none absolute inset-0">
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0, scale: reduce ? 1 : 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: reduce ? 0 : 1.6, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          backgroundImage: `url(/paint/${name}.svg)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+          maskImage: "linear-gradient(to bottom, #000 45%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, #000 45%, transparent)",
+        }}
+      />
     </div>
   );
 }

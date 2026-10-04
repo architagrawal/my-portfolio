@@ -500,3 +500,9 @@
 [data-theme="ember"] .tt-ember,
 [data-theme="forest"] .tt-forest,
 [data-theme="steel"] .tt-steel { display: inline; }
+
+/* Painted backdrop (public/paint, made by scripts/paint-backgrounds.sh).
+   Screen on dark skies lifts only the saffron; light skies get a faint multiply. */
+.scene-paint { opacity: 0.32; mix-blend-mode: screen; }
+:root:not([data-theme]) .scene-paint,
+[data-theme="steel"] .scene-paint { opacity: 0.12; mix-blend-mode: multiply; }
