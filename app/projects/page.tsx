@@ -6,7 +6,8 @@ import { Reveal } from "@/components/site/reveal";
 import { ProjectVisual } from "@/components/site/project-visual";
 import { ThemeText } from "@/components/site/theme-text";
 import { TiltCard } from "@/components/site/tilt-card";
-import { HairlineFigure } from "@/components/site/hairline-figure";
+import { ProjectFigure } from "@/components/figures";
+import { hasFigure } from "@/components/figures/slugs";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -21,7 +22,7 @@ function Row({ p }: { p: Project }) {
       <TiltCard className="mb-4" max={1.5}>
         <Link
           href={`/projects/${p.slug}`}
-          className={`tcard spotlight group grid gap-x-8 gap-y-1 rounded-2xl bg-card p-6 shadow-soft transition-shadow duration-300 hover:shadow-lift sm:grid-cols-[9rem_1fr] sm:items-baseline ${p.figure ? "sm:grid-cols-[9rem_1fr_7.5rem]" : ""}`}
+          className={`tcard spotlight group grid gap-x-8 gap-y-1 rounded-2xl bg-card p-6 shadow-soft transition-shadow duration-300 hover:shadow-lift sm:grid-cols-[9rem_1fr] sm:items-baseline ${hasFigure(p.slug) ? "sm:grid-cols-[9rem_1fr_7.5rem]" : ""}`}
         >
           <span className="text-sm font-semibold text-muted-foreground tabular-nums">
             {p.date}
@@ -34,13 +35,11 @@ function Row({ p }: { p: Project }) {
               {p.description}
             </span>
           </span>
-          {p.figure && (
-            <HairlineFigure
-              name={p.figure}
-              label={`${p.title}, interactive figure`}
-              className="mt-2 w-28 self-center sm:mt-0 sm:w-auto"
-            />
-          )}
+          <ProjectFigure
+            slug={p.slug}
+            title={p.title}
+            className="mt-2 w-28 self-center sm:mt-0 sm:w-auto"
+          />
         </Link>
       </TiltCard>
     </Reveal>

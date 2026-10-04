@@ -1,26 +1,5 @@
 import type { Series } from "@/components/soft/line-chart";
 // Every project. Featured ones carry curated highlights; each gets its own page.
-export type FigureName =
-  | "Riffle"
-  | "Terrain"
-  | "Exploded"
-  | "Phosphor"
-  | "Slow"
-  | "Turntable"
-  | "Keyboard"
-  | "Elevator"
-  | "Phone"
-  | "Laptop"
-  | "Terminal"
-  | "Cabinet"
-  | "Branches"
-  | "Vault"
-  | "Lockers"
-  | "Padlock"
-  | "Patch"
-  | "Dish"
-  | "Router";
-
 export interface Project {
   slug: string;
   title: string;
@@ -30,8 +9,6 @@ export interface Project {
   description: string;
   highlights: string[];
   visual?: "agents" | "appshot" | "audio" | "analytics";
-  /** hairline figure that answers the pointer on the card */
-  figure?: FigureName;
   caseStudyUrl?: string;
   achievements: string[];
   technologies: string[];
@@ -54,7 +31,6 @@ export const projects: Project[] = [
         { x: "pass 5", y: 8 },
       ],
     },
-    figure: "Terminal",
     title: "Survey Agents",
     subtitle: "Coding & Analysis Platform",
     date: "June 2026 – Present",
@@ -148,7 +124,6 @@ export const projects: Project[] = [
         { x: "Apr", y: 115 },
       ],
     },
-    figure: "Riffle",
     title: "PrismSplit",
     date: "2025 – Present",
     tier: "featured",
@@ -228,7 +203,6 @@ export const projects: Project[] = [
         { x: "60 min", y: 48 },
       ],
     },
-    figure: "Turntable",
     title: "AiJockey",
     subtitle: "AI DJ Pipeline",
     date: "2025 – Present",
@@ -313,7 +287,6 @@ export const projects: Project[] = [
         { x: "day 28", y: 54290 },
       ],
     },
-    figure: "Terrain",
     title: "Clash Royale Clan Analytics Platform",
     date: "2025",
     tier: "featured",
@@ -391,7 +364,6 @@ export const projects: Project[] = [
         { x: "23:00", y: 1.0 },
       ],
     },
-    figure: "Patch",
     title: "SRP Electric MCP Server",
     date: "Dec 2025 – Jan 2026",
     tier: "build",
@@ -431,7 +403,6 @@ export const projects: Project[] = [
         { x: "18:00", y: 4 },
       ],
     },
-    figure: "Branches",
     title: "MCP-Based GitHub PR Review Automation Agent",
     date: "Jul 2025 – Aug 2025",
     tier: "build",
@@ -455,7 +426,6 @@ export const projects: Project[] = [
   },
   {
     slug: "no-code-pipeline-builder",
-    figure: "Slow",
     title: "No-Code Pipeline Builder",
     date: "2025",
     tier: "build",
@@ -510,7 +480,6 @@ export const projects: Project[] = [
         { x: "120 s", y: 1.3 },
       ],
     },
-    figure: "Cabinet",
     title: "Image Recognition as a Service",
     date: "Jan 2024 – Feb 2024",
     tier: "build",
@@ -554,7 +523,6 @@ export const projects: Project[] = [
         { x: "step 2,000", y: 0.57 },
       ],
     },
-    figure: "Exploded",
     title: "Reverse-Mode Automatic Differentiation",
     date: "Feb 2024 – Mar 2024",
     tier: "build",
@@ -597,7 +565,6 @@ export const projects: Project[] = [
         { x: "400 codes", y: 20 },
       ],
     },
-    figure: "Phosphor",
     title: "Survey Intelligence Platform",
     subtitle: "Target Architecture",
     date: "August 2026",
