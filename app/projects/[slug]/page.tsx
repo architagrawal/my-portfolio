@@ -6,6 +6,7 @@ import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Viz } from "@/components/soft/viz";
 import { Reveal } from "@/components/site/reveal";
 import { ProjectVisual } from "@/components/site/project-visual";
+import { hasFigure } from "@/components/figures/slugs";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -69,7 +70,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </div>
       )}
 
-      {p.visual && (
+      {(p.visual || hasFigure(p.slug)) && (
         <Reveal className="mt-12 overflow-hidden rounded-2xl bg-card shadow-soft">
           <ProjectVisual p={p} tall />
         </Reveal>

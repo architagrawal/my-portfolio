@@ -1,26 +1,5 @@
 import type { Visual as Viz } from "@/components/soft/viz/types";
 // Every project. Featured ones carry curated highlights; each gets its own page.
-export type FigureName =
-  | "Riffle"
-  | "Terrain"
-  | "Exploded"
-  | "Phosphor"
-  | "Slow"
-  | "Turntable"
-  | "Keyboard"
-  | "Elevator"
-  | "Phone"
-  | "Laptop"
-  | "Terminal"
-  | "Cabinet"
-  | "Branches"
-  | "Vault"
-  | "Lockers"
-  | "Padlock"
-  | "Patch"
-  | "Dish"
-  | "Router";
-
 export interface Project {
   slug: string;
   title: string;
@@ -30,8 +9,6 @@ export interface Project {
   description: string;
   highlights: string[];
   visual?: "agents" | "appshot" | "audio" | "analytics";
-  /** hairline figure that answers the pointer on the card */
-  figure?: FigureName;
   caseStudyUrl?: string;
   achievements: string[];
   technologies: string[];
@@ -45,7 +22,6 @@ export const projects: Project[] = [
   {
     slug: "survey-agents",
     viz: {"kind": "fanout", "caption": "Distributed Map fan-out, a bounded repair loop and a 5% failure circuit breaker", "workers": 6},
-    figure: "Terminal",
     title: "Survey Agents",
     subtitle: "Coding & Analysis Platform",
     date: "June 2026 – Present",
@@ -122,7 +98,6 @@ export const projects: Project[] = [
   {
     slug: "prismsplit",
     viz: {"kind": "receipt", "caption": "Item-level split in integer cents, illustrative", "people": ["You", "Sam", "Ana"], "items": [{"name": "Steak", "cents": 2800, "who": [0]}, {"name": "Salad", "cents": 1200, "who": [1]}, {"name": "Fries to share", "cents": 700, "who": [0, 1, 2]}, {"name": "Wine", "cents": 3600, "who": [0, 2]}]},
-    figure: "Riffle",
     title: "PrismSplit",
     date: "2025 – Present",
     tier: "featured",
@@ -176,7 +151,6 @@ export const projects: Project[] = [
   },
   {
     slug: "aijockey",
-    figure: "Turntable",
     title: "AiJockey",
     subtitle: "AI DJ Pipeline",
     date: "2025 – Present",
@@ -228,7 +202,6 @@ export const projects: Project[] = [
   },
   {
     slug: "clash-royale-clan-analytics-platform",
-    figure: "Terrain",
     title: "Clash Royale Clan Analytics Platform",
     date: "2025",
     tier: "featured",
@@ -277,7 +250,6 @@ export const projects: Project[] = [
   },
   {
     slug: "srp-electric-mcp-server",
-    figure: "Patch",
     title: "SRP Electric MCP Server",
     date: "Dec 2025 – Jan 2026",
     tier: "build",
@@ -301,7 +273,6 @@ export const projects: Project[] = [
   },
   {
     slug: "mcp-based-github-pr-review-automation-agent",
-    figure: "Branches",
     title: "MCP-Based GitHub PR Review Automation Agent",
     date: "Jul 2025 – Aug 2025",
     tier: "build",
@@ -325,7 +296,6 @@ export const projects: Project[] = [
   },
   {
     slug: "no-code-pipeline-builder",
-    figure: "Slow",
     title: "No-Code Pipeline Builder",
     date: "2025",
     tier: "build",
@@ -362,7 +332,6 @@ export const projects: Project[] = [
   {
     slug: "image-recognition-as-a-service",
     viz: {"kind": "scaling", "caption": "Instances step up behind a request burst and back down, illustrative", "perInstance": 10, "load": [4, 6, 12, 26, 41, 48, 44, 35, 22, 13, 8, 5, 4]},
-    figure: "Cabinet",
     title: "Image Recognition as a Service",
     date: "Jan 2024 – Feb 2024",
     tier: "build",
@@ -385,7 +354,6 @@ export const projects: Project[] = [
   {
     slug: "reverse-mode-automatic-differentiation",
     viz: {"kind": "compgraph", "caption": "Reverse mode on L(w\u00b7x + b): one forward pass, then gradients back along every edge"},
-    figure: "Exploded",
     title: "Reverse-Mode Automatic Differentiation",
     date: "Feb 2024 – Mar 2024",
     tier: "build",
@@ -407,7 +375,6 @@ export const projects: Project[] = [
   {
     slug: "survey-intelligence-platform",
     viz: {"kind": "gates", "caption": "Four layers, each gated on exit criteria rather than a date", "layers": ["layer 1", "layer 2", "layer 3", "layer 4"]},
-    figure: "Phosphor",
     title: "Survey Intelligence Platform",
     subtitle: "Target Architecture",
     date: "August 2026",

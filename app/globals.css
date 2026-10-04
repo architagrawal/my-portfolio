@@ -501,15 +501,35 @@
 [data-theme="forest"] .tt-forest,
 [data-theme="steel"] .tt-steel { display: inline; }
 
-/* hairline figures take the theme's colours; the plate matches the card it sits on */
-.hairline-site {
-  --hairline-plate: hsl(var(--card));
-  --hairline-hi: hsl(var(--primary));
-  --hairline-edge: hsl(var(--foreground) / 0.8);
-  --hairline-mid: hsl(var(--muted-foreground) / 0.7);
-  --hairline-lo: hsl(var(--muted-foreground) / 0.3);
+/* Project figures: thin strokes in the theme's ink, saffron for the lit parts.
+   Faces fill with the card colour so nearer solids hide what is behind them. */
+.figure-site {
+  --fg-plate: hsl(var(--card));
+  --fg-hi: hsl(var(--primary));
+  --fg-edge: hsl(var(--foreground) / 0.8);
+  --fg-mid: hsl(var(--muted-foreground) / 0.7);
+  --fg-lo: hsl(var(--muted-foreground) / 0.3);
+  aspect-ratio: 5 / 4;
 }
-[data-theme="ember"] .tcard:hover .hairline-site { --hairline-plate: hsl(var(--muted)); }
+[data-theme="ember"] .tcard:hover .figure-site { --fg-plate: hsl(var(--muted)); }
+.figure-site svg { transform-origin: 50% 50%; }
+.figure-site :where(path, ellipse, circle, polygon) {
+  fill: var(--fg-plate);
+  stroke: var(--fg-mid);
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.figure-site :where(.nf) { fill: none; }
+.figure-site :where(.edge) { stroke: var(--fg-edge); }
+.figure-site :where(.lo) { stroke: var(--fg-lo); }
+.figure-site :where(.hi) { stroke: var(--fg-hi); }
+.figure-site :where(.dash) { stroke-dasharray: 1 3; }
+.figure-site :where(.dot) { stroke: none; fill: var(--fg-hi); }
+.figure-site :where(.dot.m) { fill: var(--fg-edge); }
+.figure-site :where(.dot.off) { fill: var(--fg-lo); }
+
 /* Painted backdrop (public/paint, made by scripts/paint-backgrounds.sh).
    Screen on dark skies lifts only the saffron; light skies get a faint multiply. */
 .scene-paint { opacity: 0.55; mix-blend-mode: screen; }
