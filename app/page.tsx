@@ -34,7 +34,7 @@ const cardText = "mt-2 text-[16px] leading-relaxed text-muted-foreground";
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Scene tall paint="hero">
+      <Scene tall painted="inside">
         <SiteNav />
         <div className="hero relative mx-auto max-w-3xl px-6 pt-20 sm:pt-24">
           <p className="only-graphite mb-6 font-tech text-[15px] text-primary">
