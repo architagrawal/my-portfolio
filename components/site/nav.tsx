@@ -14,13 +14,13 @@ const LINKS = [
 ];
 
 /* The same top bar on every page. A soft pill sits under the current section and glides to whatever you hover. */
-export function SiteNav({ wide = false }: { wide?: boolean }) {
+export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?: boolean }) {
   const path = usePathname();
   const [hover, setHover] = useState<string | null>(null);
   const current = LINKS.find(({ href }) => path === href || path.startsWith(href + "/"))?.href ?? null;
   const pill = hover ?? current;
   return (
-    <nav className={`mx-auto flex items-center justify-between px-6 pt-8 ${wide ? "max-w-4xl" : "max-w-3xl"}`}>
+    <nav className={`mx-auto flex w-full items-center justify-between px-6 pt-8 ${hero ? "max-w-6xl md:px-12" : wide ? "max-w-4xl md:px-12" : "max-w-3xl"}`}>
       <Link href="/" className="font-display text-lg font-extrabold tracking-tight">
         Archit Agrawal
       </Link>

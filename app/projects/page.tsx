@@ -4,7 +4,6 @@ import { projects, type Project } from "@/lib/data/projects";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Reveal } from "@/components/site/reveal";
 import { ProjectVisual } from "@/components/site/project-visual";
-import { ThemeText } from "@/components/site/theme-text";
 import { TiltCard } from "@/components/site/tilt-card";
 import { ProjectFigure } from "@/components/figures";
 import { hasFigure } from "@/components/figures/slugs";
@@ -51,24 +50,14 @@ export default function ProjectsPage() {
   const builds = projects.filter((p) => p.tier === "build");
   const coursework = projects.filter((p) => p.tier === "coursework");
   return (
-    <Shell paint>
-      <PageHeader
-        eyebrow="Projects"
-        title={
-          <ThemeText
-            v={{
-              midnight: "Things I've built",
-              graphite: "Builds",
-              ember: "Stuff I've shipped",
-              forest: "Things I've made",
-              steel: "Selected projects",
-            }}
-          />
-        }
-      >
-        Production AI at work, and side projects where I try ideas end to end.
-        Each one opens into the full write-up.
-      </PageHeader>
+    <Shell
+      header={
+        <PageHeader eyebrow="Projects" title="Stuff I've shipped">
+          Production AI at work, and side projects where I try ideas end to end.
+          Each one opens into the full write-up.
+        </PageHeader>
+      }
+    >
 
       <SectionTitle count={featured.length}>Featured</SectionTitle>
       <div className="grid gap-6 sm:grid-cols-2">
@@ -77,7 +66,7 @@ export default function ProjectsPage() {
             <TiltCard className="h-full">
               <Link
                 href={`/projects/${p.slug}`}
-                className="tcard spotlight group flex h-full flex-col overflow-hidden rounded-2xl bg-card shadow-soft transition-shadow duration-300 hover:shadow-lift"
+                className="tcard spotlight group flex h-full flex-col overflow-hidden rounded-2xl transition-colors duration-300"
               >
                 <div>
                   <ProjectVisual p={p} />

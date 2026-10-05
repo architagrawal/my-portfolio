@@ -4,7 +4,6 @@ import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Reveal } from "@/components/site/reveal";
 import { Keycaps } from "@/components/site/keycaps";
 import { GithubActivity } from "@/components/ui/github-activity";
-import { ThemeText } from "@/components/site/theme-text";
 
 export const metadata: Metadata = {
   title: "About",
@@ -21,10 +20,8 @@ const FACTS = [
 
 export default function AboutPage() {
   return (
-    <Shell>
-      <PageHeader eyebrow="About" title={<ThemeText v={{ midnight: "Hi, I'm Archit", graphite: <span className="normal-case">whoami</span>, ember: "Hi, I'm Archit", forest: "A little about me", steel: "About Archit" }} />} />
-
-      <div className="mt-10 grid gap-10 sm:grid-cols-[1fr_12rem]">
+    <Shell header={<PageHeader eyebrow="About" title="Hi, I'm Archit" />}>
+      <div className="mt-8 grid gap-10 sm:grid-cols-[1fr_12rem]">
         <Reveal className="space-y-5 text-lg leading-relaxed text-foreground/80">
           <p>
             I finished my MS in Computer Science at Arizona State with a 4.0 and stayed on at EdPlus, where I own an

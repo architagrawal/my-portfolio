@@ -331,187 +331,144 @@
 }
 
 /* ------------------------------------------------------------------
-   Random themes. An inline script in <head> picks one per load and sets
-   <html data-theme>. Each theme sets the colour tokens, the mountain scene,
-   corner roundness (--r) and the display face.
+   Scene palettes. An inline script in <head> picks one painted scene per visit
+   and sets <html data-scene>. Each scene sets the colour tokens, sampled from
+   its painting (scripts/paint-src). mesas is the fallback when no script runs.
    ------------------------------------------------------------------ */
 :root {
-  --primary-deep: 250 70% 45%;
-  --secondary-deep: 333 80% 42%;
-  --shadow: 240 38% 16%;
-  --r: 1;
+  --r: 0.5;
   --display-font: var(--font-figtree);
-  --sky-1: #b9dcff; --sky-2: #d5eaff; --sky-3: #eef6ff;
-  --ridge-far-1: #9fc6f2; --ridge-far-2: #c9e0fa;
-  --ridge-near-1: #cfe3fb; --ridge-near-2: #e9f2fd;
-  --glow: rgba(255, 244, 214, 0.95);
-  --grain-blend: multiply;
+}
+:root:not([data-scene]),
+[data-scene="mesas"] {
+  --background: 12 32% 7%; --foreground: 30 30% 93%;
+  --card: 12 32% 11%; --card-foreground: 30 30% 93%;
+  --popover: 12 32% 11%; --popover-foreground: 30 30% 93%;
+  --primary: 18 78% 60%; --primary-foreground: 12 32% 7%; --primary-deep: 18 78% 34%;
+  --secondary: 232 35% 76%; --secondary-foreground: 12 32% 7%; --secondary-deep: 232 35% 34%;
+  --muted: 12 32% 15%; --muted-foreground: 30 20% 70%;
+  --accent: 12 32% 15%; --accent-foreground: 30 30% 93%;
+  --border: 12 24% 22%; --input: 12 24% 22%; --ring: 18 78% 60%;
+  --chart-1: 18 78% 60%; --chart-2: 232 35% 76%; --chart-5: 30 20% 70%;
+  --shadow: 12 32% 2%;
+  --sky-1: #110202; --sky-2: #180708; --sky-3: #402221;
+}
+[data-scene="saguaros"] {
+  --background: 210 55% 7%; --foreground: 205 30% 94%;
+  --card: 210 55% 11%; --card-foreground: 205 30% 94%;
+  --popover: 210 55% 11%; --popover-foreground: 205 30% 94%;
+  --primary: 205 75% 68%; --primary-foreground: 210 55% 7%; --primary-deep: 205 75% 34%;
+  --secondary: 272 40% 76%; --secondary-foreground: 210 55% 7%; --secondary-deep: 272 40% 34%;
+  --muted: 210 55% 15%; --muted-foreground: 205 20% 70%;
+  --accent: 210 55% 15%; --accent-foreground: 205 30% 94%;
+  --border: 210 47% 22%; --input: 210 47% 22%; --ring: 205 75% 68%;
+  --chart-1: 205 75% 68%; --chart-2: 272 40% 76%; --chart-5: 205 20% 70%;
+  --shadow: 210 55% 2%;
+  --sky-1: #01060d; --sky-2: #034477; --sky-3: #1f6098;
+}
+[data-scene="aurora"] {
+  --background: 162 30% 6%; --foreground: 140 15% 92%;
+  --card: 162 30% 10%; --card-foreground: 140 15% 92%;
+  --popover: 162 30% 10%; --popover-foreground: 140 15% 92%;
+  --primary: 148 50% 62%; --primary-foreground: 162 30% 6%; --primary-deep: 148 50% 34%;
+  --secondary: 295 40% 76%; --secondary-foreground: 162 30% 6%; --secondary-deep: 295 40% 34%;
+  --muted: 162 30% 14%; --muted-foreground: 140 5% 70%;
+  --accent: 162 30% 14%; --accent-foreground: 140 15% 92%;
+  --border: 162 22% 21%; --input: 162 22% 21%; --ring: 148 50% 62%;
+  --chart-1: 148 50% 62%; --chart-2: 295 40% 76%; --chart-5: 140 5% 70%;
+  --shadow: 162 30% 2%;
+  --sky-1: #070304; --sky-2: #201f29; --sky-3: #334146;
+}
+[data-scene="ocean"] {
+  --background: 214 45% 9%; --foreground: 190 30% 94%;
+  --card: 214 45% 13%; --card-foreground: 190 30% 94%;
+  --popover: 214 45% 13%; --popover-foreground: 190 30% 94%;
+  --primary: 168 50% 68%; --primary-foreground: 214 45% 9%; --primary-deep: 168 50% 34%;
+  --secondary: 39 62% 72%; --secondary-foreground: 214 45% 9%; --secondary-deep: 39 62% 34%;
+  --muted: 214 45% 17%; --muted-foreground: 190 20% 70%;
+  --accent: 214 45% 17%; --accent-foreground: 190 30% 94%;
+  --border: 214 37% 24%; --input: 214 37% 24%; --ring: 168 50% 68%;
+  --chart-1: 168 50% 68%; --chart-2: 39 62% 72%; --chart-5: 190 20% 70%;
+  --shadow: 214 45% 2%;
+  --sky-1: #35414f; --sky-2: #5d779a; --sky-3: #7090b4;
+}
+[data-scene="blackhole"] {
+  --background: 0 0% 3%; --foreground: 35 25% 92%;
+  --card: 0 0% 7%; --card-foreground: 35 25% 92%;
+  --popover: 0 0% 7%; --popover-foreground: 35 25% 92%;
+  --primary: 40 85% 60%; --primary-foreground: 0 0% 3%; --primary-deep: 40 85% 34%;
+  --secondary: 19 88% 60%; --secondary-foreground: 0 0% 3%; --secondary-deep: 19 88% 34%;
+  --muted: 0 0% 11%; --muted-foreground: 35 15% 70%;
+  --accent: 0 0% 11%; --accent-foreground: 35 25% 92%;
+  --border: 0 0% 18%; --input: 0 0% 18%; --ring: 40 85% 60%;
+  --chart-1: 40 85% 60%; --chart-2: 19 88% 60%; --chart-5: 35 15% 70%;
+  --shadow: 0 0% 2%;
+  --sky-1: #000000; --sky-2: #0b0101; --sky-3: #360001;
+}
+[data-scene="canyon"] {
+  --background: 28 22% 7%; --foreground: 33 25% 91%;
+  --card: 28 22% 11%; --card-foreground: 33 25% 91%;
+  --popover: 28 22% 11%; --popover-foreground: 33 25% 91%;
+  --primary: 24 58% 64%; --primary-foreground: 28 22% 7%; --primary-deep: 24 58% 34%;
+  --secondary: 64 30% 62%; --secondary-foreground: 28 22% 7%; --secondary-deep: 64 30% 34%;
+  --muted: 28 22% 15%; --muted-foreground: 33 15% 70%;
+  --accent: 28 22% 15%; --accent-foreground: 33 25% 91%;
+  --border: 28 14% 22%; --input: 28 14% 22%; --ring: 24 58% 64%;
+  --chart-1: 24 58% 64%; --chart-2: 64 30% 62%; --chart-5: 33 15% 70%;
+  --shadow: 28 22% 2%;
+  --sky-1: #27281b; --sky-2: #4b3623; --sky-3: #75543f;
+}
+[data-scene="flock"] {
+  --background: 18 45% 6%; --foreground: 36 40% 93%;
+  --card: 18 45% 10%; --card-foreground: 36 40% 93%;
+  --popover: 18 45% 10%; --popover-foreground: 36 40% 93%;
+  --primary: 34 87% 62%; --primary-foreground: 18 45% 6%; --primary-deep: 34 87% 34%;
+  --secondary: 22 70% 62%; --secondary-foreground: 18 45% 6%; --secondary-deep: 22 70% 34%;
+  --muted: 18 45% 14%; --muted-foreground: 36 30% 70%;
+  --accent: 18 45% 14%; --accent-foreground: 36 40% 93%;
+  --border: 18 37% 21%; --input: 18 37% 21%; --ring: 34 87% 62%;
+  --chart-1: 34 87% 62%; --chart-2: 22 70% 62%; --chart-5: 36 30% 70%;
+  --shadow: 18 45% 2%;
+  --sky-1: #280f07; --sky-2: #563217; --sky-3: #7d5223;
+}
+[data-scene="reef"] {
+  --background: 176 45% 6%; --foreground: 170 20% 93%;
+  --card: 176 45% 10%; --card-foreground: 170 20% 93%;
+  --popover: 176 45% 10%; --popover-foreground: 170 20% 93%;
+  --primary: 12 85% 68%; --primary-foreground: 176 45% 6%; --primary-deep: 12 85% 34%;
+  --secondary: 178 55% 55%; --secondary-foreground: 176 45% 6%; --secondary-deep: 178 55% 34%;
+  --muted: 176 45% 14%; --muted-foreground: 170 10% 70%;
+  --accent: 176 45% 14%; --accent-foreground: 170 20% 93%;
+  --border: 176 37% 21%; --input: 176 37% 21%; --ring: 12 85% 68%;
+  --chart-1: 12 85% 68%; --chart-2: 178 55% 55%; --chart-5: 170 10% 70%;
+  --shadow: 176 45% 2%;
+  --sky-1: #0e1916; --sky-2: #244e49; --sky-3: #0b8484;
 }
 
-[data-theme="midnight"] {
-  --background: 224 45% 7%; --foreground: 214 30% 94%;
-  --card: 223 38% 11%; --card-foreground: 214 30% 94%;
-  --popover: 223 38% 11%; --popover-foreground: 214 30% 94%;
-  --primary: 212 100% 58%; --primary-foreground: 224 45% 7%; --primary-deep: 214 90% 36%;
-  --secondary: 36 100% 55%; --secondary-foreground: 224 45% 7%; --secondary-deep: 30 90% 36%;
-  --muted: 223 32% 15%; --muted-foreground: 216 16% 64%;
-  --accent: 223 32% 15%; --accent-foreground: 214 30% 94%;
-  --border: 223 26% 20%; --input: 223 26% 20%; --ring: 212 100% 58%;
-  --shadow: 225 60% 2%; --r: 0.5; --display-font: var(--font-space);
-  --sky-1: #070b16; --sky-2: #0e1730; --sky-3: #0b1122;
-  --ridge-far-1: #1a2a4d; --ridge-far-2: #121e38;
-  --ridge-near-1: #132140; --ridge-near-2: #0e182e;
-  --glow: rgba(96, 165, 250, 0.2); --grain-blend: overlay;
-}
-
-[data-theme="graphite"] {
-  --background: 0 0% 6%; --foreground: 0 0% 93%;
-  --card: 0 0% 10%; --card-foreground: 0 0% 93%;
-  --popover: 0 0% 10%; --popover-foreground: 0 0% 93%;
-  --primary: 80 55% 58%; --primary-foreground: 0 0% 6%; --primary-deep: 82 45% 32%;
-  --secondary: 22 70% 58%; --secondary-foreground: 0 0% 6%; --secondary-deep: 20 55% 36%;
-  --muted: 0 0% 13.5%; --muted-foreground: 0 0% 62%;
-  --accent: 0 0% 13.5%; --accent-foreground: 0 0% 93%;
-  --border: 0 0% 19%; --input: 0 0% 19%; --ring: 80 55% 58%;
-  --shadow: 0 0% 0%; --r: 0.25; --display-font: var(--font-space);
-  --sky-1: #0c0c0c; --sky-2: #141414; --sky-3: #101010;
-  --ridge-far-1: #262626; --ridge-far-2: #1a1a1a;
-  --ridge-near-1: #1d1d1d; --ridge-near-2: #141414;
-  --glow: rgba(190, 242, 100, 0.08); --grain-blend: overlay;
-}
-
-[data-theme="ember"] {
-  --background: 18 16% 6%; --foreground: 30 22% 93%;
-  --card: 18 14% 9.5%; --card-foreground: 30 22% 93%;
-  --popover: 18 14% 9.5%; --popover-foreground: 30 22% 93%;
-  --primary: 14 68% 56%; --primary-foreground: 18 16% 6%; --primary-deep: 12 55% 34%;
-  --secondary: 188 40% 55%; --secondary-foreground: 18 16% 6%; --secondary-deep: 190 40% 32%;
-  --muted: 18 12% 13.5%; --muted-foreground: 24 10% 62%;
-  --accent: 18 12% 13.5%; --accent-foreground: 30 22% 93%;
-  --border: 18 12% 19%; --input: 18 12% 19%; --ring: 14 68% 56%;
-  --shadow: 15 40% 2%; --r: 0.5; --display-font: var(--font-figtree);
-  --sky-1: #1a0d09; --sky-2: #140c0a; --sky-3: #100b09;
-  --ridge-far-1: #3a1a12; --ridge-far-2: #24130e;
-  --ridge-near-1: #26140f; --ridge-near-2: #180f0c;
-  --glow: rgba(249, 115, 22, 0.16); --grain-blend: overlay;
-}
-
-[data-theme="forest"] {
-  --background: 152 20% 6%; --foreground: 60 14% 92%;
-  --card: 152 17% 9.5%; --card-foreground: 60 14% 92%;
-  --popover: 152 17% 9.5%; --popover-foreground: 60 14% 92%;
-  --primary: 42 78% 56%; --primary-foreground: 152 20% 6%; --primary-deep: 38 70% 32%;
-  --secondary: 150 55% 48%; --secondary-foreground: 152 20% 6%; --secondary-deep: 152 55% 26%;
-  --muted: 152 14% 13.5%; --muted-foreground: 90 8% 62%;
-  --accent: 152 14% 13.5%; --accent-foreground: 60 14% 92%;
-  --border: 152 12% 19%; --input: 152 12% 19%; --ring: 42 78% 56%;
-  --shadow: 150 40% 2%; --r: 0.75; --display-font: var(--font-figtree);
-  --sky-1: #08140f; --sky-2: #0c1813; --sky-3: #0b140f;
-  --ridge-far-1: #173326; --ridge-far-2: #10241b;
-  --ridge-near-1: #112319; --ridge-near-2: #0c1913;
-  --glow: rgba(234, 179, 8, 0.14); --grain-blend: overlay;
-}
-
-[data-theme="steel"] {
-  --background: 212 22% 95%; --foreground: 216 38% 12%;
-  --card: 0 0% 100%; --card-foreground: 216 38% 12%;
-  --popover: 0 0% 100%; --popover-foreground: 216 38% 12%;
-  --primary: 222 85% 46%; --primary-foreground: 0 0% 100%; --primary-deep: 224 80% 30%;
-  --secondary: 6 60% 52%; --secondary-foreground: 0 0% 100%; --secondary-deep: 4 50% 36%;
-  --muted: 212 20% 90%; --muted-foreground: 215 14% 40%;
-  --accent: 212 20% 90%; --accent-foreground: 216 38% 12%;
-  --border: 212 18% 84%; --input: 212 18% 84%; --ring: 222 85% 46%;
-  --shadow: 216 40% 12%; --r: 0.375; --display-font: var(--font-space);
-  --sky-1: #aebdcf; --sky-2: #c9d4e0; --sky-3: #e2e8ef;
-  --ridge-far-1: #8497ad; --ridge-far-2: #a9b8c9;
-  --ridge-near-1: #b3c1d0; --ridge-near-2: #d1dae4;
-  --glow: rgba(255, 255, 255, 0.7); --grain-blend: multiply;
-}
-
-/* Corners follow the theme: sharp on graphite, soft on forest */
 .rounded-xl { border-radius: calc(0.75rem * var(--r)); }
 .rounded-2xl { border-radius: calc(1rem * var(--r)); }
 .rounded-3xl { border-radius: calc(1.5rem * var(--r)); }
 .rounded-lg { border-radius: calc(0.5rem * var(--r)); }
 .rounded-md { border-radius: calc(0.375rem * var(--r)); }
 
-/* ------------------------------------------------------------------
-   Per-theme design: scene, headline, hero layout and card style.
-   ------------------------------------------------------------------ */
-.scene-stars, .scene-sun, .scene-grid, .scene-contours, .scene-blueprint, .scene-fade, .only-graphite { display: none; }
-[data-theme="midnight"] .scene-stars,
-[data-theme="graphite"] .scene-grid,
-[data-theme="forest"] .scene-contours,
-[data-theme="steel"] .scene-blueprint { display: block; }
-[data-theme="graphite"] .scene-ridges,
-[data-theme="forest"] .scene-ridges,
-[data-theme="steel"] .scene-ridges,
-[data-theme="graphite"] .scene-glow,
-[data-theme="steel"] .scene-glow { display: none; }
-[data-theme="graphite"] .scene-fade,
-[data-theme="forest"] .scene-fade,
-[data-theme="steel"] .scene-fade { display: block; }
-[data-theme="graphite"] .only-graphite { display: block; }
-
-/* ember: the sun needs the width beside the text, so it only rises from tablet up */
-@media (min-width: 768px) { [data-theme="ember"] .scene-tall .scene-sun { display: block; } }
-/* ember: the near ridge reads as dunes in front of the sun */
-[data-theme="ember"] .ridge-far { opacity: 0.55; }
-
-/* graphite: grid floor rolls toward the viewer */
-@keyframes grid-roll { from { background-position: 0 0, 0 0; } to { background-position: 0 56px, 0 0; } }
-.grid-floor { animation: grid-roll 6s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .grid-floor { animation: none; } }
+.hero-title { letter-spacing: -0.04em; }
 @keyframes caret-blink { 50% { opacity: 0; } }
 .caret { display: inline-block; width: 0.55em; height: 1.05em; margin-left: 0.2em; vertical-align: -0.15em; background: currentColor; animation: caret-blink 1s steps(1) infinite; }
 
-/* Headlines */
-[data-theme="graphite"] .hero-title { letter-spacing: -0.025em; font-weight: 600; }
-[data-theme="forest"] .hero-title { font-family: var(--font-fraunces), Georgia, serif; font-weight: 600; letter-spacing: -0.025em; }
-[data-theme="forest"] .hero-title .scribble-text { font-style: italic; }
-[data-theme="ember"] .hero-title { letter-spacing: -0.04em; }
-[data-theme="steel"] .hero-title { letter-spacing: -0.03em; }
+/* Cards sit straight on the content surface: no border, no heavy fill */
+.tcard { background: transparent; box-shadow: none; }
+.tcard:hover { box-shadow: none; }
 
-/* steel: centred, editorial hero */
-[data-theme="steel"] .hero { text-align: center; }
-[data-theme="steel"] .hero .hero-title,
-[data-theme="steel"] .hero p { margin-left: auto; margin-right: auto; }
-[data-theme="steel"] .hero .hero-actions { justify-content: center; }
-
-/* Cards */
-[data-theme="midnight"] .tcard {
-  background: hsl(var(--card) / 0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: inset 0 0 0 1px hsl(0 0% 100% / 0.06), 0 12px 32px hsl(var(--shadow) / 0.35);
-}
-[data-theme="graphite"] .tcard { box-shadow: none; outline: 1px solid hsl(var(--border)); outline-offset: -1px; }
-[data-theme="graphite"] .tcard:hover { outline-color: hsl(var(--primary)); box-shadow: none; }
-[data-theme="ember"] .tcard { box-shadow: none; }
-[data-theme="ember"] .tcard:hover { background: hsl(var(--muted)); box-shadow: none; }
-[data-theme="steel"] .tcard { box-shadow: 3px 3px 0 hsl(var(--border)); outline: 1px solid hsl(var(--border)); outline-offset: -1px; }
-[data-theme="steel"] .tcard:hover { box-shadow: 4px 4px 0 hsl(var(--primary) / 0.35); outline-color: hsl(var(--primary) / 0.5); }
-
-/* Theme copy: show only the variant for the active design (midnight when none is set) */
-.tt { display: none; }
-:root:not([data-theme]) .tt-midnight,
-[data-theme="midnight"] .tt-midnight,
-[data-theme="graphite"] .tt-graphite,
-[data-theme="ember"] .tt-ember,
-[data-theme="forest"] .tt-forest,
-[data-theme="steel"] .tt-steel { display: inline; }
-
-/* Project figures: thin strokes in the theme's ink, saffron for the lit parts.
+/* Project figures: thin strokes in the scene's ink, its accent for the lit parts.
    Faces fill with the card colour so nearer solids hide what is behind them. */
 .figure-site {
-  --fg-plate: hsl(var(--card));
+  --fg-plate: hsl(var(--background));
   --fg-hi: hsl(var(--primary));
   --fg-edge: hsl(var(--foreground) / 0.8);
   --fg-mid: hsl(var(--muted-foreground) / 0.7);
   --fg-lo: hsl(var(--muted-foreground) / 0.3);
   aspect-ratio: 5 / 4;
 }
-[data-theme="ember"] .tcard:hover .figure-site { --fg-plate: hsl(var(--muted)); }
 .figure-site svg { transform-origin: 50% 50%; }
 .figure-site :where(path, ellipse, circle, polygon) {
   fill: var(--fg-plate);
@@ -529,27 +486,34 @@
 .figure-site :where(.dot) { stroke: none; fill: var(--fg-hi); }
 .figure-site :where(.dot.m) { fill: var(--fg-edge); }
 .figure-site :where(.dot.off) { fill: var(--fg-lo); }
-/* Painted scene (components/site/paint-scenes.ts, public/paint via scripts/paint-backgrounds.sh) */
-.scene-paint { opacity: 0.85; }
-.scene-fg { opacity: 1; }
-:root:not([data-theme]) .scene-paint,
-[data-theme="steel"] .scene-paint,
-:root:not([data-theme]) .scene-fg,
-[data-theme="steel"] .scene-fg { opacity: 0.3; }
-.scene-paint-canvas {
-  mask-image: linear-gradient(to bottom, #000 75%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, #000 75%, transparent);
-}
+/* Painted backdrop (components/site/scene.tsx Backdrop): fixed behind every page,
+   composited on its own layer; scroll only changes the veil's opacity. */
+.backdrop { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: linear-gradient(to bottom, var(--sky-1), var(--sky-2), var(--sky-3)); }
+.backdrop > * { will-change: transform, opacity; }
 .scene-paint-canvas > svg { position: absolute; inset: -16px; width: calc(100% + 32px); height: calc(100% + 32px); }
-/* the text column reads over a soft wash in the page colour, not a box */
-.scene-paint-shade {
-  background: linear-gradient(to right, hsl(var(--background) / 0.93), hsl(var(--background) / 0.88) 58%, transparent 82%);
+.backdrop-veil { background: hsl(var(--background)); }
+/* bright paintings (ocean's sky) are toned down in their own page colour so light type reads */
+.scene-paint-canvas::after { content: ""; position: absolute; inset: 0; background: hsl(var(--background) / var(--paint-dim, 0)); }
+[data-scene="ocean"] { --paint-dim: 0.45; }
+[data-scene="flock"] { --paint-dim: 0.2; }
+[data-scene="mesas"], [data-scene="reef"] { --paint-dim: 0.15; }
+[data-scene="canyon"], [data-scene="saguaros"] { --paint-dim: 0.1; }
+/* the nav reads over the sky */
+.backdrop::after { content: ""; position: absolute; inset: 0 0 auto; height: 9rem; background: linear-gradient(hsl(var(--background) / 0.6), transparent); }
+/* the hero words get a local shadow, not a wash across the page */
+.hero-copy { position: relative; isolation: isolate; text-shadow: 0 1px 2px hsl(var(--background) / 0.9), 0 0 18px hsl(var(--background) / 0.7); }
+.hero-copy::before {
+  content: "";
+  position: absolute;
+  inset: -45% -50%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, hsl(var(--background) / 0.9), hsl(var(--background) / 0.85) 70%, hsl(var(--background) / 0.4) 86%, transparent);
 }
-/* light themes centre the hero, so the wash covers the whole width */
-:root:not([data-theme]) .scene-paint-shade,
-[data-theme="steel"] .scene-paint-shade { background: hsl(var(--background) / 0.88); }
-@media (max-width: 640px) {
-  .scene-paint-shade { background: hsl(var(--background) / 0.84); }
+/* sub-page content: a centred surface, the painting stays in the margins */
+.surface { background: hsl(var(--background)); }
+@media (min-width: 768px) {
+  .surface { background: hsl(var(--background) / 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 }
 /* live replay: strokes in generation order, then a slow drift and a pointer nudge */
 .scene-paint-canvas.is-live > svg {

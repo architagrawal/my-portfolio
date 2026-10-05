@@ -3,7 +3,8 @@ import { PageHeader, Shell } from "@/components/site/shell";
 
 export default function NotFound() {
   return (
-    <Shell>
+    <Shell
+      header={
       <PageHeader eyebrow="404" title="This page doesn't exist">
         The link may be old. Everything lives in{" "}
         <Link href="/work" className="text-foreground underline decoration-border underline-offset-[6px] hover:decoration-primary">
@@ -19,6 +20,9 @@ export default function NotFound() {
         </Link>
         .
       </PageHeader>
+      }
+    >
+      {null}
     </Shell>
   );
 }

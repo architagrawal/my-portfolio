@@ -5,7 +5,6 @@ import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Viz } from "@/components/soft/viz";
 import { Reveal } from "@/components/site/reveal";
 import { ScrollSpine } from "@/components/site/scroll-spine";
-import { ThemeText } from "@/components/site/theme-text";
 import { TiltCard } from "@/components/site/tilt-card";
 
 export const metadata: Metadata = {
@@ -84,25 +83,15 @@ export default function WorkPage() {
   const industry = roles.filter((r) => r.kind === "industry");
   const research = roles.filter((r) => r.kind === "research");
   return (
-    <Shell paint>
-      <PageHeader
-        eyebrow="Experience"
-        title={
-          <ThemeText
-            v={{
-              midnight: "Where I've worked",
-              graphite: "Work log",
-              ember: "Where I've shipped",
-              forest: "The path so far",
-              steel: "Experience",
-            }}
-          />
-        }
-      >
-        Five years across AI platforms, data pipelines and product engineering,
-        plus research in evaluation and computer vision. Each role opens into
-        the full detail.
-      </PageHeader>
+    <Shell
+      header={
+        <PageHeader eyebrow="Experience" title="Where I've shipped">
+          Five years across AI platforms, data pipelines and product engineering,
+          plus research in evaluation and computer vision. Each role opens into
+          the full detail.
+        </PageHeader>
+      }
+    >
 
       <ScrollSpine>
         <SectionTitle count={industry.length}>Industry</SectionTitle>
@@ -120,7 +109,7 @@ export default function WorkPage() {
       {EDUCATION.map((e) => (
         <div
           key={e.school}
-          className="tcard mb-5 grid gap-x-8 rounded-2xl bg-card p-7 shadow-soft sm:grid-cols-[9rem_1fr]"
+          className="mb-8 grid gap-x-8 sm:grid-cols-[9rem_1fr]"
         >
           <p className="text-sm font-semibold text-muted-foreground tabular-nums">
             {e.period}

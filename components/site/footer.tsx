@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { FooterLive } from "./footer-live";
 
-export function SiteFooter({ wide = false }: { wide?: boolean }) {
+/* inset: the footer closes a content surface, so it takes the surface's padding, not its own width */
+export function SiteFooter({ wide = false, inset = false }: { wide?: boolean; inset?: boolean }) {
   return (
-    <footer className={`mx-auto mt-24 px-6 ${wide ? "max-w-4xl" : "max-w-3xl"}`}>
+    <footer className={inset ? "mt-12 px-6 md:px-12" : `mx-auto mt-24 px-6 ${wide ? "max-w-4xl" : "max-w-3xl"}`}>
       <div className="py-12">
       <div className="flex flex-wrap items-baseline justify-between gap-4 text-[15px]">
         <FooterLive />

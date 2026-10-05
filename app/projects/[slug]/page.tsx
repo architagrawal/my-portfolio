@@ -45,15 +45,20 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   const next = projects[(i + 1) % projects.length];
 
   return (
-    <Shell>
-      <Link href="/projects" className="link-grow pb-0.5 text-[15px] font-bold text-primary"> All projects
-      </Link>
-      <div className="mt-8">
-        <PageHeader eyebrow={p.date} title={p.title}>
-          {p.subtitle && <span className="block text-foreground">{p.subtitle}</span>}
-          {p.description}
-        </PageHeader>
-      </div>
+    <Shell
+      header={
+        <>
+          <Link href="/projects" className="link-grow pb-0.5 text-[15px] font-bold text-primary"> All projects
+          </Link>
+          <div className="mt-8">
+            <PageHeader eyebrow={p.date} title={p.title}>
+              {p.subtitle && <span className="block text-foreground">{p.subtitle}</span>}
+              {p.description}
+            </PageHeader>
+          </div>
+        </>
+      }
+    >
 
       {links.length > 0 && (
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
@@ -94,7 +99,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       <SectionTitle>Tools</SectionTitle>
       <p className="text-[15px] leading-relaxed text-muted-foreground">{p.technologies.join(", ")}</p>
 
-      <Link href={`/projects/${next.slug}`} className="group mt-16 block rounded-2xl bg-card p-7 shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift">
+      <Link href={`/projects/${next.slug}`} className="group mt-16 block py-2">
         <span className="text-sm font-bold uppercase tracking-[0.08em] text-primary">Next project</span>
         <span className="mt-1 block font-display text-2xl font-extrabold tracking-tight">{next.title}</span>
       </Link>

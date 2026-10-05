@@ -31,14 +31,19 @@ export default function RolePage({ params }: { params: { slug: string } }) {
   const next = roles[i + 1];
 
   return (
-    <Shell>
-      <Link href="/work" className="link-grow pb-0.5 text-[15px] font-bold text-primary"> All experience
-      </Link>
-      <div className="mt-8">
-        <PageHeader eyebrow={`${r.period}, ${r.location}`} title={r.role}>
-          {r.company}
-        </PageHeader>
-      </div>
+    <Shell
+      header={
+        <>
+          <Link href="/work" className="link-grow pb-0.5 text-[15px] font-bold text-primary"> All experience
+          </Link>
+          <div className="mt-8">
+            <PageHeader eyebrow={`${r.period}, ${r.location}`} title={r.role}>
+              {r.company}
+            </PageHeader>
+          </div>
+        </>
+      }
+    >
 
       {r.visual && <Viz v={r.visual} className="mt-10" />}
 
@@ -62,7 +67,7 @@ export default function RolePage({ params }: { params: { slug: string } }) {
       <p className="text-[15px] leading-relaxed text-muted-foreground">{r.technologies.join(", ")}</p>
 
       {next && (
-        <Link href={`/work/${next.slug}`} className="group mt-16 block rounded-2xl bg-card p-7 shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift">
+        <Link href={`/work/${next.slug}`} className="group mt-16 block py-2">
           <span className="text-sm font-bold uppercase tracking-[0.08em] text-primary">Next role</span>
           <span className="mt-1 block font-display text-2xl font-extrabold tracking-tight">
             {next.role}, {next.companyShort}
