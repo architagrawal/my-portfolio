@@ -64,7 +64,8 @@ export function Backdrop() {
       .then((text) => {
         if (!alive) return;
         const svg = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
-        svg.setAttribute("viewBox", "0 0 1024 512");
+        // keep each painting's own shape (2:1 or 16:10); slice then fills the screen
+        svg.setAttribute("viewBox", `0 0 ${svg.getAttribute("width") ?? 1024} ${svg.getAttribute("height") ?? 512}`);
         svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
         svg.removeAttribute("width");
         svg.removeAttribute("height");
