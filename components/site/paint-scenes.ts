@@ -137,7 +137,7 @@ const BUILDERS: Record<SceneId, (p: Palette, r: () => number) => Layers> = {
       `<clipPath id="fg-sea"><rect x="-200" y="0" width="2000" height="806"/></clipPath>` +
       `<g clip-path="url(#fg-sea)"><g transform="translate(980 800)"><g class="fg-whale">${whale("#1b2a3e", "#33475f")}</g></g>` +
       `<g transform="translate(1430 806)"><g class="fg-fluke">${fluke("#1b2a3e")}</g></g></g>` +
-      `<g transform="translate(1280 772)"><ellipse class="fg-spout" cx="0" cy="0" rx="10" ry="34" fill="#f2f4ee"/></g>` +
+      `<g transform="translate(1300 774)">${Array.from({ length: 9 }, (_, i) => { const k = i / 8; const d = (i % 2 ? 1 : -1) * k; return `<circle class="fg-puff" style="--d:${d.toFixed(2)};--h:${(40 + k * 90).toFixed(0)}px;animation-delay:${(k * 0.35).toFixed(2)}s" r="${(5 + k * 7).toFixed(1)}" fill="#f2f4ee"/>`; }).join("")}</g>` +
       `<g transform="translate(1430 806)"><ellipse class="fg-ring" cx="0" cy="0" rx="70" ry="10" fill="none" stroke="#e9ead4" stroke-width="3"/></g>`,
     `<g class="fg-swell">${wave(850, p.dark[0], 12, 120)}</g>`,
   ],
@@ -159,7 +159,7 @@ const BUILDERS: Record<SceneId, (p: Palette, r: () => number) => Layers> = {
     ground(r, 870, 14, p.dark[2], 4, ' opacity="0.8"'),
   ],
   reef: (p, r) => [
-    `<g class="fg-glide"><g transform="translate(0 330) scale(2.4)" opacity="0.75">${whale("#0d2a30", "#1f4a50")}</g></g>`,
+    `<g class="fg-glide"><g transform="translate(0 330) scale(-2.4 2.4)" opacity="0.75">${whale("#0d2a30", "#1f4a50")}</g></g>`,
     Array.from(
       { length: 12 },
       () =>

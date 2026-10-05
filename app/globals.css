@@ -590,7 +590,7 @@ html { position: relative; }
 .fg-paused * { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) {
   .scene-fg * { animation: none !important; }
-  .fg-whale, .fg-spout, .fg-fluke, .fg-ring { opacity: 0; }
+  .fg-whale, .fg-puff, .fg-fluke, .fg-ring { opacity: 0; }
 }
 .fg-circle { animation: fg-spin 14s linear infinite; }
 .fg-swirl { animation: fg-spin 160s linear infinite; transform-origin: 800px 450px; }
@@ -607,8 +607,8 @@ html { position: relative; }
 @keyframes fg-bob { to { transform: translate(6px, -10px); } }
 .fg-flock { animation: fg-across 26s linear infinite; }
 @keyframes fg-across { from { transform: translateX(-560px); } to { transform: translateX(1700px); } }
-.fg-walk { animation: fg-walk 30s linear infinite alternate; }
-@keyframes fg-walk { to { transform: translateX(260px); } }
+.fg-walk { animation: fg-walk 40s linear infinite; }
+@keyframes fg-walk { 0% { transform: translateX(-200px); opacity: 0; } 6% { opacity: 1; } 94% { opacity: 1; } 100% { transform: translateX(1500px); opacity: 0; } }
 .fg-rise { animation: fg-rise 6s linear infinite; }
 @keyframes fg-rise { from { transform: translateY(0); opacity: 0.8; } to { transform: translateY(-300px); opacity: 0; } }
 .fg-glide { animation: fg-glide 46s linear infinite; }
@@ -623,11 +623,13 @@ html { position: relative; }
   72% { transform: translate(420px, 90px) rotate(22deg); opacity: 1; }
   76%, 100% { transform: translate(420px, 90px) rotate(22deg); opacity: 0; }
 }
-.fg-spout { animation: fg-spout 13s ease-out infinite; transform-box: fill-box; transform-origin: 50% 100%; opacity: 0; }
-@keyframes fg-spout {
-  0%, 30% { opacity: 0; transform: scaleY(0.2); }
-  36% { opacity: 0.85; transform: scaleY(1); }
-  50%, 100% { opacity: 0; transform: translateY(-12px) scale(1.5, 1.4); }
+/* the blow: puffs rise from the blowhole as the back surfaces, fan out and drift off */
+.fg-puff { animation: fg-puff 13s ease-out infinite; opacity: 0; }
+@keyframes fg-puff {
+  0%, 29% { opacity: 0; transform: translate(0, 0) scale(0.3); }
+  31% { opacity: 0.55; }
+  40% { opacity: 0.4; transform: translate(calc(var(--d) * 22px), calc(var(--h) * -1)) scale(1.3); }
+  52%, 100% { opacity: 0; transform: translate(calc(var(--d) * 44px), calc(var(--h) * -1.25)) scale(2); }
 }
 .fg-fluke { animation: fg-fluke 13s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
 @keyframes fg-fluke {
