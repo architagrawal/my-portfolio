@@ -462,11 +462,13 @@
 /* Project figures: a three-step stroke hierarchy in the scene's ink, tonal plates for the faces
    (top lightest, right darkest, all derived from --fg-plate) and the scene accent for one lit part. */
 .figure-site {
-  --fg-plate: color-mix(in oklab, hsl(var(--background)) 94%, hsl(var(--foreground)));
-  --fg-top: color-mix(in oklab, var(--fg-plate) 92%, hsl(var(--foreground)));
-  --fg-left: color-mix(in oklab, var(--fg-plate) 96%, hsl(var(--foreground)));
-  --fg-right: color-mix(in oklab, var(--fg-plate) 97%, black);
-  --fg-lit: color-mix(in oklab, var(--fg-top) 72%, hsl(var(--primary)));
+  /* plates start from the scene's own card and muted tones and mix in oklch, so the faces keep
+     the scene hue; mixing a near-white ink in oklab drained ocean's blue to grey */
+  --fg-plate: color-mix(in oklch, hsl(var(--background)) 55%, hsl(var(--card)));
+  --fg-top: color-mix(in oklch, hsl(var(--muted)) 90%, hsl(var(--foreground)));
+  --fg-left: color-mix(in oklch, hsl(var(--card)) 70%, hsl(var(--muted)));
+  --fg-right: color-mix(in oklch, var(--fg-plate) 92%, black);
+  --fg-lit: color-mix(in oklch, var(--fg-top) 72%, hsl(var(--primary)));
   --fg-hi: hsl(var(--primary));
   --fg-edge: hsl(var(--foreground) / 0.78);
   --fg-mid: hsl(var(--muted-foreground) / 0.6);
@@ -687,3 +689,35 @@ html { position: relative; }
 /* over the painting the back link reads in ink; the accent stays on the arrow */
 .hero-copy .ui-link { color: hsl(var(--foreground)); }
 .hero-copy .ui-link .ui-arrow { color: hsl(var(--primary)); }
+
+/* buttons: one filled action, one quiet toggle. Same height, radius and type everywhere. */
+.ui-btn { display: inline-flex; align-items: center; gap: 0.5em; height: 2.75rem; padding: 0 1.25rem; border-radius: 999px; font-size: 1rem; font-weight: 700; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background-color 180ms ease; }
+.ui-btn:hover { transform: translateY(-1px); background: color-mix(in oklab, hsl(var(--primary)) 88%, white); }
+.ui-btn:active { transform: translateY(1px); }
+.ui-toggle { display: inline-flex; align-items: center; height: 2.25rem; padding: 0 0.95rem; border-radius: 999px; font-size: 0.9375rem; font-weight: 600; background: hsl(var(--foreground) / 0.07); color: hsl(var(--foreground) / 0.8); transition: background-color 160ms ease, color 160ms ease, transform 100ms ease; }
+.ui-toggle:hover { background: hsl(var(--foreground) / 0.12); color: hsl(var(--foreground)); }
+.ui-toggle:active { transform: translateY(1px); }
+.ui-toggle[aria-pressed="true"] { background: hsl(var(--foreground)); color: hsl(var(--background)); }
+/* focus: one ring for everything, in the scene accent, on a page-colour halo so it keeps 3:1 over the painting too */
+:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 3px; box-shadow: 0 0 0 7px hsl(var(--background)); }
+
+/* big numbers: the result, then what it counts */
+.ui-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.5rem; }
+@media (min-width: 640px) { .ui-stats { grid-template-columns: repeat(var(--stat-cols, 4), minmax(0, 1fr)); } }
+.t-stat { font-family: var(--display-font), ui-sans-serif, system-ui; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 2.5rem; color: hsl(var(--primary)); font-variant-numeric: tabular-nums; }
+.t-stat-xl { font-size: clamp(3rem, 2.2rem + 2.4vw, 4rem); }
+
+/* tables: header in the eyebrow voice, rows spaced by rhythm, no rules */
+.ui-table { width: 100%; min-width: 34rem; border-collapse: collapse; text-align: left; font-size: 0.9375rem; line-height: 1.5; }
+.ui-table th { padding: 0 1.25rem 0.75rem 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: hsl(var(--muted-foreground)); vertical-align: bottom; }
+.ui-table td { padding: 0.7rem 1.25rem 0.7rem 0; vertical-align: top; color: hsl(var(--muted-foreground)); font-variant-numeric: tabular-nums; }
+.ui-table td:first-child { color: hsl(var(--foreground)); font-weight: 600; }
+.ui-table th:last-child, .ui-table td:last-child { padding-right: 0; }
+.ui-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; color: hsl(var(--foreground)); }
+
+/* a statement under a section label */
+.ui-statement { margin-bottom: 1.5rem; }
+/* a chip you can press: tints on hover, sinks a pixel on press */
+.ui-key { transition: background-color 140ms ease, color 140ms ease, transform 90ms ease; }
+.ui-key:hover { background: hsl(var(--foreground) / 0.13); color: hsl(var(--foreground)); }
+.ui-key:active { transform: translateY(1px) scale(0.97); background: hsl(var(--primary) / 0.25); }

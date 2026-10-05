@@ -61,7 +61,7 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
         <button
           onClick={() => window.dispatchEvent(new Event("open-command-menu"))}
           aria-label="Open command menu"
-          className="ml-2 hidden rounded-md bg-foreground/10 px-2 py-1 text-xs font-bold text-foreground/75 transition-colors hover:text-foreground md:inline"
+          className="ml-2 hidden rounded-full px-3 py-1.5 text-[13px] font-semibold text-foreground/75 transition-colors hover:bg-foreground/10 hover:text-foreground md:inline"
         >
           ⌘K
         </button>

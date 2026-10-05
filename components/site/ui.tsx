@@ -72,14 +72,32 @@ export function Points({ items }: { items: string[] }) {
 
 /* A detail-page section: label in the left rail on wide screens, content on the right.
    The rail is the same 9rem column the list pages use for dates, so edges line up site-wide. */
-export function Section({ title, count, children }: { title: string; count?: number; children: ReactNode }) {
+export function Section({
+  title,
+  count,
+  num,
+  statement,
+  children,
+}: {
+  title: string;
+  count?: number;
+  /* an ordinal shown above the label, for long numbered pages */
+  num?: string;
+  /* the section's claim, set large at the top of the content column */
+  statement?: ReactNode;
+  children: ReactNode;
+}) {
   return (
     <section className="ui-section">
       <h2 className="t-h3">
+        {num && <span className="t-count !ml-0 block pb-1.5 !align-baseline">{num}</span>}
         {title}
         {count != null && <span className="t-count">{count}</span>}
       </h2>
-      <div className="min-w-0">{children}</div>
+      <div className="min-w-0">
+        {statement && <p className="t-h2 ui-statement max-w-[36rem]">{statement}</p>}
+        {children}
+      </div>
     </section>
   );
 }
@@ -107,5 +125,19 @@ export function NextLink({ href, label, title }: { href: string; label: string; 
         <span aria-hidden="true" className="ui-arrow">&rarr;</span>
       </span>
     </Link>
+  );
+}
+
+/* A row of results: big number in the accent, what it counts underneath */
+export function Stats({ items, className = "" }: { items: [ReactNode, string][]; className?: string }) {
+  return (
+    <dl className={`ui-stats ${className}`} style={{ ["--stat-cols" as string]: Math.min(items.length, 4) }}>
+      {items.map(([n, label]) => (
+        <div key={label} className="flex flex-col-reverse">
+          <dt className="t-meta mt-2">{label}</dt>
+          <dd className="t-stat">{n}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

@@ -53,17 +53,17 @@ export function Replay() {
 
   return (
     <div aria-label="Illustrative replay: a question about a survey, answered with a chart and cited facts">
-      <div className="rounded-lg bg-muted px-3 py-2.5 text-[13px] leading-snug">
-        <span className="mr-1.5 font-bold text-primary">Ask</span>
+      <p className="t-eyebrow">Ask</p>
+      <p className="mt-2 min-h-[3em] text-[15px] font-medium leading-snug text-foreground">
         {QUESTION.slice(0, typed)}
         {phase === "typing" && <span className="ml-0.5 inline-block h-3.5 w-[2px] translate-y-0.5 animate-pulse bg-foreground" />}
-      </div>
+      </p>
 
-      <div className="mt-4 space-y-2.5" key={loop}>
+      <div className="mt-5 space-y-2.5" key={loop}>
         {BARS.map((b, i) => (
-          <div key={b.label} className="grid grid-cols-[6.5rem_1fr_2.25rem] items-center gap-2 text-[12px]">
-            <span className="truncate font-semibold text-muted-foreground">{b.label}</span>
-            <div className="h-2 overflow-hidden rounded-full bg-muted">
+          <div key={b.label} className="grid grid-cols-[6.5rem_1fr_2.25rem] items-center gap-2 text-[13px]">
+            <span className="truncate text-muted-foreground">{b.label}</span>
+            <div className="h-1.5 overflow-hidden rounded-full bg-foreground/[0.07]">
               <motion.div
                 className={`h-full rounded-full ${i === 0 ? "bg-primary" : "bg-primary/40"}`}
                 initial={{ width: reduce ? `${b.value * 2.4}%` : 0 }}
@@ -83,7 +83,7 @@ export function Replay() {
         ))}
       </div>
 
-      <div className="mt-4 flex min-h-[1.75rem] flex-wrap gap-1.5">
+      <div className="mt-5 flex min-h-[4rem] flex-wrap content-start gap-1.5">
         <AnimatePresence>
           {showCites &&
             CITES.map((c, i) => (
@@ -93,14 +93,14 @@ export function Replay() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease, delay: i * 0.1 }}
-                className="rounded-md bg-muted px-2 py-1 text-[11px] font-semibold text-muted-foreground"
+                className="ui-chip !text-[12px]"
               >
                 {c}
               </motion.span>
             ))}
         </AnimatePresence>
       </div>
-      <p className="mt-3 text-[11px] text-muted-foreground">Example data, not real survey results.</p>
+      <p className="t-meta mt-3 !text-[13px]">Example data, not real survey results.</p>
     </div>
   );
 }

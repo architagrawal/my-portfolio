@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useId, useRef, type ReactNode } from "react";
 import { clamp } from "./iso";
 
 /* What a figure's tick sees each frame.
@@ -40,6 +40,10 @@ export function useUid() {
 
 const STILL_T = 2.2;
 
+/* The drawing's viewBox. ProjectFigure sets it per slug so each drawing is centred in its frame
+   (and, at the small size, fills it); the default is the 400 x 320 canvas every figure draws on. */
+export const FigureBox = createContext("0 0 400 320");
+
 /* Hosts one figure: runs its idle loop while on screen, springs toward the pointer, follows
    scroll, and holds a static pose under reduced motion. Groups with data-depth get parallax. */
 export function FigureFrame({
@@ -57,6 +61,7 @@ export function FigureFrame({
 }) {
   const host = useRef<HTMLDivElement>(null);
   const svg = useRef<SVGSVGElement>(null);
+  const viewBox = useContext(FigureBox);
   const tickRef = useRef(tick);
   tickRef.current = tick;
 
@@ -148,7 +153,7 @@ export function FigureFrame({
     <div ref={host} role="img" aria-label={label} className={`figure-site ${small ? "sm " : ""}${className}`}>
       <svg
         ref={svg}
-        viewBox="0 0 400 320"
+        viewBox={viewBox}
         aria-hidden="true"
         className="block h-full w-full overflow-visible"
       >

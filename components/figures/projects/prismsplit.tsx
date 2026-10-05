@@ -82,9 +82,9 @@ export function PrismSplitFigure({
           const w = [1.6, 1.1, 1.4, 0.9, 1.2][i];
           return (
             <g key={i} ref={at(`item${i}`)}>
-              <path className={i === 0 ? "hi" : "edge"} d={topFace(I, ix, iy, 0.12, 2, 0.35)} />
+              <path className="edge" d={topFace(I, ix, iy, 0.12, 2, 0.35)} />
               <path className="nf mid" d={poly([R(ix + 0.15, iy + 0.18, 0.12), R(ix + 0.15 + w * 0.6, iy + 0.18, 0.12)])} />
-              <Disc I={I} x={ix + 1.75} y={iy + 0.18} z={0.12} r={0.08} className="dot" />
+              <Disc I={I} x={ix + 1.75} y={iy + 0.18} z={0.12} r={0.08} className="dot m" />
             </g>
           );
         })}

@@ -1,6 +1,8 @@
 "use client";
 
 import type { ComponentType } from "react";
+import { FigureBox } from "./frame";
+import { figureViewBox } from "./slugs";
 import { AiJockeyFigure } from "./projects/aijockey";
 import { AutodiffFigure } from "./projects/autodiff";
 import { ClashRoyaleFigure } from "./projects/clash-royale";
@@ -42,5 +44,9 @@ export function ProjectFigure({
 }) {
   const Figure = FIGURES[slug];
   if (!Figure) return null;
-  return <Figure label={`${title}, animated drawing`} className={className} small={small} />;
+  return (
+    <FigureBox.Provider value={figureViewBox(slug, small)}>
+      <Figure label={`${title}, animated drawing`} className={className} small={small} />
+    </FigureBox.Provider>
+  );
 }

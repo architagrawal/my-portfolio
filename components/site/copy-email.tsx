@@ -21,7 +21,7 @@ export function CopyEmail({ className = "" }: { className?: string }) {
       }
       className={className}
     >
-      {copied ? "Copied!" : "Copy email"}
+      <span className="ui-link-label" aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>
     </button>
   );
 }

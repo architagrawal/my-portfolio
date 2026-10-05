@@ -47,7 +47,7 @@ function Still({ p, h }: { p: Project; h: string }) {
     ) : null;
   if (!art) return null;
   return (
-    <div className={`flex ${h} items-center justify-center bg-gradient-to-br from-muted/60 to-card px-8`}>
+    <div className={`flex ${h} items-center justify-center px-8`}>
       {/* drawings are sized for a card; wider and their labels balloon */}
       <div className="w-full max-w-[24rem]">{art}</div>
     </div>
