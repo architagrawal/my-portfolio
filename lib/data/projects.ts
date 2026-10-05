@@ -202,7 +202,7 @@ export const projects: Project[] = [
   },
   {
     slug: "clash-royale-clan-analytics-platform",
-    title: "Clash Royale Clan Analytics Platform",
+    title: "Clash Royale Analytics",
     date: "2025",
     tier: "featured",
     description:
@@ -273,11 +273,11 @@ export const projects: Project[] = [
   },
   {
     slug: "mcp-based-github-pr-review-automation-agent",
-    title: "MCP-Based GitHub PR Review Automation Agent",
+    title: "PR Review Agent",
     date: "Jul 2025 – Aug 2025",
     tier: "build",
     description:
-      "An MCP-based review service that combines repository context, ticket metadata, CI results, and LLM reasoning to automate pull-request analysis and workflow updates.",
+      "An MCP-based GitHub review service that combines repository context, ticket metadata, CI results, and LLM reasoning to automate pull-request analysis and workflow updates.",
     highlights: [],
     achievements: [
       "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
@@ -415,7 +415,7 @@ export const projects: Project[] = [
   },
   {
     slug: "soccer-game-result-prediction",
-    title: "Soccer Game Result Prediction",
+    title: "Soccer Result Prediction",
     date: "Oct 2023 – Dec 2023",
     tier: "coursework",
     description:

@@ -45,7 +45,7 @@ function RoleEntry({ r }: { r: Role }) {
         </div>
         {r.visual && <Viz v={r.visual} className="mt-8" />}
         <TextLink href={`/work/${r.slug}`} className="mt-6 !flex w-fit text-[15px]">
-          {r.achievements.length} points in the full role
+          Full role
         </TextLink>
       </div>
     </article>

@@ -29,11 +29,11 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
   return (
     <nav className="site-nav" data-scrolled={scrolled}>
     <div className={`mx-auto flex h-16 w-full items-center justify-between px-6 ${hero ? "max-w-6xl md:px-12" : wide ? "max-w-4xl md:px-12" : "max-w-3xl"}`}>
-      <Link href="/" className="shrink-0 whitespace-nowrap font-display text-base font-extrabold tracking-tight sm:text-lg">
+      <Link href="/" className="shrink-0 whitespace-nowrap font-display text-base font-extrabold tracking-tight transition-colors hover:text-primary sm:text-lg">
         <span className="sm:hidden">Archit</span>
         <span className="hidden sm:inline">Archit Agrawal</span>
       </Link>
-      <div className="flex items-center gap-1 text-[15px] font-semibold text-foreground/75 sm:gap-1" onMouseLeave={() => setHover(null)}>
+      <div className="flex items-center gap-1 text-[15px] font-semibold text-foreground/90 sm:gap-1" onMouseLeave={() => setHover(null)}>
         {LINKS.map(({ label, href }) => {
           const active = path === href || path.startsWith(href + "/");
           return (
@@ -61,7 +61,7 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
         <button
           onClick={() => window.dispatchEvent(new Event("open-command-menu"))}
           aria-label="Open command menu"
-          className="ml-2 hidden rounded-full px-3 py-1.5 text-[13px] font-semibold text-foreground/75 transition-colors hover:bg-foreground/10 hover:text-foreground md:inline"
+          className="ml-2 hidden rounded-full px-3 py-1.5 text-[13px] font-semibold text-foreground/90 transition-colors hover:bg-foreground/10 hover:text-foreground md:inline"
         >
           ⌘K
         </button>

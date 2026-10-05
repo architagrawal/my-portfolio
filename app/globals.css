@@ -512,7 +512,8 @@
 [data-scene="mesas"], [data-scene="reef"] { --paint-dim: 0.15; }
 [data-scene="canyon"], [data-scene="saguaros"] { --paint-dim: 0.1; }
 /* the nav reads over the sky */
-.backdrop::after { content: ""; position: absolute; inset: 0 0 auto; height: 9rem; background: linear-gradient(hsl(var(--background) / 0.6), transparent); }
+.backdrop::after { content: ""; position: absolute; inset: 0 0 auto; height: 9rem; background: linear-gradient(hsl(var(--background) / 0.85), hsl(var(--background) / 0.5) 45%, transparent); }
+.site-nav { text-shadow: 0 0 6px hsl(var(--background) / 0.8), 0 0 16px hsl(var(--background) / 0.6); }
 /* Sub-page header shade: a wide gradient in the page colour centred near the band's bottom-left corner,
    fading over most of the band, so it has no edge to see. It reaches below the band so it
    runs on into the side margins. */
@@ -686,9 +687,9 @@ html { position: relative; }
 /* nav: sticky; once the page scrolls it gains a translucent page-colour ground */
 .site-nav { position: sticky; top: 0; z-index: 40; transition: background-color 300ms ease, backdrop-filter 300ms ease; }
 .site-nav[data-scrolled="true"] { background: hsl(var(--background) / 0.72); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); }
-/* over the painting the back link reads in ink; the accent stays on the arrow */
+/* over the painting the back link and its arrow read in ink; the eyebrow keeps a lifted accent */
 .hero-copy .ui-link { color: hsl(var(--foreground)); }
-.hero-copy .ui-link .ui-arrow { color: hsl(var(--primary)); }
+.hero-copy .t-eyebrow { color: color-mix(in oklab, hsl(var(--primary)) 40%, hsl(var(--foreground))); }
 
 /* buttons: one filled action, one quiet toggle. Same height, radius and type everywhere. */
 .ui-btn { display: inline-flex; align-items: center; gap: 0.5em; height: 2.75rem; padding: 0 1.25rem; border-radius: 999px; font-size: 1rem; font-weight: 700; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), background-color 180ms ease; }
@@ -713,6 +714,13 @@ html { position: relative; }
 .ui-table td { padding: 0.7rem 1.25rem 0.7rem 0; vertical-align: top; color: hsl(var(--muted-foreground)); font-variant-numeric: tabular-nums; }
 .ui-table td:first-child { color: hsl(var(--foreground)); font-weight: 600; }
 .ui-table th:last-child, .ui-table td:last-child { padding-right: 0; }
+/* 3 columns or fewer: wrap to fit the column instead of scrolling */
+.ui-table-fit { min-width: 0; }
+.ui-table-fit td.whitespace-nowrap { white-space: normal; }
+/* wider tables scroll; a fade on the edge that has more */
+.ui-table-scroll { overflow-x: auto; --fl: 0px; --fr: 0px; -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--fl), #000 calc(100% - var(--fr)), transparent); mask-image: linear-gradient(to right, transparent, #000 var(--fl), #000 calc(100% - var(--fr)), transparent); }
+.ui-table-scroll[data-l] { --fl: 2.5rem; }
+.ui-table-scroll[data-r] { --fr: 2.5rem; }
 .ui-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; color: hsl(var(--foreground)); }
 
 /* a statement under a section label */

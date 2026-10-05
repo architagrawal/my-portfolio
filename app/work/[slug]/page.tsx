@@ -18,14 +18,6 @@ export default function RolePage({ params }: { params: { slug: string } }) {
   const r = roleBySlug(params.slug);
   if (!r) notFound();
 
-  // Themed groups first, in the order the role defines; anything unclaimed goes last
-  const claimed = new Set(r.groups.flatMap((g) => g.indexes));
-  const groups = [
-    { label: "Highlights", indexes: r.featured },
-    ...r.groups.map((g) => ({ label: g.label, indexes: g.indexes.filter((i) => !r.featured.includes(i)) })),
-    { label: "More", indexes: r.achievements.map((_, i) => i).filter((i) => !claimed.has(i) && !r.featured.includes(i)) },
-  ].filter((g) => g.indexes.length > 0);
-
   const i = roles.indexOf(r);
   const next = roles[i + 1];
 
@@ -43,11 +35,9 @@ export default function RolePage({ params }: { params: { slug: string } }) {
 
       {r.visual && <Viz v={r.visual} className="mt-14" />}
 
-      {groups.map((g) => (
-        <Section key={g.label} title={g.label} count={g.indexes.length}>
-          <Points items={g.indexes.map((idx) => r.achievements[idx]).filter(Boolean).map((a) => a.text)} />
-        </Section>
-      ))}
+      <Section title="Highlights" count={r.achievements.length}>
+        <Points items={r.achievements.map((a) => a.text)} />
+      </Section>
 
       <Section title="Tools">
         <Chips items={r.technologies} />

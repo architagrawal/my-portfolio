@@ -94,7 +94,7 @@ export default async function Home() {
                   to the data. Twelve agents in production on AWS.
                 </p>
                 <TextLink href="/work/survey-agents" className="mt-5">
-                  Read the case study
+                  Case study
                 </TextLink>
               </div>
               <Replay />
@@ -156,7 +156,7 @@ export default async function Home() {
               ))}
             </ul>
             <TextLink href="/lab" className="mt-5">
-              Open the lab notebook
+              Lab notebook
             </TextLink>
           </Section>
 
@@ -171,7 +171,7 @@ export default async function Home() {
               ]}
             />
             <TextLink href="/about" className="mt-7">
-              More about me
+              About me
             </TextLink>
           </Section>
         </main>

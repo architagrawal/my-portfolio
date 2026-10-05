@@ -1,5 +1,6 @@
 "use client";
 
+import { Children, isValidElement, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { PageHeader, Shell } from "@/components/site/shell";
 import { Points, Section as UiSection, Stats } from "@/components/site/ui";
@@ -496,9 +497,38 @@ function Rules({ items }: { items: { rule: string; cost: string }[] }) {
   );
 }
 
+// Count header cells so narrow tables wrap to fit and wide ones scroll with an edge fade
+function headerCols(children: React.ReactNode): number {
+  let n = 0;
+  Children.forEach(children, (c) => {
+    if (!isValidElement(c) || c.type !== "thead") return;
+    Children.forEach((c.props as { children?: React.ReactNode }).children, (tr) => {
+      if (isValidElement(tr)) n = Math.max(n, Children.count((tr.props as { children?: React.ReactNode }).children));
+    });
+  });
+  return n;
+}
+
 function Table({ children }: { children: React.ReactNode }) {
+  const fit = headerCols(children) <= 3;
+  const ref = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ l: false, r: false });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || fit) return;
+    const update = () =>
+      setEdge({ l: el.scrollLeft > 2, r: el.scrollLeft + el.clientWidth < el.scrollWidth - 2 });
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [fit]);
+  if (fit) return <table className="ui-table ui-table-fit">{children}</table>;
   return (
-    <div className="overflow-x-auto">
+    <div ref={ref} className="ui-table-scroll" data-l={edge.l || undefined} data-r={edge.r || undefined}>
       <table className="ui-table">{children}</table>
     </div>
   );
@@ -624,8 +654,7 @@ export default function SurveyAgentsCaseStudy() {
                 replays without it.
               </p>
 
-              <div className="overflow-x-auto">
-                <table className="ui-table">
+              <Table>
                   <thead>
                     <tr>
                       <Th>Stage</Th>
@@ -642,8 +671,7 @@ export default function SurveyAgentsCaseStudy() {
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </div>
+                </Table>
 
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Measured over 30 export shapes written by hand from what real tools emit:
@@ -673,8 +701,7 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="05  Reliability" title="Where the architecture creates value">
-              <div className="overflow-x-auto">
-                <table className="ui-table">
+              <Table>
                   <thead>
                     <tr>
                       <Th>Measure</Th>
@@ -691,8 +718,7 @@ export default function SurveyAgentsCaseStudy() {
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </div>
+                </Table>
 
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 The mechanism is a per-response correlation token plus a schema enum. An
@@ -740,7 +766,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="06  Controls" title="The three runs that changed the reading">
+            <Section eyebrow="06  Controls" title="Three decisive control runs">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Each control was built after the thing it was meant to check, which is the wrong
                 order, and each one moved the conclusion. Same corpus, same scorer, same model
@@ -779,8 +805,7 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="07  Measurement" title="Model choice mattered more than architecture">
-              <div className="overflow-x-auto">
-                <table className="ui-table">
+              <Table>
                   <thead>
                     <tr>
                       <Th>Same corpus, same scorer</Th>
@@ -799,8 +824,7 @@ export default function SurveyAgentsCaseStudy() {
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </div>
+                </Table>
 
               <Notes items={measurementNotes} />
 
@@ -843,7 +867,7 @@ export default function SurveyAgentsCaseStudy() {
               </blockquote>
             </Section>
 
-            <Section eyebrow="08  Agency" title="What agency is worth, layer by layer">
+            <Section eyebrow="08  Agency" title="Agency's worth, layer by layer">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Three layers were compared over the same tools: a managed agent harness against
                 our own loop at the label stage, a state machine against a local driver over
@@ -901,7 +925,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={orchestrationNotes} />
             </Section>
 
-            <Section eyebrow="09  Analysis" title="A governed semantic layer, not text to SQL">
+            <Section eyebrow="09  Analysis" title="Semantic layer, not text-to-SQL">
               <AnswerPath />
               <Notes items={analysisDecisions} />
               <p className="t-body max-w-[40rem] text-muted-foreground">
@@ -941,7 +965,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={retrievalNotes} />
             </Section>
 
-            <Section eyebrow="11  The data model" title="Five bands, one narrow fact table, no respondent table">
+            <Section eyebrow="11  The data model" title="One narrow fact table">
               <DataModel />
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 There is no respondent table on purpose. Cross-survey is an alignment ladder over{" "}
@@ -962,7 +986,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="12  Original mechanisms" title="What the team designed from first principles">
+            <Section eyebrow="12  Original mechanisms" title="Designed from first principles">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Recorded deliberately, so it is clear which parts stand on published work and
                 which are ours to get wrong.
@@ -974,7 +998,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={chartFindings} />
             </Section>
 
-            <Section eyebrow="14  Question coverage" title="The page drew well and answered little">
+            <Section eyebrow="14  Question coverage" title="Drew well, answered little">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Phase 4 replaced the question again. Everything up to here scored the chart.
                 Nothing scored whether the page said anything about what the survey actually
@@ -1013,7 +1037,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="16  Subtraction" title="The pipeline got cheaper by removing agents">
+            <Section eyebrow="16  Subtraction" title="Cheaper with fewer agents">
               <Notes items={removingAgents} />
             </Section>
 
@@ -1103,7 +1127,7 @@ export default function SurveyAgentsCaseStudy() {
               </blockquote>
             </Section>
 
-            <Section eyebrow="18  Deployment" title="Where each managed service earns its place">
+            <Section eyebrow="18  Deployment" title="Where managed services earn their place">
               <Notes items={awsFindings} />
             </Section>
 
@@ -1111,7 +1135,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={earningItsPlace} />
             </Section>
 
-            <Section eyebrow="20  Alternatives" title="Every approach tried, and how it scored">
+            <Section eyebrow="20  Alternatives" title="Every approach, scored">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Kept as a log rather than a highlight reel, because the rejected rows are the
                 ones that cost something to learn.
@@ -1142,7 +1166,7 @@ export default function SurveyAgentsCaseStudy() {
               ))}
             </Section>
 
-            <Section eyebrow="21  Lessons" title="Thirty-eight rules, ranked by what each cost">
+            <Section eyebrow="21  Lessons" title="Thirty-eight ranked lessons">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Most of these are about tool contracts, measurement discipline and reachability
                 rather than about surveys, which is what makes them the part of the project that
@@ -1151,7 +1175,7 @@ export default function SurveyAgentsCaseStudy() {
               <Rules items={lessons} />
             </Section>
 
-            <Section eyebrow="22  Prior art" title="Twelve research passes, then a design freeze">
+            <Section eyebrow="22  Prior art" title="Twelve passes, then a freeze">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Twelve passes were logged before the analysis code was written, and the phase was
                 then closed on purpose: new references land in a parked list with a named trigger
