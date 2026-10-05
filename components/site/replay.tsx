@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -19,7 +20,7 @@ const CITES = ["fact 12: 38% of comments", "fact 7: n = 1,240", "fact 19: +9 pts
 type Phase = "typing" | "chart" | "cites" | "hold";
 
 export function Replay() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const [typed, setTyped] = useState(0);
   const [phase, setPhase] = useState<Phase>("typing");
   const [loop, setLoop] = useState(0);
@@ -51,8 +52,8 @@ export function Replay() {
   const showCites = phase === "cites" || phase === "hold";
 
   return (
-    <div className="rounded-xl bg-muted p-4" aria-label="Illustrative replay: a question about a survey, answered with a chart and cited facts">
-      <div className="rounded-lg bg-card px-3 py-2.5 text-[13px] leading-snug shadow-soft">
+    <div aria-label="Illustrative replay: a question about a survey, answered with a chart and cited facts">
+      <div className="rounded-lg bg-muted px-3 py-2.5 text-[13px] leading-snug">
         <span className="mr-1.5 font-bold text-primary">Ask</span>
         {QUESTION.slice(0, typed)}
         {phase === "typing" && <span className="ml-0.5 inline-block h-3.5 w-[2px] translate-y-0.5 animate-pulse bg-foreground" />}
@@ -62,19 +63,19 @@ export function Replay() {
         {BARS.map((b, i) => (
           <div key={b.label} className="grid grid-cols-[6.5rem_1fr_2.25rem] items-center gap-2 text-[12px]">
             <span className="truncate font-semibold text-muted-foreground">{b.label}</span>
-            <div className="h-2 overflow-hidden rounded-full bg-card">
+            <div className="h-2 overflow-hidden rounded-full bg-muted">
               <motion.div
                 className={`h-full rounded-full ${i === 0 ? "bg-primary" : "bg-primary/40"}`}
                 initial={{ width: reduce ? `${b.value * 2.4}%` : 0 }}
                 animate={{ width: showChart ? `${b.value * 2.4}%` : 0 }}
-                transition={{ duration: 0.8, ease, delay: showChart ? i * 0.1 : 0 }}
+                transition={{ duration: reduce ? 0 : 0.8, ease, delay: showChart ? i * 0.1 : 0 }}
               />
             </div>
             <motion.span
               className="text-right font-bold tabular-nums"
               initial={{ opacity: reduce ? 1 : 0 }}
               animate={{ opacity: showChart ? 1 : 0 }}
-              transition={{ duration: 0.3, delay: showChart ? 0.35 + i * 0.1 : 0 }}
+              transition={{ duration: reduce ? 0 : 0.3, delay: showChart ? 0.35 + i * 0.1 : 0 }}
             >
               {b.value}%
             </motion.span>
@@ -92,7 +93,7 @@ export function Replay() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease, delay: i * 0.1 }}
-                className="rounded-md bg-card px-2 py-1 text-[11px] font-semibold text-muted-foreground shadow-soft"
+                className="rounded-md bg-muted px-2 py-1 text-[11px] font-semibold text-muted-foreground"
               >
                 {c}
               </motion.span>

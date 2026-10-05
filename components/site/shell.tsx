@@ -10,8 +10,10 @@ export function Shell({ header, children }: { header: ReactNode; children: React
   return (
     <div className="relative min-h-screen text-foreground">
       <SiteNav wide />
-      <div className="mx-auto flex min-h-[55vh] max-w-4xl flex-col justify-end px-6 pb-12 pt-16 md:min-h-[60vh] md:px-12">
-        <div className="hero-copy">{header}</div>
+      <div className="hero-band">
+        <div className="mx-auto flex min-h-[55vh] max-w-4xl flex-col justify-end px-6 pb-12 pt-16 md:min-h-[60vh] md:px-12">
+          <div className="hero-copy">{header}</div>
+        </div>
       </div>
       <div className="surface mx-auto max-w-4xl">
         <main className="relative px-6 pt-4 md:px-12">{children}</main>

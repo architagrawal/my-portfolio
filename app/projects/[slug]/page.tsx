@@ -76,7 +76,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       )}
 
       {(p.visual || hasFigure(p.slug)) && (
-        <Reveal className="mt-12 overflow-hidden rounded-2xl bg-card shadow-soft">
+        <Reveal className="mt-12 overflow-hidden">
           <ProjectVisual p={p} tall />
         </Reveal>
       )}

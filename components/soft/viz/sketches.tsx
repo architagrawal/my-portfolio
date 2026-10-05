@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 import { draw, fade, W } from "./motion";
 import type { Cadence, Quadrant, Receipt, Scaling } from "./types";
 
 /* Two independent axes; a sample that fails one axis sits far along the other */
 export function QuadrantViz({ v }: { v: Quadrant }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const S = 150;
   const ox = 20;
   const px = (n: number) => ox + n * S;
@@ -28,7 +29,7 @@ export function QuadrantViz({ v }: { v: Quadrant }) {
 
 /* Route with a tick at every location poll */
 export function CadenceViz({ v }: { v: Cadence }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const x0 = 6;
   const x1 = W - 6;
   const x = (t: number) => x0 + t * (x1 - x0);
@@ -49,7 +50,7 @@ const money = (c: number) => `$${(c / 100).toFixed(2)}`;
 
 /* Each line splits only among the people who had it; totals fall out per person */
 export function ReceiptViz({ v }: { v: Receipt }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const rowH = 20;
   const colX = (p: number) => 190 + p * 44;
   const totals = v.people.map(() => 0);
@@ -91,7 +92,7 @@ export function ReceiptViz({ v }: { v: Receipt }) {
 
 /* Request load over time with instance capacity stepping up and back down behind it */
 export function ScalingViz({ v }: { v: Scaling }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const H = 90;
   const cap = v.load.map((l) => Math.max(1, Math.ceil(l / v.perInstance)) * v.perInstance);
   const max = Math.max(...cap);

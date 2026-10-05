@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 import { foreground, SCENE_IDS, type SceneId } from "./paint-scenes";
 
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -9,21 +10,20 @@ const PAINT_MS = 4600; // when the last stroke starts
 const STROKE_MS = [700, 260]; // first big block, last detail
 const DEPTHS = [{ scroll: 50, pointer: 6 }, { scroll: 32, pointer: 12 }, { scroll: 16, pointer: 22 }];
 
+const FF_MS = 400;
+const FF_EVENTS = ["wheel", "touchstart", "keydown", "pointerdown", "scroll"] as const;
+
+/* The replay is done: <html data-painted> and a "painted" event, which the scroll cue waits for */
+function markPainted() {
+  document.documentElement.dataset.painted = "";
+  window.dispatchEvent(new Event("painted"));
+}
+
 /* The scene is picked by the inline script in app/layout.tsx before first paint and kept on
    <html data-scene>, so the palette and the painting always agree. */
 function currentScene(): SceneId {
-  const html = document.documentElement;
-  let id = html.dataset.scene as SceneId | undefined;
-  // a hydration mismatch anywhere makes React re-render from the root and drop the attribute;
-  // the script also kept the pick in sessionStorage, so put it back before paint
-  if (!id) {
-    try {
-      id = (sessionStorage.getItem("paint-scene") as SceneId | null) ?? undefined;
-    } catch {}
-  }
-  const scene = id && SCENE_IDS.includes(id) ? id : "mesas";
-  html.dataset.scene = scene;
-  return scene;
+  const id = document.documentElement.dataset.scene as SceneId | undefined;
+  return id && SCENE_IDS.includes(id) ? id : "mesas";
 }
 
 /* The page's setting: the painted scene, fixed behind every page. Mounted once in the root
@@ -34,7 +34,7 @@ function currentScene(): SceneId {
    Until the SVG loads, .backdrop shows a gradient in the scene's colours. Scroll only moves
    transform and opacity. Styles: .backdrop, .scene-paint* and .fg-* in globals.css. */
 export function Backdrop() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const host = useRef<HTMLDivElement>(null);
   const root = useRef<HTMLDivElement>(null);
   const [scene, setScene] = useState<SceneId | null>(null);
@@ -86,10 +86,29 @@ export function Backdrop() {
           });
         }
         el.replaceChildren(svg);
+        if (reduce) return markPainted();
+        // the visitor moved before the replay finished: finish every stroke in ~400ms
+        // strokes only: the svg's own slow drift loops forever
+        const anims = svg
+          .getAnimations({ subtree: true })
+          .filter((a) => Number.isFinite(Number(a.effect?.getComputedTiming().endTime)));
+        fastForward = () => {
+          for (const a of anims) {
+            const end = Number(a.effect?.getComputedTiming().endTime ?? 0);
+            const left = end - Number(a.currentTime ?? 0);
+            if (left > FF_MS) a.updatePlaybackRate(left / FF_MS);
+          }
+          unlisten();
+        };
+        FF_EVENTS.forEach((e) => window.addEventListener(e, fastForward, { passive: true, once: true }));
+        Promise.all(anims.map((a) => a.finished)).then(markPainted, markPainted).finally(unlisten);
       })
-      .catch(() => {});
+      .catch(markPainted);
+    let fastForward = () => {};
+    const unlisten = () => FF_EVENTS.forEach((e) => window.removeEventListener(e, fastForward));
     return () => {
       alive = false;
+      unlisten();
     };
   }, [scene, reduce]);
 

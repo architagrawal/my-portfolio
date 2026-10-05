@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 import { experiments } from "@/lib/data/lab";
 import { CountUp, LabViz } from "./lab-viz";
 
@@ -10,7 +11,7 @@ const projects = ["All", ...Array.from(new Set(experiments.map((e) => e.project)
 
 /* The hard problems, result first. Filter by project. */
 export function LabGame() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const [filter, setFilter] = useState("All");
   const shown = experiments.filter((e) => filter === "All" || e.project === filter);
 

@@ -1,10 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SiteNav } from "@/components/site/nav";
-import { SiteFooter } from "@/components/site/footer";
-import { ThemeProvider } from "@/components/theme-provider";
-import Footer from "@/components/layout/Footer";
+import { PageHeader, Shell } from "@/components/site/shell";
 import { AgentGraph, ToolBudget, ToolMatrix, AnswerPath, DataModel } from "./_diagrams";
 
 const stats = [
@@ -131,7 +128,7 @@ const retrieval = [
   { arm: "Stripped subject terms, then cosine (shipped path)", r1: "20.6%", r10: "77.6%", p10: "34.8%", mrr: "0.852", ours: false },
   { arm: "Cosine over the whole sentence", r1: "22.1%", r10: "90.1%", p10: "41.9%", mrr: "0.944", ours: false },
   { arm: "Codebook-routed, then backfilled", r1: "22.1%", r10: "95.6%", p10: "45.7%", mrr: "0.944", ours: true },
-  { arm: "Ceiling", r1: "25.3%", r10: "98.6%", p10: "—", mrr: "—", ours: false },
+  { arm: "Ceiling", r1: "25.3%", r10: "98.6%", p10: "n/a", mrr: "n/a", ours: false },
 ];
 
 const retrievalNotes = [
@@ -241,11 +238,11 @@ const priorArt = [
 ];
 
 const questionCoverage = [
-  { stage: "At the start of phase 4", builtin: "6 of 32, 19%", unseen: "—" },
-  { stage: "After questions were read as questions", builtin: "15 of 32, 47%", unseen: "—" },
+  { stage: "At the start of phase 4", builtin: "6 of 32, 19%", unseen: "n/a" },
+  { stage: "After questions were read as questions", builtin: "15 of 32, 47%", unseen: "n/a" },
   { stage: "After a deterministic method per type", builtin: "25 of 32, 78%", unseen: "10 of 51, 20%", ours: true },
   { stage: "Model names the method from the wording", builtin: "25 of 32, 78%", unseen: "43 of 51, 84%" },
-  { stage: "Model also sees each column's shape", builtin: "88%", unseen: "—" },
+  { stage: "Model also sees each column's shape", builtin: "88%", unseen: "n/a" },
 ];
 
 const phase4Notes = [
@@ -278,8 +275,8 @@ const removingAgents = [
 
 const analystScore = [
   { step: "Rule-built page, the baseline", dev: "22%", test: "13%" },
-  { step: "Survey-model comparisons: roles, group-vs-rest tests, one correction family", dev: "41%", test: "—" },
-  { step: "Analyst agent, one pass, typed intents compiled into plans", dev: "54%", test: "—", ours: true },
+  { step: "Survey-model comparisons: roles, group-vs-rest tests, one correction family", dev: "41%", test: "n/a" },
+  { step: "Analyst agent, one pass, typed intents compiled into plans", dev: "54%", test: "n/a", ours: true },
   { step: "Seven more surveys and five intake fixes", dev: "56–60%", test: "31–34%" },
   { step: "Derived columns: thresholds, bands, any-of", dev: "56–58%", test: "38–41%" },
   { step: "Counts across unequal groups drawn as shares", dev: "58%", test: "41%" },
@@ -463,7 +460,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t border-border pt-10 md:pt-14">
+    <section>
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-[0.95] text-foreground">
         {title}
@@ -488,11 +485,11 @@ function Notes({ items }: { items: string[] }) {
 
 function NamedList({ items }: { items: { name: string; changed: string }[] }) {
   return (
-    <ul className="border-t border-border">
+    <ul>
       {items.map((item) => (
         <li
           key={item.name}
-          className="border-b border-border py-4 grid sm:grid-cols-[15rem_1fr] gap-x-6 gap-y-1"
+          className="py-3 grid sm:grid-cols-[15rem_1fr] gap-x-6 gap-y-1"
         >
           <span className="font-tech text-xs text-primary">
             {item.name}
@@ -506,11 +503,11 @@ function NamedList({ items }: { items: { name: string; changed: string }[] }) {
 
 function Rules({ items }: { items: { rule: string; cost: string }[] }) {
   return (
-    <ol className="border-t border-border">
+    <ol>
       {items.map((item, i) => (
         <li
           key={item.rule}
-          className="border-b border-border py-4 grid sm:grid-cols-[2rem_1fr] gap-x-4 gap-y-1"
+          className="py-3 grid sm:grid-cols-[2rem_1fr] gap-x-4 gap-y-1"
         >
           <span className="font-tech text-[10px] tabular-nums text-primary pt-1">
             {String(i + 1).padStart(2, "0")}
@@ -527,8 +524,8 @@ function Rules({ items }: { items: { rule: string; cost: string }[] }) {
 
 function Table({ children }: { children: React.ReactNode }) {
   return (
-    <div className="overflow-x-auto border border-border">
-      <table className="w-full text-left border-collapse">{children}</table>
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[36rem] text-left border-collapse">{children}</table>
     </div>
   );
 }
@@ -547,19 +544,13 @@ function Th({ children, accent = false }: { children: React.ReactNode; accent?: 
 
 export default function SurveyAgentsCaseStudy() {
   return (
-    <ThemeProvider attribute="class" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
-      <div className="min-h-screen bg-background text-foreground">
-        <SiteNav wide />
-        <main className="max-w-4xl mx-auto px-6 py-14 md:py-20">
-
-          <header className="mt-10 md:mt-14">
-            <p className="font-tech text-[10px] text-muted-foreground">
-              Case study, 2026, internal platform POC
-            </p>
-            <h1 className="mt-4 font-display text-4xl sm:text-6xl md:text-7xl font-medium tracking-tight leading-[0.9] text-foreground">
-              Survey Agents
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">
+    <Shell
+      header={
+        <PageHeader eyebrow="Case study, 2026, internal platform POC" title="Survey Agents" />
+      }
+    >
+      <div className="pt-6">
+            <p className="max-w-2xl text-lg leading-relaxed text-foreground/85">
               Upload any structured dataset and get verified facts, accessible charts and answers
               that re-execute exactly, with no per-dataset pipeline for anyone to build or
               maintain. A reader asks a question in plain English, gets a chart back, and edits
@@ -576,9 +567,9 @@ export default function SurveyAgentsCaseStudy() {
               taken from.
             </p>
 
-            <dl className="mt-10 grid grid-cols-2 sm:grid-cols-4 border-t border-border">
+            <dl className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
               {stats.map((s) => (
-                <div key={s.label} className="border-b border-r border-border py-5 px-4 first:pl-0">
+                <div key={s.label}>
                   <dt className="font-display text-2xl sm:text-3xl font-bold tabular-nums text-foreground">
                     {s.value}
                   </dt>
@@ -588,7 +579,6 @@ export default function SurveyAgentsCaseStudy() {
                 </div>
               ))}
             </dl>
-          </header>
 
           <div className="mt-16 md:mt-24 space-y-16 md:space-y-24">
             <Section eyebrow="01  Timeline" title="Three phases, three verdicts">
@@ -679,8 +669,8 @@ export default function SurveyAgentsCaseStudy() {
                 replays without it.
               </p>
 
-              <div className="overflow-x-auto border border-border">
-                <table className="w-full text-left border-collapse">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[36rem] text-left border-collapse">
                   <thead>
                     <tr className="border-b border-border">
                       <Th>Stage</Th>
@@ -728,8 +718,8 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="05  Reliability" title="Where the architecture creates value">
-              <div className="overflow-x-auto border border-border">
-                <table className="w-full text-left border-collapse">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[36rem] text-left border-collapse">
                   <thead>
                     <tr className="border-b border-border">
                       <Th>Measure</Th>
@@ -834,8 +824,8 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="07  Measurement" title="Model choice mattered more than architecture">
-              <div className="overflow-x-auto border border-border">
-                <table className="w-full text-left border-collapse">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[36rem] text-left border-collapse">
                   <thead>
                     <tr className="border-b border-border">
                       <Th>Same corpus, same scorer</Th>
@@ -888,7 +878,7 @@ export default function SurveyAgentsCaseStudy() {
                 precision than terra despite being the top tier.
               </p>
 
-              <blockquote className="border-l-2 border-primary pl-5 text-base text-foreground/90 leading-relaxed">
+              <blockquote className="font-display text-xl text-foreground leading-snug">
                 The adoption question is not whether the multi-agent pipeline is more accurate.
                 It is whether zero destroyed labels, verified correlation, and per-row triage are
                 worth the premium. For a handful of rows someone can eyeball, no. For a recurring
@@ -1148,7 +1138,7 @@ export default function SurveyAgentsCaseStudy() {
                 the page: 21 charts against five.
               </p>
 
-              <blockquote className="border-l-2 border-primary pl-5 text-base text-foreground/90 leading-relaxed">
+              <blockquote className="font-display text-xl text-foreground leading-snug">
                 Read against the rest of this page, the result is not that agents work after
                 all. It is that agency pays where the space of right answers is large and
                 unenumerable, and does not pay where a rule table already covers it. Choosing
@@ -1227,10 +1217,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
           </div>
-        </main>
-        <SiteFooter wide />
-        <Footer />
       </div>
-    </ThemeProvider>
+    </Shell>
   );
 }

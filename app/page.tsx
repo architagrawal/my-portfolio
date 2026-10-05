@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site/footer";
 import { PushButton } from "@/components/site/push-button";
 import { Replay } from "@/components/site/replay";
 import { Scribble } from "@/components/site/scribble";
+import { ScrollCue } from "@/components/site/scroll-cue";
 import { CopyEmail } from "@/components/site/copy-email";
 import { CountUp } from "@/components/site/lab-viz";
 import { GithubActivity } from "@/components/ui/github-activity";
@@ -32,11 +33,16 @@ const cardText = "mt-2 text-[16px] leading-relaxed text-muted-foreground";
 export default function Home() {
   return (
     <div className="min-h-screen text-foreground">
-      {/* the painting is the hero: a compact block of words in the bottom-left corner */}
-      <div className="flex min-h-[100svh] flex-col">
+      {/* the painting is the hero, with nothing over it but the nav */}
+      <div className="hero-painting flex min-h-[100svh] flex-col">
         <SiteNav hero />
-        <div className="mx-auto flex w-full max-w-6xl flex-1 items-end px-6 pb-14 pt-16 md:px-12 md:pb-20">
-          <div className="hero hero-copy max-w-[32rem]">
+        <ScrollCue target="intro" />
+      </div>
+
+      <div className="surface mx-auto max-w-4xl">
+      <main className="px-6 pt-12 md:px-12">
+        <section id="intro" className="scroll-mt-8 pb-16">
+          <div className="max-w-[34rem]">
             <Image
               src="/archit-profile.webp"
               alt="Archit Agrawal"
@@ -68,11 +74,8 @@ export default function Home() {
               <CopyEmail className="link-grow pb-0.5 text-[16px] font-bold text-primary" />
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div className="surface mx-auto max-w-4xl">
-      <main className="px-6 pt-12 md:px-12">
         <section className="tcard mb-6 rounded-2xl py-7">
           <div className="mb-4 flex items-baseline justify-between gap-4">
             <p className="text-sm font-bold uppercase tracking-[0.08em] text-primary">Always shipping</p>

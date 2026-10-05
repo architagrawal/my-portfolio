@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 
 /* A hand-drawn pink underline that draws itself under a phrase */
 export function Scribble({ children }: { children: React.ReactNode }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   return (
     <span className="relative inline-block whitespace-nowrap">
       <span className="scribble-text">{children}</span>
@@ -17,7 +18,7 @@ export function Scribble({ children }: { children: React.ReactNode }) {
           className="stroke-secondary"
           initial={reduce ? false : { pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1], delay: 0.5 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.9, ease: [0.65, 0, 0.35, 1], delay: 0.5 }}
         />
       </svg>
     </span>

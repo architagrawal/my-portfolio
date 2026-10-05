@@ -21,7 +21,7 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
   const pill = hover ?? current;
   return (
     <nav className={`mx-auto flex w-full items-center justify-between px-6 pt-8 ${hero ? "max-w-6xl md:px-12" : wide ? "max-w-4xl md:px-12" : "max-w-3xl"}`}>
-      <Link href="/" className="font-display text-lg font-extrabold tracking-tight">
+      <Link href="/" className="shrink-0 whitespace-nowrap font-display text-base font-extrabold tracking-tight sm:text-lg">
         Archit Agrawal
       </Link>
       <div className="flex items-center gap-1 text-[15px] font-semibold text-foreground/70 sm:gap-2" onMouseLeave={() => setHover(null)}>
@@ -33,7 +33,7 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
               href={href}
               aria-current={active ? "page" : undefined}
               onMouseEnter={() => setHover(href)}
-              className={`relative isolate rounded-full px-3 py-1.5 transition-colors hover:text-primary ${active ? "font-bold text-primary" : ""}`}
+              className={`relative isolate rounded-full px-2 py-1.5 sm:px-3 transition-colors hover:text-primary ${active ? "font-bold text-primary" : ""}`}
             >
               {pill === href && (
                 <motion.span

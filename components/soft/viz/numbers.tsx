@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 import { draw, fade, W } from "./motion";
 import type { Ratio, Slope, Waffle } from "./types";
 
@@ -9,7 +10,7 @@ const CELL = W / COLS;
 
 /* Unit grid per row: each square is one record, saffron squares are the hits */
 export function WaffleViz({ v }: { v: Waffle }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   let y = 0;
   const blocks = v.rows.map((r) => {
     const top = y + 14;
@@ -43,7 +44,7 @@ export function WaffleViz({ v }: { v: Waffle }) {
 
 /* Two points on one scale joined by a line, values labelled at each end */
 export function SlopeViz({ v }: { v: Slope }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const H = 110;
   const max = Math.max(v.from.value, v.to.value);
   const y = (n: number) => 16 + (1 - n / max) * (H - 40);
@@ -66,7 +67,7 @@ export function SlopeViz({ v }: { v: Slope }) {
 
 /* The old duration as a bar of equal parts; the new one fills a single part */
 export function RatioViz({ v }: { v: Ratio }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const gap = 2;
   const w = (W - gap * (v.parts - 1)) / v.parts;
   return (

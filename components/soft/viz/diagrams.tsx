@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 import { draw, fade, W } from "./motion";
 import type { CompGraph, Fanout, Flow, Gates } from "./types";
 
@@ -18,7 +19,7 @@ function Arrow({ id, className }: { id: string; className: string }) {
 
 /* Stages as nodes on a line, arrows between, notes under */
 export function FlowViz({ v }: { v: Flow }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const n = v.stages.length;
   const step = W / n;
   const x = (i: number) => step * i + step / 2;
@@ -51,7 +52,7 @@ export function FlowViz({ v }: { v: Flow }) {
 
 /* Map fans out to workers, joins, loops back a bounded number of times, or trips the breaker */
 export function FanoutViz({ v }: { v: Fanout }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const H = 130;
   const mid = 52;
   const ys = Array.from({ length: v.workers }, (_, i) => 14 + (i * (mid * 2 - 28)) / (v.workers - 1));
@@ -78,7 +79,7 @@ export function FanoutViz({ v }: { v: Fanout }) {
 
 /* y = w*x + b, then loss; forward edges muted, gradients drawn back in saffron */
 export function CompGraphViz({ v }: { v: CompGraph }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const nodes = {
     x: [24, 22], w: [24, 84], mul: [118, 52], b: [118, 112], add: [210, 82], loss: [296, 82],
   } as const;
@@ -120,7 +121,7 @@ export function CompGraphViz({ v }: { v: CompGraph }) {
 
 /* Staircase of layers with a gate between each */
 export function GatesViz({ v }: { v: Gates }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const n = v.layers.length;
   const w = W / n;
   const rowH = 22;

@@ -1,23 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView, useReducedMotion } from "framer-motion";
+import { animate, motion, useInView } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 import { Crossfade, FindingsBars } from "@/components/soft/drawings";
 
 const once = { once: true, margin: "-60px" } as const;
 
 /* Counts the leading number of a stat up from zero when it scrolls into view. "290k", "4.5×", "<1¢" all work. */
 export function CountUp({ value }: { value: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const ref = useRef<HTMLSpanElement>(null);
   const seen = useInView(ref, once);
   const m = value.match(/^([^\d]*)([\d.,]+)(.*)$/);
   const target = m ? parseFloat(m[2].replace(/,/g, "")) : 0;
   const decimals = m?.[2].includes(".") ? m[2].split(".")[1].length : 0;
-  const [n, setN] = useState(reduce || !m ? target : 0);
+  const [n, setN] = useState(m ? 0 : target);
 
   useEffect(() => {
-    if (!seen || reduce || !m) return;
+    if (!m) return;
+    if (reduce) return setN(target);
+    if (!seen) return;
     const c = animate(0, target, { duration: 1.1, ease: [0.22, 1, 0.36, 1], onUpdate: setN });
     return () => c.stop();
   }, [seen, reduce, target]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -34,7 +37,7 @@ export function CountUp({ value }: { value: string }) {
 
 /* Old pipeline: one row in eight drops out. New: every row lands. */
 function RowsLost() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const row = (label: string, lose: boolean, y: number) => (
     <g>
       <text x="0" y={y + 12} fontSize="12" className="fill-muted-foreground">{label}</text>
@@ -65,7 +68,7 @@ function RowsLost() {
 
 /* Rows grow 200x, answer time stays flat */
 function FlatLatency() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const bars = [4, 10, 24, 50, 100];
   return (
     <svg viewBox="0 0 320 96" className="h-auto w-full" aria-label="Rows grow 200 times while answer time stays flat">
@@ -100,7 +103,7 @@ function FlatLatency() {
 
 /* Two runs, same hash, character by character */
 function HashMatch() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, once);
   const hash = "a91f03c7e2b6d458";
@@ -128,7 +131,7 @@ function HashMatch() {
 
 /* The grader's needle swings to a perfect score for a useless chart, then gets caught */
 function GraderGauge() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   return (
     <svg viewBox="0 0 320 96" className="h-auto w-full" aria-label="A word cloud scores a perfect 1.00 until a gate blocks it">
       <text x="0" y="14" fontSize="12" className="fill-muted-foreground">grader score, word cloud</text>
@@ -164,7 +167,7 @@ function GraderGauge() {
 
 /* A bill splits into exact per-person shares that add back up */
 function SplitBill() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const shares = [
     { w: 0.46, label: "$23.40" },
     { w: 0.31, label: "$15.77" },
@@ -224,7 +227,7 @@ export type VizKey = keyof typeof VIZ;
 export function LabViz({ kind }: { kind: VizKey }) {
   const V = VIZ[kind];
   return (
-    <div className="mt-5 max-w-md rounded-xl bg-muted p-4">
+    <div className="mt-5 max-w-md">
       <V />
     </div>
   );

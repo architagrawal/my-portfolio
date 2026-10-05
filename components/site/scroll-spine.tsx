@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 
 /* A timeline line down the left edge that draws itself as you scroll through the roles */
 export function ScrollSpine({ children }: { children: React.ReactNode }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 70%"] });
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });

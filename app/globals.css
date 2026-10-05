@@ -500,18 +500,51 @@
 [data-scene="canyon"], [data-scene="saguaros"] { --paint-dim: 0.1; }
 /* the nav reads over the sky */
 .backdrop::after { content: ""; position: absolute; inset: 0 0 auto; height: 9rem; background: linear-gradient(hsl(var(--background) / 0.6), transparent); }
-/* the hero words get a local shadow, not a wash across the page */
-.hero-copy { position: relative; isolation: isolate; text-shadow: 0 1px 2px hsl(var(--background) / 0.9), 0 0 18px hsl(var(--background) / 0.7); }
-.hero-copy::before {
+/* Sub-page header shade: a wide gradient in the page colour centred near the band's bottom-left corner,
+   fading over most of the band, so it has no edge to see. It reaches below the band so it
+   runs on into the side margins. */
+:root { --shade: 0.92; }
+.hero-band { position: relative; isolation: isolate; }
+.hero-band::before {
   content: "";
   position: absolute;
-  inset: -45% -50%;
+  inset: 0 0 -30vh 0;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(closest-side, hsl(var(--background) / 0.9), hsl(var(--background) / 0.85) 70%, hsl(var(--background) / 0.4) 86%, transparent);
+  background: radial-gradient(130% 100% at 0% 60%,
+    hsl(var(--background) / var(--shade)) 0%,
+    hsl(var(--background) / calc(var(--shade) * 0.88)) 30%,
+    hsl(var(--background) / calc(var(--shade) * 0.5)) 58%,
+    hsl(var(--background) / calc(var(--shade) * 0.12)) 75%,
+    transparent 100%);
 }
+.hero-copy {
+  text-shadow:
+    0 1px 1px hsl(var(--background) / 0.9),
+    0 0 6px hsl(var(--background) / 0.75),
+    0 0 18px hsl(var(--background) / 0.6),
+    0 0 42px hsl(var(--background) / 0.5);
+}
+/* on a phone the words fill the band, so the shade spreads wider and starts denser */
+@media (max-width: 639px) {
+  .hero-band::before {
+    background: radial-gradient(220% 80% at 0% 62%,
+      hsl(var(--background) / var(--shade)) 0%,
+      hsl(var(--background) / calc(var(--shade) * 0.88)) 35%,
+      hsl(var(--background) / calc(var(--shade) * 0.3)) 70%,
+      transparent 100%);
+  }
+}
+/* home: the painting alone fills the first screen, fading into the page at its foot */
+.hero-painting { position: relative; }
+.hero-painting::after { content: ""; position: absolute; inset: auto 0 0; height: 22vh; pointer-events: none; background: linear-gradient(transparent, hsl(var(--background) / 0.85)); }
+@keyframes cue-bob { 50% { transform: translateY(5px); } }
+.scroll-cue svg { animation: cue-bob 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .scroll-cue svg { animation: none; } }
+/* framer's useScroll measures against a positioned root */
+html { position: relative; }
 /* sub-page content: a centred surface, the painting stays in the margins */
-.surface { background: hsl(var(--background)); }
+.surface { position: relative; background: hsl(var(--background)); }
 @media (min-width: 768px) {
   .surface { background: hsl(var(--background) / 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 }

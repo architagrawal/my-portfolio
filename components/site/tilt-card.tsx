@@ -3,10 +3,10 @@
 import {
   motion,
   useMotionValue,
-  useReducedMotion,
   useSpring,
   useTransform,
 } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 import type { PointerEvent, ReactNode } from "react";
 
 /* Lifts and tilts a few degrees toward the pointer; holds still under reduced motion */
@@ -19,7 +19,7 @@ export function TiltCard({
   className?: string;
   max?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
   const spring = { stiffness: 220, damping: 22 };
