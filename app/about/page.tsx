@@ -21,8 +21,8 @@ const FACTS = [
 export default function AboutPage() {
   return (
     <Shell header={<PageHeader eyebrow="About" title="Hi, I'm Archit" />}>
-      <div className="mt-8 grid gap-10 sm:grid-cols-[1fr_12rem]">
-        <Reveal className="space-y-5 text-lg leading-relaxed text-foreground/80">
+      <div className="mt-10 grid gap-12 md:grid-cols-[1fr_12rem]">
+        <Reveal className="t-lead max-w-[38rem] space-y-6">
           <p>
             I finished my MS in Computer Science at Arizona State with a 4.0 and stayed on at EdPlus, where I own an
             analytics platform end to end. You upload a survey export, ask a question in plain English, and it answers
@@ -49,8 +49,8 @@ export default function AboutPage() {
           <dl className="mt-6 space-y-4 text-sm">
             {FACTS.map(([k, v]) => (
               <div key={k}>
-                <dt className="text-xs font-bold uppercase tracking-[0.08em] text-primary">{k}</dt>
-                <dd className="mt-0.5">{v}</dd>
+                <dt className="t-eyebrow">{k}</dt>
+                <dd className="mt-1 text-[15px] leading-snug">{v}</dd>
               </div>
             ))}
           </dl>
@@ -58,10 +58,8 @@ export default function AboutPage() {
       </div>
 
       <SectionTitle>Stack</SectionTitle>
-      <p className="-mt-3 mb-6 text-[15px] text-muted-foreground">Go ahead, press a key.</p>
-      <div className="tcard rounded-2xl bg-card p-7 shadow-soft">
-        <Keycaps />
-      </div>
+      <p className="t-meta -mt-5 mb-8">Go ahead, press a key.</p>
+      <Keycaps />
 
       <SectionTitle>GitHub activity</SectionTitle>
       <GithubActivity />

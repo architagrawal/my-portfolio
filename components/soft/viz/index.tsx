@@ -39,9 +39,11 @@ function Body({ v }: { v: Visual }) {
 /* The one visual chosen for a role or project, with its caption */
 export function Viz({ v, className = "" }: { v: Visual; className?: string }) {
   return (
-    <figure className={className}>
-      <Body v={v} />
-      <figcaption className="mt-2 text-sm text-muted-foreground">{v.caption}</figcaption>
+    <figure className={`max-w-xl ${className}`}>
+      <div className="rounded-2xl bg-foreground/[0.04] px-5 py-6 sm:px-7">
+        <Body v={v} />
+      </div>
+      <figcaption className="mt-3 text-[13px] leading-snug text-muted-foreground">{v.caption}</figcaption>
     </figure>
   );
 }

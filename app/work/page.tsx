@@ -3,9 +3,8 @@ import Link from "next/link";
 import { roles, type Role } from "@/lib/data/experience";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Viz } from "@/components/soft/viz";
-import { Reveal } from "@/components/site/reveal";
+import { Points, TextLink } from "@/components/site/ui";
 import { ScrollSpine } from "@/components/site/scroll-spine";
-import { TiltCard } from "@/components/site/tilt-card";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -29,53 +28,27 @@ const EDUCATION = [
 ];
 
 function RoleEntry({ r }: { r: Role }) {
-  const more = r.achievements.length - r.featured.length;
   return (
-    <Reveal>
-      <TiltCard className="mb-5" max={1.5}>
-        <article className="tcard spotlight grid gap-x-8 gap-y-2 rounded-2xl bg-card p-7 shadow-soft sm:grid-cols-[9rem_1fr]">
-          <p className="text-sm font-semibold text-muted-foreground tabular-nums">
-            {r.period}
-          </p>
-          <div>
-            <h3 className="font-display text-2xl font-extrabold tracking-tight">
-              <Link
-                href={`/work/${r.slug}`}
-                className="hover:text-primary transition-colors"
-              >
-                {r.role}
-              </Link>
-            </h3>
-            <p className="mt-0.5 text-[15px] text-muted-foreground">
-              {r.company}, {r.location}
-            </p>
-            <ul className="mt-4 space-y-2.5 text-[15px] leading-relaxed text-foreground/80">
-              {r.featured
-                .map((i) => r.achievements[i])
-                .filter(Boolean)
-                .map((a) => (
-                  <li key={a.text} className="flex gap-3">
-                    <span
-                      className="mt-[0.6em] h-1 w-1 shrink-0 rounded-full bg-primary"
-                      aria-hidden="true"
-                    />
-                    <span>{a.text}</span>
-                  </li>
-                ))}
-            </ul>
-            {r.visual && <Viz v={r.visual} className="mt-6" />}
-            {more > 0 && (
-              <Link
-                href={`/work/${r.slug}`}
-                className="link-grow mt-4 inline-block pb-0.5 text-[15px] font-bold text-primary"
-              >
-                See the full role
-              </Link>
-            )}
-          </div>
-        </article>
-      </TiltCard>
-    </Reveal>
+    <article className="grid gap-x-8 gap-y-2 py-8 md:grid-cols-[9rem_1fr]">
+      <p className="t-meta pt-1.5">{r.period}</p>
+      <div className="min-w-0">
+        <h3 className="t-h2">
+          <Link href={`/work/${r.slug}`} className="transition-colors hover:text-primary">
+            {r.role}
+          </Link>
+        </h3>
+        <p className="t-meta mt-1">
+          {r.company}, {r.location}
+        </p>
+        <div className="mt-6">
+          <Points items={r.featured.map((i) => r.achievements[i]).filter(Boolean).map((a) => a.text)} />
+        </div>
+        {r.visual && <Viz v={r.visual} className="mt-8" />}
+        <TextLink href={`/work/${r.slug}`} className="mt-6 !flex w-fit text-[15px]">
+          {r.achievements.length} points in the full role
+        </TextLink>
+      </div>
+    </article>
   );
 }
 
@@ -87,8 +60,7 @@ export default function WorkPage() {
       header={
         <PageHeader eyebrow="Experience" title="Where I've shipped">
           Five years across AI platforms, data pipelines and product engineering,
-          plus research in evaluation and computer vision. Each role opens into
-          the full detail.
+          plus research in evaluation and computer vision.
         </PageHeader>
       }
     >
@@ -109,16 +81,16 @@ export default function WorkPage() {
       {EDUCATION.map((e) => (
         <div
           key={e.school}
-          className="mb-8 grid gap-x-8 sm:grid-cols-[9rem_1fr]"
+          className="grid gap-x-8 gap-y-1 py-4 md:grid-cols-[9rem_1fr]"
         >
-          <p className="text-sm font-semibold text-muted-foreground tabular-nums">
+          <p className="t-meta pt-0.5">
             {e.period}
           </p>
           <div>
-            <h3 className="font-display text-xl font-extrabold tracking-tight">
+            <h3 className="t-h3">
               {e.school}
             </h3>
-            <p className="mt-0.5 text-[15px] text-muted-foreground">
+            <p className="t-meta mt-1">
               {e.degree}
               {e.note && `, ${e.note}`}
             </p>

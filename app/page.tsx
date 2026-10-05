@@ -20,22 +20,22 @@ function Card({ href, children, className = "" }: { href: string; children: Reac
   return (
     <Link
       href={href}
-      className={`tcard spotlight group block rounded-2xl py-7 transition-colors duration-300 ${className}`}
+      className={`group block py-8 ${className}`}
     >
       {children}
     </Link>
   );
 }
 
-const cardTitle = "font-display text-2xl font-extrabold tracking-tight";
-const cardText = "mt-2 text-[16px] leading-relaxed text-muted-foreground";
+const cardTitle = "t-h2";
+const cardText = "mt-2 text-[15px] leading-relaxed text-muted-foreground";
 
 export default function Home() {
   return (
     <div className="min-h-screen text-foreground">
       {/* the painting is the hero, with nothing over it but the nav */}
-      <div className="hero-painting flex min-h-[100svh] flex-col">
-        <SiteNav hero />
+      <SiteNav hero />
+      <div className="hero-painting -mt-16 flex min-h-[100svh] flex-col pt-16">
         <ScrollCue target="intro" />
       </div>
 
@@ -52,10 +52,10 @@ export default function Home() {
               className="mb-5 h-12 w-12 rounded-full object-cover ring-2 ring-foreground/20 sm:h-14 sm:w-14"
               style={{ objectPosition: "40% center" }}
             />
-            <h1 className="hero-title font-display text-[2.4rem] font-extrabold leading-[1.02] sm:text-[3.25rem]">
+            <h1 className="t-h1">
               Hi, I&apos;m Archit. I ship AI agents <Scribble>to production.</Scribble>
             </h1>
-            <p className="mt-5 text-[17px] leading-relaxed text-foreground/90">
+            <p className="t-lead mt-5">
               <strong className="font-semibold text-foreground">AI Software Engineer at ASU EdPlus</strong>, Phoenix. I own a
               12-agent analytics platform on AWS Bedrock, built in TypeScript and Python, with the tests to prove it works.
               Looking for my next AI engineering role, open to relocation.
@@ -78,7 +78,7 @@ export default function Home() {
 
         <section className="tcard mb-6 rounded-2xl py-7">
           <div className="mb-4 flex items-baseline justify-between gap-4">
-            <p className="text-sm font-bold uppercase tracking-[0.08em] text-primary">Always shipping</p>
+            <p className="t-eyebrow">Always shipping</p>
             <a href="https://github.com/architagrawal" target="_blank" rel="noopener noreferrer" className="link-grow pb-0.5 text-[15px] font-bold text-primary">
               GitHub
             </a>
@@ -88,15 +88,13 @@ export default function Home() {
 
         <Card href="/work/survey-agents" className="grid gap-8 sm:grid-cols-[1fr_19rem] sm:items-center">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.08em] text-secondary">
-              Current build
-            </p>
-            <h2 className={`mt-2 ${cardTitle}`}>Survey Agents</h2>
+            <p className="t-eyebrow !text-secondary">Current build</p>
+            <h2 className={`mt-2 ${cardTitle} transition-colors group-hover:text-primary`}>Survey Agents</h2>
             <p className={cardText}>
               Upload a survey export, ask it a question in plain English, and get a chart where every number traces back
               to the data. Twelve agents in production on AWS.
             </p>
-            <span className="link-grow mt-5 inline-block pb-0.5 font-bold text-primary">Read the case study</span>
+            <span className="ui-link mt-5"><span className="ui-link-label">Read the case study</span><span aria-hidden="true" className="ui-arrow">&rarr;</span></span>
           </div>
           <Replay />
         </Card>
@@ -117,9 +115,9 @@ export default function Home() {
           ))}
         </section>
 
-        <div className="mt-6 grid gap-x-12 gap-y-6 sm:grid-cols-2">
+        <div className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2">
           <Card href="/work">
-            <h2 className={cardTitle}>Experience</h2>
+            <h2 className={`${cardTitle} transition-colors group-hover:text-primary`}>Experience</h2>
             <p className={cardText}>
               {roles.length} roles since 2021, industry and research.
             </p>
@@ -135,7 +133,7 @@ export default function Home() {
             </ul>
           </Card>
           <Card href="/projects">
-            <h2 className={cardTitle}>Projects</h2>
+            <h2 className={`${cardTitle} transition-colors group-hover:text-primary`}>Projects</h2>
             <p className={cardText}>{projects.length} builds, including an AI DJ and a receipt-splitting app.</p>
             <Image src="/prismsplit-app.jpg" alt="PrismSplit app screens" width={700} height={380} className="mt-5 h-36 w-full rounded-xl object-cover object-top" />
             <ul className="mt-3 space-y-3">
@@ -151,7 +149,7 @@ export default function Home() {
             </ul>
           </Card>
           <Card href="/lab">
-            <h2 className={cardTitle}>Lab notebook</h2>
+            <h2 className={`${cardTitle} transition-colors group-hover:text-primary`}>Lab notebook</h2>
             <p className={cardText}>
               {experiments.length} hard problems, each with the number that says it is solved.
             </p>
@@ -165,7 +163,7 @@ export default function Home() {
             </ul>
           </Card>
           <Card href="/about">
-            <h2 className={cardTitle}>About</h2>
+            <h2 className={`${cardTitle} transition-colors group-hover:text-primary`}>About</h2>
             <p className={cardText}>How I got here, what I work with, and a year of GitHub activity.</p>
             <dl className="mt-5 grid grid-cols-2 gap-3">
               {[
@@ -175,7 +173,7 @@ export default function Home() {
                 ["Loves", "LangGraph, AWS"],
               ].map(([k, v]) => (
                 <div key={k}>
-                  <dt className="text-xs font-bold uppercase tracking-[0.08em] text-primary">{k}</dt>
+                  <dt className="t-eyebrow">{k}</dt>
                   <dd className="mt-1 text-[15px] font-semibold">{v}</dd>
                 </div>
               ))}

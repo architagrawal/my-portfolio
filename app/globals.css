@@ -630,3 +630,49 @@ html { position: relative; }
   88% { opacity: 0.8; }
   100% { opacity: 0; transform: scale(1.8); }
 }
+
+/* ------------------------------------------------------------------
+   Editorial system. One type scale, one spacing rhythm, shared link/chip/list.
+   Scale (px): 13 eyebrow, 15 meta, 17 body, 20 h3, 28 h2, 40-60 h1.
+   Rhythm: sections open 96px apart on wide screens, 64px on phones.
+   ------------------------------------------------------------------ */
+.t-eyebrow { font-size: 0.8125rem; line-height: 1.2; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: hsl(var(--primary)); }
+.t-h1 { font-family: var(--display-font), ui-sans-serif, system-ui; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; font-size: clamp(2.5rem, 1.6rem + 3.6vw, 3.75rem); text-wrap: balance; }
+.t-h2 { font-family: var(--display-font), ui-sans-serif, system-ui; font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; font-size: 1.75rem; }
+.t-h3 { font-family: var(--display-font), ui-sans-serif, system-ui; font-weight: 800; letter-spacing: -0.015em; line-height: 1.25; font-size: 1.25rem; }
+.t-lead { font-size: 1.1875rem; line-height: 1.6; color: hsl(var(--foreground) / 0.88); text-wrap: pretty; }
+.t-body { font-size: 1.0625rem; line-height: 1.65; }
+.t-meta { font-size: 0.9375rem; line-height: 1.5; color: hsl(var(--muted-foreground)); font-variant-numeric: tabular-nums; }
+.t-count { margin-left: 0.6em; font-family: var(--font-figtree), ui-sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); font-variant-numeric: tabular-nums; vertical-align: 0.2em; }
+
+/* links: label underlines from the left, arrow nudges along */
+.ui-link { display: inline-flex; align-items: baseline; gap: 0.4em; font-weight: 700; font-size: 1rem; color: hsl(var(--primary)); border-radius: 4px; }
+.ui-link-label { background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1.5px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 2px; transition: background-size 240ms cubic-bezier(0.22, 1, 0.36, 1); }
+.ui-link:hover .ui-link-label, .ui-link:focus-visible .ui-link-label, .group:hover .ui-link-label { background-size: 100% 1.5px; }
+.ui-arrow { display: inline-block; transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1); }
+.ui-link:hover .ui-arrow, .group:hover .ui-arrow { transform: translateX(3px); }
+.ui-link:hover .ui-arrow-back { transform: translateX(-3px); }
+
+/* chips: a quiet fill, no outline */
+.ui-chip { font-size: 0.8125rem; line-height: 1; font-weight: 600; padding: 0.45rem 0.7rem; border-radius: 999px; background: hsl(var(--foreground) / 0.07); color: hsl(var(--foreground) / 0.86); }
+
+/* scannable points: lead in ink, detail in muted, spaced by rhythm instead of rules */
+.ui-points { display: grid; gap: 1.25rem; font-size: 1.0625rem; line-height: 1.6; max-width: 40rem; }
+.ui-points > li { text-wrap: pretty; }
+
+/* detail sections: label rail + content, the rail matches the 9rem date column */
+.ui-section { display: grid; gap: 1rem; margin-top: 4rem; }
+@media (min-width: 768px) {
+  .ui-section { grid-template-columns: 9rem minmax(0, 1fr); column-gap: 2rem; margin-top: 6rem; }
+  .ui-section > h2 { position: sticky; top: 5.5rem; align-self: start; }
+}
+.ui-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2rem; }
+@media (min-width: 768px) { .ui-meta { grid-template-columns: repeat(var(--meta-cols, 3), minmax(0, 1fr)); } }
+.ui-next { display: block; margin-top: 6rem; padding: 0.5rem 0; }
+
+/* nav: sticky; once the page scrolls it gains a translucent page-colour ground */
+.site-nav { position: sticky; top: 0; z-index: 40; transition: background-color 300ms ease, backdrop-filter 300ms ease; }
+.site-nav[data-scrolled="true"] { background: hsl(var(--background) / 0.72); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); }
+/* over the painting the back link reads in ink; the accent stays on the arrow */
+.hero-copy .ui-link { color: hsl(var(--foreground)); }
+.hero-copy .ui-link .ui-arrow { color: hsl(var(--primary)); }
