@@ -459,29 +459,40 @@
 .tcard { background: transparent; box-shadow: none; }
 .tcard:hover { box-shadow: none; }
 
-/* Project figures: thin strokes in the scene's ink, its accent for the lit parts.
-   Faces fill with the card colour so nearer solids hide what is behind them. */
+/* Project figures: a three-step stroke hierarchy in the scene's ink, tonal plates for the faces
+   (top lightest, right darkest, all derived from --fg-plate) and the scene accent for one lit part. */
 .figure-site {
-  --fg-plate: hsl(var(--background));
+  --fg-plate: color-mix(in oklab, hsl(var(--background)) 94%, hsl(var(--foreground)));
+  --fg-top: color-mix(in oklab, var(--fg-plate) 92%, hsl(var(--foreground)));
+  --fg-left: color-mix(in oklab, var(--fg-plate) 96%, hsl(var(--foreground)));
+  --fg-right: color-mix(in oklab, var(--fg-plate) 97%, black);
+  --fg-lit: color-mix(in oklab, var(--fg-top) 72%, hsl(var(--primary)));
   --fg-hi: hsl(var(--primary));
-  --fg-edge: hsl(var(--foreground) / 0.8);
-  --fg-mid: hsl(var(--muted-foreground) / 0.7);
-  --fg-lo: hsl(var(--muted-foreground) / 0.3);
+  --fg-edge: hsl(var(--foreground) / 0.78);
+  --fg-mid: hsl(var(--muted-foreground) / 0.6);
+  --fg-lo: hsl(var(--muted-foreground) / 0.28);
+  --fg-w: 1;
   aspect-ratio: 5 / 4;
 }
+/* card-row figures are ~7.5rem: bolder lines so they still read */
+.figure-site.sm { --fg-w: 1.35; }
 .figure-site svg { transform-origin: 50% 50%; }
 .figure-site :where(path, ellipse, circle, polygon) {
   fill: var(--fg-plate);
   stroke: var(--fg-mid);
-  stroke-width: 0.9;
+  stroke-width: calc(0.85px * var(--fg-w));
   vector-effect: non-scaling-stroke;
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+.figure-site :where(.ft) { fill: var(--fg-top); }
+.figure-site :where(.fl) { fill: var(--fg-left); }
+.figure-site :where(.fr) { fill: var(--fg-right); }
+.figure-site :where(.ft.hi) { fill: var(--fg-lit); }
 .figure-site :where(.nf) { fill: none; }
-.figure-site :where(.edge) { stroke: var(--fg-edge); }
-.figure-site :where(.lo) { stroke: var(--fg-lo); }
-.figure-site :where(.hi) { stroke: var(--fg-hi); }
+.figure-site :where(.edge) { stroke: var(--fg-edge); stroke-width: calc(1.1px * var(--fg-w)); }
+.figure-site :where(.lo) { stroke: var(--fg-lo); stroke-width: calc(0.7px * var(--fg-w)); }
+.figure-site :where(.hi) { stroke: var(--fg-hi); stroke-width: calc(1.3px * var(--fg-w)); }
 .figure-site :where(.dash) { stroke-dasharray: 1 3; }
 .figure-site :where(.dot) { stroke: none; fill: var(--fg-hi); }
 .figure-site :where(.dot.m) { fill: var(--fg-edge); }

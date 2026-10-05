@@ -19,21 +19,31 @@ const Q0: Pt = [0, 2.2];
 const LB: Pt = [4.3, 2.2];
 const lbIn: Pt = [LB[0] - 0.9, LB[1]];
 
-export function ImageRecognitionFigure({ label, className }: { label: string; className?: string }) {
+export function ImageRecognitionFigure({
+  label,
+  className,
+  small,
+}: {
+  label: string;
+  className?: string;
+  small?: boolean;
+}) {
   const { parts, at } = useParts();
-  const shown: number[] = INST.map((_, i) => (i < 2 ? 1 : 0));
+  const inst = small ? INST.filter((_, i) => i % 3 !== 2) : INST;
+  const tiles = small ? 4 : TILES;
+  const shown: number[] = inst.map((_, i) => (i < 2 ? 1 : 0));
 
   const tick = ({ t, s, still }: Frame) => {
     const load = clamp(0.5 - 0.5 * Math.cos(t * 0.4) + s * 0.2);
-    const n = 2 + Math.round(load * 4);
-    INST.forEach((_, i) => {
+    const n = 2 + Math.round(load * (inst.length - 2));
+    inst.forEach((_, i) => {
       const want = i < n ? 1 : 0;
-      shown[i] = still ? want : lerp(shown[i], want, 0.06);
-      op(parts.current[`i${i}`], 0.12 + 0.88 * shown[i]);
+      shown[i] = still ? want : lerp(shown[i], want, 0.04);
+      op(parts.current[`i${i}`], shown[i]);
       op(parts.current[`w${i}`], shown[i]);
     });
-    for (let j = 0; j < TILES; j++) {
-      const u = frac(t / 5 + j / TILES);
+    for (let j = 0; j < tiles; j++) {
+      const u = frac(t / 6 + j / tiles);
       let x: number;
       let y: number;
       let z = 0.1;
@@ -44,7 +54,7 @@ export function ImageRecognitionFigure({ label, className }: { label: string; cl
         o = ease(0, 0.05, u);
       } else {
         const f = ease(0.6, 1, u);
-        const [tx, ty] = INST[j % n];
+        const [tx, ty] = inst[j % n];
         x = lerp(lbIn[0], tx + 0.15, f);
         y = lerp(Q0[1], ty + 0.15, f);
         z = 0.1 + Math.sin(Math.PI * f) * 1.2 + f * 1.2;
@@ -58,17 +68,17 @@ export function ImageRecognitionFigure({ label, className }: { label: string; cl
     <g>
       <path className="edge" d={topFace(I, Q0[0], Q0[1], 0.1, 0.7, 0.7)} />
       <path
-        className="nf hi"
+        className="nf mid"
         d={path([I.p(Q0[0] + 0.1, Q0[1] + 0.55, 0.1), I.p(Q0[0] + 0.3, Q0[1] + 0.3, 0.1), I.p(Q0[0] + 0.45, Q0[1] + 0.45, 0.1), I.p(Q0[0] + 0.6, Q0[1] + 0.2, 0.1)])}
       />
     </g>
   );
 
   return (
-    <FigureFrame label={label} tick={tick} className={className}>
+    <FigureFrame label={label} tick={tick} className={className} small={small}>
       <g data-depth="0.4">
         <path className="lo" d={topFace(I, -0.2, 2, 0, 4.6, 1.1)} />
-        {INST.map(([x, y], i) => (
+        {inst.map(([x, y], i) => (
           <path
             key={i}
             ref={at(`w${i}`)}
@@ -79,14 +89,14 @@ export function ImageRecognitionFigure({ label, className }: { label: string; cl
       </g>
       <g data-depth="1">
         <Box I={I} x={LB[0]} y={LB[1] - 0.2} w={1.2} d={1.4} h={1.2} top="hi" />
-        {INST.map(([x, y], i) => (
-          <g key={i} ref={at(`i${i}`)}>
+        {inst.map(([x, y], i) => (
+          <g key={i} ref={at(`i${i}`)} style={{ opacity: i < 2 ? 1 : 0 }}>
             <Box I={I} x={x} y={y} w={1} d={1} h={1.3} />
           </g>
         ))}
       </g>
       <g data-depth="1.6">
-        {Array.from({ length: TILES }, (_, j) => (
+        {Array.from({ length: tiles }, (_, j) => (
           <g key={j} ref={at(`q${j}`)}>
             {tile}
           </g>

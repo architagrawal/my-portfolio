@@ -12,7 +12,7 @@ import { SrpElectricFigure } from "./projects/srp-electric";
 import { SurveyAgentsFigure } from "./projects/survey-agents";
 import { SurveyIntelligenceFigure } from "./projects/survey-intelligence";
 
-type FigureProps = { label: string; className?: string };
+type FigureProps = { label: string; className?: string; small?: boolean };
 
 /* One drawing per project, keyed by slug */
 const FIGURES: Record<string, ComponentType<FigureProps>> = {
@@ -32,12 +32,15 @@ export function ProjectFigure({
   slug,
   title,
   className,
+  small = false,
 }: {
   slug: string;
   title: string;
   className?: string;
+  /* the ~7.5rem card-row size: fewer, bolder parts */
+  small?: boolean;
 }) {
   const Figure = FIGURES[slug];
   if (!Figure) return null;
-  return <Figure label={`${title}, animated drawing`} className={className} />;
+  return <Figure label={`${title}, animated drawing`} className={className} small={small} />;
 }

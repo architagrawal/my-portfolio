@@ -15,7 +15,15 @@ const PEOPLE: Pt[] = [
 ];
 const itemAt = (i: number): Pt => [0.5, 0.7 + i * 0.75];
 
-export function PrismSplitFigure({ label, className }: { label: string; className?: string }) {
+export function PrismSplitFigure({
+  label,
+  className,
+  small,
+}: {
+  label: string;
+  className?: string;
+  small?: boolean;
+}) {
   const { parts, at } = useParts();
 
   const tick = ({ t, s }: Frame) => {
@@ -41,7 +49,7 @@ export function PrismSplitFigure({ label, className }: { label: string; classNam
   const receipt = poly([R(0, 0, 0.05), R(3, 0, 0.05), ...tear]);
 
   return (
-    <FigureFrame label={label} tick={tick} className={className}>
+    <FigureFrame label={label} tick={tick} className={className} small={small}>
       <g data-depth="0.4">
         <path className="edge" d={receipt} />
         <path className="nf lo" d={poly([R(0.5, 4.25, 0.05), R(2.5, 4.25, 0.05)])} />

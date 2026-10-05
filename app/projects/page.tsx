@@ -37,6 +37,7 @@ function Row({ p }: { p: Project }) {
           <ProjectFigure
             slug={p.slug}
             title={p.title}
+            small
             className="mt-2 w-28 self-center sm:mt-0 sm:w-auto"
           />
         </Link>

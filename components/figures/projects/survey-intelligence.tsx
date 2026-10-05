@@ -9,12 +9,20 @@ const I = fit(6.4, 5.4, 6.2);
 const LAYERS = [0, 1, 2, 3];
 const LZ = 1.25;
 
-export function SurveyIntelligenceFigure({ label, className }: { label: string; className?: string }) {
+export function SurveyIntelligenceFigure({
+  label,
+  className,
+  small,
+}: {
+  label: string;
+  className?: string;
+  small?: boolean;
+}) {
   const { parts, at } = useParts();
 
   const tick = ({ t, s }: Frame) => {
-    const u = frac(t / 8);
-    const spread = 0.15 + 0.2 * (0.5 + 0.5 * Math.sin(t * 0.6)) + clamp(s, -1, 1) * 0.15;
+    const u = frac(t / 9);
+    const spread = 0.15 + 0.18 * (0.5 + 0.5 * Math.sin(t * 0.4)) + clamp(s, -1, 1) * 0.15;
     LAYERS.forEach((i) => {
       mv(parts.current[`L${i}`], I.v(0, 0, i * spread));
       const on = ease(0.1 + i * 0.15, 0.16 + i * 0.15, u) * (1 - ease(0.92, 1, u));
@@ -22,16 +30,16 @@ export function SurveyIntelligenceFigure({ label, className }: { label: string; 
       op(parts.current[`gate${i}`], 0.2 + 0.8 * on);
     });
     const drop = ease(0.72, 0.86, u);
-    mv(parts.current.survey, I.v(0, 0, (1 - drop) * 2 + 3 * spread), drop * (1 - ease(0.92, 1, u)));
+    mv(parts.current.survey, I.v(0, 0, (1 - drop) * 2 + (small ? -LZ + 2 * spread : 3 * spread)), drop * (1 - ease(0.92, 1, u)));
   };
 
   return (
-    <FigureFrame label={label} tick={tick} className={className}>
+    <FigureFrame label={label} tick={tick} className={className} small={small}>
       <g data-depth="1">
-        {LAYERS.map((i) => (
+        {(small ? [0, 1, 2] : LAYERS).map((i) => (
           <g key={i} ref={at(`L${i}`)}>
             <Box I={I} x={0} y={0} z={i * LZ} w={5.4} d={4.6} h={0.3} />
-            {Array.from({ length: i + 1 }, (_, k) => (
+            {!small && Array.from({ length: i + 1 }, (_, k) => (
               <path
                 key={k}
                 className="nf lo"
