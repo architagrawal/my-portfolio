@@ -13,13 +13,21 @@ const TX = 4;
 const AGENT: Pt = [8.6, 1.5];
 const READ0: Pt = [1.9, 1.7];
 
-export function SrpElectricFigure({ label, className }: { label: string; className?: string }) {
+export function SrpElectricFigure({
+  label,
+  className,
+  small,
+}: {
+  label: string;
+  className?: string;
+  small?: boolean;
+}) {
   const { parts, at } = useParts();
 
   const tick = ({ t, s }: Frame) => {
-    const a = t * 1.6;
+    const a = t * 0.8;
     mv(parts.current.needle, I.v(0, Math.cos(a) * DIAL.r * 0.75, Math.sin(a) * DIAL.r * 0.75));
-    const gap = 0.35 + 0.25 * (0.5 + 0.5 * Math.sin(t * 0.7)) + s * 0.15;
+    const gap = 0.35 + 0.2 * (0.5 + 0.5 * Math.sin(t * 0.45)) + s * 0.12;
     TOOLS.forEach((i) => mv(parts.current[`tool${i}`], I.v(0, 0, i * gap)));
     for (let j = 0; j < 3; j++) {
       const u = frac(t / 4.5 + j / 3);
@@ -44,18 +52,18 @@ export function SrpElectricFigure({ label, className }: { label: string; classNa
   const [nx, ny] = I.p(METER.w, DIAL.y, DIAL.z);
 
   return (
-    <FigureFrame label={label} tick={tick} className={className}>
+    <FigureFrame label={label} tick={tick} className={className} small={small}>
       <g data-depth="0.4">
-        <path className="nf dash" d={path([I.p(1.6, 2, 0.3), I.p(9, 2, 0.3)])} />
+        {!small && <path className="nf dash" d={path([I.p(1.6, 2, 0.3), I.p(9, 2, 0.3)])} />}
       </g>
       <g data-depth="1">
         <Box I={I} {...METER} />
         <path className="nf edge" d={poly(ring)} />
         <circle ref={at("needle")} className="dot" cx={nx} cy={ny} r={2.2} />
-        {TOOLS.map((i) => (
+        {(small ? [0, 2] : TOOLS).map((i) => (
           <g key={i} ref={at(`tool${i}`)}>
-            <Box I={I} x={TX} y={0.6} w={2.4} d={2.8} h={0.25} top={i === 2 ? "hi" : "edge"} />
-            {[0.8, 1.4, 2].map((yy) => (
+            <Box I={I} x={TX} y={0.6} w={2.4} d={2.8} h={0.25} top="edge" />
+            {!small && [0.8, 1.4, 2].map((yy) => (
               <path key={yy} className="nf lo" d={path([I.p(TX + 0.4, 0.6 + yy, 0.25), I.p(TX + 1.6, 0.6 + yy, 0.25)])} />
             ))}
             {i === 2 && (
@@ -69,7 +77,7 @@ export function SrpElectricFigure({ label, className }: { label: string; classNa
         </g>
       </g>
       <g data-depth="1.6">
-        {[0, 1, 2].map((j) => (
+        {(small ? [0] : [0, 1, 2]).map((j) => (
           <g key={j} ref={at(`r${j}`)} style={{ opacity: 0 }}>
             <path className="edge" d={poly([I.p(READ0[0], READ0[1], 0.4), I.p(READ0[0] + 0.5, READ0[1], 0.4), I.p(READ0[0] + 0.5, READ0[1] + 0.5, 0.4), I.p(READ0[0], READ0[1] + 0.5, 0.4)])} />
             <Disc I={I} x={READ0[0] + 0.25} y={READ0[1] + 0.25} z={0.4} r={0.08} className="dot" />

@@ -16,19 +16,27 @@ const TOWERS = [3.2, 2.4, 2.9, 1.8, 2.1, 1.5, 2.6, 1.2, 2, 1.6].map((h, n) => ({
 const ORDER = [...TOWERS].sort((a, b) => a.x + a.y - (b.x + b.y));
 const LEAD = TOWERS[0];
 
-export function ClashRoyaleFigure({ label, className }: { label: string; className?: string }) {
+export function ClashRoyaleFigure({
+  label,
+  className,
+  small,
+}: {
+  label: string;
+  className?: string;
+  small?: boolean;
+}) {
   const { parts, at } = useParts();
   const uid = useUid();
 
   const tick = ({ t, s }: Frame) => {
-    const sweep = frac(t / 6 + s * 0.15) * 9 - 1.5;
+    const sweep = frac(t / 9 + s * 0.1) * 11 - 2;
     TOWERS.forEach(({ h, x, n }) => {
-      const breathe = 0.84 + 0.16 * Math.sin(t * 0.8 - n * 0.9 + s * 2.5);
+      const breathe = 0.86 + 0.14 * Math.sin(t * 0.55 - n * 0.7 + s * 2);
       mv(parts.current[`t${n}`], [0, (1 - breathe) * h * I.k]);
       op(parts.current[`l${n}`], Math.max(0, 1 - Math.abs(x - sweep) / 1.2));
     });
-    const lift = 0.84 + 0.16 * Math.sin(t * 0.8 + s * 2.5);
-    mv(parts.current.crown, [0, (1 - lift) * LEAD.h * I.k - Math.sin(t * 2) * 3]);
+    const lift = 0.86 + 0.14 * Math.sin(t * 0.55 + s * 2);
+    mv(parts.current.crown, [0, (1 - lift) * LEAD.h * I.k - Math.sin(t * 0.9) * 2]);
   };
 
   const P = I.p;
@@ -37,7 +45,7 @@ export function ClashRoyaleFigure({ label, className }: { label: string; classNa
   const cz = LEAD.h + 0.45;
 
   return (
-    <FigureFrame label={label} tick={tick} className={className}>
+    <FigureFrame label={label} tick={tick} className={className} small={small}>
       <g data-depth="0.4">
         <path className="lo" d={topFace(I, 0, 0, 0, 8.2, 5)} />
       </g>
@@ -49,7 +57,7 @@ export function ClashRoyaleFigure({ label, className }: { label: string; classNa
             </clipPath>
             <g clipPath={`url(#${uid}t${n})`}>
               <g ref={at(`t${n}`)}>
-                <Box I={I} x={x} y={y} w={0.9} d={0.9} h={h} top={n === 0 ? "hi" : "edge"} />
+                <Box I={I} x={x} y={y} w={0.9} d={0.9} h={h} top="edge" />
                 <path
                   ref={at(`l${n}`)}
                   className="nf hi"

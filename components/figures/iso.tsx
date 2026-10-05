@@ -21,10 +21,23 @@ export type Iso = ReturnType<typeof iso>;
 
 /* Scale and centre a scene of X by Y by Z world units inside the viewBox */
 export function fit(X: number, Y: number, Z: number) {
-  const k = Math.min(360 / ((X + Y) * C30), 270 / ((X + Y) * 0.5 + Z));
+  // about 75% of the box (300 of 400 wide, 240 of 320 tall), a touch high so it sits optically centred
+  const k = Math.min(300 / ((X + Y) * C30), 240 / ((X + Y) * 0.5 + Z));
   const ox = 200 - ((X - Y) / 2) * C30 * k;
-  const oy = 160 - (((X + Y) / 2 - Z) * k) / 2;
+  const oy = 156 - (((X + Y) / 2 - Z) * k) / 2;
   return iso(ox, oy, k);
+}
+
+/* Same 75% fill, but centred on the screen bounds of the given world points, for scenes that
+   do not fill their bounding box (an L-shaped run, a sparse graph) */
+export function fitPts(pts: [number, number, number][]) {
+  const u = iso(0, 0, 1);
+  const s = pts.map(([x, y, z]) => u.p(x, y, z));
+  const xs = s.map((q) => q[0]);
+  const ys = s.map((q) => q[1]);
+  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const k = Math.min(300 / (x1 - x0), 240 / (y1 - y0));
+  return iso(200 - ((x0 + x1) / 2) * k, 156 - ((y0 + y1) / 2) * k, k);
 }
 
 const r = (n: number) => Math.round(n * 100) / 100;
@@ -85,14 +98,14 @@ export function Box({
   return (
     <g>
       <path
-        className={side}
+        className={`fl ${side}`}
         d={poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)])}
       />
       <path
-        className={side}
+        className={`fr ${side}`}
         d={poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)])}
       />
-      <path className={top} d={topFace(I, x, y, z + h, w, d)} />
+      <path className={`ft ${top}`} d={topFace(I, x, y, z + h, w, d)} />
     </g>
   );
 }

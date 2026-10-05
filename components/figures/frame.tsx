@@ -46,11 +46,13 @@ export function FigureFrame({
   label,
   tick,
   className = "",
+  small = false,
   children,
 }: {
   label: string;
   tick: Tick;
   className?: string;
+  small?: boolean;
   children: ReactNode;
 }) {
   const host = useRef<HTMLDivElement>(null);
@@ -93,15 +95,15 @@ export function FigureFrame({
         tx = clamp((pointer.x - (r.left + r.width / 2)) / (window.innerWidth / 2), -1, 1);
         ty = clamp((pointer.y - (r.top + r.height / 2)) / (vh / 2), -1, 1);
       }
-      // critically damped spring, the same feel as the library's k 100, c 2 sqrt k
-      const k = 40;
+      // critically damped and soft: the tilt lags the pointer like something with mass
+      const k = 14;
       const c = 2 * Math.sqrt(k);
       sp.vx += (k * (tx - sp.x) - c * sp.vx) * dt;
       sp.vy += (k * (ty - sp.y) - c * sp.vy) * dt;
       sp.x += sp.vx * dt;
       sp.y += sp.vy * dt;
 
-      sv.style.transform = `perspective(900px) rotateX(${(-sp.y * 7 + s * 5).toFixed(2)}deg) rotateY(${(sp.x * 10).toFixed(2)}deg)`;
+      sv.style.transform = `perspective(900px) rotateX(${(-sp.y * 5 + s * 4).toFixed(2)}deg) rotateY(${(sp.x * 7).toFixed(2)}deg)`;
       for (const l of layers) {
         l.g.style.transform = `translate(${(l.d * sp.x * 6).toFixed(2)}px,${(l.d * (sp.y * 4 - s * 6)).toFixed(2)}px)`;
       }
@@ -143,7 +145,7 @@ export function FigureFrame({
   }, []);
 
   return (
-    <div ref={host} role="img" aria-label={label} className={`figure-site ${className}`}>
+    <div ref={host} role="img" aria-label={label} className={`figure-site ${small ? "sm " : ""}${className}`}>
       <svg
         ref={svg}
         viewBox="0 0 400 320"

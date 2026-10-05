@@ -32,11 +32,19 @@ function Glyph({ at: [x, y], kind }: { at: Pt; kind: string }) {
   return <path className="nf mid" d={topFace(I, x + 0.25, y + 0.35, z, 0.45, 0.5)} />;
 }
 
-export function PipelineBuilderFigure({ label, className }: { label: string; className?: string }) {
+export function PipelineBuilderFigure({
+  label,
+  className,
+  small,
+}: {
+  label: string;
+  className?: string;
+  small?: boolean;
+}) {
   const { parts, at } = useParts();
 
   const tick = ({ t, s }: Frame) => {
-    const u = frac(t / 6 + s * 0.1);
+    const u = frac(t / 7 + s * 0.08);
     const down = ease(0.05, 0.3, u) * (1 - ease(0.78, 0.92, u));
     mv(parts.current.drop, I.v(0, 0, (1 - down) * 2.4), down);
     op(parts.current.target, ease(0, 0.08, u) * (1 - ease(0.28, 0.34, u)) + ease(0.8, 0.86, u) * (1 - ease(0.94, 1, u)));
@@ -48,10 +56,10 @@ export function PipelineBuilderFigure({ label, className }: { label: string; cla
   for (let x = 0.5; x < 10; x += 1) for (let y = 0.3; y < 6; y += 1) dots.push([x, y]);
 
   return (
-    <FigureFrame label={label} tick={tick} className={className}>
+    <FigureFrame label={label} tick={tick} className={className} small={small}>
       <g data-depth="0.4">
         <path className="lo" d={topFace(I, 0, 0, 0, 10, 6)} />
-        {dots.map(([x, y]) => (
+        {!small && dots.map(([x, y]) => (
           <Disc key={`${x}-${y}`} I={I} x={x} y={y} r={0.035} className="dot off" />
         ))}
         <path ref={at("target")} className="nf dash" style={{ opacity: 0 }} d={topFace(I, NEW[0], NEW[1], 0, W, D)} />
@@ -64,7 +72,7 @@ export function PipelineBuilderFigure({ label, className }: { label: string; cla
         {NODES.map((n, k) => (
           <g key={k}>
             <Box I={I} x={n.at[0]} y={n.at[1]} w={W} d={D} h={0.3} />
-            <Glyph {...n} />
+            {!small && <Glyph {...n} />}
             <Disc I={I} x={n.at[0] + W} y={n.at[1] + D / 2} z={0.15} r={0.09} className="dot m" />
           </g>
         ))}
@@ -72,7 +80,7 @@ export function PipelineBuilderFigure({ label, className }: { label: string; cla
       <g data-depth="1.8">
         <g ref={at("drop")} style={{ opacity: 0 }}>
           <Box I={I} x={NEW[0]} y={NEW[1]} w={W} d={D} h={0.3} top="hi" />
-          <Glyph at={NEW} kind="out" />
+          {!small && <Glyph at={NEW} kind="out" />}
           <path
             ref={at("ok")}
             className="nf hi"

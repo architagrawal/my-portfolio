@@ -29,7 +29,7 @@ function Row({ p }: { p: Project }) {
         </span>
         <span className="mt-1.5 block max-w-xl text-[15px] leading-relaxed text-muted-foreground line-clamp-2">{p.description}</span>
       </span>
-      {fig && <ProjectFigure slug={p.slug} title={p.title} className="hidden w-28 self-center md:block" />}
+      {fig && <ProjectFigure slug={p.slug} title={p.title} small className="hidden w-28 self-center md:block" />}
     </Link>
   );
 }
