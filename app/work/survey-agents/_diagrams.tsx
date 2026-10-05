@@ -34,8 +34,8 @@ function Frame({
   children: React.ReactNode;
 }) {
   return (
-    <figure className="my-2">
-      <div className="overflow-x-auto lg:-mx-16 xl:-mx-28">
+    <figure className="my-2 md:-ml-[11rem] xl:-ml-[18rem] xl:-mr-28">
+      <div className="overflow-x-auto">
         <svg
           viewBox={viewBox}
           role="img"
@@ -54,7 +54,7 @@ function Frame({
           {children}
         </svg>
       </div>
-      <figcaption className="mt-3 font-tech text-[10px] text-muted-foreground/70">
+      <figcaption className="mt-3 text-[13px] text-muted-foreground md:ml-[11rem] xl:ml-[18rem]">
         <span className="lg:hidden text-primary/80">scroll to pan, </span>
         {caption}
       </figcaption>
@@ -100,7 +100,7 @@ function Box({
         x={cx}
         y={top}
         textAnchor="middle"
-        className="font-tech"
+        className="font-semibold"
         fontSize="14"
         fill={hot ? C.hot : C.txt}
       >
@@ -112,7 +112,7 @@ function Box({
           x={cx}
           y={top + 17 + i * 14}
           textAnchor="middle"
-          className="font-tech"
+          className="font-semibold"
           fontSize="11"
           fill={hot ? "hsl(var(--primary) / 0.85)" : C.dim}
         >
@@ -158,7 +158,7 @@ function Label({
   hot?: boolean;
 }) {
   return (
-    <text x={x} y={y} textAnchor={anchor} className="font-tech" fontSize="11" fill={hot ? C.hot : C.dim}>
+    <text x={x} y={y} textAnchor={anchor} className="font-semibold" fontSize="11" fill={hot ? C.hot : C.dim}>
       {children}
     </text>
   );
@@ -180,7 +180,7 @@ function BandFrame({
   return (
     <g>
       <rect x={x} y={y} width={w} height={h} fill="none" stroke={C.band} strokeWidth="1" strokeDasharray="2 4" />
-      <text x={x + 12} y={y + 18} className="font-tech" fontSize="10" letterSpacing="1.6" fill={C.dim}>
+      <text x={x + 12} y={y + 18} className="font-semibold" fontSize="10" letterSpacing="1.6" fill={C.dim}>
         {label}
       </text>
     </g>
@@ -282,23 +282,23 @@ const LOOP_BOUNDS = [
  */
 export function ToolBudget() {
   return (
-    <div className="my-2 border border-border">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border px-4 py-3">
-        <p className="font-tech text-[10px] text-muted-foreground">
+    <div className="my-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3">
+        <p className="text-[13px] text-muted-foreground">
           One square = one permitted tool call
         </p>
-        <p className="font-tech text-[10px] text-muted-foreground/80">
+        <p className="text-[13px] text-muted-foreground">
           declared before the loop was written
         </p>
       </div>
 
-      <div className="divide-y divide-border/60">
+      <div className="">
         {TOOL_CAPS.map((t) => (
           <div
             key={t.agent}
-            className="grid grid-cols-[6.5rem_1fr] sm:grid-cols-[6.5rem_1fr_13rem] items-center gap-x-4 gap-y-1.5 px-4 py-2.5"
+            className="grid grid-cols-[6.5rem_1fr] sm:grid-cols-[6.5rem_1fr_13rem] items-center gap-x-4 gap-y-1.5 py-2.5"
           >
-            <span className="font-tech text-[12px] text-foreground/90">{t.agent}</span>
+            <span className="text-[14px] font-medium text-foreground/90">{t.agent}</span>
             <span className="flex flex-wrap gap-[3px]" aria-label={`${t.cap} calls`}>
               {Array.from({ length: t.cap }).map((_, i) => (
                 <span
@@ -307,22 +307,22 @@ export function ToolBudget() {
                   style={{ opacity: 0.35 + (i / t.cap) * 0.65 }}
                 />
               ))}
-              <span className="ml-2 font-tech text-[11px] tabular-nums text-primary">{t.cap}</span>
+              <span className="ml-2 text-[13px] tabular-nums text-primary">{t.cap}</span>
             </span>
-            <span className="hidden sm:block font-tech text-[10px] text-muted-foreground/80">
+            <span className="hidden sm:block text-[13px] text-muted-foreground">
               {t.note}
             </span>
           </div>
         ))}
       </div>
 
-      <div className="border-t border-border px-4 py-3 grid gap-2 sm:grid-cols-3">
+      <div className="pt-4 grid gap-2 sm:grid-cols-3">
         {LOOP_BOUNDS.map((l) => (
           <div key={l.loop}>
-            <p className="font-tech text-[11px] text-foreground/90">
+            <p className="text-[13px] text-foreground/90">
               {l.loop} <span className="text-primary">{l.bound}</span>
             </p>
-            <p className="font-tech text-[10px] text-muted-foreground/80">then {l.then}</p>
+            <p className="text-[13px] text-muted-foreground">then {l.then}</p>
           </div>
         ))}
       </div>
@@ -474,18 +474,18 @@ const KEYS = [
 export function DataModel() {
   return (
     <div className="my-2 space-y-6">
-      <div className="border border-border divide-y divide-border">
+      <div className="">
         {BANDS.map((b) => (
           <div key={b.band} className="grid md:grid-cols-[11rem_1fr]">
-            <div className="px-4 py-3 border-b md:border-b-0 md:border-r border-border bg-muted/20">
-              <p className="font-tech text-[11px] text-primary">{b.band}</p>
-              <p className="mt-1.5 font-tech text-[10px] leading-relaxed text-muted-foreground/80">{b.written}</p>
+            <div className="py-3 md:pr-4">
+              <p className="text-[13px] text-primary">{b.band}</p>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">{b.written}</p>
             </div>
-            <ul className="px-4 py-3 space-y-2">
+            <ul className="pb-3 md:py-3 space-y-2">
               {b.tables.map((t) => (
                 <li key={t.t} className="grid sm:grid-cols-[13rem_1fr] gap-x-4 gap-y-0.5">
-                  <span className="font-tech text-[12px] text-foreground/90">{t.t}</span>
-                  <span className="font-tech text-[10.5px] leading-relaxed text-muted-foreground">{t.cols}</span>
+                  <span className="text-[14px] font-medium text-foreground/90">{t.t}</span>
+                  <span className="text-[13px] leading-relaxed text-muted-foreground">{t.cols}</span>
                 </li>
               ))}
             </ul>
@@ -494,14 +494,14 @@ export function DataModel() {
       </div>
 
       <div>
-        <p className="font-tech text-[10px] text-muted-foreground mb-4">
+        <p className="text-[13px] text-muted-foreground mb-4">
           The four keys that carry the model
         </p>
         <ul className="space-y-3">
           {KEYS.map((k) => (
             <li key={k.k} className="grid sm:grid-cols-[15rem_1fr] gap-x-6 gap-y-1">
-              <span className="font-tech text-[12px] text-primary">{k.k}</span>
-              <span className="text-sm text-muted-foreground leading-relaxed">{k.v}</span>
+              <span className="text-[14px] font-medium text-primary">{k.k}</span>
+              <span className="t-meta">{k.v}</span>
             </li>
           ))}
         </ul>
@@ -587,24 +587,24 @@ export function ToolMatrix() {
   const modelCount = TOOL_MATRIX.reduce((n, a) => n + a.model.length, 0);
 
   return (
-    <div className="my-2 border border-border">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border px-4 py-3">
-        <p className="font-tech text-[10px] text-muted-foreground">
+    <div className="my-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3">
+        <p className="text-[13px] text-muted-foreground">
           The whole tool surface
         </p>
-        <p className="font-tech text-[10px] text-muted-foreground/80">
-          <span className="text-foreground">{total}</span> tools ·{" "}
-          <span className="text-primary">{modelCount}</span> reach a model ·{" "}
+        <p className="text-[13px] text-muted-foreground">
+          <span className="text-foreground">{total}</span> tools,{" "}
+          <span className="text-primary">{modelCount}</span> reach a model,{" "}
           <span className="text-foreground">{total - modelCount}</span> are deterministic
         </p>
       </div>
 
-      <div className="divide-y divide-border/60">
+      <div className="">
         {TOOL_MATRIX.map((a) => (
-          <div key={a.agent} className="grid sm:grid-cols-[7.5rem_1fr] gap-x-4 gap-y-2 px-4 py-3">
+          <div key={a.agent} className="grid sm:grid-cols-[7.5rem_1fr] gap-x-4 gap-y-2 py-3">
             <div className="flex items-baseline gap-2">
-              <span className="font-tech text-[12px] text-foreground/90">{a.agent}</span>
-              <span className="font-tech text-[10px] tabular-nums text-muted-foreground/60">
+              <span className="text-[14px] font-medium text-foreground/90">{a.agent}</span>
+              <span className="text-[13px] tabular-nums text-muted-foreground">
                 {a.tools.length}
               </span>
             </div>
@@ -614,10 +614,10 @@ export function ToolMatrix() {
                 return (
                   <span
                     key={t}
-                    className={`font-tech text-[10px] px-1.5 py-0.5 border whitespace-nowrap ${
+                    className={`text-[13px] px-1.5 py-0.5 whitespace-nowrap ${
                       isModel
-                        ? "border-primary/40 bg-primary/10 text-primary"
-                        : "border-border bg-card/40 text-muted-foreground"
+                        ? "bg-primary/15 text-primary"
+                        : "bg-muted/60 text-muted-foreground"
                     }`}
                   >
                     {t}
@@ -629,9 +629,9 @@ export function ToolMatrix() {
         ))}
       </div>
 
-      <p className="border-t border-border px-4 py-3 font-tech text-[10px] text-muted-foreground/80">
-        Saffron is a tool whose implementation calls a model. Everything else is code, which
-        is why no figure in a report can come from one.
+      <p className="pt-3 text-[13px] text-muted-foreground">
+        Highlighted tools call a model. Everything else is code, so no figure in a report can
+        come from a model.
       </p>
     </div>
   );

@@ -1,13 +1,4 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-
-/* A soft crossfade between pages. Opacity only, so nothing jumps. */
+/* No page fade: it dimmed the painted header to near-black on every navigation. */
 export default function Template({ children }: { children: React.ReactNode }) {
-  const reduce = useReducedMotion();
-  return (
-    <motion.div initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35, ease: "easeOut" }}>
-      {children}
-    </motion.div>
-  );
+  return <>{children}</>;
 }

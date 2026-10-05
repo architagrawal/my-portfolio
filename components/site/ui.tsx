@@ -1,0 +1,165 @@
+import Link from "next/link";
+import type { ReactNode } from "react";
+
+/* Shared editorial primitives. One type scale (t-* in globals.css), one link, one chip,
+   one list style. Pages compose these instead of restating class strings. */
+
+export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <p className={`t-eyebrow ${className}`}>{children}</p>;
+}
+
+/* Text link with an arrow that nudges on hover. External hrefs open in a new tab. */
+export function TextLink({ href, children, back = false, className = "" }: { href: string; children: ReactNode; back?: boolean; className?: string }) {
+  const ext = /^(https?:|mailto:)/.test(href) || href.endsWith(".pdf");
+  const inner = (
+    <>
+      {back && <span aria-hidden="true" className="ui-arrow ui-arrow-back">&larr;</span>}
+      <span className="ui-link-label">{children}</span>
+      {!back && <span aria-hidden="true" className="ui-arrow">&rarr;</span>}
+    </>
+  );
+  const cls = `ui-link ${className}`;
+  if (ext)
+    return (
+      <a href={href} className={cls} {...(href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noopener noreferrer" })}>
+        {inner}
+      </a>
+    );
+  return (
+    <Link href={href} className={cls}>
+      {inner}
+    </Link>
+  );
+}
+
+export function Chips({ items, className = "" }: { items: string[]; className?: string }) {
+  return (
+    <ul className={`flex flex-wrap gap-2 ${className}`}>
+      {items.map((t) => (
+        <li key={t} className="ui-chip">
+          {t}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/* Split a long achievement into a scannable lead and its detail, without rewording it:
+   at a colon if the lead is short, else after the first sentence. */
+export function splitLead(t: string): [string, string] {
+  const m = t.match(/^(.{12,110}?:)\s+(.+)$/);
+  if (m) return [m[1], m[2]];
+  const s = t.match(/^(.{20,160}?[.;])\s+(.+)$/);
+  if (s) return [s[1], s[2]];
+  return [t, ""];
+}
+
+export function Points({ items }: { items: string[] }) {
+  return (
+    <ul className="ui-points">
+      {items.map((t) => {
+        const [lead, rest] = splitLead(t);
+        return (
+          <li key={t}>
+            <span className="font-medium text-foreground">{lead}</span>
+            {rest && <span className="text-muted-foreground"> {rest}</span>}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/* A detail-page section: label in the left rail on wide screens, content on the right.
+   The rail is the same 9rem column the list pages use for dates, so edges line up site-wide. */
+export function Section({
+  title,
+  count,
+  num,
+  statement,
+  children,
+}: {
+  title: string;
+  count?: number;
+  /* an ordinal shown above the label, for long numbered pages */
+  num?: string;
+  /* the section's claim, set large at the top of the content column */
+  statement?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <section className="ui-section">
+      <h2 className="t-h3">
+        {num && <span className="t-count !ml-0 block pb-1.5 !align-baseline">{num}</span>}
+        {title}
+        {count != null && <span className="t-count">{count}</span>}
+      </h2>
+      <div className="min-w-0">
+        {statement && <p className="t-h2 ui-statement max-w-[36rem]">{statement}</p>}
+        {children}
+      </div>
+    </section>
+  );
+}
+
+/* The meta row under a detail title: a small table of facts */
+export function MetaRow({ items }: { items: [string, ReactNode][] }) {
+  return (
+    <dl className="ui-meta" style={{ ["--meta-cols" as string]: Math.max(items.length, 2) }}>
+      {items.map(([k, v]) => (
+        <div key={k}>
+          <dt className="t-eyebrow">{k}</dt>
+          <dd className="mt-1.5 text-[15px] font-medium text-foreground">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+export function NextLink({ href, label, title }: { href: string; label: string; title: string }) {
+  return (
+    <Link href={href} className="ui-next group">
+      <span className="t-eyebrow">{label}</span>
+      <span className="t-h2 mt-2 flex items-baseline gap-3">
+        <span className="ui-link-label">{title}</span>
+        <span aria-hidden="true" className="ui-arrow">&rarr;</span>
+      </span>
+    </Link>
+  );
+}
+
+/* A row of results: big number in the accent, what it counts underneath */
+export function Stats({ items, className = "" }: { items: [ReactNode, string][]; className?: string }) {
+  return (
+    <dl className={`ui-stats ${className}`} style={{ ["--stat-cols" as string]: Math.min(items.length, 4) }}>
+      {items.map(([n, label]) => (
+        <div key={label} className="flex flex-col-reverse">
+          <dt className="t-meta mt-2">{label}</dt>
+          <dd className="t-stat">{n}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/* Secondary detail, collapsed by default. Native <details>, so it toggles from the keyboard,
+   its text stays in the DOM, and find-in-page opens it. Styles: .ui-more in globals.css. */
+export function MoreDetail({ groups }: { groups: { label: string; items: string[] }[] }) {
+  const n = groups.reduce((s, g) => s + g.items.length, 0);
+  return (
+    <details className="ui-more">
+      <summary className="ui-link">
+        <span className="ui-link-label">All {n} points</span>
+        <svg aria-hidden="true" className="ui-more-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </summary>
+      {groups.map((g) => (
+        <div key={g.label} className="mt-10 first-of-type:mt-8">
+          <p className="t-eyebrow mb-5">{g.label}</p>
+          <Points items={g.items} />
+        </div>
+      ))}
+    </details>
+  );
+}

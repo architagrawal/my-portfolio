@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import type { Activity, ActivityDay } from "@/app/api/github-activity/route";
+import { useMemo, useState } from "react";
+import type { Activity, ActivityDay } from "@/lib/github-activity";
 
 // Fill steps for nonzero days; zero days use the muted fill
 const LEVELS = ["bg-primary/20", "bg-primary/40", "bg-primary/70", "bg-primary"];
@@ -29,23 +29,13 @@ function thresholds(days: ActivityDay[]): number[] {
   return [q(0.25), q(0.5), q(0.75)];
 }
 
-export function GithubActivity() {
-  const [data, setData] = useState<Activity | null>(null);
+/* data is fetched at build time (lib/github-activity) and passed in; callers skip the section when it is null */
+export function GithubActivity({ data }: { data: Activity }) {
   const [hovered, setHovered] = useState<ActivityDay | null>(null);
-
-  useEffect(() => {
-    fetch("/api/github-activity")
-      .then((r) => (r.ok ? r.json() : null))
-      .then(setData)
-      .catch(() => setData(null));
-  }, []);
-
-  const cuts = useMemo(() => (data ? thresholds(data.days) : []), [data]);
-
-  if (!data?.days.length) return null;
+  const cuts = useMemo(() => thresholds(data.days), [data]);
 
   const level = (count: number) => {
-    if (count === 0) return "bg-muted/50";
+    if (count === 0) return "bg-foreground/[0.07]";
     const i = cuts.findIndex((c) => count <= c);
     return LEVELS[i === -1 ? 3 : i];
   };
@@ -59,7 +49,7 @@ export function GithubActivity() {
 
   return (
     <div>
-      <p className="text-sm text-muted-foreground tabular-nums min-h-[1.25rem]" aria-live="polite">
+      <p className="t-meta min-h-[1.5rem]" aria-live="polite">
         {hovered ? (
           <>
             <span className="text-foreground">{fmtDay(hovered.date)}</span>: {hovered.count}{" "}
@@ -92,15 +82,15 @@ export function GithubActivity() {
             key={d.date}
             aria-hidden="true"
             onMouseEnter={() => setHovered(d)}
-            className={`aspect-square ${level(d.count)} hover:outline hover:outline-1 hover:outline-foreground`}
+            className={`aspect-square rounded-[2px] ${level(d.count)} hover:outline hover:outline-1 hover:outline-foreground`}
           />
         ))}
       </div>
 
-      <div className="mt-3 flex justify-between font-tech text-[11px] text-muted-foreground">
+      <div className="t-meta mt-3 flex justify-between !text-[13px]">
         <span>{fmtMonth(first)}</span>
         <span className="flex gap-6">
-          <a href="/api/github-activity" target="_blank" className="hover:text-primary transition-colors">
+          <a href="/api/github-activity.json" target="_blank" rel="noopener noreferrer" className="rounded-sm transition-colors hover:text-primary">
             Raw data
           </a>
           <span>{fmtMonth(last)}</span>

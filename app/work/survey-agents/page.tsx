@@ -1,10 +1,9 @@
 "use client";
 
+import { Children, isValidElement, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { SiteNav } from "@/components/site/nav";
-import { SiteFooter } from "@/components/site/footer";
-import { ThemeProvider } from "@/components/theme-provider";
-import Footer from "@/components/layout/Footer";
+import { PageHeader, Shell } from "@/components/site/shell";
+import { Points, Section as UiSection, Stats } from "@/components/site/ui";
 import { AgentGraph, ToolBudget, ToolMatrix, AnswerPath, DataModel } from "./_diagrams";
 
 const stats = [
@@ -131,7 +130,7 @@ const retrieval = [
   { arm: "Stripped subject terms, then cosine (shipped path)", r1: "20.6%", r10: "77.6%", p10: "34.8%", mrr: "0.852", ours: false },
   { arm: "Cosine over the whole sentence", r1: "22.1%", r10: "90.1%", p10: "41.9%", mrr: "0.944", ours: false },
   { arm: "Codebook-routed, then backfilled", r1: "22.1%", r10: "95.6%", p10: "45.7%", mrr: "0.944", ours: true },
-  { arm: "Ceiling", r1: "25.3%", r10: "98.6%", p10: "—", mrr: "—", ours: false },
+  { arm: "Ceiling", r1: "25.3%", r10: "98.6%", p10: "n/a", mrr: "n/a", ours: false },
 ];
 
 const retrievalNotes = [
@@ -241,11 +240,11 @@ const priorArt = [
 ];
 
 const questionCoverage = [
-  { stage: "At the start of phase 4", builtin: "6 of 32, 19%", unseen: "—" },
-  { stage: "After questions were read as questions", builtin: "15 of 32, 47%", unseen: "—" },
+  { stage: "At the start of phase 4", builtin: "6 of 32, 19%", unseen: "n/a" },
+  { stage: "After questions were read as questions", builtin: "15 of 32, 47%", unseen: "n/a" },
   { stage: "After a deterministic method per type", builtin: "25 of 32, 78%", unseen: "10 of 51, 20%", ours: true },
   { stage: "Model names the method from the wording", builtin: "25 of 32, 78%", unseen: "43 of 51, 84%" },
-  { stage: "Model also sees each column's shape", builtin: "88%", unseen: "—" },
+  { stage: "Model also sees each column's shape", builtin: "88%", unseen: "n/a" },
 ];
 
 const phase4Notes = [
@@ -278,8 +277,8 @@ const removingAgents = [
 
 const analystScore = [
   { step: "Rule-built page, the baseline", dev: "22%", test: "13%" },
-  { step: "Survey-model comparisons: roles, group-vs-rest tests, one correction family", dev: "41%", test: "—" },
-  { step: "Analyst agent, one pass, typed intents compiled into plans", dev: "54%", test: "—", ours: true },
+  { step: "Survey-model comparisons: roles, group-vs-rest tests, one correction family", dev: "41%", test: "n/a" },
+  { step: "Analyst agent, one pass, typed intents compiled into plans", dev: "54%", test: "n/a", ours: true },
   { step: "Seven more surveys and five intake fixes", dev: "56–60%", test: "31–34%" },
   { step: "Derived columns: thresholds, bands, any-of", dev: "56–58%", test: "38–41%" },
   { step: "Counts across unequal groups drawn as shares", dev: "58%", test: "41%" },
@@ -445,59 +444,32 @@ const stillOpen = [
   { name: "Fixture-flavoured constants", changed: "ABSTAIN_WARN_THRESHOLD 0.3, CONTRADICTION_WARN_THRESHOLD 0.1, MIN_CODED_SHARE_FOR_CROSSTABS 0.2, ACCEPT_TIER unanimous, and the CHARS_PER_CODE halving factor. Each is a threshold measured on a corpus smaller than the one it will meet." },
 ];
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+/* "01  Timeline" -> rail label "Timeline" with its ordinal, the title as the section's statement */
+function Section({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
+  const [, num, label] = eyebrow.match(/^(\d+)\s+(.+)$/) ?? [, undefined, eyebrow];
   return (
-    <p className="font-tech text-[10px] text-primary mb-4">
-      {children}
-    </p>
-  );
-}
-
-function Section({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="border-t border-border pt-10 md:pt-14">
-      <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-[0.95] text-foreground">
-        {title}
-      </h2>
-      <div className="mt-6 space-y-6">{children}</div>
-    </section>
+    <UiSection num={num} title={label} statement={title}>
+      <div className="space-y-6">{children}</div>
+    </UiSection>
   );
 }
 
 function Notes({ items }: { items: string[] }) {
-  return (
-    <ul className="space-y-3">
-      {items.map((item) => (
-        <li key={item} className="flex items-start gap-3">
-          <span className="mt-2 w-1.5 h-1.5 bg-primary shrink-0" />
-          <span className="text-sm text-foreground/80 leading-relaxed">{item}</span>
-        </li>
-      ))}
-    </ul>
-  );
+  return <Points items={items} />;
 }
 
 function NamedList({ items }: { items: { name: string; changed: string }[] }) {
   return (
-    <ul className="border-t border-border">
+    <ul>
       {items.map((item) => (
         <li
           key={item.name}
-          className="border-b border-border py-4 grid sm:grid-cols-[15rem_1fr] gap-x-6 gap-y-1"
+          className="grid gap-x-6 gap-y-1 py-3 sm:grid-cols-[11rem_1fr]"
         >
-          <span className="font-tech text-xs text-primary">
+          <span className="text-[15px] font-semibold leading-relaxed text-foreground">
             {item.name}
           </span>
-          <span className="text-sm text-muted-foreground leading-relaxed">{item.changed}</span>
+          <span className="t-body text-muted-foreground">{item.changed}</span>
         </li>
       ))}
     </ul>
@@ -506,18 +478,18 @@ function NamedList({ items }: { items: { name: string; changed: string }[] }) {
 
 function Rules({ items }: { items: { rule: string; cost: string }[] }) {
   return (
-    <ol className="border-t border-border">
+    <ol>
       {items.map((item, i) => (
         <li
           key={item.rule}
-          className="border-b border-border py-4 grid sm:grid-cols-[2rem_1fr] gap-x-4 gap-y-1"
+          className="grid grid-cols-[2rem_1fr] gap-x-3 py-3"
         >
-          <span className="font-tech text-[10px] tabular-nums text-primary pt-1">
+          <span className="t-count !ml-0 pt-1 !align-baseline">
             {String(i + 1).padStart(2, "0")}
           </span>
           <span>
-            <span className="text-sm text-foreground font-medium leading-relaxed">{item.rule}</span>{" "}
-            <span className="text-sm text-muted-foreground leading-relaxed">{item.cost}</span>
+            <span className="t-body font-medium text-foreground">{item.rule}</span>{" "}
+            <span className="t-body text-muted-foreground">{item.cost}</span>
           </span>
         </li>
       ))}
@@ -525,41 +497,56 @@ function Rules({ items }: { items: { rule: string; cost: string }[] }) {
   );
 }
 
+// Count header cells so narrow tables wrap to fit and wide ones scroll with an edge fade
+function headerCols(children: React.ReactNode): number {
+  let n = 0;
+  Children.forEach(children, (c) => {
+    if (!isValidElement(c) || c.type !== "thead") return;
+    Children.forEach((c.props as { children?: React.ReactNode }).children, (tr) => {
+      if (isValidElement(tr)) n = Math.max(n, Children.count((tr.props as { children?: React.ReactNode }).children));
+    });
+  });
+  return n;
+}
+
 function Table({ children }: { children: React.ReactNode }) {
+  const fit = headerCols(children) <= 3;
+  const ref = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ l: false, r: false });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || fit) return;
+    const update = () =>
+      setEdge({ l: el.scrollLeft > 2, r: el.scrollLeft + el.clientWidth < el.scrollWidth - 2 });
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [fit]);
+  if (fit) return <table className="ui-table ui-table-fit">{children}</table>;
   return (
-    <div className="overflow-x-auto border border-border">
-      <table className="w-full text-left border-collapse">{children}</table>
+    <div ref={ref} className="ui-table-scroll" data-l={edge.l || undefined} data-r={edge.r || undefined}>
+      <table className="ui-table">{children}</table>
     </div>
   );
 }
 
 function Th({ children, accent = false }: { children: React.ReactNode; accent?: boolean }) {
-  return (
-    <th
-      className={`font-tech text-[10px] p-3 ${
-        accent ? "text-primary" : "text-muted-foreground"
-      }`}
-    >
-      {children}
-    </th>
-  );
+  return <th className={accent ? "!text-primary" : ""}>{children}</th>;
 }
 
 export default function SurveyAgentsCaseStudy() {
   return (
-    <ThemeProvider attribute="class" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
-      <div className="min-h-screen bg-background text-foreground">
-        <SiteNav wide />
-        <main className="max-w-4xl mx-auto px-6 py-14 md:py-20">
-
-          <header className="mt-10 md:mt-14">
-            <p className="font-tech text-[10px] text-muted-foreground">
-              Case study, 2026, internal platform POC
-            </p>
-            <h1 className="mt-4 font-display text-4xl sm:text-6xl md:text-7xl font-medium tracking-tight leading-[0.9] text-foreground">
-              Survey Agents
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">
+    <Shell
+      header={
+        <PageHeader eyebrow="Case study, 2026, internal platform POC" title="Survey Agents" />
+      }
+    >
+      <div className="pt-10">
+            <p className="t-lead max-w-[40rem]">
               Upload any structured dataset and get verified facts, accessible charts and answers
               that re-execute exactly, with no per-dataset pipeline for anyone to build or
               maintain. A reader asks a question in plain English, gets a chart back, and edits
@@ -570,29 +557,17 @@ export default function SurveyAgentsCaseStudy() {
               architecture beat three direct API calls, and what does the reliability actually
               cost? The answer turned out to depend entirely on what you give the agent to decide.
             </p>
-            <p className="mt-4 text-sm text-muted-foreground/80 leading-relaxed max-w-2xl">
+            <p className="t-meta mt-5 max-w-[40rem]">
               Total Bedrock spend across the first AWS phase: $0.31. Every figure below comes
               from the project&apos;s own measurement logs, where each one names the run it was
               taken from.
             </p>
 
-            <dl className="mt-10 grid grid-cols-2 sm:grid-cols-4 border-t border-border">
-              {stats.map((s) => (
-                <div key={s.label} className="border-b border-r border-border py-5 px-4 first:pl-0">
-                  <dt className="font-display text-2xl sm:text-3xl font-bold tabular-nums text-foreground">
-                    {s.value}
-                  </dt>
-                  <dd className="mt-1 font-tech text-[10px] text-muted-foreground">
-                    {s.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </header>
+            <Stats className="mt-14" items={stats.map((x) => [x.value, x.label])} />
 
-          <div className="mt-16 md:mt-24 space-y-16 md:space-y-24">
+          <div>
             <Section eyebrow="01  Timeline" title="Three phases, three verdicts">
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The labelling question was answered in about three weeks and the answer was
                 largely negative about architecture. The project then moved up a layer to the
                 question that was actually open: once responses are coded, how does anyone ask
@@ -605,7 +580,7 @@ export default function SurveyAgentsCaseStudy() {
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Phase</Th>
                     <Th>Dates</Th>
                     <Th>The question</Th>
@@ -614,11 +589,11 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {phases.map((ph) => (
-                    <tr key={ph.phase} className="border-b border-border last:border-0">
-                      <td className="p-3 font-tech text-xs text-primary whitespace-nowrap align-top">{ph.phase}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground whitespace-nowrap align-top">{ph.dates}</td>
-                      <td className="p-3 text-xs text-muted-foreground leading-relaxed align-top">{ph.question}</td>
-                      <td className="p-3 text-xs text-foreground font-medium leading-relaxed align-top">{ph.verdict}</td>
+                    <tr key={ph.phase}>
+                      <td className="whitespace-nowrap">{ph.phase}</td>
+                      <td className="whitespace-nowrap">{ph.dates}</td>
+                      <td>{ph.question}</td>
+                      <td className="!text-foreground">{ph.verdict}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -626,14 +601,14 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="02  Design principle" title="The agent decides; the tool computes">
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Each workflow stage is an agent, and every deterministic operation is a tool.
                 Report figures come from code, never model arithmetic: the model chooses the
                 operation, and the tool computes the result. This prevents unsupported
                 model-generated figures from passing the verification boundary.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
-                <span className="font-tech text-sm text-primary">verify_citations</span> is that
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                <span className="ui-code">verify_citations</span> is that
                 rule executable. Every figure in drafted prose must resolve to a fact produced by
                 the analytics stage. If it does not, the sentence is redrafted and then removed.
                 The model writes the sentence; deterministic code verifies the number.
@@ -643,7 +618,7 @@ export default function SurveyAgentsCaseStudy() {
 
               <ToolBudget />
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Every loop declared its exit condition before it was written, and a global spend
                 budget is checked before every stage and inside the long ones, so exceeding it
                 halts with partial results instead of truncating in silence.
@@ -652,7 +627,7 @@ export default function SurveyAgentsCaseStudy() {
 
             <Section eyebrow="03  Orchestration" title="The workflow graph is versioned data">
               <AgentGraph />
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Nodes, edges, verdicts, capability gates and fan-out parameters are declared in
                 one JSON file, and the Step Functions definition is generated from that source of
                 truth. Two deployments compile from the same graph: one binds each
@@ -660,12 +635,12 @@ export default function SurveyAgentsCaseStudy() {
                 time, so an edge to a node that does not exist fails before a run starts rather
                 than halfway through one.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Node ids in the graph are stage names bound to agent handlers, so{" "}
-                <span className="font-tech text-sm text-primary">read</span> invokes intake,{" "}
-                <span className="font-tech text-sm text-primary">check</span> invokes qa,{" "}
-                <span className="font-tech text-sm text-primary">count</span> invokes analytics
-                and <span className="font-tech text-sm text-primary">report</span> invokes
+                <span className="ui-code">read</span> invokes intake,{" "}
+                <span className="ui-code">check</span> invokes qa,{" "}
+                <span className="ui-code">count</span> invokes analytics
+                and <span className="ui-code">report</span> invokes
                 conclude. One dispatch table holds the binding, so a rename cannot update the
                 graph and miss the runtime. Curate, adjudicate, analysis and viz run outside this
                 labelling graph, on the ask path.
@@ -673,16 +648,15 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="04  Intake" title="Five gated stages, one replayable recipe">
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The orchestrator is ordinary code. A model is consulted only where the rules are
                 visibly unsure, and every decision it makes lands in one JSON recipe that
                 replays without it.
               </p>
 
-              <div className="overflow-x-auto border border-border">
-                <table className="w-full text-left border-collapse">
+              <Table>
                   <thead>
-                    <tr className="border-b border-border">
+                    <tr>
                       <Th>Stage</Th>
                       <Th>Decides</Th>
                       <Th>Gated on</Th>
@@ -690,17 +664,16 @@ export default function SurveyAgentsCaseStudy() {
                   </thead>
                   <tbody>
                     {stages.map((s) => (
-                      <tr key={s.stage} className="border-b border-border last:border-0">
-                        <td className="p-3 font-tech text-xs text-primary whitespace-nowrap align-top">{s.stage}</td>
-                        <td className="p-3 text-xs text-foreground/80 leading-relaxed">{s.decides}</td>
-                        <td className="p-3 text-xs text-muted-foreground leading-relaxed">{s.gate}</td>
+                      <tr key={s.stage}>
+                        <td className="whitespace-nowrap">{s.stage}</td>
+                        <td>{s.decides}</td>
+                        <td>{s.gate}</td>
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </div>
+                </Table>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Measured over 30 export shapes written by hand from what real tools emit:
                 Qualtrics&apos; three header rows, an Excel merged-cell header, a Salesforce
                 report with a title block and totals footer, pandas&apos; index column, CP1252
@@ -708,13 +681,13 @@ export default function SurveyAgentsCaseStudy() {
                 of 30. Rules plus the agent read 30 of 30, asking on 4 files for $0.0015, with
                 zero replay divergences.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The case for the agent is one file. The one it fixed in the final, written-
                 afterwards batch was delimited with a caret, which is not one of the four
                 candidates the sniffer tries and never will be. Not that the model is cleverer
                 than the rules, but that the rules are a list and a caret is not on it.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The result worth keeping is the held-out batch&apos;s first run: 8 of 10 with and
                 without the agent. It added nothing, not because it was wrong but because it was
                 never asked. Both failures scored above the trigger, so the weak part was the
@@ -728,10 +701,9 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="05  Reliability" title="Where the architecture creates value">
-              <div className="overflow-x-auto border border-border">
-                <table className="w-full text-left border-collapse">
+              <Table>
                   <thead>
-                    <tr className="border-b border-border">
+                    <tr>
                       <Th>Measure</Th>
                       <Th accent>This pipeline</Th>
                       <Th>The pipeline it was benchmarked against</Th>
@@ -739,17 +711,16 @@ export default function SurveyAgentsCaseStudy() {
                   </thead>
                   <tbody>
                     {reliability.map((r) => (
-                      <tr key={r.metric} className="border-b border-border last:border-0">
-                        <td className="p-3 text-xs text-muted-foreground align-top">{r.metric}</td>
-                        <td className="p-3 text-xs text-foreground font-medium align-top">{r.ours}</td>
-                        <td className="p-3 text-xs text-muted-foreground align-top">{r.theirs}</td>
+                      <tr key={r.metric}>
+                        <td>{r.metric}</td>
+                        <td className="!text-foreground">{r.ours}</td>
+                        <td>{r.theirs}</td>
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </div>
+                </Table>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The mechanism is a per-response correlation token plus a schema enum. An
                 out-of-codebook code is unrepresentable rather than discouraged: the prompt this
                 replaced threatened a $1,000 penalty for inventing tags and got nine anyway.
@@ -757,21 +728,21 @@ export default function SurveyAgentsCaseStudy() {
                 failing batch was discarded whole and re-labeled one row at a time, which is
                 why correlation integrity is still 100%.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 That check is the most transferable result here. Under a count-only check, a
                 batch that returns the right number of results in the wrong order is
                 indistinguishable from a correct one: every row silently mislabelled, zero
                 discrepancies reported.
               </p>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The flagship structural claim no longer needs us, and saying so is part of the
                 finding. Out-of-list tags in raw model output, same prompt, three models:
               </p>
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Model</Th>
                     <Th>Destroyed tags</Th>
                     <Th>Rate</Th>
@@ -779,24 +750,24 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {destroyedTags.map((r) => (
-                    <tr key={r.model} className="border-b border-border last:border-0">
-                      <td className="p-3 font-tech text-xs text-primary align-top whitespace-nowrap">{r.model}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.count}</td>
-                      <td className="p-3 text-sm tabular-nums text-foreground font-medium align-top">{r.rate}</td>
+                    <tr key={r.model}>
+                      <td className="whitespace-nowrap">{r.model}</td>
+                      <td>{r.count}</td>
+                      <td className="!text-foreground">{r.rate}</td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Constrained decoding still guarantees what a current prompt now achieves. That
                 distinction matters for a regulated pipeline, but it is a guarantee about a
                 failure today&apos;s models do not commit rather than a fix for one they do.
               </p>
             </Section>
 
-            <Section eyebrow="06  Controls" title="The three runs that changed the reading">
-              <p className="text-base text-muted-foreground leading-relaxed">
+            <Section eyebrow="06  Controls" title="Three decisive control runs">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Each control was built after the thing it was meant to check, which is the wrong
                 order, and each one moved the conclusion. Same corpus, same scorer, same model
                 on every row below.
@@ -804,7 +775,7 @@ export default function SurveyAgentsCaseStudy() {
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Arm</Th>
                     <Th>F1</Th>
                     <Th>Precision</Th>
@@ -813,13 +784,13 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {controls.map((c) => (
-                    <tr key={c.arm} className="border-b border-border last:border-0">
-                      <td className={`p-3 text-xs align-top leading-relaxed ${c.ours ? "text-primary font-medium" : "text-muted-foreground"}`}>
+                    <tr key={c.arm}>
+                      <td className={c.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>
                         {c.arm}
                       </td>
-                      <td className="p-3 text-sm tabular-nums text-foreground font-medium align-top">{c.f1}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{c.prec}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{c.rec}</td>
+                      <td className="!text-foreground">{c.f1}</td>
+                      <td>{c.prec}</td>
+                      <td>{c.rec}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -827,17 +798,16 @@ export default function SurveyAgentsCaseStudy() {
 
               <Notes items={controlNotes} />
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The machinery&apos;s value showed up in how hard it was to build something
                 without it that worked at all, which is not a claim F1 can express.
               </p>
             </Section>
 
             <Section eyebrow="07  Measurement" title="Model choice mattered more than architecture">
-              <div className="overflow-x-auto border border-border">
-                <table className="w-full text-left border-collapse">
+              <Table>
                   <thead>
-                    <tr className="border-b border-border">
+                    <tr>
                       <Th>Same corpus, same scorer</Th>
                       <Th>F1</Th>
                       <Th>Range over 3 runs</Th>
@@ -845,23 +815,22 @@ export default function SurveyAgentsCaseStudy() {
                   </thead>
                   <tbody>
                     {f1.map((r) => (
-                      <tr key={r.approach} className="border-b border-border last:border-0">
-                        <td className={`p-3 text-xs align-top ${r.ours ? "text-primary font-medium" : "text-muted-foreground"}`}>
+                      <tr key={r.approach}>
+                        <td className={r.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>
                           {r.approach}
                         </td>
-                        <td className="p-3 text-sm tabular-nums text-foreground font-medium align-top">{r.score}</td>
-                        <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.range}</td>
+                        <td className="!text-foreground">{r.score}</td>
+                        <td>{r.range}</td>
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </div>
+                </Table>
 
               <Notes items={measurementNotes} />
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Model, baseline prompt</Th>
                     <Th>Codes / row</Th>
                     <Th>F1</Th>
@@ -871,24 +840,24 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {costAtScale.map((r) => (
-                    <tr key={r.model} className="border-b border-border last:border-0">
-                      <td className="p-3 font-tech text-xs text-primary align-top whitespace-nowrap">{r.model}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.codes}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.f1}</td>
-                      <td className="p-3 text-sm tabular-nums text-foreground font-medium align-top">{r.cost}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.latency}</td>
+                    <tr key={r.model}>
+                      <td className="whitespace-nowrap">{r.model}</td>
+                      <td>{r.codes}</td>
+                      <td>{r.f1}</td>
+                      <td className="!text-foreground">{r.cost}</td>
+                      <td>{r.latency}</td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Gold density is 1.92 codes per row. This should not be decided on cost: terra is
                 both the cheapest of the two capable models and the fastest, and sol has lower
                 precision than terra despite being the top tier.
               </p>
 
-              <blockquote className="border-l-2 border-primary pl-5 text-base text-foreground/90 leading-relaxed">
+              <blockquote className="t-h3 max-w-[38rem] !font-semibold !leading-snug text-foreground">
                 The adoption question is not whether the multi-agent pipeline is more accurate.
                 It is whether zero destroyed labels, verified correlation, and per-row triage are
                 worth the premium. For a handful of rows someone can eyeball, no. For a recurring
@@ -898,8 +867,8 @@ export default function SurveyAgentsCaseStudy() {
               </blockquote>
             </Section>
 
-            <Section eyebrow="08  Agency" title="What agency is worth, layer by layer">
-              <p className="text-base text-muted-foreground leading-relaxed">
+            <Section eyebrow="08  Agency" title="Agency's worth, layer by layer">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Three layers were compared over the same tools: a managed agent harness against
                 our own loop at the label stage, a state machine against a local driver over
                 both harnesses, and three orchestrations of the answering path.
@@ -907,7 +876,7 @@ export default function SurveyAgentsCaseStudy() {
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Label stage, 102 rows</Th>
                     <Th>Coverage</Th>
                     <Th>Turns</Th>
@@ -918,13 +887,13 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {labelHarness.map((r) => (
-                    <tr key={r.run} className="border-b border-border last:border-0">
-                      <td className="p-3 text-xs text-muted-foreground align-top">{r.run}</td>
-                      <td className="p-3 text-xs tabular-nums text-foreground font-medium align-top whitespace-nowrap">{r.rows}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.turns}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.cost}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.time}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.f1}</td>
+                    <tr key={r.run}>
+                      <td>{r.run}</td>
+                      <td className="whitespace-nowrap !text-foreground">{r.rows}</td>
+                      <td>{r.turns}</td>
+                      <td>{r.cost}</td>
+                      <td>{r.time}</td>
+                      <td>{r.f1}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -932,7 +901,7 @@ export default function SurveyAgentsCaseStudy() {
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Answering path, 8 questions</Th>
                     <Th>Answered / traced / charted</Th>
                     <Th>Model calls</Th>
@@ -942,12 +911,12 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {answerLoops.map((r) => (
-                    <tr key={r.arm} className="border-b border-border last:border-0">
-                      <td className={`p-3 text-xs align-top ${r.ours ? "text-primary font-medium" : "text-muted-foreground"}`}>{r.arm}</td>
-                      <td className="p-3 text-xs tabular-nums text-foreground align-top whitespace-nowrap">{r.outcomes}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.calls}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.cost}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.time}</td>
+                    <tr key={r.arm}>
+                      <td className={r.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>{r.arm}</td>
+                      <td className="whitespace-nowrap">{r.outcomes}</td>
+                      <td>{r.calls}</td>
+                      <td>{r.cost}</td>
+                      <td>{r.time}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -956,10 +925,10 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={orchestrationNotes} />
             </Section>
 
-            <Section eyebrow="09  Analysis" title="A governed semantic layer - not text to SQL">
+            <Section eyebrow="09  Analysis" title="Semantic layer, not text-to-SQL">
               <AnswerPath />
               <Notes items={analysisDecisions} />
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Scaling is demonstrated with five reproducible proofs rather than slides: 200x
                 rows at unchanged ask latency, cross-scope queries over 216 runs in
                 milliseconds, replays that call no model at all, namespace and entitlement
@@ -970,7 +939,7 @@ export default function SurveyAgentsCaseStudy() {
             <Section eyebrow="10  Retrieval" title="The axis nobody scored">
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Arm, k = 10</Th>
                     <Th>R@1</Th>
                     <Th>R@10</Th>
@@ -980,14 +949,14 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {retrieval.map((r) => (
-                    <tr key={r.arm} className="border-b border-border last:border-0">
-                      <td className={`p-3 text-xs align-top leading-relaxed ${r.ours ? "text-primary font-medium" : "text-muted-foreground"}`}>
+                    <tr key={r.arm}>
+                      <td className={r.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>
                         {r.arm}
                       </td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.r1}</td>
-                      <td className="p-3 text-sm tabular-nums text-foreground font-medium align-top">{r.r10}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.p10}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.mrr}</td>
+                      <td>{r.r1}</td>
+                      <td className="!text-foreground">{r.r10}</td>
+                      <td>{r.p10}</td>
+                      <td>{r.mrr}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -996,29 +965,29 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={retrievalNotes} />
             </Section>
 
-            <Section eyebrow="11  The data model" title="Five bands, one narrow fact table, no respondent table">
+            <Section eyebrow="11  The data model" title="One narrow fact table">
               <DataModel />
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 There is no respondent table on purpose. Cross-survey is an alignment ladder over{" "}
-                <span className="font-tech text-sm text-primary">mapping</span>, never a row-level
+                <span className="ui-code">mapping</span>, never a row-level
                 join, because two teams&apos; surveys do not share a respondent.{" "}
-                <span className="font-tech text-sm text-primary">run.respondent_fingerprint</span>{" "}
+                <span className="ui-code">run.respondent_fingerprint</span>{" "}
                 exists to prevent one: separate runs routinely carry the same respondents, and
                 before that field a pooled breakdown double-counted every one of them while
                 reporting a denominator that looked perfectly self-consistent.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Stated as it stands, not as it is drawn: no DDL exists. The model is derived from
                 the TypeScript interfaces the pipeline already writes, and facts live today as
                 JSON per run plus S3 behind a{" "}
-                <span className="font-tech text-sm text-primary">FactStore</span> port. Both
+                <span className="ui-code">FactStore</span> port. Both
                 implementations pass the same ten-test conformance suite, which is what makes the
                 Postgres swap a CI run rather than a rewrite.
               </p>
             </Section>
 
-            <Section eyebrow="12  Original mechanisms" title="What the team designed from first principles">
-              <p className="text-base text-muted-foreground leading-relaxed">
+            <Section eyebrow="12  Original mechanisms" title="Designed from first principles">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Recorded deliberately, so it is clear which parts stand on published work and
                 which are ours to get wrong.
               </p>
@@ -1029,8 +998,8 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={chartFindings} />
             </Section>
 
-            <Section eyebrow="14  Question coverage" title="The page drew well and answered little">
-              <p className="text-base text-muted-foreground leading-relaxed">
+            <Section eyebrow="14  Question coverage" title="Drew well, answered little">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Phase 4 replaced the question again. Everything up to here scored the chart.
                 Nothing scored whether the page said anything about what the survey actually
                 asked, which is how 6 of 32 went unnoticed for a month.
@@ -1038,7 +1007,7 @@ export default function SurveyAgentsCaseStudy() {
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Questions a survey asked, and what the page did with them</Th>
                     <Th accent>Built-in exports</Th>
                     <Th>Unseen survey</Th>
@@ -1046,12 +1015,12 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {questionCoverage.map((r) => (
-                    <tr key={r.stage} className="border-b border-border last:border-0">
-                      <td className={`p-3 text-xs align-top leading-relaxed ${r.ours ? "text-primary font-medium" : "text-muted-foreground"}`}>
+                    <tr key={r.stage}>
+                      <td className={r.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>
                         {r.stage}
                       </td>
-                      <td className="p-3 text-xs tabular-nums text-foreground font-medium align-top whitespace-nowrap">{r.builtin}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top whitespace-nowrap">{r.unseen}</td>
+                      <td className="whitespace-nowrap !text-foreground">{r.builtin}</td>
+                      <td className="whitespace-nowrap">{r.unseen}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1062,18 +1031,18 @@ export default function SurveyAgentsCaseStudy() {
 
             <Section eyebrow="15  Relationships" title="Telling a real difference from noise">
               <Notes items={relationshipNotes} />
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 The ask bar answers &ldquo;is X related to Y&rdquo; from the same screen, including
                 the case where the honest answer is that it was tested and there is no difference.
               </p>
             </Section>
 
-            <Section eyebrow="16  Subtraction" title="The pipeline got cheaper by removing agents">
+            <Section eyebrow="16  Subtraction" title="Cheaper with fewer agents">
               <Notes items={removingAgents} />
             </Section>
 
             <Section eyebrow="17  The analyst" title="The one place agency clearly won">
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Every earlier comparison on this page had the agent tie or lose: same F1 as a
                 single prompt, 0 of 41 chart proposals accepted, identical answering outcomes at
                 18x the cost. Phase 5 moved agency to a different job. Instead of executing a
@@ -1084,7 +1053,7 @@ export default function SurveyAgentsCaseStudy() {
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Headlined claims recovered, three draws each</Th>
                     <Th accent>Dev</Th>
                     <Th>Held out</Th>
@@ -1092,19 +1061,19 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {analystScore.map((r) => (
-                    <tr key={r.step} className="border-b border-border last:border-0">
-                      <td className={`p-3 text-xs align-top leading-relaxed ${r.ours ? "text-primary font-medium" : "text-muted-foreground"}`}>
+                    <tr key={r.step}>
+                      <td className={r.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>
                         {r.step}
                       </td>
-                      <td className="p-3 text-xs tabular-nums text-foreground font-medium align-top whitespace-nowrap">{r.dev}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top whitespace-nowrap">{r.test}</td>
+                      <td className="whitespace-nowrap !text-foreground">{r.dev}</td>
+                      <td className="whitespace-nowrap">{r.test}</td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
-                Scored by <span className="font-tech text-sm text-primary">eval:page</span>{" "}
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Scored by <span className="ui-code">eval:page</span>{" "}
                 against claims recomputed from each file&apos;s published analysis: headlined,
                 shown, or missing. 13 public surveys, 43 dev and 29 held-out claims. Held-out
                 files are never tuned on, so their misses are read rather than fitted. Two
@@ -1115,14 +1084,14 @@ export default function SurveyAgentsCaseStudy() {
 
               <Notes items={analystNotes} />
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Then the honest part. A 20-criterion chart review scored our pages head to head
                 against seven published FiveThirtyEight charts, one defect losing the pair.
               </p>
 
               <Table>
                 <thead>
-                  <tr className="border-b border-border">
+                  <tr>
                     <Th>Head to head, 7 charts</Th>
                     <Th>Reference wins</Th>
                     <Th accent>Ours</Th>
@@ -1131,24 +1100,24 @@ export default function SurveyAgentsCaseStudy() {
                 </thead>
                 <tbody>
                   {referenceCharts.map((r) => (
-                    <tr key={r.round} className="border-b border-border last:border-0">
-                      <td className="p-3 text-xs text-muted-foreground align-top">{r.round}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.ref}</td>
-                      <td className="p-3 text-sm tabular-nums text-foreground font-medium align-top">{r.ours}</td>
-                      <td className="p-3 text-xs tabular-nums text-muted-foreground align-top">{r.ties}</td>
+                    <tr key={r.round}>
+                      <td>{r.round}</td>
+                      <td>{r.ref}</td>
+                      <td className="!text-foreground">{r.ours}</td>
+                      <td>{r.ties}</td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Ours wins character favourability: one diverging chart of every answer, sorted,
                 headlined with the top and bottom. The references still win the film ranking,
                 because a share that ranked each item first beats an average rank, and they win
                 the page: 21 charts against five.
               </p>
 
-              <blockquote className="border-l-2 border-primary pl-5 text-base text-foreground/90 leading-relaxed">
+              <blockquote className="t-h3 max-w-[38rem] !font-semibold !leading-snug text-foreground">
                 Read against the rest of this page, the result is not that agents work after
                 all. It is that agency pays where the space of right answers is large and
                 unenumerable, and does not pay where a rule table already covers it. Choosing
@@ -1158,7 +1127,7 @@ export default function SurveyAgentsCaseStudy() {
               </blockquote>
             </Section>
 
-            <Section eyebrow="18  Deployment" title="Where each managed service earns its place">
+            <Section eyebrow="18  Deployment" title="Where managed services earn their place">
               <Notes items={awsFindings} />
             </Section>
 
@@ -1166,18 +1135,18 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={earningItsPlace} />
             </Section>
 
-            <Section eyebrow="20  Alternatives" title="Every approach tried, and how it scored">
-              <p className="text-base text-muted-foreground leading-relaxed">
+            <Section eyebrow="20  Alternatives" title="Every approach, scored">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Kept as a log rather than a highlight reel, because the rejected rows are the
                 ones that cost something to learn.
               </p>
 
               {alternatives.map((g) => (
                 <div key={g.group} className="space-y-3">
-                  <p className="font-tech text-[10px] text-primary">{g.group}</p>
+                  <p className="t-eyebrow">{g.group}</p>
                   <Table>
                     <thead>
-                      <tr className="border-b border-border">
+                      <tr>
                         <Th>Approach</Th>
                         <Th>Measured</Th>
                         <Th accent>Verdict</Th>
@@ -1185,10 +1154,10 @@ export default function SurveyAgentsCaseStudy() {
                     </thead>
                     <tbody>
                       {g.rows.map((r) => (
-                        <tr key={r.approach} className="border-b border-border last:border-0">
-                          <td className="p-3 text-xs text-foreground/80 align-top leading-relaxed">{r.approach}</td>
-                          <td className="p-3 text-xs text-muted-foreground align-top leading-relaxed">{r.measured}</td>
-                          <td className="p-3 text-xs text-primary align-top leading-relaxed whitespace-nowrap">{r.verdict}</td>
+                        <tr key={r.approach}>
+                          <td>{r.approach}</td>
+                          <td>{r.measured}</td>
+                          <td className="whitespace-nowrap !text-primary">{r.verdict}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1197,8 +1166,8 @@ export default function SurveyAgentsCaseStudy() {
               ))}
             </Section>
 
-            <Section eyebrow="21  Lessons" title="Thirty-eight rules, ranked by what each cost">
-              <p className="text-base text-muted-foreground leading-relaxed">
+            <Section eyebrow="21  Lessons" title="Thirty-eight ranked lessons">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Most of these are about tool contracts, measurement discipline and reachability
                 rather than about surveys, which is what makes them the part of the project that
                 travels.
@@ -1206,8 +1175,8 @@ export default function SurveyAgentsCaseStudy() {
               <Rules items={lessons} />
             </Section>
 
-            <Section eyebrow="22  Prior art" title="Twelve research passes, then a design freeze">
-              <p className="text-base text-muted-foreground leading-relaxed">
+            <Section eyebrow="22  Prior art" title="Twelve passes, then a freeze">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Twelve passes were logged before the analysis code was written, and the phase was
                 then closed on purpose: new references land in a parked list with a named trigger
                 rather than changing direction mid-build.
@@ -1216,21 +1185,18 @@ export default function SurveyAgentsCaseStudy() {
             </Section>
 
             <Section eyebrow="23  Limits" title="What is still open">
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
                 Stated here rather than discovered later.
               </p>
               <NamedList items={stillOpen} />
-              <p className="text-sm text-muted-foreground/80 leading-relaxed">
+              <p className="t-meta max-w-[40rem]">
                 Internal work, so there is no public repository, and the charts on this page are
                 redrawn schematics rather than real rendered outputs. Every figure comes from the
                 project&apos;s own findings log, where each one names the run it was measured on.
               </p>
             </Section>
           </div>
-        </main>
-        <SiteFooter wide />
-        <Footer />
       </div>
-    </ThemeProvider>
+    </Shell>
   );
 }

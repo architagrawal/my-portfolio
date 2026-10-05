@@ -1,3 +1,4 @@
+import type { Visual as Viz } from "@/components/soft/viz/types";
 // Every project. Featured ones carry curated highlights; each gets its own page.
 export interface Project {
   slug: string;
@@ -12,27 +13,31 @@ export interface Project {
   achievements: string[];
   technologies: string[];
   githubUrl?: string;
+  /** explanatory visual on the project page; `visual` above is the card drawing */
+  viz?: Viz;
   demoUrl?: string;
 }
 
 export const projects: Project[] = [
   {
-    "slug": "survey-agents",
-    "title": "Survey Agents",
-    "subtitle": "Coding & Analysis Platform",
-    "date": "June 2026 – Present",
-    "tier": "featured",
-    "description": "Owned end to end, architecture through deployment. Takes any structured dataset from a custom pipeline to zero engineering work: a reader asks a question in plain English, gets a chart, and edits it directly with stacking, sorting, top-N, filters and undo. Proven on public datasets it was never designed for, and every deterministic operation is a tool, so no figure that reaches a stakeholder is ever computed by a model.",
-    "highlights": [
+    slug: "survey-agents",
+    viz: {"kind": "fanout", "caption": "Distributed Map fan-out, a bounded repair loop and a 5% failure circuit breaker", "workers": 6},
+    title: "Survey Agents",
+    subtitle: "Coding & Analysis Platform",
+    date: "June 2026 – Present",
+    tier: "featured",
+    description:
+      "Owned end to end, architecture through deployment. Takes any structured dataset from a custom pipeline to zero engineering work: a reader asks a question in plain English, gets a chart, and edits it directly with stacking, sorting, top-N, filters and undo. Proven on public datasets it was never designed for, and every deterministic operation is a tool, so no figure that reaches a stakeholder is ever computed by a model.",
+    highlights: [
       "Architected and shipped twelve agents over 76 registered tools, orchestrated by a Step Functions machine generated from a declarative graph: Distributed Map fan-out, a bounded repair loop, a 5% failure circuit breaker, 290k lines of TypeScript and Vue, and 4,077 tests.",
       "Schema-constrained decoding plus per-response correlation tokens: out-of-codebook labels rejected, silently overwritten rows detected, and 100% join integrity across recorded runs. The benchmark pipeline lost roughly one row in eight without flagging it.",
       "Questions compile to MBQL plans, clear seven validation checks, then execute over stored facts with DuckDB on a miss. Metrics bind to column kinds, so an unseen survey is answerable on arrival.",
       "Charts are specs, never images: one constrained Vega-Lite spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection deterministic.",
-      "Every number in a drafted report resolves to a fact the analytics stage computed, or the sentence is redrafted naming the offending figure and then removed."
+      "Every number in a drafted report resolves to a fact the analytics stage computed, or the sentence is redrafted naming the offending figure and then removed.",
     ],
-    "visual": "agents",
-    "caseStudyUrl": "/work/survey-agents",
-    "achievements": [
+    visual: "agents",
+    caseStudyUrl: "/work/survey-agents",
+    achievements: [
       "Ten agents with their own tool sets: intake, label, qa, curate, adjudicate, analysis, analytics, viz and conclude, under an orchestrator whose tools are the other agents.",
       "A curate agent that repairs the codebook itself: cluster confusable codes, find the gaps, draft the distinction that separates two of them, then freeze the profile so labelling runs against a fixed target.",
       "An adjudicate agent that locates contested rows and re-decides only those, turning ensemble disagreement into a bounded second pass rather than a full re-label.",
@@ -73,9 +78,9 @@ export const projects: Project[] = [
       "Progressive transcript compaction borrowed from production harnesses, then measured: batch size rather than compaction is the dominant cost lever, and the 8,192-token output cap is the real constraint on batch size.",
       "Five reproducible scaling proofs instead of slides: 200x rows at unchanged ask latency, cross-scope queries over 216 runs in milliseconds, zero-model-call replays, namespace and entitlement checks, and byte-identical re-execution from a passport.",
       "Skills authored in the open Agent Skills standard and loaded into the cached system prefix, then held to the same bar as everything else: the first one changed no outcome on the batch and cost slightly less, which is the result rather than the pitch.",
-      "A review stage that reads the finished profile instead of each decision, because per-decision gates are blind to upstream bugs. Verified by reintroducing a known sampler defect (a stride that aliased against alternating data and silently halved a dimension's values on any file over ~200 rows) and confirming the stage catches what the gates missed."
+      "A review stage that reads the finished profile instead of each decision, because per-decision gates are blind to upstream bugs. Verified by reintroducing a known sampler defect (a stride that aliased against alternating data and silently halved a dimension's values on any file over ~200 rows) and confirming the stage catches what the gates missed.",
     ],
-    "technologies": [
+    technologies: [
       "TypeScript",
       "AWS Bedrock",
       "AgentCore",
@@ -87,24 +92,26 @@ export const projects: Project[] = [
       "DuckDB",
       "Lance",
       "Vitest",
-      "llama.cpp"
-    ]
+      "llama.cpp",
+    ],
   },
   {
-    "slug": "prismsplit",
-    "title": "PrismSplit",
-    "date": "2025 – Present",
-    "tier": "featured",
-    "description": "Most expenses aren't split 50/50 - you order a steak, they order a salad. PrismSplit splits bills at the item level: scan a receipt, AI extracts every item, and everyone pays exactly what they owe.",
-    "highlights": [
+    slug: "prismsplit",
+    viz: {"kind": "receipt", "caption": "Item-level split in integer cents, illustrative", "people": ["You", "Sam", "Ana"], "items": [{"name": "Steak", "cents": 2800, "who": [0]}, {"name": "Salad", "cents": 1200, "who": [1]}, {"name": "Fries to share", "cents": 700, "who": [0, 1, 2]}, {"name": "Wine", "cents": 3600, "who": [0, 2]}]},
+    title: "PrismSplit",
+    date: "2025 – Present",
+    tier: "featured",
+    description:
+      "Most expenses aren't split 50/50 - you order a steak, they order a salad. PrismSplit splits bills at the item level: scan a receipt, AI extracts every item, and everyone pays exactly what they owe.",
+    highlights: [
       "Scan → itemize → split → settle: receipt scanning extracts the merchant, items, tax, and tip, while each item supports equal, percentage, share-based, or exact splits.",
       "A Postgres RPC ledger keeps bill creation, settlement, and balance calculations transactional; integer-cent arithmetic prevents rounding drift.",
       "Debt-edge reduction algorithm minimizes the number of settlement transactions inside a group.",
       "Offline-aware core: idempotency keys and MMKV persistence underneath real-time Supabase subscriptions.",
-      "Maestro E2E flows and enforced coverage thresholds guard every release build."
+      "Maestro E2E flows and enforced coverage thresholds guard every release build.",
     ],
-    "visual": "appshot",
-    "achievements": [
+    visual: "appshot",
+    achievements: [
       "Shipped a web target alongside the native app: 116 .web.tsx surfaces sharing the same stores and services, with keyboard focus rings, pointer affordances and claim-link visitors kept out of signed-in chrome.",
       "Built the insights surface: personal and group spend charts computed server-side through Postgres RPCs (get_user_insights, versioned to v3), a ranked people list that replaced a balance bar chart, an activity heatmap, a category breakdown, a spending radar and a trend line.",
       "Wrote the insights copy to describe what happened rather than grade the reader, after a pass that removed every word implying fault.",
@@ -126,9 +133,9 @@ export const projects: Project[] = [
       "Receipt-scan pipeline UI (scan → processing → review → create) with draft persistence surviving app kill; reusable primitives: ModernAlert, ConfirmDialog, EmptyState, Avatar, Skeleton, ListItem, SplitModeSelector.",
       "Lifted test coverage from near-zero to enforced thresholds: unit tests across stores/services/actions/helpers/UI; interaction tests for LedgerItemRow (focus, expand, validation); full action-suite tests for billsStore (create, update, delete, item toggle); shared render helpers + store mocks + fixture factories.",
       "Product: AI receipt scanning with reviewable OCR drafts; deep-linked friend-add flow with auto profile fetch from invite code; Privacy/ToS/OSS-Licenses screens; lightweight i18n helpers (interpolation + pluralization) without a full runtime.",
-      "DX: EAS configured with .easignore slimming build uploads; UI strings extracted to constants module; centralized URL config; long-press dev-only /experiment route for pre-port UI prototyping."
+      "DX: EAS configured with .easignore slimming build uploads; UI strings extracted to constants module; centralized URL config; long-press dev-only /experiment route for pre-port UI prototyping.",
     ],
-    "technologies": [
+    technologies: [
       "React Native",
       "Expo",
       "TypeScript",
@@ -139,24 +146,25 @@ export const projects: Project[] = [
       "MMKV",
       "Maestro",
       "Jest",
-      "EAS"
-    ]
+      "EAS",
+    ],
   },
   {
-    "slug": "aijockey",
-    "title": "AiJockey",
-    "subtitle": "AI DJ Pipeline",
-    "date": "2025 – Present",
-    "tier": "featured",
-    "description": "An end-to-end AI DJ system that separates stems, understands musical structure, plans and renders transitions, and masters the final mix - with audio-quality feedback improving future decisions.",
-    "highlights": [
+    slug: "aijockey",
+    title: "AiJockey",
+    subtitle: "AI DJ Pipeline",
+    date: "2025 – Present",
+    tier: "featured",
+    description:
+      "An end-to-end AI DJ system that separates stems, understands musical structure, plans and renders transitions, and masters the final mix - with audio-quality feedback improving future decisions.",
+    highlights: [
       "One FastAPI service runs the full render path: stem separation, BPM/key/phrase analysis, LLM-directed planning, 25+ DSP transitions, and multiband mastering.",
       "A closed feedback loop scores rendered variants with Audiobox critics and turns the results into DPO preference pairs for the Director.",
       "A trained MERT reward head predicts aesthetic quality during selection, avoiding full critic inference for every render.",
-      "The PyTorch, Demucs, and VampNet stack runs in a ROCm container on a DigitalOcean MI300X with 192 GB of HBM3."
+      "The PyTorch, Demucs, and VampNet stack runs in a ROCm container on a DigitalOcean MI300X with 192 GB of HBM3.",
     ],
-    "visual": "audio",
-    "achievements": [
+    visual: "audio",
+    achievements: [
       "Built multi-stage AI DJ pipeline: ingest → stem-sep (Demucs + Mel-Band Roformer) → BPM/key/phrase analysis → LLM Director plan → segment picker → transition execute → multi-band mastering, end-to-end in a single FastAPI service.",
       "Implemented 25+ DSP transition modules: sidechain ducking, frequency-masked EQ swaps, echo-throw, beat juggle, spectral hold, reverse reverb, riser synth, MS multiband widen, bass-mono fold, LUFS-arc, BPM grid snap, glitch repair, de-esser, double-drop, EDM smile EQ.",
       "Wrote fx_orchestrator with mutex effect groups + per-set FX budget (35%) - fixes too-many-effects-per-junction without killing variety; mutex groups model perceptual conflicts.",
@@ -173,9 +181,9 @@ export const projects: Project[] = [
       "FastAPI backend + Gradio UI on HF Space, ngrok reserved-domain tunnel, sign-in + 1-render/user/day rate limit, SSE streaming progress ticker.",
       "Multi-stage caching: per-clip JSON sidecar (BPM/key/phrase), NPZ stem features, Audiobox slice JSON, MERT prediction JSON, stem-level Audiobox prescore - 186 clips × 5 sidecars = O(1) re-picker without re-analysis.",
       "Auto-recovery: yt-dlp re-pull on missing source audio, tar checkpoint + RESTORE.md so a destroyed droplet costs 30 min not a day.",
-      "Diagnosed a class of PSNR-up-but-sounds-worse bugs - Audiobox PQ ≠ DJ-ear quality; designed mutex-budget orchestrator after measuring v5 PQ 7.60 felt messier than v4 PQ 7.51."
+      "Diagnosed a class of PSNR-up-but-sounds-worse bugs - Audiobox PQ ≠ DJ-ear quality; designed mutex-budget orchestrator after measuring v5 PQ 7.60 felt messier than v4 PQ 7.51.",
     ],
-    "technologies": [
+    technologies: [
       "Python",
       "PyTorch",
       "ROCm",
@@ -188,24 +196,25 @@ export const projects: Project[] = [
       "Matchering",
       "Gradio",
       "DPO/KTO",
-      "DSP"
+      "DSP",
     ],
-    "githubUrl": "https://github.com/architagrawal/aiJockey"
+    githubUrl: "https://github.com/architagrawal/aiJockey",
   },
   {
-    "slug": "clash-royale-clan-analytics-platform",
-    "title": "Clash Royale Clan Analytics Platform",
-    "date": "2025",
-    "tier": "featured",
-    "description": "A serverless analytics platform that collects and transforms clan data on a schedule, then turns it into responsive, cross-filtered D3 visualizations and decision tools.",
-    "highlights": [
+    slug: "clash-royale-clan-analytics-platform",
+    title: "Clash Royale Analytics",
+    date: "2025",
+    tier: "featured",
+    description:
+      "A serverless analytics platform that collects and transforms clan data on a schedule, then turns it into responsive, cross-filtered D3 visualizations and decision tools.",
+    highlights: [
       "Scheduled Cloudflare Workers collect and deduplicate battle data before incrementally loading a D1 analytics store.",
       "A D3 visualization suite - bump, sunburst, ridgeline, force, chord, and radial charts - cross-filters through shared application state.",
       "Resolved D1's 100-parameter SQL constraint and corrected upstream defects in week bucketing and duel-winner attribution.",
-      "Accessibility includes skip navigation, focus traps, reduced-motion support, and 44-pixel touch targets."
+      "Accessibility includes skip navigation, focus traps, reduced-motion support, and 44-pixel touch targets.",
     ],
-    "visual": "analytics",
-    "achievements": [
+    visual: "analytics",
+    achievements: [
       "Built serverless analytics platform on Cloudflare Workers + D1 (SQLite) with Drizzle ORM, fronted by Next.js 16 / React 19 App Router on Vercel.",
       "Designed multi-route Worker (admin, analytics, data, invites, notes, settings) with custom router/middleware layer and typed request handlers.",
       "Scheduled cron pipeline (worker/src/cron.ts) polling upstream Clash Royale API, deduping battles, incrementally hydrating warehouse.",
@@ -223,9 +232,9 @@ export const projects: Project[] = [
       "Perf: TanStack Query for server-state caching/deduping/background refetch; tabular-nums on stat numerics; replaced blanket transition-all with property-scoped transition-colors across 23 elements to cut paint cost; responsive Recharts/D3 heights eliminating CLS on small viewports.",
       "A11y: skip-nav link, <main> landmark, self-hosted fonts, prefers-reduced-motion, viewport-fit=cover for iOS safe areas; focus traps in modals, keyboard focus rings on tooltips, 44×44px min touch targets (WCAG 2.5.5).",
       "Wired aria-expanded / aria-controls with persistent DOM nodes, roles on chart SVGs, descriptive aria-labels on delta/filter buttons; suppressed Recharts' inner accessibility tree to avoid duplicate announcements; fixed MemberTable contrast, swapped indigo/purple decorative colors for brand tokens, corrected backdrop-filter fallbacks via @supports.",
-      "Vitest suites for ETL transform/processor and Worker middleware; PowerShell + Node scripts (db:sync-local, db:sync-manual) pulling production D1 snapshots into local dev; local runners (local-agg-runner.ts, local-process-runner.ts) executing aggregation/processing outside Worker runtime for faster iteration."
+      "Vitest suites for ETL transform/processor and Worker middleware; PowerShell + Node scripts (db:sync-local, db:sync-manual) pulling production D1 snapshots into local dev; local runners (local-agg-runner.ts, local-process-runner.ts) executing aggregation/processing outside Worker runtime for faster iteration.",
     ],
-    "technologies": [
+    technologies: [
       "Next.js 16",
       "React 19",
       "Cloudflare Workers",
@@ -236,17 +245,18 @@ export const projects: Project[] = [
       "Recharts",
       "Vitest",
       "Vercel",
-      "TypeScript"
-    ]
+      "TypeScript",
+    ],
   },
   {
-    "slug": "srp-electric-mcp-server",
-    "title": "SRP Electric MCP Server",
-    "date": "Dec 2025 – Jan 2026",
-    "tier": "build",
-    "description": "A TypeScript MCP server that turns an undocumented utility portal into validated, structured tools for secure energy-data analysis by AI agents.",
-    "highlights": [],
-    "achievements": [
+    slug: "srp-electric-mcp-server",
+    title: "SRP Electric MCP Server",
+    date: "Dec 2025 – Jan 2026",
+    tier: "build",
+    description:
+      "A TypeScript MCP server that turns an undocumented utility portal into validated, structured tools for secure energy-data analysis by AI agents.",
+    highlights: [],
+    achievements: [
       "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
       "Reverse-engineered undocumented authentication flow of a legacy utility portal under highly ambiguous constraints - no docs, no spec.",
       "Converted unstructured enterprise portal data into structured JSON tools surfaced through MCP for secure, deterministic LLM reasoning.",
@@ -256,25 +266,20 @@ export const projects: Project[] = [
       "Normalized interval meter data into one shape (timestamp, kWh, cost, tier) so 15-minute reads, daily rollups and billing-period totals answer through the same tool instead of three that disagree on units.",
       "Rate-limited and cached at the server rather than trusting the caller: a portal built for humans clicking does not expect an agent asking for a year of intervals in a loop.",
       "Returned typed errors an agent can act on, separating authentication expiry, a rate limit, a genuinely absent meter and a portal outage, so the model retries the recoverable case and reports the rest.",
-      "Wrote a fixture-backed test suite over recorded portal responses, so the server is testable without credentials and a portal HTML change fails a test instead of silently returning nothing."
+      "Wrote a fixture-backed test suite over recorded portal responses, so the server is testable without credentials and a portal HTML change fails a test instead of silently returning nothing.",
     ],
-    "technologies": [
-      "TypeScript",
-      "MCP",
-      "Node.js",
-      "REST APIs",
-      "Zod"
-    ],
-    "githubUrl": "https://github.com/architagrawal/srp-electric-mcp"
+    technologies: ["TypeScript", "MCP", "Node.js", "REST APIs", "Zod"],
+    githubUrl: "https://github.com/architagrawal/srp-electric-mcp",
   },
   {
-    "slug": "mcp-based-github-pr-review-automation-agent",
-    "title": "MCP-Based GitHub PR Review Automation Agent",
-    "date": "Jul 2025 – Aug 2025",
-    "tier": "build",
-    "description": "An MCP-based review service that combines repository context, ticket metadata, CI results, and LLM reasoning to automate pull-request analysis and workflow updates.",
-    "highlights": [],
-    "achievements": [
+    slug: "mcp-based-github-pr-review-automation-agent",
+    title: "PR Review Agent",
+    date: "Jul 2025 – Aug 2025",
+    tier: "build",
+    description:
+      "An MCP-based GitHub review service that combines repository context, ticket metadata, CI results, and LLM reasoning to automate pull-request analysis and workflow updates.",
+    highlights: [],
+    achievements: [
       "Built MCP-based workflow automation integrating GitHub webhooks, LLM reasoning, and automated pull-request analysis pipelines.",
       "Designed context-routing logic letting agents retrieve repository state, ticket metadata, and CI/CD execution context before generating review decisions.",
       "Automated engineering workflows across GitHub Actions and Asana - status updates, ticket linking, review summaries without manual coordination.",
@@ -285,24 +290,19 @@ export const projects: Project[] = [
       "Gated the merge on category rather than on volume: a correctness finding blocks, a style note does not, so the bot cannot hold a release over formatting.",
       "Made the bot idempotent on re-runs, updating its existing review comment instead of stacking a new one on every push, after the first version left eleven comments on one branch.",
       "Wired Asana both ways: a PR opening moves the ticket to review and a merge closes it, with the ticket id parsed from the branch name so nobody has to remember to link it.",
-      "Kept a manual override that is logged, since a review gate with no escape hatch gets disabled entirely the first time it is wrong."
+      "Kept a manual override that is logged, since a review gate with no escape hatch gets disabled entirely the first time it is wrong.",
     ],
-    "technologies": [
-      "TypeScript",
-      "MCP",
-      "GitHub Actions",
-      "Asana API",
-      "LLM"
-    ]
+    technologies: ["TypeScript", "MCP", "GitHub Actions", "Asana API", "LLM"],
   },
   {
-    "slug": "no-code-pipeline-builder",
-    "title": "No-Code Pipeline Builder",
-    "date": "2025",
-    "tier": "build",
-    "description": "A visual DAG editor with typed nodes, reliable undo and redo, autosave, keyboard workflows, and server-side graph validation.",
-    "highlights": [],
-    "achievements": [
+    slug: "no-code-pipeline-builder",
+    title: "No-Code Pipeline Builder",
+    date: "2025",
+    tier: "build",
+    description:
+      "A visual DAG editor with typed nodes, reliable undo and redo, autosave, keyboard workflows, and server-side graph validation.",
+    highlights: [],
+    achievements: [
       "Built no-code pipeline builder on React 18 + ReactFlow 11 modeling a DAG of typed nodes (input, output, LLM, text + 5 demo nodes) with smoothstep edges and animated markers.",
       "Centralized graph state in Zustand store exposing onNodesChange/onEdgesChange/onConnect reducers wrapping ReactFlow's applyNodeChanges/applyEdgeChanges/addEdge helpers.",
       "Designed config-driven BaseNode: each node type declares {title, handles, fields, category}; renders text/textarea/select/display fields and distributes handles via top: distribute(i, n) - eliminated per-node boilerplate.",
@@ -316,9 +316,9 @@ export const projects: Project[] = [
       "SubmitButton POSTs {nodes, edges} to FastAPI /pipelines/parse, surfaces num_nodes/num_edges/is_dag via toast banner; handles HTTP + network failure paths with disabled-while-pending guard.",
       "~20 Jest + RTL suites covering store reducers, persistence round-trips, selection logic, keyboard shortcuts, edge presentation, header, rail.",
       "Property-based tests with fast-check for history invariants, persistence sanitization, node-category mapping, duplicate semantics, edge presentation - catches edge cases unit tests miss.",
-      "UX: light/dark theme via CSS custom-property tokenization persisted across reload; data-category visual accenting, EmptyStateOverlay on empty canvas, ResultBanner for submit feedback, SavedIndicator pulse animation."
+      "UX: light/dark theme via CSS custom-property tokenization persisted across reload; data-category visual accenting, EmptyStateOverlay on empty canvas, ResultBanner for submit feedback, SavedIndicator pulse animation.",
     ],
-    "technologies": [
+    technologies: [
       "React 18",
       "ReactFlow 11",
       "Zustand",
@@ -326,17 +326,19 @@ export const projects: Project[] = [
       "FastAPI",
       "Jest",
       "React Testing Library",
-      "fast-check"
-    ]
+      "fast-check",
+    ],
   },
   {
-    "slug": "image-recognition-as-a-service",
-    "title": "Image Recognition as a Service",
-    "date": "Jan 2024 – Feb 2024",
-    "tier": "build",
-    "description": "An elastic image-recognition service that scales compute automatically with request volume.",
-    "highlights": [],
-    "achievements": [
+    slug: "image-recognition-as-a-service",
+    viz: {"kind": "scaling", "caption": "Instances step up behind a request burst and back down, illustrative", "perInstance": 10, "load": [4, 6, 12, 26, 41, 48, 44, 35, 22, 13, 8, 5, 4]},
+    title: "Image Recognition as a Service",
+    date: "Jan 2024 – Feb 2024",
+    tier: "build",
+    description:
+      "An elastic image-recognition service that scales compute automatically with request volume.",
+    highlights: [],
+    achievements: [
       "Developed an elastic cloud infrastructure SaaS using AWS EC2, AWS SQS, and Lambda.",
       "Enabled automatic linear scaling based on demand, serving 100 concurrent requests in 5 seconds.",
       "Split the queue in two, requests in and results out, so a web tier can return immediately with a request id and a slow inference never holds an HTTP connection open.",
@@ -345,24 +347,20 @@ export const projects: Project[] = [
       "Scaled in conservatively and out aggressively, with a cooldown, after an early version thrashed instances up and down on a sawtooth load.",
       "Used SQS visibility timeouts as the retry mechanism: a worker that dies mid-image releases the message back rather than losing it, so at-least-once delivery does the failure handling for free.",
       "Made the workers idempotent on an input hash, since at-least-once means the same image will occasionally be classified twice and the second result must not conflict with the first.",
-      "Measured the cold path honestly: end-to-end latency for the first request after a scale-out is dominated by model load, not inference, which is what the instance warm pool exists for."
+      "Measured the cold path honestly: end-to-end latency for the first request after a scale-out is dominated by model load, not inference, which is what the instance warm pool exists for.",
     ],
-    "technologies": [
-      "AWS EC2",
-      "AWS SQS",
-      "AWS Lambda",
-      "Python",
-      "Docker"
-    ]
+    technologies: ["AWS EC2", "AWS SQS", "AWS Lambda", "Python", "Docker"],
   },
   {
-    "slug": "reverse-mode-automatic-differentiation",
-    "title": "Reverse-Mode Automatic Differentiation",
-    "date": "Feb 2024 – Mar 2024",
-    "tier": "build",
-    "description": "A reverse-mode automatic-differentiation engine with custom gradient operators and CUDA kernels for neural-network training.",
-    "highlights": [],
-    "achievements": [
+    slug: "reverse-mode-automatic-differentiation",
+    viz: {"kind": "compgraph", "caption": "Reverse mode on L(w\u00b7x + b): one forward pass, then gradients back along every edge"},
+    title: "Reverse-Mode Automatic Differentiation",
+    date: "Feb 2024 – Mar 2024",
+    tier: "build",
+    description:
+      "A reverse-mode automatic-differentiation engine with custom gradient operators and CUDA kernels for neural-network training.",
+    highlights: [],
+    achievements: [
       "Built the tape: every forward operation records its inputs and a local gradient rule, so backward is a reverse walk over the recorded graph rather than a hand-derived formula per model.",
       "Implemented the operator set with its adjoints - add, multiply, matmul, transpose, reshape, ReLU, softmax and cross-entropy - each one a forward rule plus a vector-Jacobian product.",
       "Got broadcasting right, which is where a hand-rolled engine usually breaks: a gradient flowing back into a broadcast dimension has to be summed over that axis or the shapes silently stop matching.",
@@ -370,24 +368,21 @@ export const projects: Project[] = [
       "Verified every adjoint against central-difference numerical gradients before trusting a single training run, since a wrong gradient trains to a worse loss instead of crashing.",
       "Accumulated rather than overwrote gradients at nodes with multiple consumers, the bug that makes a network with any weight reuse train subtly wrong.",
       "Trained MLPs end to end against a reference implementation, matching loss curves step for step on a fixed seed as the correctness bar.",
-      "Freed the tape after backward so a training loop does not retain every intermediate for the whole run, which is the difference between a toy and something that finishes an epoch."
+      "Freed the tape after backward so a training loop does not retain every intermediate for the whole run, which is the difference between a toy and something that finishes an epoch.",
     ],
-    "technologies": [
-      "Python",
-      "CUDA",
-      "Neural Networks",
-      "NumPy"
-    ]
+    technologies: ["Python", "CUDA", "Neural Networks", "NumPy"],
   },
   {
-    "slug": "survey-intelligence-platform",
-    "title": "Survey Intelligence Platform",
-    "subtitle": "Target Architecture",
-    "date": "August 2026",
-    "tier": "build",
-    "description": "The production platform the POC argues for: departments bring any survey, schema or taxonomy and get analysis they can trace, with no custom pipeline per upload. Six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates.",
-    "highlights": [],
-    "achievements": [
+    slug: "survey-intelligence-platform",
+    viz: {"kind": "gates", "caption": "Four layers, each gated on exit criteria rather than a date", "layers": ["layer 1", "layer 2", "layer 3", "layer 4"]},
+    title: "Survey Intelligence Platform",
+    subtitle: "Target Architecture",
+    date: "August 2026",
+    tier: "build",
+    description:
+      "The production platform the POC argues for: departments bring any survey, schema or taxonomy and get analysis they can trace, with no custom pipeline per upload. Six documents, 80 logged decisions, four sequenced layers gated on exit criteria rather than dates.",
+    highlights: [],
+    achievements: [
       "A novelty ledger recording eight mechanisms with no published counterpart, each paired with the instrument that would measure it, so a claim of novelty is falsifiable rather than decorative: continuous audit-sample QC, promotion criteria for local-to-global learning, confusion-driven codebook merge and split, the two-call versus combined-call ablation on arbitrary codebooks, the tokens-per-card knee, fitted non-uniform class-definition rendering, cluster-shared versus per-row candidate sets, and fork-versus-fix for shared vocabularies.",
       "A four-rung candidate-presentation ladder that makes a large codebook affordable: send it whole, split it by its own top level, cluster similar responses behind one shared shortlist, then retrieve per response. The rung that was missing is the one for codebooks with no usable top level, which used to fall straight to the expensive answer.",
       "Two measurements decide when a project drops a rung, total prompt size and label count, whichever is hit first, because one number alone let oversized prompts through.",
@@ -404,9 +399,9 @@ export const projects: Project[] = [
       "PII redaction ahead of every model call, sensitive-disclosure triage with escalation, sign-in on Cognito while every permission decision stays in code we own, and browser-direct uploads so large files never pass through the services.",
       "Bedrock Batch designed in as a run mode with its fencing pattern resolved, immutable model versions pinned where the provider offers them, and multi-region warm standby as the target recovery posture.",
       "Four sequenced layers, core AI system then platform services then product surfaces then operations, each with exit criteria rather than dates, because delivery is one developer working in sequence.",
-      "An interactive diagram set alongside the prose: a system map, a stakeholder view, an AI explorer, and a Structurizr DSL model, so a reader can see the platform rather than read 8,600 lines about it."
+      "An interactive diagram set alongside the prose: a system map, a stakeholder view, an AI explorer, and a Structurizr DSL model, so a reader can see the platform rather than read 8,600 lines about it.",
     ],
-    "technologies": [
+    technologies: [
       "AWS Bedrock",
       "PostgreSQL",
       "pgvector",
@@ -415,17 +410,18 @@ export const projects: Project[] = [
       "DuckDB",
       "AWS Cognito",
       "OpenTelemetry",
-      "Structurizr"
-    ]
+      "Structurizr",
+    ],
   },
   {
-    "slug": "soccer-game-result-prediction",
-    "title": "Soccer Game Result Prediction",
-    "date": "Oct 2023 – Dec 2023",
-    "tier": "coursework",
-    "description": "A match-outcome prediction pipeline combining sequence models, tree ensembles, sentiment, and betting data.",
-    "highlights": [],
-    "achievements": [
+    slug: "soccer-game-result-prediction",
+    title: "Soccer Result Prediction",
+    date: "Oct 2023 – Dec 2023",
+    tier: "coursework",
+    description:
+      "A match-outcome prediction pipeline combining sequence models, tree ensembles, sentiment, and betting data.",
+    highlights: [],
+    achievements: [
       "Increased prediction accuracy by 12% using LSTM, RNN, and Random Forest with XGBoost.",
       "Incorporated sentiment analysis and game bet data for improved predictions.",
       "Split the data by date, never at random: a shuffled split lets the model see future matches while predicting past ones, which inflates accuracy and would have made the 12% meaningless.",
@@ -434,24 +430,25 @@ export const projects: Project[] = [
       "Compared the sequence models against the tree ensemble on the same folds: LSTM captures form streaks, XGBoost handles the sparse categorical features better, and the ensemble of both beat either alone.",
       "Scored on log loss rather than accuracy for the final comparison, since a three-outcome match with a draw rewards calibrated probability over a confident guess.",
       "Checked calibration explicitly with a reliability plot, which is where the sentiment features helped least: they moved confidence without moving correctness.",
-      "Handled the draw as the genuinely hard class, reporting per-class recall instead of hiding a model that never predicts one behind a decent overall number."
+      "Handled the draw as the genuinely hard class, reporting per-class recall instead of hiding a model that never predicts one behind a decent overall number.",
     ],
-    "technologies": [
+    technologies: [
       "Python",
       "Deep Learning",
       "Data Science",
       "Statistics",
-      "XGBoost"
-    ]
+      "XGBoost",
+    ],
   },
   {
-    "slug": "fitlife-health-tracking-app",
-    "title": "FitLife Health Tracking App",
-    "date": "Oct 2023 – Dec 2023",
-    "tier": "coursework",
-    "description": "An Android health app that measures heart and breathing rates and recommends personalized workout routines.",
-    "highlights": [],
-    "achievements": [
+    slug: "fitlife-health-tracking-app",
+    title: "FitLife Health Tracking App",
+    date: "Oct 2023 – Dec 2023",
+    tier: "coursework",
+    description:
+      "An Android health app that measures heart and breathing rates and recommends personalized workout routines.",
+    highlights: [],
+    achievements: [
       "Programmed an Android app measuring heart and breath rates.",
       "Suggested personalized workout routines using machine learning and Fuzzy Logic Control.",
       "Measured heart rate from the camera and flash: the fingertip changes colour with each pulse, so the signal is the mean red channel over time rather than anything the phone exposes as a sensor.",
@@ -460,28 +457,24 @@ export const projects: Project[] = [
       "Rejected a reading rather than reporting a wrong one: low signal amplitude or an unstable peak interval returns try again, because a health number presented confidently is worse than no number.",
       "Used fuzzy logic deliberately over hard thresholds, since a resting rate of 79 and one of 81 should not produce two different workout recommendations.",
       "Tuned the membership functions against measurements taken alongside a commercial monitor, which is what turned the rules from a guess into something defensible.",
-      "Kept every reading on the device, with no account and no upload, because heart-rate data does not need to leave a phone to recommend a workout."
+      "Kept every reading on the device, with no account and no upload, because heart-rate data does not need to leave a phone to recommend a workout.",
     ],
-    "technologies": [
-      "Android Studio",
-      "MATLAB",
-      "Machine Learning",
-      "Java"
-    ]
+    technologies: ["Android Studio", "MATLAB", "Machine Learning", "Java"],
   },
   {
-    "slug": "e-commerce-platform",
-    "title": "E-Commerce Platform",
-    "date": "Sept 2024 – Dec 2024",
-    "tier": "coursework",
-    "description": "An online storefront with authentication, product discovery, Stripe payments, a React interface, and a Django REST backend backed by PostgreSQL and Redis.",
-    "highlights": [],
-    "achievements": [
+    slug: "e-commerce-platform",
+    title: "E-Commerce Platform",
+    date: "Sept 2024 – Dec 2024",
+    tier: "coursework",
+    description:
+      "An online storefront with authentication, product discovery, Stripe payments, a React interface, and a Django REST backend backed by PostgreSQL and Redis.",
+    highlights: [],
+    achievements: [
       "Built an online shopping platform with user authentication, a searchable product catalog, and Stripe payment processing.",
       "Delivered a responsive React interface and a Django REST API.",
-      "Integrated PostgreSQL database with Redis caching for optimized performance."
+      "Integrated PostgreSQL database with Redis caching for optimized performance.",
     ],
-    "technologies": [
+    technologies: [
       "React",
       "Django",
       "PostgreSQL",
@@ -490,17 +483,18 @@ export const projects: Project[] = [
       "Stripe",
       "GCP",
       "GitHub Actions",
-      "Jest"
-    ]
+      "Jest",
+    ],
   },
   {
-    "slug": "task-management-system",
-    "title": "Task Management System",
-    "date": "Feb 2024 – May 2024",
-    "tier": "coursework",
-    "description": "A collaborative project-management tool with task ownership, progress tracking, deadline notifications, JWT authentication, and a React interface.",
-    "highlights": [],
-    "achievements": [
+    slug: "task-management-system",
+    title: "Task Management System",
+    date: "Feb 2024 – May 2024",
+    tier: "coursework",
+    description:
+      "A collaborative project-management tool with task ownership, progress tracking, deadline notifications, JWT authentication, and a React interface.",
+    highlights: [],
+    achievements: [
       "Built collaborative workflows for task assignment, progress tracking, and deadline notifications.",
       "Developed a Flask REST API with SQLAlchemy for persistence.",
       "Designed the React interface and implemented JWT authentication.",
@@ -508,40 +502,41 @@ export const projects: Project[] = [
       "Modelled status as a state machine with declared transitions, so a task cannot go from done back to unassigned and skip the reopen that would have notified its owner.",
       "Made deadline notifications idempotent per task and per day, because a scheduler that runs every hour will otherwise mail someone seven times about one overdue item.",
       "Added optimistic UI updates with rollback on failure, so reassigning a task feels instant but a rejected write does not leave the board showing a lie.",
-      "Indexed the list query on (project_id, status, due_date), the three columns every board view filters on, after the first version scanned the whole table to render one column."
+      "Indexed the list query on (project_id, status, due_date), the three columns every board view filters on, after the first version scanned the whole table to render one column.",
     ],
-    "technologies": [
+    technologies: [
       "React",
       "Flask",
       "SQLAlchemy",
       "JWT",
       "Docker",
       "AWS",
-      "PostgreSQL"
-    ]
+      "PostgreSQL",
+    ],
   },
   {
-    "slug": "real-time-chat-application",
-    "title": "Real-Time Chat Application",
-    "date": "July 2024 – October 2024",
-    "tier": "coursework",
-    "description": "A real-time messaging platform with private and group conversations, Redis-backed WebSockets, geolocation features, and interactive usage maps.",
-    "highlights": [],
-    "achievements": [
+    slug: "real-time-chat-application",
+    title: "Real-Time Chat Application",
+    date: "July 2024 – October 2024",
+    tier: "coursework",
+    description:
+      "A real-time messaging platform with private and group conversations, Redis-backed WebSockets, geolocation features, and interactive usage maps.",
+    highlights: [],
+    achievements: [
       "Built private and group messaging over Django Channels WebSockets.",
       "Used Redis for message queuing and real-time event delivery.",
-      "Added geolocation features and Plotly visualizations for user-location analysis."
+      "Added geolocation features and Plotly visualizations for user-location analysis.",
     ],
-    "technologies": [
+    technologies: [
       "Django",
       "Django Channels",
       "Redis",
       "React",
       "Plotly",
       "Docker",
-      "AWS"
-    ]
-  }
+      "AWS",
+    ],
+  },
 ];
 
 export const projectBySlug = (s: string) => projects.find((p) => p.slug === s);

@@ -104,7 +104,7 @@ export function CommandMenu() {
           <motion.div
             role="dialog"
             aria-label="Command menu"
-            className="w-full max-w-lg overflow-hidden rounded-2xl bg-card shadow-lift"
+            className="w-full max-w-lg overflow-hidden rounded-2xl bg-card p-2 shadow-lift"
             initial={{ y: -12, scale: 0.98 }}
             animate={{ y: 0, scale: 1 }}
             exit={{ y: -8, scale: 0.98 }}
@@ -121,29 +121,29 @@ export function CommandMenu() {
                 if (e.key === "Enter") (e.preventDefault(), choose(shown[active]));
               }}
               placeholder="Jump to a page, role or project..."
-              className="w-full border-b border-border bg-transparent px-5 py-4 text-[16px] outline-none placeholder:text-muted-foreground"
+              className="w-full rounded-xl bg-foreground/[0.06] px-4 py-3.5 text-[16px] placeholder:text-muted-foreground focus-visible:!outline-offset-0"
             />
-            <ul className="max-h-[50vh] overflow-y-auto p-2" role="listbox">
-              {shown.length === 0 && <li className="px-3 py-6 text-center text-sm text-muted-foreground">No matches</li>}
+            <ul className="mt-1 max-h-[50vh] overflow-y-auto" role="listbox">
+              {shown.length === 0 && <li className="t-meta px-3 py-6 text-center">No matches</li>}
               {shown.map((item, i) => {
                 const header = item.group !== lastGroup ? item.group : null;
                 lastGroup = item.group;
                 return (
                   <li key={item.group + item.label}>
-                    {header && <p className="px-3 pb-1 pt-3 text-xs font-bold uppercase tracking-[0.08em] text-primary">{header}</p>}
+                    {header && <p className="t-eyebrow px-3 pb-1.5 pt-4">{header}</p>}
                     <button
                       role="option"
                       aria-selected={i === active}
                       onMouseEnter={() => setActive(i)}
                       onClick={() => choose(item)}
                       className={`flex w-full items-baseline justify-between gap-4 rounded-lg px-3 py-2.5 text-left text-[15px] ${
-                        i === active ? "bg-muted" : ""
+                        i === active ? "bg-foreground/[0.08]" : ""
                       }`}
                     >
-                      <span className="font-semibold">
+                      <span className="font-medium">
                         {item.label === "Copy email address" && copied ? "Copied!" : item.label}
                       </span>
-                      {item.hint && <span className="shrink-0 truncate text-sm text-muted-foreground">{item.hint}</span>}
+                      {item.hint && <span className="t-meta shrink-0 truncate !text-[13px]">{item.hint}</span>}
                     </button>
                   </li>
                 );

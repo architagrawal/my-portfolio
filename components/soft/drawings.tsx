@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReduce } from "@/components/site/use-reduce";
 
 
 /* Rule-built report vs agent: the Survey Agents result, bars grow in on view */
 export function FindingsBars() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const bar = (w: number, delay: number) => ({
     initial: reduce ? false : { width: 0 },
     whileInView: { width: w },
@@ -28,7 +29,7 @@ export function FindingsBars() {
 
 /* Two tracks crossfading on the phrase, for AiJockey */
 export function Crossfade() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const wave = (phase: number, amp: (t: number) => number) =>
     Array.from({ length: 140 }, (_, n) => {
       const t = n / 139;
@@ -54,7 +55,7 @@ export function Crossfade() {
 
 /* Clan members trading ranks week to week: a small bump chart */
 export function BumpChart() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const ranks = [
     [1, 2, 1, 1, 2],
     [2, 1, 3, 2, 1],

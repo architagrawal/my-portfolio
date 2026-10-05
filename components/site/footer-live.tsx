@@ -27,14 +27,16 @@ export function FooterLive() {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-      <a href={`mailto:${EMAIL}`} className="link-grow pb-0.5 font-bold text-primary">
-        {EMAIL}
-      </a>
-      <button onClick={copy} className="rounded-lg bg-card px-2.5 py-1 text-xs font-bold text-muted-foreground shadow-soft transition-colors hover:text-primary">
-        {copied ? "Copied" : "Copy"}
-      </button>
-      {time && <span className="text-sm text-muted-foreground">It&apos;s {time} in Phoenix right now.</span>}
+    <div className="mt-3">
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+        <a href={`mailto:${EMAIL}`} className="ui-link t-h3 break-all !text-foreground transition-colors hover:!text-primary">
+          <span className="ui-link-label">{EMAIL}</span>
+        </a>
+        <button onClick={copy} aria-live="polite" className="text-[15px] font-semibold text-primary transition-opacity hover:opacity-80">
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+      <p className="t-meta mt-2 min-h-[1.5em]">{time && <>{time} in Phoenix right now</>}</p>
     </div>
   );
 }

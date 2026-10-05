@@ -1,3 +1,4 @@
+import { Backdrop } from "@/components/site/scene";
 import { SpotlightEffect } from "@/components/site/spotlight";
 import "./globals.css";
 import type { Metadata } from "next";
@@ -128,7 +129,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`light ${outfit.variable} ${spaceGrotesk.variable} ${caveat.variable} ${fraunces.variable} ${figtree.variable}`} suppressHydrationWarning>
+    <html lang="en" style={{ colorScheme: "dark" }} className={`light ${outfit.variable} ${spaceGrotesk.variable} ${caveat.variable} ${fraunces.variable} ${figtree.variable}`} suppressHydrationWarning>
       <head>
         {/* Performance optimizations */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -151,17 +152,19 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
-        {/* Pick a random theme before first paint, never the same one twice in a row */}
+        {/* Pick the painted scene before first paint, so its palette is there on the first frame.
+            Never the scene the last visit showed; ?scene=<id> forces one. The list matches SCENE_IDS. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=["midnight","graphite","ember","forest","steel"],l=sessionStorage.getItem("theme"),c=t.filter(function(x){return x!==l}),p=c[Math.floor(Math.random()*c.length)];sessionStorage.setItem("theme",p);var h=document.documentElement;h.dataset.theme=p;h.style.colorScheme=p==="steel"?"light":"dark"}catch(e){}`,
+            __html: `try{var t=["mesas","saguaros","aurora","ocean","blackhole","canyon","flock","reef"],f=new URLSearchParams(location.search).get("scene"),l=sessionStorage.getItem("paint-scene"),p;if(t.indexOf(f)>-1)p=f;else{var c=t.filter(function(x){return x!==l});p=c[Math.floor(Math.random()*c.length)]}sessionStorage.setItem("paint-scene",p);document.documentElement.dataset.scene=p}catch(e){}`,
           }}
         />
         <meta name="author" content="Archit Agrawal" />
         <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
-      <body className="antialiased font-sans">
-        {children}
+      <body className="antialiased font-sans bg-background text-foreground">
+        <Backdrop />
+        <div className="relative z-10">{children}</div>
         <SpotlightEffect />
       </body>
     </html>
