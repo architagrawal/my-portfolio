@@ -26,6 +26,16 @@ paint blackhole 130 0
 paint canyon 180 8
 paint flock 130 8
 paint reef 130 8
+paint balloons 130 8
+paint volcano 130 0
+paint phoenix 130 8
+paint balloon 130 8
+paint earthrise 130 0
+paint nightlake 130 0
+paint sedona 130 8
+paint saturn 130 0
+paint jellyfish 130 0
+paint lavender 130 8
 
 rm -rf "$SRC"
 ls -l "$OUT"

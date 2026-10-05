@@ -12,7 +12,17 @@ export type SceneId =
   | "blackhole"
   | "canyon"
   | "flock"
-  | "reef";
+  | "reef"
+  | "balloons"
+  | "volcano"
+  | "phoenix"
+  | "balloon"
+  | "earthrise"
+  | "nightlake"
+  | "sedona"
+  | "saturn"
+  | "jellyfish"
+  | "lavender";
 export type Layers = [far: string, mid: string, near: string];
 
 type Palette = { dark: [string, string, string]; hi: string };
@@ -26,6 +36,16 @@ export const SCENE_IDS: SceneId[] = [
   "canyon",
   "flock",
   "reef",
+  "balloons",
+  "volcano",
+  "phoenix",
+  "balloon",
+  "earthrise",
+  "nightlake",
+  "sedona",
+  "saturn",
+  "jellyfish",
+  "lavender",
 ];
 
 // sampled from the bottom third of each photo, darkest first
@@ -38,6 +58,16 @@ const PALETTES: Record<SceneId, Palette> = {
   canyon: { dark: ["#2a2e1c", "#3b4428", "#554935"], hi: "#b7a791" },
   flock: { dark: ["#1d0402", "#290b04", "#3c1707"], hi: "#f8c15b" },
   reef: { dark: ["#0a120f", "#382010", "#33392d"], hi: "#9ebaaf" },
+  balloons: { dark: ["#050304", "#060305", "#0d0304"], hi: "#8f7891" },
+  volcano: { dark: ["#050303", "#260302", "#210806"], hi: "#f89727" },
+  phoenix: { dark: ["#030101", "#0a0301", "#170a02"], hi: "#ffff84" },
+  balloon: { dark: ["#201e21", "#503c34", "#655951"], hi: "#9dc4da" },
+  earthrise: { dark: ["#000000", "#010101", "#030303"], hi: "#73758d" },
+  nightlake: { dark: ["#000000", "#010000", "#000003"], hi: "#5b7397" },
+  sedona: { dark: ["#221e0c", "#3c3018", "#443c21"], hi: "#a5a6a6" },
+  saturn: { dark: ["#000000", "#000002", "#000101"], hi: "#5f574c" },
+  jellyfish: { dark: ["#012430", "#002733", "#022737"], hi: "#b8a87f" },
+  lavender: { dark: ["#331138", "#5a1d48", "#652a51"], hi: "#dadbeb" },
 };
 
 /* seeded, so the server and every visit draw the same foreground */
@@ -118,6 +148,28 @@ const whale = (body: string, line: string) =>
 const fluke = (c: string) =>
   `<path d="M0 0V-34C-8-46-30-58-58-60C-40-50-20-42-6-30H6C20-42 40-50 58-60C30-58 8-46 0-34Z" fill="${c}"/>`;
 
+
+/* twinkling stars above y1; each fades on its own slow phase. .fg-stars dims them behind sub-page text */
+const stars = (r: () => number, n: number, y1: number) =>
+  `<g class="fg-stars">` +
+  Array.from(
+    { length: n },
+    () =>
+      `<circle class="fg-twinkle" style="animation-delay:${(-r() * 6).toFixed(2)}s" cx="${(r() * 1600).toFixed(0)}" cy="${(r() * y1).toFixed(0)}" r="${(0.8 + r() * 1.6).toFixed(1)}" fill="#fff"/>`,
+  ).join("") +
+  "</g>";
+
+/* a hot air balloon, envelope over a basket, swaying from its top */
+const balloon = (s: number, c1: string, c2: string) =>
+  `<g class="fg-sway"><ellipse cx="0" cy="0" rx="${26 * s}" ry="${32 * s}" fill="${c1}"/><path d="M${-26 * s} 0Q0 ${-40 * s} ${26 * s} 0Q0 ${18 * s} ${-26 * s} 0Z" fill="${c2}" opacity="0.5"/><path d="M${-12 * s} ${28 * s}L${-5 * s} ${44 * s}M${12 * s} ${28 * s}L${5 * s} ${44 * s}" stroke="#2a1a14" stroke-width="${1.2 * s}"/><rect x="${-6 * s}" y="${44 * s}" width="${12 * s}" height="${8 * s}" rx="${1.5 * s}" fill="#3a2418"/></g>`;
+
+/* a jellyfish, bell on top, so rising it leads with the bell; the bell pulses slowly */
+const jelly = (s: number, c: string) =>
+  `<g class="fg-pulse"><path d="M${-30 * s} 0C${-30 * s} ${-40 * s} ${30 * s} ${-40 * s} ${30 * s} 0C${15 * s} ${8 * s} ${-15 * s} ${8 * s} ${-30 * s} 0Z" fill="${c}" opacity="0.8"/>${[-18, -6, 6, 18].map((x) => `<path d="M${x * s} ${4 * s}c${-6 * s} ${30 * s} ${8 * s} ${50 * s} 0 ${90 * s}" stroke="${c}" stroke-width="${2 * s}" fill="none" opacity="0.6"/>`).join("")}</g>`;
+
+const rising = (x: number, y: number, dur: number, body: string) =>
+  `<g transform="translate(${x} ${y})"><g class="fg-ascend" style="animation-duration:${dur}s">${body}</g></g>`;
+
 const BUILDERS: Record<SceneId, (p: Palette, r: () => number) => Layers> = {
   mesas: (p, r) => desert(p, r),
   saguaros: (p, r) => desert(p, r),
@@ -171,6 +223,63 @@ const BUILDERS: Record<SceneId, (p: Palette, r: () => number) => Layers> = {
         `<path d="M${(i * 105 + r() * 40).toFixed(0)} 900c-20-60 10-90 0-${(120 + r() * 80).toFixed(0)}c20 40 40 60 30 ${(80 + r() * 40).toFixed(0)}" fill="${p.dark[0]}"/>`,
     ).join(""),
   ],
+  balloons: (p, r) => [
+    rising(1180, 700, 60, balloon(1.1, "#e8743b", "#ffd08a")),
+    "",
+    ground(r, 868, 16, p.dark[0], 4),
+  ],
+  volcano: (p, r) => [
+    Array.from(
+      { length: 26 },
+      () =>
+        `<circle class="fg-ember" style="--dx:${((r() - 0.4) * 160).toFixed(0)}px;animation-delay:${(-r() * 8).toFixed(2)}s;animation-duration:${(5 + r() * 4).toFixed(1)}s" cx="${(640 + r() * 320).toFixed(0)}" cy="${(760 + r() * 60).toFixed(0)}" r="${(1.5 + r() * 2.5).toFixed(1)}" fill="#ffb347"/>`,
+    ).join(""),
+    "",
+    ground(r, 872, 12, p.dark[0], 4),
+  ],
+  phoenix: (p, r) => [
+    `<g class="fg-flock" style="animation-duration:40s">${[[0, 220, 1.6], [80, 196, 1.2], [150, 240, 1.3]].map(([x, y, s]) => `<g transform="translate(${x} ${y})">${bird(s, "#3a2208")}</g>`).join("")}</g>`,
+    "",
+    ground(r, 870, 12, p.dark[0], 4),
+  ],
+  balloon: (p, r) => [
+    rising(1260, 760, 80, balloon(0.9, "#2f6fd6", "#f2d14a")),
+    "",
+    ground(r, 872, 12, p.dark[0], 4),
+  ],
+  earthrise: (_, r) => [
+    stars(r, 90, 900),
+    `<g transform="translate(0 170)"><g class="fg-orbit"><circle r="2.4" fill="#fff"/></g></g>`,
+    "",
+  ],
+  nightlake: (p, r) => [
+    stars(r, 110, 480),
+    // the streak points back along its own path, so it always leads with its head
+    `<g transform="translate(220 110)"><g class="fg-meteor"><line x1="0" y1="0" x2="-60" y2="-30" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g></g>`,
+    ground(r, 876, 8, p.dark[0], 3),
+  ],
+  sedona: (p, r) => [
+    "",
+    `<g transform="translate(1180 230)"><g class="fg-circle" style="animation-duration:18s"><g transform="translate(110 0)">${bird(2, "#2a1408")}</g></g></g>`,
+    ground(r, 860, 20, p.dark[0], 5) + shrub(r, 1420, 880, 34, p.dark[0]) + shrub(r, 220, 884, 26, p.dark[0]),
+  ],
+  saturn: (_, r) => [stars(r, 100, 900), "", ""],
+  jellyfish: () => [
+    [[1240, 1000, 0.9, 0], [1420, 1150, 0.6, -14], [1060, 1250, 0.5, -26]]
+      .map(([x, y, s, d]) => `<g transform="translate(${x} ${y})"><g class="fg-jelly" style="animation-delay:${d}s">${jelly(s, "#ffb37a")}</g></g>`)
+      .join(""),
+    "",
+    "",
+  ],
+  lavender: (p, r) => [
+    Array.from(
+      { length: 18 },
+      () =>
+        `<g transform="translate(${(400 + r() * 1300).toFixed(0)} 0)"><ellipse class="fg-petal" style="animation-delay:${(-r() * 16).toFixed(2)}s;animation-duration:${(12 + r() * 8).toFixed(1)}s" rx="5" ry="2.6" fill="#c9a3e6"/></g>`,
+    ).join(""),
+    "",
+    ground(r, 872, 10, p.dark[0], 4),
+  ],
 };
 
 function desert(p: Palette, r: () => number): Layers {
@@ -197,7 +306,7 @@ export function foreground(id: SceneId): Layers {
   // scenes without a full-width ground (canyon walls, reef fronds) fade into the floor instead of meeting it at a hard line
   const soft = id === "canyon" || id === "reef";
   const floor =
-    id === "blackhole"
+    id === "blackhole" || id === "earthrise" || id === "saturn" || id === "jellyfish"
       ? ""
       : (soft
           ? `<linearGradient id="fg-floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${fill}" stop-opacity="0"/><stop offset="1" stop-color="${fill}"/></linearGradient>`

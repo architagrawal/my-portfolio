@@ -156,7 +156,7 @@ export default function RootLayout({
             Never the scene the last visit showed; ?scene=<id> forces one. The list matches SCENE_IDS. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=["mesas","saguaros","aurora","ocean","blackhole","canyon","flock","reef"],f=new URLSearchParams(location.search).get("scene"),l=sessionStorage.getItem("paint-scene"),p;if(t.indexOf(f)>-1)p=f;else{var c=t.filter(function(x){return x!==l});p=c[Math.floor(Math.random()*c.length)]}sessionStorage.setItem("paint-scene",p);document.documentElement.dataset.scene=p}catch(e){}`,
+            __html: `try{var t=["mesas","saguaros","aurora","ocean","blackhole","canyon","flock","reef","balloons","volcano","phoenix","balloon","earthrise","nightlake","sedona","saturn","jellyfish","lavender"],f=new URLSearchParams(location.search).get("scene"),l=sessionStorage.getItem("paint-scene"),p;if(t.indexOf(f)>-1)p=f;else{var c=t.filter(function(x){return x!==l});p=c[Math.floor(Math.random()*c.length)]}sessionStorage.setItem("paint-scene",p);document.documentElement.dataset.scene=p}catch(e){}`,
           }}
         />
         <meta name="author" content="Archit Agrawal" />

@@ -444,6 +444,136 @@
   --shadow: 176 45% 2%;
   --sky-1: #0e1916; --sky-2: #244e49; --sky-3: #0b8484;
 }
+[data-scene="balloons"] {
+  --background: 300 25% 7%; --foreground: 357 25% 93%;
+  --card: 300 25% 11%; --card-foreground: 357 25% 93%;
+  --popover: 300 25% 11%; --popover-foreground: 357 25% 93%;
+  --primary: 357 79% 60%; --primary-foreground: 300 25% 7%; --primary-deep: 357 79% 34%;
+  --secondary: 265 40% 76%; --secondary-foreground: 300 25% 7%; --secondary-deep: 265 40% 34%;
+  --muted: 300 25% 15%; --muted-foreground: 357 18% 62%;
+  --accent: 300 25% 15%; --accent-foreground: 357 25% 93%;
+  --border: 300 21% 22%; --input: 300 21% 22%; --ring: 357 79% 60%;
+  --chart-1: 357 79% 60%; --chart-2: 265 40% 76%; --chart-5: 357 18% 62%;
+  --shadow: 300 25% 2%;
+  --sky-1: #462b3a; --sky-2: #271214; --sky-3: #261314;
+}
+[data-scene="volcano"] {
+  --background: 4 55% 7%; --foreground: 26 25% 93%;
+  --card: 4 55% 11%; --card-foreground: 26 25% 93%;
+  --popover: 4 55% 11%; --popover-foreground: 26 25% 93%;
+  --primary: 26 80% 55%; --primary-foreground: 4 55% 7%; --primary-deep: 26 80% 34%;
+  --secondary: 40 40% 76%; --secondary-foreground: 4 55% 7%; --secondary-deep: 40 40% 34%;
+  --muted: 4 55% 15%; --muted-foreground: 26 18% 62%;
+  --accent: 4 55% 15%; --accent-foreground: 26 25% 93%;
+  --border: 4 47% 22%; --input: 4 47% 22%; --ring: 26 80% 55%;
+  --chart-1: 26 80% 55%; --chart-2: 40 40% 76%; --chart-5: 26 18% 62%;
+  --shadow: 4 55% 2%;
+  --sky-1: #250403; --sky-2: #651703; --sky-3: #5f3412;
+}
+[data-scene="phoenix"] {
+  --background: 30 30% 7%; --foreground: 42 25% 93%;
+  --card: 30 30% 11%; --card-foreground: 42 25% 93%;
+  --popover: 30 30% 11%; --popover-foreground: 42 25% 93%;
+  --primary: 42 85% 55%; --primary-foreground: 30 30% 7%; --primary-deep: 42 85% 34%;
+  --secondary: 25 40% 76%; --secondary-foreground: 30 30% 7%; --secondary-deep: 25 40% 34%;
+  --muted: 30 30% 15%; --muted-foreground: 42 18% 62%;
+  --accent: 30 30% 15%; --accent-foreground: 42 25% 93%;
+  --border: 30 26% 22%; --input: 30 26% 22%; --ring: 42 85% 55%;
+  --chart-1: 42 85% 55%; --chart-2: 25 40% 76%; --chart-5: 42 18% 62%;
+  --shadow: 30 30% 2%;
+  --sky-1: #fef668; --sky-2: #dfba3c; --sky-3: #392607;
+}
+[data-scene="balloon"] {
+  --background: 258 19% 7%; --foreground: 200 25% 93%;
+  --card: 258 19% 11%; --card-foreground: 200 25% 93%;
+  --popover: 258 19% 11%; --popover-foreground: 200 25% 93%;
+  --primary: 200 85% 55%; --primary-foreground: 258 19% 7%; --primary-deep: 200 85% 34%;
+  --secondary: 8 40% 76%; --secondary-foreground: 258 19% 7%; --secondary-deep: 8 40% 34%;
+  --muted: 258 19% 15%; --muted-foreground: 200 18% 62%;
+  --accent: 258 19% 15%; --accent-foreground: 200 25% 93%;
+  --border: 258 16% 22%; --input: 258 16% 22%; --ring: 200 85% 55%;
+  --chart-1: 200 85% 55%; --chart-2: 8 40% 76%; --chart-5: 200 18% 62%;
+  --shadow: 258 19% 2%;
+  --sky-1: #4d6a8f; --sky-2: #36709c; --sky-3: #627076;
+}
+[data-scene="earthrise"] {
+  --background: 220 30% 7%; --foreground: 215 25% 93%;
+  --card: 220 30% 11%; --card-foreground: 215 25% 93%;
+  --popover: 220 30% 11%; --popover-foreground: 215 25% 93%;
+  --primary: 215 55% 56%; --primary-foreground: 220 30% 7%; --primary-deep: 215 55% 34%;
+  --secondary: 200 40% 76%; --secondary-foreground: 220 30% 7%; --secondary-deep: 200 40% 34%;
+  --muted: 220 30% 15%; --muted-foreground: 215 18% 62%;
+  --accent: 220 30% 15%; --accent-foreground: 215 25% 93%;
+  --border: 220 26% 22%; --input: 220 26% 22%; --ring: 215 55% 56%;
+  --chart-1: 215 55% 56%; --chart-2: 200 40% 76%; --chart-5: 215 18% 62%;
+  --shadow: 220 30% 2%;
+  --sky-1: #282a3f; --sky-2: #222433; --sky-3: #262626;
+}
+[data-scene="nightlake"] {
+  --background: 0 0% 7%; --foreground: 210 25% 93%;
+  --card: 0 0% 11%; --card-foreground: 210 25% 93%;
+  --popover: 0 0% 11%; --popover-foreground: 210 25% 93%;
+  --primary: 210 65% 55%; --primary-foreground: 0 0% 7%; --primary-deep: 210 65% 34%;
+  --secondary: 230 40% 76%; --secondary-foreground: 0 0% 7%; --secondary-deep: 230 40% 34%;
+  --muted: 0 0% 15%; --muted-foreground: 210 18% 62%;
+  --accent: 0 0% 15%; --accent-foreground: 210 25% 93%;
+  --border: 0 0% 22%; --input: 0 0% 22%; --ring: 210 65% 55%;
+  --chart-1: 210 65% 55%; --chart-2: 230 40% 76%; --chart-5: 210 18% 62%;
+  --shadow: 0 0% 2%;
+  --sky-1: #214573; --sky-2: #344a65; --sky-3: #171b20;
+}
+[data-scene="sedona"] {
+  --background: 20 40% 7%; --foreground: 18 25% 93%;
+  --card: 20 40% 11%; --card-foreground: 18 25% 93%;
+  --popover: 20 40% 11%; --popover-foreground: 18 25% 93%;
+  --primary: 18 55% 55%; --primary-foreground: 20 40% 7%; --primary-deep: 18 55% 34%;
+  --secondary: 205 40% 76%; --secondary-foreground: 20 40% 7%; --secondary-deep: 205 40% 34%;
+  --muted: 20 40% 15%; --muted-foreground: 18 18% 62%;
+  --accent: 20 40% 15%; --accent-foreground: 18 25% 93%;
+  --border: 20 34% 22%; --input: 20 34% 22%; --ring: 18 55% 55%;
+  --chart-1: 18 55% 55%; --chart-2: 205 40% 76%; --chart-5: 18 18% 62%;
+  --shadow: 20 40% 2%;
+  --sky-1: #637688; --sky-2: #644e3c; --sky-3: #524628;
+}
+[data-scene="saturn"] {
+  --background: 30 20% 7%; --foreground: 38 25% 93%;
+  --card: 30 20% 11%; --card-foreground: 38 25% 93%;
+  --popover: 30 20% 11%; --popover-foreground: 38 25% 93%;
+  --primary: 38 85% 55%; --primary-foreground: 30 20% 7%; --primary-deep: 38 85% 34%;
+  --secondary: 30 40% 76%; --secondary-foreground: 30 20% 7%; --secondary-deep: 30 40% 34%;
+  --muted: 30 20% 15%; --muted-foreground: 38 18% 62%;
+  --accent: 30 20% 15%; --accent-foreground: 38 25% 93%;
+  --border: 30 17% 22%; --input: 30 17% 22%; --ring: 38 85% 55%;
+  --chart-1: 38 85% 55%; --chart-2: 30 40% 76%; --chart-5: 38 18% 62%;
+  --shadow: 30 20% 2%;
+  --sky-1: #1a1917; --sky-2: #151310; --sky-3: #131110;
+}
+[data-scene="jellyfish"] {
+  --background: 197 55% 7%; --foreground: 197 25% 93%;
+  --card: 197 55% 11%; --card-foreground: 197 25% 93%;
+  --popover: 197 55% 11%; --popover-foreground: 197 25% 93%;
+  --primary: 197 85% 55%; --primary-foreground: 197 55% 7%; --primary-deep: 197 85% 34%;
+  --secondary: 28 40% 76%; --secondary-foreground: 197 55% 7%; --secondary-deep: 28 40% 34%;
+  --muted: 197 55% 15%; --muted-foreground: 197 18% 62%;
+  --accent: 197 55% 15%; --accent-foreground: 197 25% 93%;
+  --border: 197 47% 22%; --input: 197 47% 22%; --ring: 197 85% 55%;
+  --chart-1: 197 85% 55%; --chart-2: 28 40% 76%; --chart-5: 197 18% 62%;
+  --shadow: 197 55% 2%;
+  --sky-1: #092a38; --sky-2: #495951; --sky-3: #183b47;
+}
+[data-scene="lavender"] {
+  --background: 285 35% 7%; --foreground: 285 25% 93%;
+  --card: 285 35% 11%; --card-foreground: 285 25% 93%;
+  --popover: 285 35% 11%; --popover-foreground: 285 25% 93%;
+  --primary: 285 73% 61%; --primary-foreground: 285 35% 7%; --primary-deep: 285 73% 34%;
+  --secondary: 45 40% 76%; --secondary-foreground: 285 35% 7%; --secondary-deep: 45 40% 34%;
+  --muted: 285 35% 15%; --muted-foreground: 285 18% 62%;
+  --accent: 285 35% 15%; --accent-foreground: 285 25% 93%;
+  --border: 285 30% 22%; --input: 285 30% 22%; --ring: 285 73% 61%;
+  --chart-1: 285 73% 61%; --chart-2: 45 40% 76%; --chart-5: 285 18% 62%;
+  --shadow: 285 35% 2%;
+  --sky-1: #8f8d9e; --sky-2: #81466e; --sky-3: #673158;
+}
 
 .rounded-xl { border-radius: calc(0.75rem * var(--r)); }
 .rounded-2xl { border-radius: calc(1rem * var(--r)); }
@@ -511,8 +641,13 @@
 [data-scene="flock"] { --paint-dim: 0.2; }
 [data-scene="mesas"], [data-scene="reef"] { --paint-dim: 0.15; }
 [data-scene="canyon"], [data-scene="saguaros"] { --paint-dim: 0.1; }
+[data-scene="phoenix"] { --paint-dim: 0.35; }
+[data-scene="earthrise"], [data-scene="saturn"] { --paint-dim: 0.15; }
+[data-scene="nightlake"] { --paint-dim: 0.1; }
 /* the home hero carries no text, so the painting shows at full colour there */
 html:has(#intro) { --paint-dim: 0; }
+/* starfields stay bright on the home hero but fade behind sub-page header text */
+html:not(:has(#intro)) .fg-stars { opacity: 0.3; }
 /* the nav reads over the sky */
 .backdrop::after { content: ""; position: absolute; inset: 0 0 auto; height: 9rem; background: linear-gradient(hsl(var(--background) / 0.85), hsl(var(--background) / 0.5) 45%, transparent); }
 html:has(#intro) .backdrop::after { height: 9rem; background: linear-gradient(hsl(var(--background) / 0.82), hsl(var(--background) / 0.72) 30%, hsl(var(--background) / 0.45) 55%, hsl(var(--background) / 0.18) 78%, hsl(var(--background) / 0.05) 92%, transparent); }
@@ -648,6 +783,29 @@ html { position: relative; }
   0%, 86% { opacity: 0; transform: scale(0.3); }
   88% { opacity: 0.8; }
   100% { opacity: 0; transform: scale(1.8); }
+}
+/* round 4 scenes: stars, embers, balloons, a meteor, jellyfish and petals. Each moves along
+   its own heading and eases both ways, so nothing snaps or pumps. */
+.fg-twinkle { animation: fg-twinkle 6s ease-in-out infinite alternate; }
+@keyframes fg-twinkle { from { opacity: 0.25; } to { opacity: 0.85; } }
+.fg-ascend { animation: fg-ascend 60s linear infinite; }
+@keyframes fg-ascend { from { transform: translate(0, 0); opacity: 0; } 5% { opacity: 1; } 92% { opacity: 1; } to { transform: translate(260px, -620px); opacity: 0; } }
+.fg-sway { animation: fg-sway 7s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 0; }
+@keyframes fg-sway { from { transform: rotate(-1.5deg); } to { transform: rotate(1.5deg); } }
+.fg-ember { animation: fg-ember 7s ease-out infinite; opacity: 0; }
+@keyframes fg-ember { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.9; } 100% { transform: translate(var(--dx), -380px); opacity: 0; } }
+.fg-orbit { animation: fg-orbit 30s linear infinite; }
+@keyframes fg-orbit { from { transform: translateX(-100px); } to { transform: translateX(1700px); } }
+.fg-meteor { animation: fg-meteor 14s ease-in infinite; opacity: 0; }
+@keyframes fg-meteor { 0%, 88% { transform: translate(0, 0); opacity: 0; } 89% { opacity: 1; } 96% { transform: translate(360px, 180px); opacity: 0; } 100% { opacity: 0; } }
+.fg-jelly { animation: fg-jelly 40s linear infinite; }
+@keyframes fg-jelly { from { transform: translate(0, 0); } to { transform: translate(-60px, -1300px); } }
+.fg-pulse { animation: fg-pulse 3.4s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 30%; }
+@keyframes fg-pulse { from { transform: scale(1, 1); } to { transform: scale(0.88, 1.06); } }
+.fg-petal { animation: fg-petal 16s linear infinite; opacity: 0; }
+@keyframes fg-petal { from { transform: translate(0, -60px) rotate(0deg); opacity: 0; } 10% { opacity: 0.9; } 90% { opacity: 0.9; } to { transform: translate(-320px, 960px) rotate(540deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .fg-ember, .fg-meteor, .fg-petal { opacity: 0; }
 }
 
 /* ------------------------------------------------------------------
