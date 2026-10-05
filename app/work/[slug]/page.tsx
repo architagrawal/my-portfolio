@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { roleBySlug, roles } from "@/lib/data/experience";
 import { PageHeader, Shell } from "@/components/site/shell";
 import { Viz } from "@/components/soft/viz";
-import { Chips, MetaRow, NextLink, Points, Section } from "@/components/site/ui";
+import { Chips, MetaRow, MoreDetail, NextLink, Points, Section } from "@/components/site/ui";
 
 export function generateStaticParams() {
   return roles.map((r) => ({ slug: r.slug }));
@@ -38,6 +38,12 @@ export default function RolePage({ params }: { params: { slug: string } }) {
       <Section title="Highlights" count={r.achievements.length}>
         <Points items={r.achievements.map((a) => a.text)} />
       </Section>
+
+      {r.more.length > 0 && (
+        <Section title="More detail">
+          <MoreDetail groups={r.more} />
+        </Section>
+      )}
 
       <Section title="Tools">
         <Chips items={r.technologies} />

@@ -141,3 +141,25 @@ export function Stats({ items, className = "" }: { items: [ReactNode, string][];
     </dl>
   );
 }
+
+/* Secondary detail, collapsed by default. Native <details>, so it toggles from the keyboard,
+   its text stays in the DOM, and find-in-page opens it. Styles: .ui-more in globals.css. */
+export function MoreDetail({ groups }: { groups: { label: string; items: string[] }[] }) {
+  const n = groups.reduce((s, g) => s + g.items.length, 0);
+  return (
+    <details className="ui-more">
+      <summary className="ui-link">
+        <span className="ui-link-label">All {n} points</span>
+        <svg aria-hidden="true" className="ui-more-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </summary>
+      {groups.map((g) => (
+        <div key={g.label} className="mt-10 first-of-type:mt-8">
+          <p className="t-eyebrow mb-5">{g.label}</p>
+          <Points items={g.items} />
+        </div>
+      ))}
+    </details>
+  );
+}
