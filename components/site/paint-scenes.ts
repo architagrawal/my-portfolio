@@ -186,9 +186,9 @@ function desert(p: Palette, r: () => number): Layers {
   ];
 }
 
-/* Page content starts about 140 units above the frame's bottom edge, so the whole scene is
-   lifted by LIFT and the near layer gets a solid floor underneath (space has none). */
-const LIFT = 150;
+/* The foreground sits on the frame's bottom edge, as a thin strip under the painting.
+   The near layer gets a sliver of solid floor so no sky shows below it (space has none). */
+const LIFT = 0;
 
 export function foreground(id: SceneId): Layers {
   const p = PALETTES[id];

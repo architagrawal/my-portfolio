@@ -511,8 +511,11 @@
 [data-scene="flock"] { --paint-dim: 0.2; }
 [data-scene="mesas"], [data-scene="reef"] { --paint-dim: 0.15; }
 [data-scene="canyon"], [data-scene="saguaros"] { --paint-dim: 0.1; }
+/* the home hero carries no text, so the painting shows at full colour there */
+html:has(#intro) { --paint-dim: 0; }
 /* the nav reads over the sky */
 .backdrop::after { content: ""; position: absolute; inset: 0 0 auto; height: 9rem; background: linear-gradient(hsl(var(--background) / 0.85), hsl(var(--background) / 0.5) 45%, transparent); }
+html:has(#intro) .backdrop::after { height: 9rem; background: linear-gradient(hsl(var(--background) / 0.82), hsl(var(--background) / 0.72) 30%, hsl(var(--background) / 0.45) 55%, hsl(var(--background) / 0.18) 78%, hsl(var(--background) / 0.05) 92%, transparent); }
 .site-nav { text-shadow: 0 0 6px hsl(var(--background) / 0.8), 0 0 16px hsl(var(--background) / 0.6); }
 /* Sub-page header shade: a wide gradient in the page colour centred near the band's bottom-left corner,
    fading over most of the band, so it has no edge to see. It reaches below the band so it
