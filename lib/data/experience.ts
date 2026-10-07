@@ -50,7 +50,8 @@ export const roles: Role[] = [
     "featured": [
       0,
       1,
-      2
+      2,
+      6
     ],
     "achievements": [
       {
@@ -70,6 +71,9 @@ export const roles: Role[] = [
       },
       {
         "text": "Target architecture: authored the plan for the production platform that succeeds it, with six documents, 80 logged decisions, and four layers gated on exit criteria rather than dates."
+      },
+      {
+        "text": "EdSpace: built in two days for the EdPlus hackathon, a live office map with room booking, desk claiming, walking routes and a 3D desk per person. Shown to leadership up to the CEO and chairman, and going live for 500+ people."
       }
     ],
     "technologies": [

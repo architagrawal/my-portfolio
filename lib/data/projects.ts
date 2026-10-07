@@ -9,6 +9,8 @@ export interface Project {
   description: string;
   highlights: string[];
   visual?: "agents" | "appshot" | "audio" | "analytics";
+  /** the screenshot an "appshot" visual shows */
+  image?: string;
   caseStudyUrl?: string;
   achievements: string[];
   technologies: string[];
@@ -96,6 +98,27 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "edspace",
+    title: "EdSpace",
+    subtitle: "Office Map & Booking",
+    date: "October 2026",
+    tier: "featured",
+    description:
+      "A live map of the EdPlus office: find your people, book a room in three taps, walk to any desk, and make your own desk in 3D. Built in two days for the EdPlus hackathon, shown to leadership up to the CEO and chairman, and going live for 500+ people.",
+    highlights: [
+      "The whole floor, live: 37 rooms, 320 desks and 16 team areas traced from the real plan, with seats showing who is in and rooms showing who booked them.",
+      "Book in three taps: pick a time on the day's strip, invite people like Outlook, and a room nobody checks in to within 10 minutes frees itself.",
+      "Walking routes from a grid pathfinder over the walkable floor only, so a route never cuts through a room, a desk pod or a gap narrower than a person.",
+      "A 3D desk per person in three.js: decorate it, pin notes and photos, and put headphones on the desk to go Do not disturb.",
+      "Zero runtime dependencies in the API, Node's built-in HTTP server and SQLite, with 240 tests across the API, web app and shared floor model.",
+    ],
+    visual: "appshot",
+    image: "/edspace/card.webp",
+    caseStudyUrl: "/work/edspace",
+    achievements: [],
+    technologies: ["JavaScript", "Vite", "Leaflet", "three.js", "Node.js", "SQLite", "Web Awesome", "Radix Colors"],
+  },
+  {
     slug: "prismsplit",
     viz: {"kind": "receipt", "caption": "Item-level split in integer cents, illustrative", "people": ["You", "Sam", "Ana"], "items": [{"name": "Steak", "cents": 2800, "who": [0]}, {"name": "Salad", "cents": 1200, "who": [1]}, {"name": "Fries to share", "cents": 700, "who": [0, 1, 2]}, {"name": "Wine", "cents": 3600, "who": [0, 2]}]},
     title: "PrismSplit",
@@ -111,6 +134,7 @@ export const projects: Project[] = [
       "Maestro E2E flows and enforced coverage thresholds guard every release build.",
     ],
     visual: "appshot",
+    image: "/prismsplit-app.jpg",
     achievements: [
       "Shipped a web target alongside the native app: 116 .web.tsx surfaces sharing the same stores and services, with keyboard focus rings, pointer affordances and claim-link visitors kept out of signed-in chrome.",
       "Built the insights surface: personal and group spend charts computed server-side through Postgres RPCs (get_user_insights, versioned to v3), a ranked people list that replaced a balance bar chart, an activity heatmap, a category breakdown, a spending radar and a trend line.",

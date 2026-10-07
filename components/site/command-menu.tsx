@@ -33,6 +33,7 @@ export function CommandMenu() {
       { group: "Pages", label: "Lab notebook", run: go("/lab") },
       { group: "Pages", label: "About", run: go("/about") },
       { group: "Pages", label: "Survey Agents case study", run: go("/work/survey-agents") },
+      { group: "Pages", label: "EdSpace case study", run: go("/work/edspace") },
       {
         group: "Contact",
         label: "Copy email address",

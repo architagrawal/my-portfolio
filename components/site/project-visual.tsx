@@ -26,10 +26,10 @@ export function ProjectVisual({ p, tall = false }: { p: Project; tall?: boolean 
 }
 
 function Still({ p, h }: { p: Project; h: string }) {
-  if (p.visual === "appshot") {
+  if (p.visual === "appshot" && p.image) {
     return (
       <Image
-        src="/prismsplit-app.jpg"
+        src={p.image}
         alt={`${p.title} app screens`}
         width={1000}
         height={620}
