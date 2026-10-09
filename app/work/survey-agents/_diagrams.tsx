@@ -636,3 +636,223 @@ export function ToolMatrix() {
     </div>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* 6. System architecture, redrawn from diagrams/system-architecture   */
+/* ------------------------------------------------------------------ */
+
+/** A joining line with no arrowhead, for edges that merge into a shared bus. */
+function Join({ d }: { d: string }) {
+  return <path d={d} fill="none" stroke={C.edge} strokeWidth="1" />;
+}
+
+const WRITE_STAGES: { id: string; lines: string[]; kind: "solid" | "gate" | "hot" }[] = [
+  { id: "read", lines: ["frame, repair,", "retype, map", "model if unsure"], kind: "hot" },
+  { id: "codebook gate", lines: ["taxonomy owner", "auto in the POC"], kind: "gate" },
+  { id: "study", lines: ["enrich a thin", "codebook"], kind: "hot" },
+  { id: "label", lines: ["Distributed Map", "50 rows a batch", "64 lanes"], kind: "hot" },
+  { id: "review", lines: ["drop weak codes,", "queue for a person"], kind: "hot" },
+  { id: "check", lines: ["coverage, invalid", "codes, conflicts"], kind: "solid" },
+  { id: "count", lines: ["facts, aggregates,", "suggestions"], kind: "solid" },
+  { id: "publish gate", lines: ["to the read side"], kind: "gate" },
+];
+
+export function SystemArchitecture() {
+  const sx = (i: number) => 60 + i * 138;
+  const SW = 122;
+  return (
+    <Frame
+      label="System architecture: the web app and API, a write path from upload to facts on Step Functions, a read path from question to cited chart, state on S3, model services, and ports that run the same code on a laptop and on AWS"
+      caption="diagrams/system-architecture, highlighted boxes call a model, everything else is deterministic code"
+      viewBox="0 0 1200 1010"
+      minWidth={1000}
+    >
+      {/* 1 experience */}
+      <BandFrame x={40} y={30} w={1120} h={120} label="EXPERIENCE" />
+      <Box x={60} y={66} w={140} h={64} id="browser" lines={["analyst"]} kind="term" />
+      <Box x={240} y={66} w={300} h={64} id="web app, Nuxt 4" lines={["upload, dashboard, chart builder,", "review queue, codebooks, exports"]} />
+      <Box x={580} y={66} w={330} h={64} id="API, NestJS" lines={["uploads, jobs, analysis, codebooks,", "comparisons, exports, governance"]} />
+      <Box x={950} y={66} w={190} h={64} id="CLI and benches" lines={["run, ask, chart,", "eval, bench:free"]} />
+      <Edge d="M 200 98 H 236" />
+      <Label x={218} y={90} anchor="middle">HTTPS</Label>
+      <Edge d="M 540 98 H 576" />
+      <Label x={558} y={90} anchor="middle">REST</Label>
+
+      {/* 2 write path */}
+      <BandFrame x={40} y={180} w={1120} h={260} label="WRITE PATH: UPLOAD TO FACTS, PER FILE, MINUTES" />
+      <Label x={60} y={226}>graph/survey-coding-v1.json → Step Functions ASL, one Lambda per stage</Label>
+      {WRITE_STAGES.slice(0, -1).map((s, i) => (
+        <Edge key={s.id} d={`M ${sx(i) + SW} 284 H ${sx(i + 1) - 4}`} />
+      ))}
+      {WRITE_STAGES.map((s, i) => (
+        <Box key={s.id} x={sx(i)} y={242} w={SW} h={84} id={s.id} lines={s.lines} kind={s.kind} />
+      ))}
+      <Edge d={`M ${sx(5) + SW / 2} 326 V 364 H ${sx(3) + SW / 2} V 330`} hot />
+      <Label x={(sx(3) + sx(5)) / 2 + SW / 2} y={384} anchor="middle" hot>
+        repairable → re-label flagged rows, max 2
+      </Label>
+      <Box x={60} y={374} w={230} h={40} id="upload: CSV + codebook" kind="term" />
+      <Edge d={`M ${sx(0) + SW / 2} 374 V 330`} />
+      <Label x={320} y={424}>every stage returns one StageResult: pass | repairable | halt, tool calls, cost, time</Label>
+
+      {/* 3 read path */}
+      <BandFrame x={40} y={470} w={1120} h={200} label="READ PATH: QUESTION TO CITED CHART, PER QUESTION, MS TO S" />
+      <Box x={60} y={516} w={160} h={40} id="question" kind="term" />
+      <Box x={60} y={590} w={160} h={40} id="dashboard panel" kind="term" />
+      <Box x={260} y={505} w={160} h={70} id="bind" lines={["question → plan,", "cached by hash"]} kind="hot" />
+      <Box x={450} y={505} w={170} h={70} id="validate + scope" lines={["grammar, denominators"]} />
+      <Box x={650} y={505} w={160} h={70} id="execute" lines={["facts, else DuckDB"]} />
+      <Box x={840} y={505} w={150} h={70} id="visualize" lines={["mark by rule,", "Vega-Lite spec"]} />
+      <Box x={1020} y={505} w={120} h={70} id="narrate" lines={["cite or strip"]} kind="hot" />
+      <Edge d="M 220 536 H 256" />
+      <Edge d="M 420 540 H 446" />
+      <Edge d="M 620 540 H 646" />
+      <Edge d="M 810 540 H 836" />
+      <Edge d="M 990 540 H 1016" />
+      <Edge d="M 220 610 H 535 V 579" dashed />
+      <Label x={240} y={602}>no model, ~20 ms, $0</Label>
+      <Label x={560} y={640}>a plan the data cannot satisfy returns a typed refusal or a question, never a zero</Label>
+
+      {/* 4 state */}
+      <BandFrame x={40} y={700} w={1120} h={140} label="STATE" />
+      <Box x={60} y={740} w={255} h={78} id="S3 artifacts" lines={["per run: payload 14–178 MB,", "facts ~50 KB, receipts, passport"]} kind="store" />
+      <Box x={335} y={740} w={255} h={78} id="FactStore port" lines={["local and S3, one 10-test suite,", "run, dimension, key, value"]} kind="store" />
+      <Box x={610} y={740} w={255} h={78} id="caches" lines={["question → plan by hash,", "the one non-deterministic step"]} kind="store" />
+      <Box x={885} y={740} w={255} h={78} id="definitions in git" lines={["codebooks, metrics, skills, ADRs,", "CI lints every metric"]} kind="store" />
+
+      {/* 5 model services, 6 ports */}
+      <BandFrame x={40} y={870} w={540} h={120} label="MODEL SERVICES" />
+      <Box x={60} y={908} w={250} h={64} id="Bedrock Converse" lines={["a model per stage,", "one forced tool call"]} kind="hot" />
+      <Box x={325} y={908} w={235} h={64} id="AgentCore Runtime" lines={["orchestrator harness"]} kind="hot" />
+      <BandFrame x={600} y={870} w={560} h={120} label="PORTS: SAME CODE, LAPTOP OR AWS" />
+      <Box x={614} y={908} w={124} h={64} id="provider" lines={["llama.cpp |", "Bedrock"]} />
+      <Box x={748} y={908} w={124} h={64} id="storage" lines={["local | S3"]} />
+      <Box x={882} y={908} w={124} h={64} id="runtime" lines={["local graph |", "Step Functions"]} />
+      <Box x={1016} y={908} w={124} h={64} id="pipeline" lines={["direct |", "Lambda, AgentCore"]} />
+    </Frame>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. The AI pipeline: five layers passing typed JSON                  */
+/* ------------------------------------------------------------------ */
+
+export function AiPipeline() {
+  return (
+    <Frame
+      label="The AI pipeline: semantics, labelling, analysis, visualization and dashboard layers, each passing typed JSON to the next"
+      caption="diagrams/ai-architecture, page 1, a model chooses and words things, code computes, checks and replays"
+      viewBox="0 0 1200 470"
+      minWidth={960}
+    >
+      <Box x={60} y={110} w={200} h={96} id="Semantics" lines={["file → survey model", "6 model calls, 3 valves", "Step Functions, Bedrock"]} />
+      <Box x={350} y={110} w={200} h={96} id="Labelling" lines={["a code for every response", "fan-out, 1 valve, repair", "Distributed Map, Lance"]} />
+      <Box x={640} y={110} w={200} h={96} id="Analysis" lines={["plan → cited facts", "bind, check, correct, split", "8 valves, DuckDB"]} kind="hot" />
+      <Box x={930} y={110} w={200} h={96} id="Visualization" lines={["facts → ChartSpec", "rules choose, model judges", "Vega-Lite in Nuxt"]} />
+      <Box x={640} y={340} w={200} h={96} id="Dashboard" lines={["candidates → ranked panels", "filtered, deduplicated", "Lambda, S3 facts"]} />
+
+      <Edge d="M 260 158 H 346" />
+      <Label x={305} y={150} anchor="middle">SurveyModel</Label>
+      <Edge d="M 550 158 H 636" />
+      <Label x={595} y={150} anchor="middle">Fact[]</Label>
+      <Edge d="M 840 158 H 926" hot />
+      <Label x={885} y={136} anchor="middle" hot>Fact[] +</Label>
+      <Label x={885} y={150} anchor="middle" hot>passport</Label>
+
+      <Edge d="M 160 110 V 70 H 740 V 106" />
+      <Label x={450} y={62} anchor="middle">analyst Plan</Label>
+      <Edge d="M 160 206 V 388 H 636" />
+      <Label x={400} y={380} anchor="middle">analyst Plans</Label>
+      <Edge d="M 715 340 V 210" />
+      <Label x={707} y={280} anchor="end">Plan, no model</Label>
+      <Edge d="M 765 206 V 336" />
+      <Label x={773} y={280}>Fact[]</Label>
+      <Edge d="M 840 388 H 1030 V 210" />
+      <Label x={935} y={380} anchor="middle">panels</Label>
+    </Frame>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. The settle path: every typed question, checked before shown     */
+/* ------------------------------------------------------------------ */
+
+export function SettlePath() {
+  const col = (i: number) => 39 + i * 142;
+  const cx = (i: number) => col(i) + 64;
+  const W = 128;
+  const BUS = 1182;
+  return (
+    <Frame
+      label="The settle path: bind a question to a plan, execute it, read the plan back in words and check that reading; a stopped plan is corrected once, then split, asked of the reader or refused; a plan the grammar cannot express goes to a relational core whose two writers must agree"
+      caption="diagrams/ai-architecture, page 5, redrawn and simplified, highlighted boxes call a model"
+      viewBox="0 0 1200 770"
+      minWidth={1000}
+    >
+      {/* what every step reads */}
+      <Box x={col(1)} y={40} w={W} h={62} id="examples" lines={["verified answers,", "other files only"]} kind="store" />
+      <Box x={col(3)} y={40} w={col(5) + W - col(3)} h={62} id="semantic layer" lines={["labels, units, value meanings, trees,", "every fact with its source"]} kind="store" />
+      <Edge d={`M ${cx(1)} 102 V 146`} />
+      {[3, 4, 5].map((i) => (
+        <Edge key={i} d={`M ${cx(i)} 102 V 146`} />
+      ))}
+
+      {/* main line */}
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <Edge key={i} d={`M ${col(i) + W} 192 H ${col(i + 1) - 4}`} hot={i === 4} />
+      ))}
+      <Box x={col(0)} y={150} w={W} h={84} id="question" kind="term" />
+      <Box x={col(1)} y={150} w={W} h={84} id="bind" lines={["predict values,", "pick by agreement"]} kind="hot" />
+      <Box x={col(2)} y={150} w={W} h={84} id="legal?" lines={["plan valid", "on this file"]} kind="gate" />
+      <Box x={col(3)} y={150} w={W} h={84} id="execute" lines={["allow-listed SQL,", "DuckDB, tests,", "causal effects"]} />
+      <Box x={col(4)} y={150} w={W} h={84} id="read back" lines={["the plan in words"]} />
+      <Box x={col(5)} y={150} w={W} h={84} id="check" lines={["judge the reading,", "never reasons"]} kind="hot" />
+      <Box x={col(6)} y={150} w={W} h={84} id="passes?" kind="gate" />
+      <Box x={col(7)} y={150} w={W} h={84} id="answer" lines={["numbers cite facts"]} kind="term" />
+
+      {/* a stopped plan */}
+      <Edge d={`M ${cx(6)} 234 V 316`} />
+      <Label x={cx(6) + 8} y={280}>no</Label>
+      <Box x={col(6)} y={320} w={W} h={70} id="objections" lines={["a claim each,", "settled on the file"]} kind="hot" />
+      <Box x={col(5)} y={320} w={W} h={70} id="rounds left?" lines={["one correction"]} kind="gate" />
+      <Box x={col(4)} y={320} w={W} h={70} id="rebind" lines={["problems named"]} kind="hot" />
+      <Edge d={`M ${col(6)} 355 H ${col(5) + W + 4}`} />
+      <Edge d={`M ${col(5)} 355 H ${col(4) + W + 4}`} />
+      <Edge d={`M ${cx(4)} 320 V 280 H ${cx(5)} V 238`} hot />
+      <Label x={(cx(4) + cx(5)) / 2} y={272} anchor="middle" hot>check again</Label>
+
+      {/* when it still fails */}
+      <Edge d={`M ${cx(5)} 390 V 456`} />
+      <Label x={cx(5) + 8} y={428}>no</Label>
+      <Box x={col(3)} y={460} w={W} h={70} id="refuse" lines={["neither: not", "the question asked"]} kind="term" />
+      <Box x={col(4)} y={460} w={W} h={70} id="ask the reader" lines={["their choice:", "which column?"]} kind="term" />
+      <Box x={col(5)} y={460} w={W} h={70} id="why not?" kind="gate" />
+      <Box x={col(6)} y={460} w={W} h={70} id="split" lines={["figures combined:", "one each, then code"]} />
+      <Edge d={`M ${col(5) + W} 495 H ${col(6) - 4}`} />
+      <Edge d={`M ${col(5)} 495 H ${col(4) + W + 4}`} />
+      <Edge d={`M ${cx(5)} 530 V 560 H ${cx(3)} V 534`} />
+      <Join d={`M ${col(6) + W} 495 H ${BUS}`} />
+
+      {/* beyond the grammar: the relational core */}
+      <Edge d={`M ${cx(2)} 234 V 606`} />
+      <Label x={cx(2) + 8} y={420}>no: beyond</Label>
+      <Label x={cx(2) + 8} y={434}>the grammar</Label>
+      <Box x={col(2)} y={610} w={W} h={70} id="core" lines={["two writers,", "relational steps"]} kind="hot" />
+      <Box x={col(3)} y={610} w={W} h={70} id="reconcile" lines={["the two, by", "ingredients"]} />
+      <Box x={col(4)} y={610} w={W} h={70} id="agree?" kind="gate" />
+      <Box x={col(5)} y={610} w={W} h={70} id="written query" lines={["two SQL writers"]} kind="hot" />
+      <Box x={col(6)} y={610} w={W} h={70} id="agree?" kind="gate" />
+      <Box x={col(7)} y={610} w={W} h={70} id="refuse" lines={["say what's missing"]} kind="term" />
+      {[2, 3, 4, 5, 6].map((i) => (
+        <Edge key={i} d={`M ${col(i) + W} 645 H ${col(i + 1) - 4}`} />
+      ))}
+      <Join d={`M ${cx(4)} 680 V 720 H ${BUS}`} />
+      <Label x={cx(4) + 8} y={712}>yes</Label>
+      <Join d={`M ${cx(6)} 610 V 590 H ${BUS}`} />
+      <Label x={cx(6) + 8} y={582}>yes</Label>
+
+      {/* every success reaches the answer */}
+      <Edge d={`M ${BUS} 720 V 192 H ${col(7) + W + 4}`} />
+    </Frame>
+  );
+}
