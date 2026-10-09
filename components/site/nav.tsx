@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { RESUME_URL } from "@/lib/resume";
 import { CommandMenu } from "./command-menu";
 
 const LINKS = [
@@ -55,7 +56,7 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
             </Link>
           );
         })}
-        <a href="/Archit_Agrawal_Resume.pdf" target="_blank" rel="noopener noreferrer" className="hidden rounded-full px-3 py-1.5 transition-colors hover:text-foreground sm:inline">
+        <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="hidden rounded-full px-3 py-1.5 transition-colors hover:text-foreground sm:inline">
           Resume
         </a>
         <button

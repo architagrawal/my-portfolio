@@ -1,9 +1,10 @@
+import { RESUME_URL } from "@/lib/resume";
 import { FooterLive } from "./footer-live";
 
 const LINKS = [
   ["LinkedIn", "https://www.linkedin.com/in/agrawal-archit"],
   ["GitHub", "https://github.com/architagrawal"],
-  ["Resume", "/Archit_Agrawal_Resume.pdf"],
+  ["Resume", RESUME_URL],
 ] as const;
 
 /* inset: the footer closes a content surface, so it takes the surface's padding, not its own width */

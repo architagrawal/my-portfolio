@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { roles } from "@/lib/data/experience";
 import { projects } from "@/lib/data/projects";
+import { RESUME_URL } from "@/lib/resume";
 
 const EMAIL = "architagrawal000@gmail.com";
 
@@ -44,7 +45,7 @@ export function CommandMenu() {
           setTimeout(() => setCopied(false), 1600);
         },
       },
-      { group: "Contact", label: "Open resume (PDF)", run: () => window.open("/Archit_Agrawal_Resume.pdf", "_blank") },
+      { group: "Contact", label: "Open resume (PDF)", run: () => window.open(RESUME_URL, "_blank") },
       { group: "Contact", label: "LinkedIn", run: () => window.open("https://www.linkedin.com/in/agrawal-archit", "_blank") },
       { group: "Contact", label: "GitHub", run: () => window.open("https://github.com/architagrawal", "_blank") },
       ...roles.map((r) => ({ group: "Roles", label: `${r.role}, ${r.companyShort}`, hint: r.period, run: go(`/work/${r.slug}`) })),

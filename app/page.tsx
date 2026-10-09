@@ -15,9 +15,10 @@ import { getActivity } from "@/lib/github-activity";
 import { roles } from "@/lib/data/experience";
 import { projects } from "@/lib/data/projects";
 import { experiments } from "@/lib/data/lab";
+import { RESUME_URL } from "@/lib/resume";
 
 const CONTACT = [
-  ["Resume", "/Archit_Agrawal_Resume.pdf"],
+  ["Resume", RESUME_URL],
   ["GitHub", "https://github.com/architagrawal"],
   ["LinkedIn", "https://www.linkedin.com/in/agrawal-archit"],
 ] as const;
