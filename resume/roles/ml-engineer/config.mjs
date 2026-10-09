@@ -1,0 +1,45 @@
+// Role-targeted variant: Machine Learning Engineer (LLMs, evaluation, applied ML).
+export default {
+  company: "Role variant",
+  position: "Machine Learning Engineer",
+  pages: 1,
+  roles: [0, 1, 2, 3, 4, 5],
+  pick: {
+    0: ["Own the architecture", "Cut wrong answers 85%", "Extended analysis", "Quadrupled the insights", "Showed model choice",
+        "Benchmarked the platform against Claude"],
+    1: ["Re-architected a 14-Cloud-Function", "Scaled ingestion"],
+    2: ["Built a Prompt Flow", "Led a multi-tenant RAG", "Added hybrid keyword", "Cut transcript analysis"],
+    3: ["Built a PyTorch and Diffusers", "Found visual quality", "Designed a frame-level rubric"],
+    4: ["Cut p95 retrieval", "Built a FastAPI and pgvector"],
+    5: ["Built a Redis-backed"],
+  },
+  projects: [2],
+  pickProject: { 2: ["Built an end-to-end AI DJ", "Trained a MERT-95M"] },
+  // Two-page version: evaluation, retrieval and model work first.
+  detailed: {
+    roles: [0, 1, 2, 3, 4, 5, 7],
+    pick: {
+      0: ["Own the architecture", "Cut wrong answers 85%", "Extended analysis", "Quadrupled the insights",
+          "Showed model choice", "Benchmarked the platform against Claude", "Raised accuracy on the hardest",
+          "Reset the team's accuracy baseline", "Kept deterministic rules", "Changed the evaluation",
+          "Lowered labeling spend", "Designed a chart recommender", "Eliminated a silent failure",
+          "Detected table shape", "Scaled labeling as a distributed", "Sped up a full AWS pipeline",
+          "Authored the target production"],
+      1: ["Re-architected a 14-Cloud-Function", "Scaled ingestion", "Implemented pause-and-resume",
+          "Designed a reusable scraping", "Delivered sub-50 ms search"],
+      2: ["Built a Prompt Flow", "Led a multi-tenant RAG", "Added hybrid keyword", "Compared fixed-size",
+          "Cut transcript analysis", "Attached a source citation"],
+      3: ["Built a PyTorch and Diffusers", "Found visual quality", "Designed a frame-level rubric",
+          "Derived a failure taxonomy"],
+      4: ["Cut p95 retrieval", "Built a FastAPI and pgvector", "Lowered API latency 90%"],
+      5: ["Built a Redis-backed"],
+      7: ["Engineered an autonomous-driving", "Compared early and late sensor fusion"],
+    },
+    projects: [2, 0, 1],
+    pickProject: {
+      2: ["Built an end-to-end AI DJ", "Trained a MERT-95M", "Built DPO/KTO/IPO"],
+      0: ["Reverse-engineered an undocumented", "Kept every tool read-only"],
+      1: ["Built a TypeScript MCP service", "Reviews large PRs"],
+    },
+  },
+};

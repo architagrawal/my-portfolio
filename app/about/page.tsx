@@ -28,8 +28,9 @@ export default async function AboutPage() {
         <Reveal className="t-lead max-w-[36rem] space-y-6">
           <p>
             I finished my MS in Computer Science at Arizona State with a 4.0 and stayed on at EdPlus, where I own an
-            analytics platform end to end. You upload a survey export, ask a question in plain English, and it answers
-            with a chart whose numbers trace back to the data.
+            analytics platform end to end. You upload any table, ask a question in plain English, and it answers with
+            a chart whose numbers trace back to the data, including statistical tests and causal estimates, each one
+            read back and checked before you see it.
           </p>
           <p>
             Before that I was the founding AI/ML engineer at MyStage, where I rebuilt a 14-function pipeline as one

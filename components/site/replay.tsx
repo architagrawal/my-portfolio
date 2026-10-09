@@ -6,16 +6,16 @@ import { useReduce } from "@/components/site/use-reduce";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-/* A short, looping replay of the survey platform: ask, chart, cite.
-   Illustrative only: the topics and numbers are example data, not ASU results. */
-const QUESTION = "Which topics drove course satisfaction down this term?";
+/* A short, looping replay of the platform: ask, chart, cite, check.
+   Real figures from IBM's public HR attrition dataset (1,470 rows), as the platform draws them. */
+const QUESTION = "What share of employees left, by whether they work overtime?";
 const BARS = [
-  { label: "Workload", value: 38 },
-  { label: "Feedback speed", value: 27 },
-  { label: "Clarity", value: 19 },
-  { label: "Tech issues", value: 11 },
+  { label: "Overtime", value: 30.5 },
+  { label: "Everyone", value: 16.1 },
+  { label: "No overtime", value: 10.4 },
 ];
-const CITES = ["fact 12: 38% of comments", "fact 7: n = 1,240", "fact 19: +9 pts vs. fall"];
+const CITES = ["127 of 416", "237 of 1,470", "110 of 1,054"];
+const CHECK = "checked: matches the published 30.5%";
 
 type Phase = "typing" | "chart" | "cites" | "hold";
 
@@ -52,7 +52,7 @@ export function Replay() {
   const showCites = phase === "cites" || phase === "hold";
 
   return (
-    <div aria-label="Illustrative replay: a question about a survey, answered with a chart and cited facts">
+    <div aria-label="Replay: a question about a public HR dataset, answered with a chart, cited counts and a check">
       <p className="t-eyebrow">Ask</p>
       <p className="mt-2 min-h-[3em] text-[15px] font-medium leading-snug text-foreground">
         {QUESTION.slice(0, typed)}
@@ -77,7 +77,7 @@ export function Replay() {
               animate={{ opacity: showChart ? 1 : 0 }}
               transition={{ duration: reduce ? 0 : 0.3, delay: showChart ? 0.35 + i * 0.1 : 0 }}
             >
-              {b.value}%
+              {b.value.toFixed(1)}%
             </motion.span>
           </div>
         ))}
@@ -98,9 +98,21 @@ export function Replay() {
                 {c}
               </motion.span>
             ))}
+          {showCites && (
+            <motion.span
+              key={"check" + loop}
+              initial={reduce ? false : { opacity: 0, y: 6, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease, delay: 0.45 }}
+              className="ui-chip !text-[12px] !text-primary"
+            >
+              {CHECK}
+            </motion.span>
+          )}
         </AnimatePresence>
       </div>
-      <p className="t-meta mt-3 !text-[13px]">Example data, not real survey results.</p>
+      <p className="t-meta mt-3 !text-[13px]">IBM&apos;s public HR attrition data, 1,470 rows.</p>
     </div>
   );
 }

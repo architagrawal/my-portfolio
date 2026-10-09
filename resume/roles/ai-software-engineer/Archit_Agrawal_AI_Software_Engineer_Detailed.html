@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>Archit Agrawal - Detailed Resume</title>
+<style>
+  @font-face { font-family: Lato; font-weight: 400; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Regular.ttf"); }
+  @font-face { font-family: Lato; font-weight: 700; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Bold.ttf"); }
+  @font-face { font-family: Lato; font-weight: 400; font-style: italic; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Italic.ttf"); }
+  @font-face { font-family: Lato; font-weight: 700; font-style: italic; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-BoldItalic.ttf"); }
+  @page { size: Letter; margin: 0.45in 0.55in; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: #111;
+    font-family: Lato, Carlito, Calibri, Arial, sans-serif;
+    font-size: 9.7pt; line-height: 1.18;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #111; text-decoration: underline; text-underline-offset: 1.5px; text-decoration-thickness: 0.5pt; }
+
+  .name { margin: 0; text-align: center; font-size: 15pt; font-weight: 400; line-height: 1.1; letter-spacing: 0; }
+  .contact { margin: 2px 0 0; text-align: center; font-size: 9.1pt; }
+  .contact .sep { margin: 0 0.55em; }
+
+  h2 {
+    margin: 10.4px 0 0; padding-bottom: 1px;
+    border-bottom: 0.6pt solid #999;
+    font-size: 10.299999999999999pt; font-weight: 700; text-transform: uppercase;
+  }
+
+  .role { margin-top: 5.2px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .row span:last-child { flex: none; white-space: nowrap; }
+  .head { font-weight: 700; break-after: avoid; }
+  .sub { font-style: italic; break-after: avoid; }
+
+  /* Native markers in normal flow. A positioned li paints after all other text,
+     so PDF extraction read every title and Education before any bullet. */
+  ul { margin: 1px 0 0; padding: 0 0 0 12px; list-style: "\2022\2002" outside; }
+  li { margin: 0 0 0.6px; padding-left: 1px; break-inside: avoid; }
+  li b { font-weight: 700; }
+  .head .link { font-weight: 400; }
+  .skills { margin-top: 3.1px; }
+  .skills div { margin-bottom: 0.6px; }
+  .skills b { font-weight: 700; }
+</style></head><body>
+
+<div class="name">ARCHIT AGRAWAL</div>
+<div class="contact">Phoenix, AZ<span class="sep">|</span>623-312-0435<span class="sep">|</span><a href="mailto:architagrawal000@gmail.com">architagrawal000@gmail.com</a><span class="sep">|</span><a href="https://linkedin.com/in/agrawal-archit">LinkedIn</a><span class="sep">|</span><a href="https://github.com/architagrawal">GitHub</a><span class="sep">|</span><a href="https://agrawal-archit.vercel.app">Personal Website</a></div>
+
+<h2>Professional Experience</h2>
+<div class="role">
+  <div class="row head"><span>EdPlus</span><span>05/2026 - Present</span></div>
+  <div class="row sub"><span>AI Software Engineer</span><span>Phoenix, AZ</span></div>
+  <ul><li>Own the architecture, roadmap and delivery of a 12-agent AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, verified answers; TypeScript, NestJS, Nuxt.</li><li>Cut wrong answers 85% on 164 published benchmark figures by reading every answer back in plain words and verifying it against the question before display.</li><li>Extended analysis to statistical and causal questions with 25 tests and six causal estimators validated against scipy and statsmodels, scoring 68% on StatQA versus GPT-4o's best reported 64.83%.</li><li>Quadrupled the insights automated reports surface, 13% to 52–59% on unseen datasets, by having an LLM agent choose the analyses while deterministic code computes every number.</li><li>Raised accuracy on the hardest benchmark questions from 60% to 93% with zero wrong answers, by routing every component through one shared semantic layer after larger models did not help.</li><li>Eliminated a silent failure mislabeling 1 in 8 rows in the prior pipeline, reaching 100% join integrity with schema-constrained LLM output.</li><li>Scaled labeling as a distributed Step Functions fan-out across 64 parallel lanes with a 5% failure circuit breaker, after tracing silent row loss in a run that reported success.</li><li>Showed model choice moves accuracy 33x more than pipeline design across models costing $5–$89 per 100k rows, redirecting the team's recommendation from accuracy to reliability.</li><li>Benchmarked the platform against Claude Opus 5.5 working blind on public survey data, cutting wrong charts 93% with judge-free rule checks and an expert-calibrated LLM judge.</li><li>Built a plain-English chart experience in Nuxt where readers stack, sort, filter, take top-N and undo directly, backed by in-process DuckDB that held latency flat as rows grew 200x.</li><li>Designed a chart recommender over 17 chart types grounded in visualization research, accepting an LLM suggestion only when it outscores the rules.</li><li>Sped up a full AWS pipeline run 6x, 500 to 85 seconds, by replacing managed agent-runtime stages with direct tool calls once benchmarks showed each made one call and stopped.</li><li>Kept deterministic rules wherever an agent failed to beat them: no LLM chart proposal outscored the rule table, and two managed agent runtimes were removed after re-benchmarking.</li><li>Changed the evaluation from scoring charts to scoring the questions a survey asked, after healthy chart scores hid that only 19% were answered; coverage rose to 78%.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>MyStage Music Inc.</span><span>07/2025 - 05/2026</span></div>
+  <div class="row sub"><span>Founding AI/ML Engineer</span><span>Remote</span></div>
+  <ul><li>Re-architected a 14-Cloud-Function backend into one checkpointed LangGraph agent in Python on GCP Cloud Run, cutting production service dependencies 64%.</li><li>Scaled ingestion to 70,000+ records a day from 650+ venues with a Playwright pipeline, transactional locking and Gemini entity resolution that raised search-dataset accuracy 25%.</li><li>Delivered sub-50 ms search on FastAPI and Algolia with real-time Firestore sync, 200+ pytest tests and Logfire tracing.</li><li>Implemented pause-and-resume on LangGraph interrupts, so a record missing context waits at its checkpoint instead of failing the batch.</li><li>Guaranteed retry safety with deterministic task IDs and create-if-absent writes, so a retried job can never overwrite one already in flight.</li><li>Designed a reusable scraping subgraph that parent graphs compose without checkpoint conflicts, letting webhook-triggered scrapes skip the fetch step.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>EdPlus</span><span>09/2023 - 05/2025</span></div>
+  <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
+  <ul><li>Led a multi-tenant RAG assistant, React to retrieval layer, used by 1,000+ faculty to build courses for 60,000+ students.</li><li>Cut transcript analysis 16x, four hours to 15 minutes, with a Neo4j knowledge graph queried by validated LLM-written Cypher.</li><li>Isolated each college's data at the retrieval layer, so no tenant's material can surface in another's and onboarding became a config change, not a deployment.</li><li>Built a Prompt Flow eval harness scoring groundedness, relevance and coherence to gate every prompt change on results.</li><li>Added hybrid keyword and vector search so exact course codes resolve correctly where embeddings alone blur them together.</li><li>Attached a source citation to every answer, linking document and section, so faculty can verify a claim instead of trusting it.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Arizona State University</span><span>08/2024 - 05/2025</span></div>
+  <div class="row sub"><span>Student Researcher</span><span>Phoenix, AZ</span></div>
+  <ul><li>Built a PyTorch and Diffusers benchmark for text-to-video models that scores physical plausibility separately from visual quality, holding seed, resolution and sampler fixed.</li><li>Found visual quality barely predicts physical plausibility: the top model by human preference ranked last on causal consistency.</li><li>Designed a frame-level rubric for rigid-body motion, gravity, momentum and occlusion, and measured inter-rater agreement before trusting any aggregate score.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Knowledge Exchange for Resilience, Arizona State University</span><span>06/2024 - 08/2024</span></div>
+  <div class="row sub"><span>Data Research Aide</span><span>Phoenix, AZ</span></div>
+  <ul><li>Cut p95 retrieval latency 60% at 95% recall with a hybrid FAISS and Neo4j search layer.</li><li>Built a FastAPI and pgvector recommender reaching 85% top-k precision for collaborator matching, fed by an ETL ingesting 10,000+ profiles a day, plus 20+ REST APIs on .NET 8.</li><li>Lowered API latency 90% with Redis caching and SQL rewrites, and raised dataset accuracy to 95% with PostgreSQL constraints.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Zeus Learning</span><span>01/2022 - 07/2023</span></div>
+  <div class="row sub"><span>Software Engineer</span><span>Mumbai, India</span></div>
+  <ul><li>Built a Redis-backed desk-demand forecasting service used in 300+ Fortune 500 offices, with reported occupancy up 30%.</li><li>Cut deploy time 70% and production incidents 40% by containerizing the CI/CD release pipeline and adding SonarQube gates.</li><li>Migrated a C# .NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and footprint 35%.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>EAT.FIT</span><span>09/2021 - 12/2021</span></div>
+  <div class="row sub"><span>Product Intern</span><span>Bengaluru, India</span></div>
+  <ul><li>Cut driver-tracking server cost 45% with distance-based polling and client-side interpolation that kept map movement smooth.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>DA-IICT</span><span>05/2021 - 08/2021</span></div>
+  <div class="row sub"><span>Computer Vision Researcher</span><span>Gandhinagar, India</span></div>
+  <ul><li>Engineered an autonomous-driving perception stack in Python: radar and lidar capture, timestamp alignment, extrinsic calibration and point-cloud processing, with a replay harness over recorded drives.</li></ul>
+</div>
+
+<h2>Projects</h2>
+<div class="role">
+  <div class="row head"><span>SRP Electric MCP Server<span class="link"> | <a href="https://github.com/architagrawal/srp-electric-mcp">GitHub</a></span></span><span>12/2025 - 01/2026</span></div>
+  
+  <ul><li>Reverse-engineered an undocumented utility portal into a read-only TypeScript MCP server with Zod-validated tool schemas, normalized meter data and typed errors an agent can act on.</li><li>Kept every tool read-only, so an agent exploring an undocumented portal cannot change a billing setting.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>MCP GitHub PR Review Agent</span><span>07/2025 - 08/2025</span></div>
+  
+  <ul><li>Built a TypeScript MCP service that reviews pull requests from the diff, linked ticket and CI result, returning schema-typed inline findings that gate merges by category.</li><li>Reviews large PRs file by file with a per-file verdict, because one 8,000-line diff in a single prompt produces a summary, not a review.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>AiJockey – AI DJ Pipeline<span class="link"> | <a href="https://github.com/architagrawal/aiJockey">GitHub</a></span></span><span>2025 - Present</span></div>
+  
+  <ul><li>Built an end-to-end AI DJ in PyTorch and FastAPI: stem separation, an LLM transition planner, 25+ DSP transitions and LUFS mastering, ported off CUDA to an AMD MI300X.</li><li>Trained a MERT-95M reward head predicting four-axis audio aesthetics (final MSE 0.127) so the segment picker scores candidates without running full inference per render.</li></ul>
+</div>
+
+<h2>Technical Skills</h2>
+<div class="skills"><div><b>Languages:</b> Python, TypeScript, JavaScript, SQL, C#</div><div><b>Frameworks:</b> FastAPI, NestJS, Node.js, .NET, React, Vue/Nuxt, Next.js, LangGraph, PyTorch</div><div><b>AI &amp; Data:</b> RAG, LLM evaluation, MCP, AWS Bedrock, PostgreSQL, pgvector, FAISS, Neo4j, Redis, DuckDB, ETL pipelines</div><div><b>Cloud &amp; DevOps:</b> AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD</div></div>
+
+<h2>Education</h2>
+<div class="role">
+  <div class="row head"><span>Arizona State University (ASU)</span><span>08/2023 - 05/2025</span></div>
+  <div class="row sub"><span>Master of Science, Computer Science</span><span>Tempe, AZ, USA</span></div>
+  <ul><li><b>GPA:</b> 4.0</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Dhirubhai Ambani Institute of Information and Communication Technology</span><span>08/2018 - 05/2022</span></div>
+  <div class="row sub"><span>Bachelor of Technology, Information and Communication Technology</span><span>India</span></div>
+  
+</div>
+
+</body></html>

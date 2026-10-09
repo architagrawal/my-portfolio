@@ -4,8 +4,11 @@ Archit Agrawal is an AI/ML and software engineer based in the United States
 and open to relocation. He builds reliable production systems across agent
 orchestration, evaluation, retrieval, data pipelines, APIs, and product UI.
 
-At EdPlus, Arizona State University, he owns the architecture of an agentic
-survey-analysis platform. At MyStage Music, he built LangGraph workflows,
+At EdPlus, Arizona State University, he owns the architecture, roadmap and delivery of a twelve-agent
+data-analysis platform on AWS Bedrock: ask any dataset a question in plain
+English and get an answer where every number is computed by code, cited to its
+rows and checked before it is shown. It cut wrong answers 85% on 164 published
+figures and scores 68% on StatQA, above GPT-4o's best reported 64.83%. At MyStage Music, he built LangGraph workflows,
 LLM-powered entity resolution, search infrastructure, and backend services.
 His earlier work includes retrieval and knowledge-graph systems at Arizona
 State University and backend, cloud, and product systems at Zeus Learning and

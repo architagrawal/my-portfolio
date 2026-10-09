@@ -10,9 +10,9 @@ export const profile = {
     "Phoenix, AZ",
     "623-312-0435",
     { text: "architagrawal000@gmail.com", href: "mailto:architagrawal000@gmail.com" },
-    { text: "linkedin.com/in/agrawal-archit", href: "https://linkedin.com/in/agrawal-archit" },
-    { text: "github.com/architagrawal", href: "https://github.com/architagrawal" },
-    { text: "agrawal-archit.vercel.app", href: "https://agrawal-archit.vercel.app" },
+    { text: "linkedin.com/in/agrawal-archit", label: "LinkedIn", href: "https://linkedin.com/in/agrawal-archit" },
+    { text: "github.com/architagrawal", label: "GitHub", href: "https://github.com/architagrawal" },
+    { text: "agrawal-archit.vercel.app", label: "Personal Website", href: "https://agrawal-archit.vercel.app" },
   ],
 };
 
@@ -23,22 +23,32 @@ export const experience = [
     location: "Phoenix, AZ",
     period: "May 2026 – Present",
     core: [
-      "Architected and currently own a 12-agent analytics platform turning any structured dataset into interactive charts and cited answers without dataset-specific code; TypeScript, NestJS, AWS Bedrock, Step Functions.",
-      "Designed a deterministic chart selector across 17 chart types grounded in visualization research, accepting an LLM recommendation only when it outscores the rules-based baseline.",
-      "Quadrupled insight recall in automated reports, from 13% to 52–59% on held-out datasets, by letting an agent pick the analyses while deterministic code computes every number.",
-      "Stopped a silent defect mislabeling 13% of rows before it reached institutional reports, reaching 100% join integrity with schema-constrained LLM output and citation validation.",
-      "Benchmarked models and pipeline variants at $5–$89 per 100k rows, finding model choice swung F1 33x more than architecture; traced a reported 0.637 accuracy to a hand-reviewed spreadsheet and set a reproducible 0.523 baseline.",
+      "Own the architecture, roadmap and delivery of a 12-agent AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, verified answers; TypeScript, NestJS, Nuxt.",
+      "Cut wrong answers 85% on 164 published benchmark figures by reading every answer back in plain words and verifying it against the question before display.",
+      "Extended analysis to statistical and causal questions with 25 tests and six causal estimators validated against scipy and statsmodels, scoring 68% on StatQA versus GPT-4o's best reported 64.83%.",
+      "Quadrupled the insights automated reports surface, 13% to 52–59% on unseen datasets, by having an LLM agent choose the analyses while deterministic code computes every number.",
+      "Eliminated a silent failure mislabeling 1 in 8 rows in the prior pipeline, reaching 100% join integrity with schema-constrained LLM output.",
+      "Scaled labeling as a distributed Step Functions fan-out across 64 parallel lanes with a 5% failure circuit breaker, after tracing silent row loss in a run that reported success.",
     ],
     extra: [
-      "Built the Nuxt front end where a plain-English question returns an interactive chart with sort, filter, top-N and undo, backed by in-process DuckDB holding latency steady as data volume grew 200x.",
-      "Shipped a 14-page Nuxt 4 front end over a NestJS API of ten modules, all compiling against one shared TypeScript contract.",
-      "Authored the target architecture the production platform is built from: 80 logged decisions and 200 measured experiments, each stating what it does not establish, grounded in 12 prior-art passes across SSSOM, DDI, Metabase MBQL, Vega-Lite, Draco and LIDA.",
-      "Changed what the evaluation measured after every chart-level score stayed healthy while the page answered 6 of the 32 questions a survey actually asked; scoring coverage instead of marks took it to 25 of 32.",
-      "Held every agent to improve-or-discard: no chart proposal beat the deterministic rule table across the evaluation corpus, so the rule table stayed, and two managed agent runtimes were removed once a repeat benchmark showed 49.8s of a 65.4s stage was container boot for a decision that never varied.",
-      "Built the governance surface: Bedrock Guardrails deployed as their own CDK stack, entitlement-gated respondent-level retrieval, and per-stage spend caps enforced in code after an audit found the existing guard doing nothing.",
-      "Cut labeling spend by calibrating codebook fit before any run: a 25-row sample separates a workable codebook (0.598 fit, 4% abstain) from an unusable one (0.316, 88%) for about $0.001.",
-      "Unlocked a time axis on roughly 7 in 10 real exports that reported no date column while carrying the timestamp packed inside an identifier, through a five-stage intake that also survives UTF-16 null-byte headers and duplicate headers overwriting a column.",
-      "Blocked a cross-survey join that silently double counted, using a respondent fingerprint to catch runs sharing respondents after a pooled breakdown counted each one twice behind a self-consistent denominator.",
+      "Showed model choice moves accuracy 33x more than pipeline design across models costing $5–$89 per 100k rows, redirecting the team's recommendation from accuracy to reliability.",
+      "Raised accuracy on the hardest benchmark questions from 60% to 93% with zero wrong answers, by routing every component through one shared semantic layer after larger models did not help.",
+      "Benchmarked the platform against Claude Opus 5.5 working blind on public survey data, cutting wrong charts 93% with judge-free rule checks and an expert-calibrated LLM judge.",
+      "Built a plain-English chart experience in Nuxt where readers stack, sort, filter, take top-N and undo directly, backed by in-process DuckDB that held latency flat as rows grew 200x.",
+      "Designed a chart recommender over 17 chart types grounded in visualization research, accepting an LLM suggestion only when it outscores the rules.",
+      "Accelerated publishing of a 51,280-person, 220-column federal survey 10x, 19 minutes to 109 seconds, with an independent audit from raw data matching 100% of figures.",
+      "Engineered the storage layer: kilobyte fact tables beside Lance payloads on S3 queried in-process by DuckDB, choosing Lance over Parquet on 114,000 rows for full-text and vector search.",
+      "Detected table shape with 98% accuracy and survey weights in 100% of files that ship one, up from 0%, so crosstabs, long tables and weighted surveys publish with no per-file code.",
+      "Sped up a full AWS pipeline run 6x, 500 to 85 seconds, by replacing managed agent-runtime stages with direct tool calls once benchmarks showed each made one call and stopped.",
+      "Shipped a 14-page Nuxt 4 front end over a NestJS API of 11 modules and 70 routes, all compiled against one shared TypeScript contract.",
+      "Reset the team's accuracy baseline after tracing a reported 0.637 F1 to a hand-reviewed spreadsheet; fresh runs reproduce 0.523.",
+      "Authored the target production architecture: 80 logged decisions and 200+ measured experiments, grounded in prior art including SSSOM, DDI, Metabase MBQL, Vega-Lite, Draco and LIDA.",
+      "Delivered governance in the POC: Bedrock Guardrails as their own CDK stack, entitlement-gated respondent retrieval, and per-stage spend caps enforced in code.",
+      "Kept deterministic rules wherever an agent failed to beat them: no LLM chart proposal outscored the rule table, and two managed agent runtimes were removed after re-benchmarking.",
+      "Changed the evaluation from scoring charts to scoring the questions a survey asked, after healthy chart scores hid that only 19% were answered; coverage rose to 78%.",
+      "Lowered labeling spend by testing codebook fit on a 25-row sample first, separating a workable codebook (0.598 fit) from an unusable one (0.316) for about $0.001.",
+      "Unlocked a time axis on roughly 70% of real exports that hid timestamps inside identifiers, through a five-stage intake that also survives UTF-16 and duplicate-header files.",
+      "Blocked a cross-survey join that double counted respondents, using a fingerprint that detects runs sharing the same people.",
     ],
   },
   {
@@ -48,13 +58,13 @@ export const experience = [
     period: "Jul 2025 – May 2026",
     core: [
       "Re-architected a 14-Cloud-Function backend into one checkpointed LangGraph agent in Python on GCP Cloud Run, cutting production service dependencies 64%.",
-      "Built a Playwright ingestion pipeline handling 70,000+ records a day from 650+ venues, with transactional locking against duplicate work and Gemini entity resolution raising dataset accuracy 25%.",
-      "Delivered sub-50 ms search on FastAPI and Algolia with real-time Firestore sync, covered by 200+ pytest tests and end-to-end Logfire tracing.",
+      "Scaled ingestion to 70,000+ records a day from 650+ venues with a Playwright pipeline, transactional locking and Gemini entity resolution that raised search-dataset accuracy 25%.",
+      "Delivered sub-50 ms search on FastAPI and Algolia with real-time Firestore sync, 200+ pytest tests and Logfire tracing.",
     ],
     extra: [
-      "Implemented a pause-for-research contract on LangGraph interrupt/resume: a missing domain enqueues research, the graph interrupts, then resumes from checkpoint when the external pipeline marks it ready, so a blocked record costs one venue rather than the day's batch.",
-      "Used deterministic task IDs with create-and-catch-AlreadyExists rather than set, because set would clobber an in-flight task on retry.",
-      "Designed a reusable scraping subgraph factory compiled without a checkpointer so parent graphs compose it without nested-checkpoint conflicts, with a route-entry bridge letting webhook-sourced scrapes skip the fetch step.",
+      "Implemented pause-and-resume on LangGraph interrupts, so a record missing context waits at its checkpoint instead of failing the batch.",
+      "Guaranteed retry safety with deterministic task IDs and create-if-absent writes, so a retried job can never overwrite one already in flight.",
+      "Designed a reusable scraping subgraph that parent graphs compose without checkpoint conflicts, letting webhook-triggered scrapes skip the fetch step.",
     ],
   },
   {
@@ -63,16 +73,16 @@ export const experience = [
     location: "Phoenix, AZ",
     period: "Sep 2023 – May 2025",
     core: [
-      "Led end-to-end development of a multi-tenant RAG assistant, React front end to retrieval layer, used by 1,000+ faculty to author courses reaching 60,000+ students.",
-      "Reduced transcript-analysis time 16x, from four hours to 15 minutes, with a Neo4j knowledge graph queried by schema-validated LLM-generated Cypher.",
-      "Enforced per-college data isolation at the retrieval layer so one tenant's material cannot surface in another's, making onboarding a config change, not a deployment.",
-      "Built a Prompt Flow evaluation harness scoring groundedness, relevance and coherence, so every prompt change shipped on evidence rather than opinion.",
+      "Led a multi-tenant RAG assistant, React to retrieval layer, used by 1,000+ faculty to build courses for 60,000+ students.",
+      "Cut transcript analysis 16x, four hours to 15 minutes, with a Neo4j knowledge graph queried by validated LLM-written Cypher.",
+      "Isolated each college's data at the retrieval layer, so no tenant's material can surface in another's and onboarding became a config change, not a deployment.",
+      "Built a Prompt Flow eval harness scoring groundedness, relevance and coherence to gate every prompt change on results.",
     ],
     extra: [
-      "Added hybrid keyword and vector search to fix course-code lookups an embedding alone blurs together.",
-      "Raised engagement 35% and cut bounce 20% with React and Material UI surfaces over the assessment platform: bulk import, question reuse across banks, and a diff view before a bank is republished.",
-      "Measured chunking rather than assuming it, comparing fixed-size against section-aware splitting on real course documents, because a policy paragraph cut in half answers half a question.",
-      "Surfaced a citation with every answer, linking source document and section, so a faculty member can check a claim rather than trust it.",
+      "Added hybrid keyword and vector search so exact course codes resolve correctly where embeddings alone blur them together.",
+      "Raised engagement 35% and reduced bounce 20% with React and Material UI tools for the assessment platform: bulk import, cross-bank question reuse and a diff view before republishing.",
+      "Compared fixed-size against section-aware chunking on real course documents before choosing, because a split policy paragraph answers half a question.",
+      "Attached a source citation to every answer, linking document and section, so faculty can verify a claim instead of trusting it.",
     ],
   },
   {
@@ -81,12 +91,12 @@ export const experience = [
     location: "Phoenix, AZ",
     period: "Aug 2024 – May 2025",
     core: [
-      "Built a PyTorch and Diffusers benchmark for text-to-video models scoring physical plausibility separately from visual quality, with seed, resolution and sampler held fixed.",
-      "Demonstrated weak correlation between visual quality and physical plausibility: the model ranked first in human preference but last in causal consistency.",
+      "Built a PyTorch and Diffusers benchmark for text-to-video models that scores physical plausibility separately from visual quality, holding seed, resolution and sampler fixed.",
+      "Found visual quality barely predicts physical plausibility: the top model by human preference ranked last on causal consistency.",
     ],
     extra: [
-      "Designed a frame-sequence rubric for rigid-body motion (does a falling object accelerate rather than drift, does momentum carry through a collision, does an occluded object reappear on the trajectory it left on) and measured inter-rater agreement before trusting any aggregate score.",
-      "Derived a failure taxonomy from the annotated clips: broken object permanence, non-conserved mass, contact that teleports, and physics that silently resets at a scene cut.",
+      "Designed a frame-level rubric for rigid-body motion, gravity, momentum and occlusion, and measured inter-rater agreement before trusting any aggregate score.",
+      "Derived a failure taxonomy from annotated clips: broken object permanence, non-conserved mass, teleporting contact and physics that resets at a scene cut.",
     ],
   },
   {
@@ -96,12 +106,12 @@ export const experience = [
     period: "Jun 2024 – Aug 2024",
     core: [
       "Cut p95 retrieval latency 60% at 95% recall with a hybrid FAISS and Neo4j search layer.",
-      "Built a FastAPI and pgvector recommendation service reaching 85% top-k precision for collaborator matching, fed by an ETL ingesting 10,000+ profiles a day, alongside 20+ REST APIs on .NET 8.",
+      "Built a FastAPI and pgvector recommender reaching 85% top-k precision for collaborator matching, fed by an ETL ingesting 10,000+ profiles a day, plus 20+ REST APIs on .NET 8.",
+      "Lowered API latency 90% with Redis caching and SQL rewrites, and raised dataset accuracy to 95% with PostgreSQL constraints.",
     ],
     extra: [
-      "Reduced API latency 90%, from 198 ms to 20 ms, with Redis caching and SQL rewrites, verified under Locust load rather than on a single warm request.",
-      "Put the data-quality gates in Postgres rather than the loader (uniqueness, not-null, range), so bad rows fail at the boundary instead of being discovered in a report, raising dataset accuracy to 95%.",
-      "Rewrote the ETL to be idempotent on a natural key so a re-run after partial failure updates rather than duplicates, which is what let it be retried without a cleanup script.",
+      "Rewrote the ETL to be idempotent on a natural key, so a rerun after partial failure updates rows rather than duplicating them.",
+      "Raised dataset accuracy to 95% by enforcing uniqueness, not-null and range checks in PostgreSQL, so bad rows fail at the boundary instead of in a report.",
     ],
   },
   {
@@ -110,14 +120,14 @@ export const experience = [
     location: "Mumbai, India",
     period: "Jan 2022 – Jul 2023",
     core: [
-      "Built a Redis-backed desk-demand forecasting service used across 300+ offices at Fortune 500 companies, with reported desk occupancy up 30%.",
-      "Cut deploy time 70% and production incidents 40% by containerizing the release pipeline and adding SonarQube quality gates scoped to new code.",
-      "Migrated a C# and .NET monolith to Dockerized Kubernetes microservices incrementally behind the existing API, cutting infrastructure cost 20% and footprint 35%.",
+      "Built a Redis-backed desk-demand forecasting service used in 300+ Fortune 500 offices, with reported occupancy up 30%.",
+      "Cut deploy time 70% and production incidents 40% by containerizing the CI/CD release pipeline and adding SonarQube gates.",
+      "Migrated a C# .NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and footprint 35%.",
     ],
     extra: [
-      "Sped up the student-listing screen 30% with paginated fetching and S3 asset delivery, then another 10% with index-covering query rewrites after profiling found a full scan behind a join nobody had reviewed since the schema changed.",
-      "Found the 35% footprint cut in requests and limits rather than the code: pods had been provisioned for a peak the observed usage never reached.",
-      "Published an internal npm package wrapping the Slack Web API for paginated message, attachment and reaction retrieval, released under semver and consumed by the company social platform.",
+      "Sped up the student-listing screen 30% with paginated fetching and S3 asset delivery, then another 10% with index-covering query rewrites after profiling found a full table scan.",
+      "Right-sized Kubernetes requests and limits to observed usage, which is where the 35% footprint reduction came from.",
+      "Published an internal npm package wrapping the Slack Web API with pagination, released under semver for the company social platform.",
     ],
   },
   {
@@ -130,8 +140,8 @@ export const experience = [
     ],
     extra: [
       "Built a WebSocket and Express notification service with backpressure-aware fan-out and duplicate-safe redelivery; reported CSAT rose 28% and support volume fell 35%.",
-      "Shipped the live order-tracking screen on the Google Maps API with route polylines and an ETA recomputed on every fix, shipped during a quarter of 25% user growth.",
-      "Wrote the degraded path deliberately: when the socket is unavailable the client falls back to polling rather than going silent, because a missed order update is a support ticket.",
+      "Shipped live order tracking on the Google Maps API with route polylines and a per-fix ETA, during a quarter of 25% user growth.",
+      "Designed a polling fallback for when the socket drops, so customers never lose order updates.",
     ],
   },
   {
@@ -143,25 +153,29 @@ export const experience = [
       "Engineered an autonomous-driving perception stack in Python: radar and lidar capture, timestamp alignment, extrinsic calibration and point-cloud processing, with a replay harness over recorded drives.",
     ],
     extra: [
-      "Compared early against late sensor fusion on identical sequences: point-level merging preserves detail and inherits both sensors' noise, object-level merging is robust and discards the evidence that would have resolved the disagreement.",
+      "Compared early and late sensor fusion on identical sequences, showing point-level merging keeps detail but inherits both sensors' noise while object-level merging is robust but discards evidence.",
     ],
   },
 ];
 
 // The one-pager carries the roles a hiring manager expects to see; the detailed
 // variant carries everything.
-export const ONE_PAGE_ROLES = [0, 1, 2, 3, 4, 5, 6];
+export const ONE_PAGE_ROLES = [0, 1, 2, 4, 5];
+// Projects on the one-pager, by index into `projects`.
+export const ONE_PAGE_PROJECTS = [0, 2];
 
 export const education = [
   {
-    degree: "M.S., Computer Science",
-    school: "Arizona State University",
-    detail: "GPA 4.0",
+    school: "Arizona State University (ASU)",
+    degree: "Master of Science, Computer Science",
+    location: "Tempe, AZ, USA",
+    detail: "GPA: 4.0",
     period: "Aug 2023 – May 2025",
   },
   {
-    degree: "B.Tech., Information and Communication Technology",
-    school: "DA-IICT",
+    school: "Dhirubhai Ambani Institute of Information and Communication Technology",
+    degree: "Bachelor of Technology, Information and Communication Technology",
+    location: "India",
     detail: "",
     period: "Aug 2018 – May 2022",
   },
@@ -171,7 +185,8 @@ export const projects = [
   {
     name: "SRP Electric MCP Server",
     period: "Dec 2025 – Jan 2026",
-    core: "Reverse-engineered an undocumented utility portal's session contract and exposed it as a read-only TypeScript MCP server with Zod-validated tool schemas, normalized interval meter data, and typed errors an agent can act on, backed by a fixture test suite that runs without credentials.",
+    href: "https://github.com/architagrawal/srp-electric-mcp",
+    core: "Reverse-engineered an undocumented utility portal into a read-only TypeScript MCP server with Zod-validated tool schemas, normalized meter data and typed errors an agent can act on.",
     extra: [
       "Kept every tool read-only, so an agent exploring an undocumented portal cannot change a billing setting.",
       "Rate-limited and cached server-side, because a portal built for humans clicking does not expect an agent asking for a year of 15-minute intervals in a loop.",
@@ -180,7 +195,7 @@ export const projects = [
   {
     name: "MCP GitHub PR Review Agent",
     period: "Jul 2025 – Aug 2025",
-    core: "Built a TypeScript MCP service that assembles the diff, neighboring files, linked ticket criteria and CI result in a fixed order before reasoning, returns findings as a schema (file, line, category, severity, rationale) rendered as inline comments, and gates merges on category rather than volume.",
+    core: "Built a TypeScript MCP service that reviews pull requests from the diff, linked ticket and CI result, returning schema-typed inline findings that gate merges by category.",
     extra: [
       "Reviews large PRs file by file with a per-file verdict, because one 8,000-line diff in a single prompt produces a summary, not a review.",
       "Made the bot idempotent across pushes after the first version stacked eleven comments on one branch, and wired Asana both ways off the branch-name ticket id.",
@@ -189,10 +204,20 @@ export const projects = [
   {
     name: "AiJockey – AI DJ Pipeline",
     period: "2025 – Present",
-    core: "Built an end-to-end AI DJ pipeline in PyTorch and FastAPI: Demucs stem separation, BPM and phrase analysis, an LLM transition planner, 25+ DSP transition modules and adaptive LUFS mastering, running on a ROCm MI300X container as a non-CUDA port.",
+    href: "https://github.com/architagrawal/aiJockey",
+    core: "Built an end-to-end AI DJ in PyTorch and FastAPI: stem separation, an LLM transition planner, 25+ DSP transitions and LUFS mastering, ported off CUDA to an AMD MI300X.",
     extra: [
       "Trained a MERT-95M reward head predicting four-axis audio aesthetics (final MSE 0.127) so the segment picker scores candidates without running full inference per render.",
-      "Built DPO/KTO/IPO trainer variants for preference tuning; DPO converged 0.68 to 0.47 on labeled preference pairs.",
+      "Built DPO/KTO/IPO trainer variants for preference tuning, cutting DPO loss 31% (0.68 to 0.47) on labeled preference pairs.",
     ],
   },
+];
+
+// Two to five lines a recruiter and an ATS can scan. Only skills a bullet above
+// or a linked repo can back up; nothing listed that has not been used for real.
+export const skills = [
+  { label: "Languages", items: "Python, TypeScript, JavaScript, SQL, C#" },
+  { label: "Frameworks", items: "FastAPI, NestJS, Node.js, .NET, React, Vue/Nuxt, Next.js, LangGraph, PyTorch" },
+  { label: "AI & Data", items: "RAG, LLM evaluation, MCP, AWS Bedrock, PostgreSQL, pgvector, FAISS, Neo4j, Redis, DuckDB, ETL pipelines" },
+  { label: "Cloud & DevOps", items: "AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD" },
 ];

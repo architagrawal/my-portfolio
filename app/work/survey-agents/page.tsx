@@ -4,13 +4,39 @@ import { Children, isValidElement, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { PageHeader, Shell } from "@/components/site/shell";
 import { Points, Section as UiSection, Stats } from "@/components/site/ui";
-import { AgentGraph, ToolBudget, ToolMatrix, AnswerPath, DataModel } from "./_diagrams";
+import {
+  AgentGraph,
+  ToolBudget,
+  ToolMatrix,
+  AnswerPath,
+  DataModel,
+  SystemArchitecture,
+  AiPipeline,
+  SettlePath,
+} from "./_diagrams";
 
 const stats = [
-  { value: "290k", label: "lines across 12 packages" },
-  { value: "4,077", label: "tests in 412 files" },
+  { value: "347k", label: "lines across 12 packages" },
+  { value: "4,845", label: "tests in 546 files" },
   { value: "76", label: "registered tools" },
-  { value: "1,307", label: "commits in five weeks" },
+  { value: "2,435", label: "commits in seven weeks" },
+];
+
+const impact = [
+  { value: "85%", label: "fewer wrong answers on 164 published figures" },
+  { value: "93%", label: "right on the hardest benchmark questions, 0 wrong" },
+  { value: "68%", label: "on StatQA, above GPT-4o's best reported 64.83%" },
+  { value: "4×", label: "more headline findings, 13% to 52–59%" },
+];
+
+const highlights = [
+  { name: "Every number from code", changed: "No figure is ever produced by a model. Each carries a fact id back to its rows, and an independent audit from the raw CSV matched 100% of figures." },
+  { name: "Checked before shown", changed: "Every answer is read back in words and judged against the question. Wrong answers fell 85% on 164 published figures; the rest are refused with a reason or asked of the reader." },
+  { name: "Statistics and causality", changed: "25 statistical tests checked against scipy and statsmodels, six causal effect estimators, and causal discovery that says \u201cunsettled\u201d rather than guess a direction." },
+  { name: "Any table, read right", changed: "Survey weights, missing-value codes, crosstabs and codebooks applied on upload. Weights are found in 100% of files that ship one, up from 0%." },
+  { name: "Agents where they win", changed: "An analyst agent quadrupled the headline findings a page recovers on surveys it had never seen. Where rules did as well, rules stayed: 93% fewer wrong charts came from better rules, not more model." },
+  { name: "Reproducible and cheap", changed: "The same file draws the same 171 charts on every run, dashboards make zero model calls, and the analyst costs about $0.03 a survey." },
+  { name: "Fast at scale", changed: "A 51,280-person federal survey with 220 columns publishes in 109 seconds, down from 19 minutes." },
 ];
 
 const phases = [
@@ -43,6 +69,36 @@ const phases = [
     dates: "Sep 24 – Sep 25",
     question: "Can an agent choose the analyses instead of a rule table choosing them?",
     verdict: "Yes, and it is the first place agency clearly won. 13% to 52–59% on held-out surveys.",
+  },
+  {
+    phase: "06 Against Opus 5.5",
+    dates: "Sep 25 – Oct 1",
+    question: "Does it hold on unseen files, and against a strong model given only the raw file?",
+    verdict: "Wrong charts cut 93%, level on BLADE. Focus still half of Opus's.",
+  },
+  {
+    phase: "07 One semantic model",
+    dates: "Oct 1 – Oct 2",
+    question: "Can every reader take a column's meaning from one place, and does it change answers?",
+    verdict: "Disagreements 30,405 to 263. Reference matches 16 to 21.",
+  },
+  {
+    phase: "08 Any table",
+    dates: "Oct 2 – Oct 4",
+    question: "Can it answer statistical and causal questions on any table, and never show a wrong number?",
+    verdict: "Wrong answers cut 85% on 164 published figures. StatQA 68% against GPT-4o's best of 64.83%.",
+  },
+  {
+    phase: "09 Reading the file",
+    dates: "Oct 4 – Oct 6",
+    question: "Can it read a file the way its authors meant it, and ask a person when it cannot?",
+    verdict: "Every reading recorded, asked when unsure. QRData and StatQA samples 0 wrong.",
+  },
+  {
+    phase: "10 One semantic layer",
+    dates: "Oct 7 – Oct 8",
+    question: "Can the hardest questions be fixed by what every component is told?",
+    verdict: "Hardest questions 60% to 93% right, 0 wrong. One run is good to about ±4.",
   },
 ];
 
@@ -122,7 +178,7 @@ const orchestrationNotes = [
   "Agency buys reliability of completion, not accuracy and not efficiency. That put AgentCore's value at the stage level and not at the orchestration level, and the stage-level half of that claim did not survive being revisited either.",
   "Revisited two weeks later, both remaining harnesses were removed. The label stage took 65.4s on 102 rows, of which 49.8s was the AgentCore container booting, and all 26 recorded receipts show one tool call and then end_turn. The check stage spent ten turns choosing between ten sums in the same order every run, and the first identical call took 116s, 178s, 336s and 3.9s across four invocations, with 3 of 25 runs timing out at 600s. Both now call their tool directly.",
   "An agent that makes one call and stops is a function call with a boot time. What the harness had actually fixed was our own loop, and once the loop was gone there was nothing left for it to fix.",
-  "Every arm on this page has the agent executing a known job, and on those it ties or loses. Section 17 is the counter-case: given a job with no enumerable right answer, the same kind of agent beat its rule baseline outright.",
+  "Every arm on this page has the agent executing a known job, and on those it ties or loses. Section 18 is the counter-case: given a job with no enumerable right answer, the same kind of agent beat its rule baseline outright.",
 ];
 
 const retrieval = [
@@ -201,7 +257,7 @@ const awsFindings = [
   "Step Functions carries the orchestration: labeling fans out through a Distributed Map, merges, and reaches complete coverage on consecutive executions with no manual intervention.",
   "An execution reported SUCCEEDED with every slice green while quietly dropping part of the corpus: concurrent map iterations were writing the same slot. Fan-out needed partitioned writes and a real fan-in before green meant anything, and that class of defect only ever surfaces under real concurrency.",
   "The circuit breaker is the capability nothing else here has. ToleratedFailurePercentage halts the execution once 5% of batches fail; a sequential driver grinds through every remaining batch and pays for all of them.",
-  "AgentCore looked like it earned its place at the stage level, where its harness took labeling from partial to complete coverage after our own agent loop stalled, and not at the orchestration level, where the one thing an agentic orchestrator was buying, repair, is a Choice state plus a counter. Repeating that benchmark after the hand-rolled loop was gone removed the stage-level half too: see section 16.",
+  "AgentCore looked like it earned its place at the stage level, where its harness took labeling from partial to complete coverage after our own agent loop stalled, and not at the orchestration level, where the one thing an agentic orchestrator was buying, repair, is a Choice state plus a counter. Repeating that benchmark after the hand-rolled loop was gone removed the stage-level half too: see section 09.",
   "Ten agent harnesses deployed with per-agent tool sets, and a tool withheld at runtime until its precondition exists after telemetry showed it never firing. The graph itself is data with load-time gates rather than a trusted stage list.",
   "Governance is deployed alongside: personal-data classification inside intake, Bedrock guardrails as their own stack, and spend caps on tokens and dollars checked inside a stage rather than only between stages, after an audit found the guard had been doing nothing.",
   "Deployment surfaced defects nothing else did: six in the Step Functions path, seven in the Flows path, none reachable by typecheck, unit tests or cdk synth.",
@@ -218,6 +274,13 @@ const earningItsPlace = [
   "Skills, written in the open Agent Skills standard and loaded into the cached system prefix, were held to the same bar: the first one changed no outcome on the batch and cost slightly less.",
   "The alignment rung chooser fires on 3 of 16 refusals and changes none of them. Its one disagreement was still worth it: it exposed a rung whose plan refuses on execution.",
   "The consensus signal is real and the risk score it replaced was not, measured on held-out data: consensus separates about 4 times better.",
+  "A strong model working blind is the bar. Every gap Opus 5.5 exposed, codes, ids, pooled years and focus, was a general fault, not a fixture.",
+  "Rules first, a judge second. One judge per arm flattered Opus; judge-free rules caught 41 wrong charts that no prompt tuning had.",
+  "Every cycle is capped at $0.50: a 20-question sample per benchmark, or only the surveys a fix touches, about $0.45 cold and $0.10 rerun. Anything over $1 is asked first.",
+  "Every failure gets one cause. A census of every answer that was not right, read one by one, then fixes in order: wrong answers first, then refusals.",
+  "Reproduce the published figure first, in pandas or R, before blaming the engine or the benchmark. Three diagnoses were taken back that way, and one benchmark gold turned out to have its sign flipped.",
+  "Comparisons run in a frozen worktree. The tree is shared, and a peer's edit to the binder's prompt once changed every cache key mid-run: 4 right, then 5, a minute apart.",
+  "Snapshots before any refactor. Moving six components onto one layer had to change nothing, and diffs of 307 plan readings, 21 binder prompts and 307 validator verdicts proved it.",
 ];
 
 const priorArt = [
@@ -237,6 +300,14 @@ const priorArt = [
   { name: "CatLLM", changed: "Ensemble voting, tested on runs that were already on disk rather than on new spend." },
   { name: "Agent Skills standard", changed: "Skills authored as SKILL.md, so the same file works in Claude Code and in the pipeline's own loader." },
   { name: "Cube Core, dbt semantic layer", changed: "Deliberately not a dependency. Both model over a warehouse, and there is no warehouse here." },
+  { name: "DDI-CDI, RDF Data Cube, PROV-O", changed: "The semantic model's vocabulary, borrowed by name so an export is a mapping rather than a translation." },
+  { name: "Sequeda et al. 2023", changed: "GPT-4 went from 16% to 54% accurate on enterprise SQL with a knowledge graph. The evidence for one semantic model per run." },
+  { name: "Self-consistency, Wang et al. 2022", changed: "The role call reads a survey three times, and a type correction applies on 3 of 3 and is asked on 2 of 3." },
+  { name: "Position bias, Zheng et al. 2023", changed: "A model judge favours what it is shown first. Readings are taken in both orders and must name the item, never a position." },
+  { name: "Kıcıman et al. 2023", changed: "Variable names carry causal knowledge. The causal prior is asked in both name orders and reported as an assumption beside the data's verdict." },
+  { name: "R's svyglm and contrasts", changed: "A coefficient depends on the reference level and the intercept. Reproduced to 1e-5, and asked rather than guessed." },
+  { name: "Horvitz 1999, mixed initiative", changed: "Reached independently: act when sure enough, ask when a wrong guess is costly. It is the decision policy in ADR 0004." },
+  { name: "DAIL-SQL", changed: "Example selection by a question's form, here drawn only from other files' verified answers." },
 ];
 
 const questionCoverage = [
@@ -372,6 +443,23 @@ const alternatives = [
     ],
   },
   {
+    group: "Answering and checking",
+    rows: [
+      { approach: "Read the plan back in words, judge the reading", measured: "stopped 49 of 52 wrong answers and 15 of 68 right ones", verdict: "shipped" },
+      { approach: "Three correction rounds instead of one", measured: "same right answers, 2 more wrong", verdict: "one round" },
+      { approach: "A bigger model as the check", measured: "stopped 4 right and passed 1 wrong for $0.093, against 2 and 1 for $0.010", verdict: "rejected" },
+      { approach: "A second strict check on every pass", measured: "StatQA right 12 to 7, sjplot 9 to 5, and a wrong answer passed anyway", verdict: "reverted" },
+      { approach: "A second judge on another model", measured: "stopped 26 of 46 right corrected plans, passed 1 of 3 wrong", verdict: "rejected" },
+      { approach: "The relational core as the main path", measured: "112 of 129 with 6 wrong, against 117 with 1", verdict: "fallback and second opinion" },
+      { approach: "Three candidate plans per question", measured: "114 of 129, 4 wrong, $1.81", verdict: "rejected" },
+      { approach: "More reasoning and bigger models on the hard set", measured: "6, 6, 4 and 4 of 8 against 6 of 19 at no reasoning", verdict: "rejected, the failures were meaning, not capacity" },
+      { approach: "Worked examples from verified answers", measured: "standing set 18 to 19 of 30, wrong 1 to 0", verdict: "shipped" },
+      { approach: "Code labels read twice, the second time reversed", measured: "chocolate: 4 codes agreed, 3 asked, and one answer fixed the salt count", verdict: "shipped" },
+      { approach: "Clustering a split's answers by how alike they answer", measured: "paired \u201cNone of these\u201d with Jewish and left atheists and agnostics apart", verdict: "rejected, answer families instead" },
+      { approach: "The model's column labels deciding roles", measured: "reference matches 21 / 6 / 1 to 16 / 10 / 2", verdict: "labels name, rules cast" },
+    ],
+  },
+  {
     group: "Charts",
     rows: [
       { approach: "Deterministic mark table, 16 ordered rules", measured: "first match wins, same request draws the same chart", verdict: "shipped" },
@@ -380,6 +468,12 @@ const alternatives = [
       { approach: "Principled two-signal orientation rule", measured: "changed nothing over 3,822 shapes; the whole gain was letting faceted charts turn", verdict: "heuristic kept" },
       { approach: "Refusing charts on taste", measured: "taste is a caveat on the drawn chart; only a false statement is refused", verdict: "policy changed" },
       { approach: "Chat agent behind the ask bar", measured: "replaced by one chart per sentence plus direct controls in the builder", verdict: "agent hidden" },
+      { approach: "Rules plus a narrow judge", measured: "140 of 179 for 38 calls, about $0.003; a judge on every chart 122 of 161 at 161 calls", verdict: "shipped" },
+      { approach: "Learned Draco-style weights", measured: "98 and 104 against 137 of 167", verdict: "rejected" },
+      { approach: "A model writing the headline", measured: "+2 held out, −1 and −2 on the references", verdict: "rejected" },
+      { approach: "A critic loop over the page", measured: "no change, at $0.002 a survey", verdict: "rejected" },
+      { approach: "The finding as the chart title", measured: "moved focus by at most 1 point", verdict: "reverted, descriptive titles" },
+      { approach: "A model reading a table's shape", measured: "41 of 52 at $0.024, against a deterministic detector's 51 of 52", verdict: "rejected" },
     ],
   },
 ];
@@ -423,6 +517,18 @@ const lessons = [
   { rule: "Agency pays where the space of right answers is large and unenumerable.", cost: "The agent tied or lost at executing a chart, coding a response and sequencing a pipeline, and beat its rule baseline 13% to 52-59% at choosing which questions deserve a chart." },
   { rule: "A headline needs a group big enough to mean it.", cost: "Extremes from tiny groups led pages until headlines were made to prefer groups of 30 or more." },
   { rule: "Measure the draw-to-draw spread before believing a step helped.", cost: "One survey moves 2 of 9 claims between draws, so a change smaller than that cannot be read from three repeats." },
+  { rule: "A strong blind model is the right bar.", cost: "Every gap it exposed was a general fault, not a fixture." },
+  { rule: "Fewer charts beat more coverage.", cost: "135 charts to 40 held the reference matches and raised the exact ones." },
+  { rule: "Judge noise is fixed in what the judge is shown, not by more judges.", cost: "A second strict check cost StatQA 5 right answers and still passed a wrong one." },
+  { rule: "A model's stated confidence is not evidence.", cost: "\u201cKnown\u201d was wrong on cocoa liquor. Agreement between two differently framed readings, checked against the rows, is." },
+  { rule: "Ask world-knowledge questions in both orders.", cost: "A causal judgement copied option A's order 16 times in 20." },
+  { rule: "Disagreement should cost a question, never a wrong answer.", cost: "The reversed reading made its own mistakes, and because only agreement is applied, they became questions." },
+  { rule: "Every loosening has a price.", cost: "Narrowing the check freed right answers and let a wrong one through 5 times in 6. Measure both directions every time." },
+  { rule: "Caches and shared trees make old code look new.", cost: "Three \u201cno effect\u201d results over two days were cached plans." },
+  { rule: "More model is not the lever.", cost: "More reasoning and bigger models scored the same or worse on the hard set." },
+  { rule: "A fact must reach every component, or it reaches none that matters.", cost: "Each fix in one place left a flip in another until all of them read one layer." },
+  { rule: "Disagreement is information.", cost: "Two computations that differ on one column say which column; refusing threw that away." },
+  { rule: "One run is not a measurement.", cost: "Four identical runs at temperature 0 ranged from 20 to 24 of 29." },
 ];
 
 const stillOpen = [
@@ -441,7 +547,302 @@ const stillOpen = [
   { name: "Known intake gaps", changed: "A file with no header row loses one row and names the columns after it. A packed column is read correctly as one column and never split. Multi-file, .xlsx and .zip uploads are refused with a note naming the format." },
   { name: "The personal-data layer was removed", changed: "By decision, not by accident: no column is withheld from publishing, prompts or the profile, and name-shaped columns became a descriptive attribute kind that is kept and not analysed, so they no longer reach the labeller as open text. Verbatims and name-shaped columns do reach prompts. That decision has to be revisited before any real upload." },
   { name: "Untried", changed: "Bedrock Batch (50% cheaper, the corpus qualifies), Advanced Prompt Optimization (does systematically what the density switch did by hand), Mantle's OpenAI-compatible endpoint (native reasoning effort and explicit cache control), and Automated Reasoning, which is a poor fit for a flat codebook with judgement underneath and a strong fit for eligibility, refund windows and academic standing." },
+  { name: "Check misreadings", changed: "A right reading the check misreads, such as Norway's rank among every currency. Settling a claim against the plan's steps recovered 1 of 56 right stopped plans; rules that make a case impossible to misread have worked better." },
+  { name: "The core as a second opinion", changed: "Its writers cannot express a streak, and one copies the check's wrong objection when shown it as a hint." },
+  { name: "Tests under a survey weight", changed: "Every test reads rows unweighted. Weighted p-values and intervals are not built, and the answer has to say where a p-value is not design-based." },
+  { name: "The S3 store", changed: "It cannot record a reader's answer or a remembered phrase yet, so asking only fully works locally." },
+  { name: "Noise", changed: "One run measures a change to about \u00b14 of 29, and a run whose answers were mostly cached reads high." },
   { name: "Fixture-flavoured constants", changed: "ABSTAIN_WARN_THRESHOLD 0.3, CONTRADICTION_WARN_THRESHOLD 0.1, MIN_CODED_SHARE_FOR_CROSSTABS 0.2, ACCEPT_TIER unanimous, and the CHARS_PER_CODE halving factor. Each is a threshold measured on a corpus smaller than the one it will meet." },
+];
+
+const contracts = [
+  { name: "Intent", what: "what the analyst writes, and code compiles", fields: "figure, about, answers, groupBy, among" },
+  { name: "Plan", what: "one format for every source of a question", fields: "metric, by, filter, scope, compare, denominator, order, limit, test" },
+  { name: "Fact", what: "the only source of a number", fields: "factId (hash of its plan), value, share, dimension, key, denominator, n" },
+  { name: "Refusal", what: "cached like a plan", fields: "kind, reason, remedy, what can be asked instead" },
+  { name: "Passport", what: "on every answer", fields: "plan hash, grammar version, dataset, registry, codebooks, freshness" },
+  { name: "ChartSpec", what: "Vega-Lite terms plus provenance", fields: "mark, encoding, factId on every point, sparse, caveats, passport" },
+];
+
+const threeway = [
+  { measure: "Charts on the page", before: "135", after: "115, then 40 after the outcome bar", opus: "23" },
+  { measure: "Wrong charts", before: "41", after: "3", opus: "0" },
+  { measure: "Oversized, over 40 categories", before: "12", after: "0", opus: "2" },
+  { measure: "Shares off the CSV by over 1 point", before: "4", after: "3", opus: "0" },
+  { measure: "Reference charts same / partial / none", before: "14 / 14 / 0", after: "16 / 11 / 1", opus: "3 / 12 / 13" },
+];
+
+const otherBenchmarks = [
+  { measure: "BLADE: the expert's variable charted against the outcome", opus: "5 of 6, no goal given", ours: "5 of 6, and 6 of 6 given the goal" },
+  { measure: "BLADE: charts on the page", opus: "18", ours: "120, then 38" },
+  { measure: "InsightBench: planted findings shown", opus: "1 of 19", ours: "2 of 19" },
+  { measure: "InsightBench: focus, out of 25", opus: "21", ours: "8" },
+];
+
+const recommenders = [
+  { tool: "NL4DV", mark: "55 / 59 of 90", orient: "54 / 27 of 64", arrange: "63 / 52 of 82" },
+  { tool: "LIDA", mark: "25 / 18 of 40", orient: "22 / 24 of 33", arrange: "21 / 5 of 36" },
+  { tool: "Draco 2", mark: "109 / 75 of 148", orient: "100 / 79 of 124", arrange: "112 / 84 of 137" },
+  { tool: "Data Formulator 0.7.0", mark: "28 / 20 of 31", orient: "23 / 19 of 27", arrange: "21 / 17 of 27" },
+];
+
+const opusNotes = [
+  "Phase 5 tuned a page on 13 surveys. The yardstick for the next week was Claude Opus 5.5 working blind: data only, no references, one script per file. Ten survey files, 28 charts their own authors published.",
+  "The benchmark was made trustworthy first. Two judges, one per arm, were too lenient on Opus, so one blinded judge now scores both arms as A and B. It was calibrated against VisJudge-Bench experts on 200 charts (Pearson 0.63, and 0.90 against itself on repeat), which makes it good for comparing and not for grading. Rules that need no judge catch averaged codes, ids drawn as variables, pooled years and shares that drift from the CSV, at precision 0.79 and recall 0.92 against the judge's wrong charts.",
+  "What moved each step: opaque codes and ids typed as attributes (wrong charts 41 to 6), the five strongest splits within 24 bars (oversized to 0), a small-effect bar of Cohen's h 0.2 (75 charts to 47), and a rule that a chart must say something about an outcome (47 to 40, exact matches 15 to 19). Writing the finding as the title moved nothing and was reverted.",
+  "Four unseen surveys first found 2 of 9, 1 of 16, 3 of 9 and 0 of 11 published findings. About half the misses were not understood and a third not computed. After general fixes only, sleep went 2 to 6 of 9 and masculinity 1 to 7 of 16.",
+  "An independent audit recomputed every number from the raw CSV with none of the engine's code: 160 of 160, then 166 of 166 held out and 156 of 156 on the final set. The rule page drew 171 identical charts over two runs.",
+  "Scale on the same pipeline: Household Pulse at 51,280 rows by 220 columns publishes in 109 s, from 19 minutes. GSS 75,699 weighted rows, BRFSS 438,694 values, with weights, codes and questionnaires applied.",
+  "Where Opus still leads: focus, 48 against 25 of 50, and exact reference matches, 15 against 11. The gap is no longer clutter or wrong charts. The blind analyst writes the pattern and picks one chart per finding.",
+];
+
+const modelSteps = [
+  { step: "Build the model and count disagreements, 411 runs", measured: "30,405 at first run" },
+  { step: "Roles: one precedence, decided once", measured: "7,881 to 0" },
+  { step: "Provenance: one rule, ten readers moved onto it", measured: "1,100 to 1" },
+  { step: "Index parity: local and S3 stores share names and order", measured: "fields differing 558 to 29" },
+  { step: "All disagreements, after every step", measured: "30,405 to 263", ours: true },
+];
+
+const modelNotes = [
+  "A census of the code found eight facts about a column each decided in several places. A role came from three sources merged on every page view, a kind had four writers, provenance was re-derived by about eight name-suffix rules, and scale direction had two spellings. Most bugs of the week were this showing up as something else.",
+  "The vocabulary is borrowed by name, so an export is a mapping: DDI-CDI (variable, category, question, universe), RDF Data Cube roles, CSVW titles, PROV-O derivation, SKOS concepts. The evidence for doing it came from enterprise SQL, not surveys: GPT-4 went from 16% to 54% accurate with a knowledge graph (Sequeda et al. 2023).",
+  "A column plays more than one role. Age is background to “satisfaction by age” and the outcome of “do older students enrol part-time”. 7,920 of 22,218 columns now carry two or more, and keeping every role took reference matches from 16 / 11 / 1 to 21 / 6 / 1. Letting the model's column labels decide roles fell back to 16 / 10 / 2: it names columns well and casts them badly.",
+  "The checks changed answers. “Average happiness by marital status” now answers each answer's share instead of a mean of a worded scale, and “average chimpanzee number” is refused instead of averaging an id.",
+  "More benchmarks found more misreads. BLADE 5 of 6 to 7 of 9, DiscoveryBench 6 of 62 to 14 of 62, and VisEval's first run 23 of 60 to 33 of 60, after tables of records were found unpivoted with every count doubled or tripled.",
+  "Comparisons without enumeration: one pass builds a cube per column and split, and every share, net and mean is a sum over its cells. Output is bit-identical and Stack Overflow 2019 compiles in 14 s, from 36. On 115 published claims over 12 held-out surveys, understood went 99 to 112, computed 84 to 99 and leading 30 to 43.",
+  "The week's benchmark runs cost under $1 in all, at about $0.0015 a model call.",
+];
+
+const builtBenchmarks = [
+  { bench: "Published toplines", has: "164 figures from GSS, ANES, RECS, Eurobarometer, FiveThirtyEight, scored within 0.5 points", first: "33 of 140", now: "57 of 140, 5 wrong" },
+  { bench: "nvBench 2.0", has: "ambiguous chart requests, several valid gold specs, 150 sampled", first: "93 refused", now: "43 refused, chart type ~82% agreeing" },
+  { bench: "StatQA", has: "which statistical test applies, over which columns, 100 sampled", first: "40%", now: "68%, against GPT-4o's best of 64.83%" },
+  { bench: "QRData", has: "411 statistical and causal questions, numeric within 3%", first: "14 of 99", now: "22 of 99; 51 of 163 with causal" },
+];
+
+const anyTableNotes = [
+  "The engine measured and never inferred: “a 95% confidence interval for p” was refused as no column called confidence interval. It now computes 25 tests exactly, checked against scipy 1.13.1 and statsmodels 0.14.6. Which test applies is decided by the data, the way StatQA's rules decide it: correlation by sample size, contingency by expected counts, variance by normality.",
+  "Causal effects: regression adjustment, propensity weighting, nearest-neighbour matching with Abadie-Imbens bias adjustment, difference in differences and two-stage least squares, each matching statsmodels. IHDP's average treatment effect 8 of 10.",
+  "Causal discovery reads the data first: local PC around the two variables, Fisher's z or G², alpha 0.01. No edge means no causal relationship, and an edge the data cannot orient is “unsettled”, never a guess. Only then a prior from the variable names, asked twice with the names in both orders and kept only when both agree. It named a direction 30 times in 50 and was right 29. Across 200 discovery questions, 105 to 137.",
+  "The ceiling, measured: on the Neuropathic dataset half the true causal pairs are not even marginally dependent in the sample, so no method reading the data alone can find them.",
+  "Any table, not only surveys: any column can be broken down by, a name or id is drawn one row per mark, and the variables a question names are matched to columns in one checked call before planning. nvBench had refused 62 of 150 as “no dimension called coach name”.",
+  "Columns found by their values. NLSY97 names every column a code (R9793800), so “SAT scores” matched nothing. The model predicts from the words alone where the values would sit, 400 to 1,600, and the columns whose middle lies inside that span replace a link whose values cannot be the thing. NLSY97 refusals 6 to 0.",
+];
+
+const wrongAnswers = [
+  { arm: "Before the check", right: "68", wrong: "52", asked: "0", refused: "44" },
+  { arm: "Read back and judged, one correction", right: "61", wrong: "5", asked: "0", refused: "98" },
+  { arm: "With the four fixes for what it stopped", right: "67", wrong: "8", asked: "1", refused: "88", ours: true },
+];
+
+const checkNotes = [
+  "Of 52 wrong answers, about half computed a different question than the one asked, and said so plainly once read back. “The difference in median earnings between economics and general business majors” computed economics alone.",
+  "Every field that changes the number is read back in words, with what execution selected and the weight, and a separate call judges that reading against the question. A failed check binds once more with the problems named, then refuses with “the closest computation does not answer this as asked”.",
+  "What it stopped got four fixes: arithmetic across figures split into one-figure questions with the arithmetic in code; a choice only the reader can make became a question with the columns as options; binder misreads; and the check's own false alarms.",
+  "Of the 8 still wrong, four differ from the published figure by under 2.5 points on the file as given, two are a measure stored in two forms, and two are a context the question omits.",
+  "A longer loop and a stronger checker were measured and rejected. Three rounds against one: same right answers, two more wrong. A bigger model as the check stopped 4 right answers and passed 1 wrong for $0.093, against 2 and 1 for $0.010.",
+];
+
+const refusalTrace = [
+  { start: "The planner was never told what one row is", example: "every table of published figures planned as respondents", measured: "figure-table surveys 1 to 7 right of 19, 0 wrong" },
+  { start: "What an abbreviation means", example: "RECS's electricity bill bound to all energy", measured: "24 columns read for $0.0008; RECS 19 to 22 right, 0 wrong" },
+  { start: "A kind named in the plural", example: "“the fake headlines” bound to one headline, 84.39 for 75, and the check passed it", measured: "2 right, 0 wrong" },
+  { start: "A filter on a column's only value", example: "one level of study on all 7,836 rows", measured: "0 to 3 right of 7, 0 wrong" },
+];
+
+const phase9Results = [
+  { bench: "QRData, 20 sampled", start: "6, 2, 12", end: "11, 0, 9" },
+  { bench: "StatQA, 20 sampled", start: "7, 1, 12", end: "11, 0, 9" },
+  { bench: "Toplines, RECS (29)", start: "19, 0, 10", end: "22, 0, 7" },
+  { bench: "Women's clothing reviews (10)", start: "0, 0, 10", end: "6, 0, 4" },
+  { bench: "Causal discovery (200), right and wrong", start: "62, 9", end: "58, 5" },
+];
+
+const readingNotes = [
+  "Seven inference passes guessed what a file means and applied the guess with no record of how sure it was, which numbers it moved, or a way to ask. ADR 0004 replaced that with one decisions.json per run: each reading with its evidence, source (rule, model or reader), confidence, whether it changes numbers or only words, and a status of applied, asked, confirmed or rejected.",
+  "The policy: applied where checked and its source knows, or where only words change; asked where it fails its check, two sources disagree, or a guess would move a number. Asking is lazy, so nothing blocks at upload. A pending reading becomes a question only when a question to the ask bar reads that column, and a reader's answer is never overwritten.",
+  "A model's stated confidence is not evidence. One reading said it knew the chocolate code L was cocoa liquor; the codebook says lecithin. Meanings are now read twice, the codes in reverse order the second time, and applied only where both agree. Answering Sa = salt made the salt count right, 37.",
+  "A rule that asks people questions is a product decision. The list rule first flagged 24 columns, 19 of them single answers containing commas (“Never, but open to it”). Two checks fixed it, and over about 6,500 benchmark columns it now asks on 5, all real lists the rules missed.",
+  "The check is only as good as what it is shown. Wrong answers that passed had one thing in common: the reading never said the fact that made them wrong, such as a test's sign or what a share is out of. Each line added fixed a class. A judge that reasons talks itself into a plausible reading: one wrong plan passed 4 times in 6 with low reasoning and 0 in 6 without, so the check never reasons and every change to it is rerun six times against a known-wrong plan.",
+  "The grammar grew where refusals were capabilities. A survey-weighted regression coefficient reproduces R's svyglm to 1e-5 relative. A CSV holds no factor order, and sorted levels gave 1,362.87 for a published 938.74, so an unstated reference level is a question back rather than a guess.",
+  "A different kind of data: product reviews over 23,486 rows. Product ids were binned as amounts, short tag lists read as prose, and a date in a title filtered unrelated questions to May. Each became a rule, not a case.",
+];
+
+const moreModel = [
+  { setting: "gpt-5.6-luna, no reasoning", right: "6 of 19", cost: "~$0" },
+  { setting: "gpt-5.6-luna, low reasoning", right: "6 of 19", cost: "$0.44" },
+  { setting: "GPT-6 Luna for everything", right: "4 of 19", cost: "$0.20" },
+  { setting: "GPT-6 Sol as the binder only", right: "4 of 8", cost: "$0.62" },
+];
+
+const noise = [
+  { run: "Right of 29", a: "24", b: "20", c: "23", d: "23" },
+  { run: "Wrong", a: "1", b: "0", c: "0", d: "2" },
+];
+
+const layerNotes = [
+  "Full runs cost $1.20 to $1.80 and moved up to 10 questions from rebinding alone, too noisy and too dear to judge a change by. So a hard set of 19 questions right at most a third of the time, plus 11 sentinels that were right in every run, became a standing set of 30 at under $0.50 a run.",
+  "The flipping questions had one cause in common: a fact about the file reached one component and not another. A fish oil study's description defines myocardioal_infarction as a heart attack, and no component was told. A drug-use file's units reached the binder and not the check. Every component now reads one pull interface over the run's facts, each fact with its source, moved in six steps and proved by snapshot diffs of 307 plan readings, 21 binder prompts and 307 validator verdicts.",
+  "Columns have capabilities, not one kind (ADR 0005): a 0/1 column could not be averaged into a rate, and a year written as a number read as summable.",
+  "A relational core sits under the grammar (ADR 0006): steps a model writes and code compiles to SQL, every token looked up, never pasted. Tried as the main path it scored 112 of 129 with 6 wrong against 117 with 1, so it stays a fallback and a second opinion. A plan that passed only after a correction was wrong 2 times in 14, against 2 in 99 for a first pass, so a corrected plan is shown only where the core computes it again and agrees.",
+  "A check's objection is a claim to settle (ADR 0007), checked against the file before it can stop a plan. When two computations disagree, both are read as the same ingredients (rows kept, measure, statistic, groups, weighting) and a side is chosen only where every difference points to it.",
+  "Worked examples learned from verified answers, the same idea as DAIL-SQL's example selection: up to three past plans by the question's form, only from other files, each hand-authored one executed against the raw file before it went in. The store grew from 186 to 202.",
+  "A second judge on another model was measured and rejected: over 56 corrected plans it stopped 26 of 46 right ones and still passed 1 of 3 wrong.",
+  "Result: the standing set went from 18 of 30 (60%) at the start of the phase to 27 of 29 (93%) with 0 wrong, for $0.08, mostly cached and so probably a couple high. A full fresh run of all three benchmarks then scored toplines 117 of 129, QRData 14 of 20 and StatQA 17 of 20, with 5 wrong: 2 are benchmark golds and 3 are now refused and repaired in code. It cost $2.57 against a $1.50 estimate.",
+];
+
+const benchmarks = [
+  { bench: "StatQA", measures: "which statistical test applies, over which columns", latest: "68% of 100, against GPT-4o's best of 64.83%; 17 of 20 in the last full run" },
+  { bench: "QRData", measures: "statistical and causal questions over textbook and paper data", latest: "14 of 20; causal discovery 58 right, 5 wrong of 200" },
+  { bench: "Published toplines", measures: "164 figures from GSS, ANES, RECS and others, within 0.5 points", latest: "117 of 129, 2 wrong" },
+  { bench: "nvBench 2.0", measures: "ambiguous chart requests with several valid answers", latest: "refusals 93 to 43 of 150, chart type ~82%" },
+  { bench: "VisEval", measures: "plain-language chart requests, gold data", latest: "33 of 60" },
+  { bench: "BLADE", measures: "expert analyses of research datasets", latest: "7 of 9" },
+  { bench: "DiscoveryBench", measures: "relationships a domain expert asked about", latest: "14 of 62, then 23 after stale runs were recompiled" },
+  { bench: "InsightBench", measures: "planted findings shown on the page", latest: "2 of 19, Opus 5.5 blind 1" },
+  { bench: "VisJudge-Bench", measures: "calibrates our judge, does not score us", latest: "Pearson 0.63 with experts, 0.90 with itself" },
+  { bench: "Three-way, built", measures: "the charts a survey's own authors published, against Opus 5.5 blind", latest: "21 / 6 / 1 same / partial / none; Opus 3 / 12 / 13" },
+  { bench: "Held-out, built", measures: "12 surveys, 115 published claims: understood, computed, shown, leading", latest: "112, 99, 62, 43" },
+  { bench: "Standing set, built", measures: "the 19 hardest questions plus 11 sentinels", latest: "27 of 29 (93%), 0 wrong" },
+];
+
+const techniques = [
+  { name: "Typed intent, compiled", changed: "The analyst writes a typed intent (figure, about, answers, groupBy, among) as one forced tool call, and code compiles it into a plan with no model in between. Rates came out the right way round 36 of 40 times, against 3 of 28 when a second model read a sentence back." },
+  { name: "Refuse a different question", changed: "A plan must use a column the intent named, or it is refused with “the bound plan answers a different question: it uses X, not Y”. 13 of 31 old plans had silently used none of them." },
+  { name: "The survey model", changed: "Profile, propose, verify, compile. A model proposes types and roles, voted three times, and each claim is verified on the rows: 95% of values on the scale, Cronbach's alpha 0.6 or more for a battery, a reversed item found by negative item-rest correlation. Where rules and model disagree, rules win and the evidence is shown. Types 25 of 29 to 29 of 29, $0.0012 to $0.0018 a survey." },
+  { name: "An editable schema", changed: "Every answer with its n, position and kind (answer, off scale, missing), every field with its source. Marking religion's “None of these” as missing took the base from 1,039 to 797 and the opening chart from “None of these 23.3%” to “Protestant 29.4%”. Edits replay over every rebuild." },
+  { name: "Banner table, drop reasons", changed: "Every question, item and option against up to 12 splits, tested by type (Welch t, two-proportion z, NPS z), never by a model, under two Benjamini-Hochberg families. Every row not drawn ships with its reason: not significant, reversed, drawn elsewhere and six more." },
+  { name: "Derive recipes", changed: "Derived columns (thresholds, bands, any-of, quantiles) are tried on the rows first, stored as a recipe and replayed on every publish, so a derived column is an ordinary dimension in every chart, filter and audit. Publish had never replayed the recipe before." },
+  { name: "Number-token valve", changed: "Every number in model prose must equal a computed fact, token for token. “About 18%” for 17.8% fails, and so does 13.0 for 13. A failing sentence is handed back once, then stripped." },
+  { name: "Eliminate, then rank", changed: "The Draco 2 pattern. Rules remove every mark the data cannot honestly carry, each with a reason; a model ranks the survivors only for combo, heatmap, area or pie, guided by published style guides (UK Analysis Function, Datawrapper, Urban, Pew). A timeout or a bad answer keeps the rules' chart." },
+  { name: "One mark catalogue", changed: "Each mark lists what it requires (direction, hierarchy, spread, series, pairs) and whether an unmet need refuses or caveats. Every menu, the analyst's included, is generated from it, and a missing mark fails the compile." },
+  { name: "Shape detector", changed: "Respondent, long, entity, period, long table or crosstab, read over every row: 51 of 52 files, where a model shown headers and 20 rows got 41. A crosstab cell becomes its row's weight, so a share is cell over row." },
+  { name: "Typing from evidence", changed: "Negative codes −1 to −9 among small positives are no answer (26 ANES columns), a code column that maps one to one onto a labelled one is a twin, and a weight is found by name plus shape: on 10 of 10 files that ship one, from 0." },
+  { name: "Outcome-first page", changed: "One sentence of goal, parsed with no model, names the outcome. Charts that only describe who answered, or show a small effect (Cohen's h under 0.2), are held back with their reason, never deleted." },
+  { name: "Checking the output", changed: "An audit recomputes every chart from the raw CSV with none of the engine's code; conservation re-reads the file with DuckDB's own parser and warns past 0.5% loss; contract checks fail on bare codes and packed tick-all answers. One command runs all three." },
+  { name: "Cache and replay", changed: "Every model answer is cached by a hash of model and request, so an A/B test changes exactly one thing, and the intake recipe replays every model decision: 0 divergences over 30 export shapes." },
+  { name: "Populations first", changed: "Up to 20 “among X who Y” groups from the questionnaire alone, kept if 50 or more people but under 95% fall in. Each becomes a split, never tested against the questions that define it." },
+  { name: "Figures beyond the grammar", changed: "Share of answers, ranked first and correlation, computed over rows. Star Wars: Empire ranked first by 35.9% of the 471 who saw all six films, against a published 36%." },
+];
+
+const ruleChecks = [
+  { rule: "R1", catches: "averaged codes" },
+  { rule: "R2", catches: "unlabelled codes" },
+  { rule: "R3", catches: "an id as a variable" },
+  { rule: "R4", catches: "a column recoded into itself" },
+  { rule: "R5", catches: "years pooled with no time axis" },
+  { rule: "R6", catches: "over 40 categories" },
+  { rule: "R7", catches: "shares off the CSV" },
+  { rule: "R8", catches: "one variable cut twice" },
+  { rule: "R9", catches: "overlapping bands" },
+];
+
+const trace = [
+  { step: "1 Shape", what: "respondent, read over all 1,470 rows: no weight, no clock" },
+  { step: "2 Typing", what: "43 questions (35 columns, 8 derived): 16 numeric, 12 rating, 7 yes/no, 7 single choice, 1 id, each with a reason. Over18 named a constant; 9 scales flagged with no declared direction" },
+  { step: "3 Roles", what: "domain read as employee attrition: 11 segment, 11 behaviour, 9 outcome, 8 background, 4 identifier, for $0.0051" },
+  { step: "4 Analyst", what: "12 analyses in one call, $0.0017. “What share of employees left, by whether they work overtime?” as figure share, about Attrition, answers Yes, groupBy OverTime" },
+  { step: "5 Plan", what: "compiled from the intent, no binder call" },
+  { step: "6 Banner", what: "5,444 comparisons tested, 386 significant. 1,436 not drawn, each with a reason; the same pair the wrong way round dropped as reversed" },
+  { step: "7 Chooser", what: "the analyst asked for a dumbbell; 9 marks eliminated with reasons (“trend: needs a clock”), no ranking call needed" },
+  { step: "8 Bars", what: "16 charts drawn; work-life balance by overtime held back as a small effect, 1.5% of the average" },
+  { step: "9 Chart", what: "30.5% of overtime workers left against 10.4%, the published figure, every point carrying its fact id" },
+  { step: "10 Audit", what: "from the raw CSV with none of the engine's code: 13 of 13 checkable charts match" },
+];
+
+const traceNotes = [
+  "The trace found three defects. 12 republished runs held another run's analyst file, so 11 of 12 analyses were refused; a page whose plans name another run is now refused outright.",
+  "The intent's percent unit never reached a dumbbell or a line, which plotted counts on an axis titled “Responses”. They now plot each group's share.",
+  "A generic headline, “‘Yes’ is most common among Yes (30.5%)”, became “Attrition ‘Yes’: 31% among those with overtime work against 10% among those without”.",
+];
+
+const askEngines = [
+  { engine: "Adaptive, a typed question graph", answered: "47%", numeric: "43%", charts: "25", cost: "$0.0770" },
+  { engine: "Chat, a model calling tools", answered: "67%", numeric: "43%", charts: "7", cost: "$0.0326" },
+];
+
+const askLimits = [
+  { limit: "Model calls", value: "24" },
+  { limit: "Tokens", value: "40,000" },
+  { limit: "Execution", value: "60,000 ms" },
+  { limit: "Result cells", value: "10,000" },
+  { limit: "Parts in one question", value: "32" },
+  { limit: "Dollars", value: "$0.05" },
+];
+
+const substitute = [
+  { signal: "Jaro-Winkler string similarity at 0.85", pass: "0 of 18", nonsense: "0 of 10" },
+  { signal: "Embedding cosine at 0.40", pass: "14 of 18", nonsense: "1 of 10" },
+];
+
+const askNotes = [
+  "Two paths, one live. Chart from a question is always on: the sentence becomes a plan, the model sees no rows, layout words like “stacked” become a preference, and a refusal gets one retry with a hint built from its own reason. The ask agent, with prose, parts and clarifications, sits behind a flag.",
+  "The planner splits a question into a typed graph of parts in one forced-schema call, then code settles the routing by re-reading each part with the deterministic cascade. If a reader asked for causal inference and the split dropped it, a declined part is put back so it is refused by name. Regex alone caught 2 of 12 causal phrasings.",
+  "Parts whose dependencies have settled run as a batch, and time is a maximum per batch, not a sum: the serial sum had deferred part 4 of every question. A dependency hands over its plan, never its numbers. Cascading failures had been 37.4% of gap reports.",
+  "Every refusal carries its remedy: 731 of 731 cached refusals had one. Refusal is a ladder (substitute, decompose, sample, extend, request) where each rung must clear separate floors for safety, feasibility, cost and fidelity rather than one weighted total.",
+  "Streaming sends server-sent events from the one funnel that all 11 ways a part can end go through, and the final event is exactly the non-streaming response. The plan arrives 1.7 to 3.0 s in.",
+  "One deadline covers the whole question and every model call in it, after one Bedrock call held a socket for over seven minutes and nothing noticed.",
+  "At most one clarifying question, ranked by how much the answer would swing minus its cost. Answers come back structured; appending “Answer: X” to the text had reached nothing. A question matching a panel already on screen is answered from that panel's plan for $0. The most any completed question has spent is 7 calls and $0.0058.",
+];
+
+const stageTimes = [
+  { stage: "check", before: "180.3", after: "1.6" },
+  { stage: "review", before: "142.4", after: "1.3" },
+  { stage: "label", before: "105.2", after: "76.8" },
+  { stage: "read", before: "68.1", after: "1.2" },
+  { stage: "whole execution", before: "500", after: "84.6", ours: true },
+];
+
+const deployNotes = [
+  "Pointer, not payload. Step Functions passes at most 256 KB between states, and 102 rows plus a 201-card codebook exceed it before any label exists, so state carries a run id and a bucket and each task loads its workspace from S3.",
+  "Standard, not Express, because Express caps a run at 5 minutes and labelling a full corpus takes longer. Every task retries once with backoff, and a repair loop is a Choice state plus a counter.",
+  "Four stages now call their tool directly because their tool order never varied. The check stage's one sum had taken 116 s, 178 s, 336 s and 3.9 s across four runs, and one attempt died on the agent runtime's 120 s initialisation limit while Lambda's own start took 641 ms.",
+  "30 of 32 successful executions had no usable local run, because collecting results lived only at the tail of a poll loop that a dev-server reload killed. Runs are now recovered on read and at boot, and only by a process that owns no live poll. A tool that rebuilt the manifest was rejected: a wrong graph hash is worse than no run.",
+  "Bundling traps: every stage died at load until the ESM bundle gained a createRequire banner, and a Mac-built DuckDB layer shipped no Linux binary until the arm64 binding was named outright.",
+];
+
+const dataClasses = [
+  { kind: "Catalog: registry, codebook versions, index", size: "KB", grows: "surveys" },
+  { kind: "Facts: the numbers a page reads", size: "36 to 108 KB a run", grows: "codebook by dimensions" },
+  { kind: "Payload: verbatims, per-row labels", size: "560 B to 7.1 KB a row", grows: "rows" },
+];
+
+const formats = [
+  { format: "JSON", size: "28,049 KB", agg: "31.6 ms", point: "27.7 ms", scan: "55.5 ms", fts: "n/a" },
+  { format: "Parquet", size: "2,301 KB", agg: "1.5 ms", point: "3.2 ms", scan: "31.5 ms", fts: "n/a" },
+  { format: "Lance", size: "7,596 KB", agg: "12.2 ms", point: "4.7 ms", scan: "9.4 ms", fts: "22.4 ms", ours: true },
+];
+
+const storageNotes = [
+  "At 25,000 rows a survey holds 14 to 178 MB of payload against about 150 KB of facts, and 50 such surveys cost $0.20 a month in S3. A page only ever reads the facts.",
+  "Lance over Parquet, measured on 114,000 real rows: Parquet wins aggregation, but this table is searched and drilled into, and 3.3 times Parquet's bytes buys full-text search, vector search, versioning and cheap new columns, read straight from S3. A count in 461 ms, vector search 798 ms cold.",
+  "A run id is a hash of the content, the columns and the codebook, after two survey rounds both saved as export.csv minted the same id and the second overwrote the first.",
+  "Only a new round may claim that topics moved. A relabel or a recode of the same rows cannot present itself as a trend, and comparison refuses across codebook versions that share a name.",
+  "Caching was measured, not assumed. A 4.2 MB facts file was parsed 21 times per analysis; a parse cache took one analysis from 188 ms to 49 ms. One call now clears every cache for a run, after a reviewer's accept changed no number until a restart. A connection created without memoising its promise gave N callers N databases, and a seven-round comparison drew 3 timelines.",
+  "A DuckDB fast path threw on 100% of calls behind an empty catch. Repaired, it was still slower than plain JSON parsing, 2.1 ms against 0.3, so it was deleted.",
+];
+
+const routes = [
+  { route: "/upload", shows: "the four-step wizard: file, profile, codebook, label" },
+  { route: "/analysis", shows: "the canvas, filters, ask dock and chart builder" },
+  { route: "/data", shows: "every response with its codes and sentiment" },
+  { route: "/schema", shows: "every answer of every column, its kind and position, editable" },
+  { route: "/model", shows: "one role per question, editable" },
+  { route: "/surveys", shows: "every instrument, its rounds and lineage" },
+  { route: "/codebooks", shows: "every vocabulary, its versions, an editor" },
+  { route: "/governance", shows: "codelists, typing overrides, the audit log" },
+];
+
+const appNotes = [
+  "Nuxt 4 draws the pages and NestJS serves 70 routes in 11 modules, wrapping the same handlers the CLI calls. The web app takes types from the shared contract, never runtime values. Dashboards, filters, the builder and every chart post a plan and make 0 model calls.",
+  "The upload wizard went from one 2,340-line page to 329 lines over one injected state. The codebook fit check used to print “PASS 0.648 mean coverage of 37 responses by 54 codes”; each signal now names its question and the line it had to clear.",
+  "The dashboard is a 12-column drag-and-drop grid where arranging is a mode and every drag has a click equivalent. Gravity cut how far untouched panels travel from 272 rows to 123.",
+  "The chart builder replaced the hidden ask agent as the way to make a chart: metric, breakdown, mark and style from menus, no model. Its style controls are reader problems, not Vega knobs: 84 Vega-Lite settings became 38 named faults.",
+  "Clicking a mark opens the responses behind it, with codes as chips and verbatims as quotes. The full data table at 1,691 rows had put 24,684 nodes in the page; a 150-row window cut scroll height from 122,537 px to 10,556.",
+  "Charts arrive as a spec, never an image, and render through a closed switch over the contract's marks, so an unknown mark explains itself instead of drawing blank. Exports cover PNG, JPG, SVG, CSV and PDF, and the printed report is assembled by the same code the CLI uses.",
+  "Legibility was a contract field, not a CSS fix: labels had been scored for width at 1,076 px and drawn at 288, and panels of the same height had tops at six different positions. Seven browser checks guard it.",
+  "One honest miss: the review queue held 55 rows and 0 were ever reviewed, because Keep sent an empty code list and was refused. It is not offered now.",
 ];
 
 /* "01  Timeline" -> rail label "Timeline" with its ordinal, the title as the section's statement */
@@ -546,36 +947,51 @@ export default function SurveyAgentsCaseStudy() {
       }
     >
       <div className="pt-10">
-            <p className="t-lead max-w-[40rem]">
-              Upload any structured dataset and get verified facts, accessible charts and answers
-              that re-execute exactly, with no per-dataset pipeline for anyone to build or
-              maintain. A reader asks a question in plain English, gets a chart back, and edits
-              it directly: stack, sort, top-N, filter, undo. It has since been run on public datasets it was never designed for,
-              from Titanic to IBM attrition to FiveThirtyEight&apos;s survey data. Twelve agents,
-              five weeks, 1,307 commits, owned end to end from architecture to deployment, and
-              built to answer one question honestly rather than flatteringly. Does agentic
-              architecture beat three direct API calls, and what does the reliability actually
-              cost? The answer turned out to depend entirely on what you give the agent to decide.
+            <p className="t-h3 max-w-[40rem] !font-semibold !leading-snug text-foreground">
+              Ask any dataset a question in plain English and get an answer you can make a
+              decision on.
             </p>
-            <p className="t-meta mt-5 max-w-[40rem]">
-              Total Bedrock spend across the first AWS phase: $0.31. Every figure below comes
-              from the project&apos;s own measurement logs, where each one names the run it was
-              taken from.
+            <p className="t-lead mt-5 max-w-[40rem]">
+              Every number is computed by code, cited back to the rows it came from, and read
+              back in words to be checked before anyone sees it. When the platform is unsure, it
+              asks instead of guessing. It reads files the way their authors meant them, from
+              survey-tool exports to a 51,280-person federal survey, runs statistical tests and
+              causal estimates that match scipy and statsmodels, and is held against public
+              benchmarks and Claude Opus 5.5 working blind. Twelve agents and 2,435 commits in
+              seven weeks, owned end to end from architecture to deployment.
             </p>
 
-            <Stats className="mt-14" items={stats.map((x) => [x.value, x.label])} />
+            <Stats className="mt-14" items={impact.map((x) => [x.value, x.label])} />
+
+            <div className="mt-12">
+              <NamedList items={highlights} />
+            </div>
+
+            <p className="t-meta mt-10 max-w-[40rem]">
+              It began as one question, asked honestly rather than flatteringly: does agentic
+              architecture beat three direct API calls, and what does the reliability actually
+              cost? The answer turned out to depend entirely on what you give the agent to
+              decide. Total Bedrock spend across the first AWS phase: $0.31. Every figure below
+              comes from the project&apos;s own measurement logs, where each one names the run it
+              was taken from.
+            </p>
+
+            <Stats className="mt-10" items={stats.map((x) => [x.value, x.label])} />
 
           <div>
-            <Section eyebrow="01  Timeline" title="Three phases, three verdicts">
+            <Section eyebrow="01  Timeline" title="Ten phases, ten verdicts">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 The labelling question was answered in about three weeks and the answer was
                 largely negative about architecture. The project then moved up a layer to the
                 question that was actually open: once responses are coded, how does anyone ask
                 a question of them and get a consistent, cited, drawable answer. A fourth phase
                 asked whether any of it survives a file the code has never seen, and a fifth
-                handed the choice of analyses to an agent. Phases overlap, and the commit
-                distribution is heavily back-loaded: 124 in August against 1,183 in September,
-                with the two heaviest days both in the last week.
+                handed the choice of analyses to an agent. The next five held it against a strong
+                model working blind, gave every column one meaning in one place, opened it to any
+                table with statistical tests and causal estimates, and made every answer pass a
+                check before it is shown. Phases overlap, and the commit distribution is heavily
+                back-loaded: 133 in August, 1,774 in September and 528 in the first eight days of
+                October.
               </p>
 
               <Table>
@@ -625,7 +1041,41 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="03  Orchestration" title="The workflow graph is versioned data">
+            <Section eyebrow="03  Architecture" title="Where it runs, what it passes">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Two paths over one store. The write path turns an upload into facts on Step
+                Functions in minutes; the read path turns a question into a cited chart in
+                milliseconds to seconds. Ports keep the tools and agents identical on a laptop and
+                on AWS.
+              </p>
+              <SystemArchitecture />
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Inside, five layers pass typed JSON. A model chooses and words things; code
+                computes, checks and replays. A dashboard panel posts the plan a model would have
+                written, so it never calls one.
+              </p>
+              <AiPipeline />
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Contract</Th>
+                    <Th>What it is</Th>
+                    <Th>Fields</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {contracts.map((c) => (
+                    <tr key={c.name}>
+                      <td className="whitespace-nowrap !text-foreground">{c.name}</td>
+                      <td>{c.what}</td>
+                      <td>{c.fields}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Section>
+
+            <Section eyebrow="04  Orchestration" title="The workflow graph is versioned data">
               <AgentGraph />
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Nodes, edges, verdicts, capability gates and fan-out parameters are declared in
@@ -647,7 +1097,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="04  Intake" title="Five gated stages, one replayable recipe">
+            <Section eyebrow="05  Intake" title="Five gated stages, one replayable recipe">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 The orchestrator is ordinary code. A model is consulted only where the rules are
                 visibly unsure, and every decision it makes lands in one JSON recipe that
@@ -700,7 +1150,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={intakeNotes} />
             </Section>
 
-            <Section eyebrow="05  Reliability" title="Where the architecture creates value">
+            <Section eyebrow="06  Reliability" title="Where the architecture creates value">
               <Table>
                   <thead>
                     <tr>
@@ -766,7 +1216,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="06  Controls" title="Three decisive control runs">
+            <Section eyebrow="07  Controls" title="Three decisive control runs">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Each control was built after the thing it was meant to check, which is the wrong
                 order, and each one moved the conclusion. Same corpus, same scorer, same model
@@ -804,7 +1254,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="07  Measurement" title="Model choice mattered more than architecture">
+            <Section eyebrow="08  Measurement" title="Model choice mattered more than architecture">
               <Table>
                   <thead>
                     <tr>
@@ -867,7 +1317,7 @@ export default function SurveyAgentsCaseStudy() {
               </blockquote>
             </Section>
 
-            <Section eyebrow="08  Agency" title="Agency's worth, layer by layer">
+            <Section eyebrow="09  Agency" title="Agency's worth, layer by layer">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Three layers were compared over the same tools: a managed agent harness against
                 our own loop at the label stage, a state machine against a local driver over
@@ -925,7 +1375,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={orchestrationNotes} />
             </Section>
 
-            <Section eyebrow="09  Analysis" title="Semantic layer, not text-to-SQL">
+            <Section eyebrow="10  Analysis" title="Semantic layer, not text-to-SQL">
               <AnswerPath />
               <Notes items={analysisDecisions} />
               <p className="t-body max-w-[40rem] text-muted-foreground">
@@ -936,7 +1386,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="10  Retrieval" title="The axis nobody scored">
+            <Section eyebrow="11  Retrieval" title="The axis nobody scored">
               <Table>
                 <thead>
                   <tr>
@@ -965,7 +1415,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={retrievalNotes} />
             </Section>
 
-            <Section eyebrow="11  The data model" title="One narrow fact table">
+            <Section eyebrow="12  The data model" title="One narrow fact table">
               <DataModel />
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 There is no respondent table on purpose. Cross-survey is an alignment ladder over{" "}
@@ -986,7 +1436,7 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="12  Original mechanisms" title="Designed from first principles">
+            <Section eyebrow="13  Original mechanisms" title="Designed from first principles">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Recorded deliberately, so it is clear which parts stand on published work and
                 which are ours to get wrong.
@@ -994,11 +1444,11 @@ export default function SurveyAgentsCaseStudy() {
               <NamedList items={ours} />
             </Section>
 
-            <Section eyebrow="13  Visualization" title="Charts are specs, never images">
+            <Section eyebrow="14  Visualization" title="Charts are specs, never images">
               <Notes items={chartFindings} />
             </Section>
 
-            <Section eyebrow="14  Question coverage" title="Drew well, answered little">
+            <Section eyebrow="15  Question coverage" title="Drew well, answered little">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Phase 4 replaced the question again. Everything up to here scored the chart.
                 Nothing scored whether the page said anything about what the survey actually
@@ -1029,7 +1479,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={phase4Notes} />
             </Section>
 
-            <Section eyebrow="15  Relationships" title="Telling a real difference from noise">
+            <Section eyebrow="16  Relationships" title="Telling a real difference from noise">
               <Notes items={relationshipNotes} />
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 The ask bar answers &ldquo;is X related to Y&rdquo; from the same screen, including
@@ -1037,11 +1487,11 @@ export default function SurveyAgentsCaseStudy() {
               </p>
             </Section>
 
-            <Section eyebrow="16  Subtraction" title="Cheaper with fewer agents">
+            <Section eyebrow="17  Subtraction" title="Cheaper with fewer agents">
               <Notes items={removingAgents} />
             </Section>
 
-            <Section eyebrow="17  The analyst" title="The one place agency clearly won">
+            <Section eyebrow="18  The analyst" title="The one place agency clearly won">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Every earlier comparison on this page had the agent tie or lose: same F1 as a
                 single prompt, 0 of 41 chart proposals accepted, identical answering outcomes at
@@ -1127,15 +1577,505 @@ export default function SurveyAgentsCaseStudy() {
               </blockquote>
             </Section>
 
-            <Section eyebrow="18  Deployment" title="Where managed services earn their place">
-              <Notes items={awsFindings} />
+            <Section eyebrow="19  Against Opus 5.5" title="A strong model as the bar">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Judge-free rules over the same ten files, before and after the week&apos;s general
+                fixes, against Opus 5.5 given only the raw file.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Ten files, 28 published charts</Th>
+                    <Th>Platform, Sep 30</Th>
+                    <Th accent>Platform, Oct 1</Th>
+                    <Th>Opus 5.5 blind</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {threeway.map((r) => (
+                    <tr key={r.measure}>
+                      <td>{r.measure}</td>
+                      <td>{r.before}</td>
+                      <td className="!text-foreground">{r.after}</td>
+                      <td>{r.opus}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+
+              <Notes items={opusNotes} />
+
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Other datasets, same two arms</Th>
+                    <Th>Opus 5.5 blind</Th>
+                    <Th accent>Platform</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {otherBenchmarks.map((r) => (
+                    <tr key={r.measure}>
+                      <td>{r.measure}</td>
+                      <td>{r.opus}</td>
+                      <td className="!text-foreground">{r.ours}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Chart choice was also scored against a corpus of published charts from Makeover
+                Monday, Our World in Data, The Pudding, NCES and others, and against open-source
+                recommenders on the charts each one could answer. Ours first, theirs second.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Recommender</Th>
+                    <Th>Mark</Th>
+                    <Th>Orientation</Th>
+                    <Th>Arrangement</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recommenders.map((r) => (
+                    <tr key={r.tool}>
+                      <td className="whitespace-nowrap">{r.tool}</td>
+                      <td>{r.mark}</td>
+                      <td>{r.orient}</td>
+                      <td>{r.arrange}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             </Section>
 
-            <Section eyebrow="19  Method" title="Every component must prove its value">
+            <Section eyebrow="20  Semantic model" title="One place for a column's meaning">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                One <span className="ui-code">semantic-model.json</span> per run (ADR 0003, an
+                architecture decision record), written at publish, and a check that counts every
+                place today&apos;s code still decides differently from it.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Step</Th>
+                    <Th accent>Measured</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {modelSteps.map((r) => (
+                    <tr key={r.step}>
+                      <td className={r.ours ? "!text-primary" : ""}>{r.step}</td>
+                      <td className="!text-foreground">{r.measured}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={modelNotes} />
+            </Section>
+
+            <Section eyebrow="21  Any table" title="Tests, causes, no wrong numbers">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Four more benchmarks, each binding a question with one cached model call and
+                scored by code, no judge. Built, they showed the platform answered survey
+                questions and little else. The gaps were closed without enumerating cases: no
+                table of phrases to columns, no list of variable pairs.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Benchmark</Th>
+                    <Th>What it has</Th>
+                    <Th>First run</Th>
+                    <Th accent>End of phase</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {builtBenchmarks.map((r) => (
+                    <tr key={r.bench}>
+                      <td className="whitespace-nowrap">{r.bench}</td>
+                      <td>{r.has}</td>
+                      <td>{r.first}</td>
+                      <td className="!text-foreground">{r.now}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={anyTableNotes} />
+
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Then a rule: a refusal that says why is acceptable, a wrong number is not.
+                Every answer is now read back in words and judged before it is shown.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Toplines, all 164 figures</Th>
+                    <Th>Right</Th>
+                    <Th accent>Wrong</Th>
+                    <Th>Asked the reader</Th>
+                    <Th>Refused</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {wrongAnswers.map((r) => (
+                    <tr key={r.arm}>
+                      <td className={r.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>{r.arm}</td>
+                      <td>{r.right}</td>
+                      <td className="!text-foreground">{r.wrong}</td>
+                      <td>{r.asked}</td>
+                      <td>{r.refused}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={checkNotes} />
+            </Section>
+
+            <Section eyebrow="22  Reading the file" title="Every reading is a decision">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Next, fewer refusals without adding wrong answers, at under $0.50 a cycle. Traced
+                to where each refusal started, most began upstream of the stage that reported it:
+                what intake decided a column was, what an abbreviation meant, what one row of the
+                file stood for. So the work moved from fixing the planner to fixing what the
+                planner is told.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Where it started</Th>
+                    <Th>Example</Th>
+                    <Th accent>Measured</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {refusalTrace.map((r) => (
+                    <tr key={r.start}>
+                      <td>{r.start}</td>
+                      <td>{r.example}</td>
+                      <td className="!text-foreground">{r.measured}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={readingNotes} />
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Right, wrong, refused</Th>
+                    <Th>Start of phase</Th>
+                    <Th accent>End of phase</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {phase9Results.map((r) => (
+                    <tr key={r.bench}>
+                      <td>{r.bench}</td>
+                      <td className="whitespace-nowrap">{r.start}</td>
+                      <td className="whitespace-nowrap !text-foreground">{r.end}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Section>
+
+            <Section eyebrow="23  Semantic layer" title="Fix what every component is told">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Every typed question now takes one settle path. Code computes, a model checks the
+                reading, and a stopped plan is corrected once, then split, asked of the reader or
+                refused. A plan the grammar cannot express goes to a relational core whose two
+                writers must agree.
+              </p>
+              <SettlePath />
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                More model was tried first, cheapest first, on the 19 hardest questions. None of it
+                helped. The failures were what the file means and what the check was shown, plus
+                two benchmark golds.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Hard set</Th>
+                    <Th accent>Right</Th>
+                    <Th>Cost</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {moreModel.map((r) => (
+                    <tr key={r.setting}>
+                      <td>{r.setting}</td>
+                      <td className="whitespace-nowrap !text-foreground">{r.right}</td>
+                      <td>{r.cost}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Then how noisy one run is: four standing runs from empty caches, identical code and
+                prompts, temperature 0. 16 questions were right in every run and 11 flipped.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Standing set</Th>
+                    <Th>A</Th>
+                    <Th>B</Th>
+                    <Th>C</Th>
+                    <Th>D</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {noise.map((r) => (
+                    <tr key={r.run}>
+                      <td>{r.run}</td>
+                      <td>{r.a}</td>
+                      <td>{r.b}</td>
+                      <td>{r.c}</td>
+                      <td>{r.d}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={layerNotes} />
+            </Section>
+
+            <Section eyebrow="24  Benchmarks" title="Scored by code, not by taste">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                Every benchmark runs locally. What the plan grammar cannot express is recorded as
+                a refusal and reported apart from accuracy, so coverage and correctness are never
+                one number.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Benchmark</Th>
+                    <Th>What it measures</Th>
+                    <Th accent>Latest</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {benchmarks.map((r) => (
+                    <tr key={r.bench}>
+                      <td className="whitespace-nowrap">{r.bench}</td>
+                      <td>{r.measures}</td>
+                      <td className="!text-foreground">{r.latest}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Section>
+
+            <Section eyebrow="25  Techniques" title="The mechanisms under the scores">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                One rule runs through all of them: a model chooses and words things, code
+                computes, checks and replays. Each row is one place that line is drawn.
+              </p>
+              <NamedList items={techniques} />
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                The rule checker scores every arm the same way, with no judge.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Rule</Th>
+                    <Th>Catches</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ruleChecks.map((r) => (
+                    <tr key={r.rule}>
+                      <td className="whitespace-nowrap">{r.rule}</td>
+                      <td>{r.catches}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Section>
+
+            <Section eyebrow="26  Worked trace" title="One file, upload to chart">
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                IBM&apos;s public attrition dataset, 1,470 rows by 35 columns, one real run replayed
+                with every model answer from cache.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Step</Th>
+                    <Th>What happened</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {trace.map((r) => (
+                    <tr key={r.step}>
+                      <td className="whitespace-nowrap !text-foreground">{r.step}</td>
+                      <td>{r.what}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={traceNotes} />
+            </Section>
+
+            <Section eyebrow="27  Ask path" title="A question, settled by code">
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Engine, 75 questions</Th>
+                    <Th>Answered</Th>
+                    <Th>Numbers right</Th>
+                    <Th>Useful charts</Th>
+                    <Th>Cost</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {askEngines.map((r) => (
+                    <tr key={r.engine}>
+                      <td>{r.engine}</td>
+                      <td>{r.answered}</td>
+                      <td>{r.numeric}</td>
+                      <td>{r.charts}</td>
+                      <td>{r.cost}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={askNotes} />
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Budget per question</Th>
+                    <Th accent>Limit</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {askLimits.map((r) => (
+                    <tr key={r.limit}>
+                      <td>{r.limit}</td>
+                      <td className="!text-foreground">{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <p className="t-body max-w-[40rem] text-muted-foreground">
+                The substitute rung swaps a missing column for a close one. String similarity
+                ranked it backwards, asteroid~question at 0.617 above tone~sentiment at 0.583.
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Signal, 28 pairs</Th>
+                    <Th accent>Real matches pass</Th>
+                    <Th>Nonsense passes</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {substitute.map((r) => (
+                    <tr key={r.signal}>
+                      <td>{r.signal}</td>
+                      <td className="!text-foreground">{r.pass}</td>
+                      <td>{r.nonsense}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Section>
+
+            <Section eyebrow="28  Storage" title="Facts small, payload searchable">
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Data class</Th>
+                    <Th>Size</Th>
+                    <Th>Grows with</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataClasses.map((r) => (
+                    <tr key={r.kind}>
+                      <td>{r.kind}</td>
+                      <td className="whitespace-nowrap !text-foreground">{r.size}</td>
+                      <td>{r.grows}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>114,000 rows</Th>
+                    <Th>Size</Th>
+                    <Th>Aggregate</Th>
+                    <Th>Point read</Th>
+                    <Th>Scan search</Th>
+                    <Th>Full text</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {formats.map((r) => (
+                    <tr key={r.format}>
+                      <td className={r.ours ? "!text-primary" : "!font-normal !text-muted-foreground"}>{r.format}</td>
+                      <td>{r.size}</td>
+                      <td>{r.agg}</td>
+                      <td>{r.point}</td>
+                      <td>{r.scan}</td>
+                      <td>{r.fts}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={storageNotes} />
+            </Section>
+
+            <Section eyebrow="29  The app" title="Every chart posts a plan">
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Page</Th>
+                    <Th>Shows</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {routes.map((r) => (
+                    <tr key={r.route}>
+                      <td className="whitespace-nowrap !text-foreground">{r.route}</td>
+                      <td>{r.shows}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={appNotes} />
+            </Section>
+
+            <Section eyebrow="30  Deployment" title="Where managed services earn their place">
+              <Notes items={awsFindings} />
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>Seconds per stage, 102 rows</Th>
+                    <Th>Through the agent harness</Th>
+                    <Th accent>Tool called directly</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stageTimes.map((r) => (
+                    <tr key={r.stage}>
+                      <td className={r.ours ? "!text-primary" : ""}>{r.stage}</td>
+                      <td>{r.before}</td>
+                      <td className="!text-foreground">{r.after}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Notes items={deployNotes} />
+            </Section>
+
+            <Section eyebrow="31  Method" title="Every component must prove its value">
               <Notes items={earningItsPlace} />
             </Section>
 
-            <Section eyebrow="20  Alternatives" title="Every approach, scored">
+            <Section eyebrow="32  Alternatives" title="Every approach, scored">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Kept as a log rather than a highlight reel, because the rejected rows are the
                 ones that cost something to learn.
@@ -1166,7 +2106,7 @@ export default function SurveyAgentsCaseStudy() {
               ))}
             </Section>
 
-            <Section eyebrow="21  Lessons" title="Thirty-eight ranked lessons">
+            <Section eyebrow="33  Lessons" title="Fifty lessons that travel">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Most of these are about tool contracts, measurement discipline and reachability
                 rather than about surveys, which is what makes them the part of the project that
@@ -1175,16 +2115,17 @@ export default function SurveyAgentsCaseStudy() {
               <Rules items={lessons} />
             </Section>
 
-            <Section eyebrow="22  Prior art" title="Twelve passes, then a freeze">
+            <Section eyebrow="34  Prior art" title="Twelve passes, then a freeze">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Twelve passes were logged before the analysis code was written, and the phase was
                 then closed on purpose: new references land in a parked list with a named trigger
-                rather than changing direction mid-build.
+                rather than changing direction mid-build. Later phases took one idea at a time from
+                research and measured it here; those are the last eight rows.
               </p>
               <NamedList items={priorArt} />
             </Section>
 
-            <Section eyebrow="23  Limits" title="What is still open">
+            <Section eyebrow="35  Limits" title="What is still open">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Stated here rather than discovered later.
               </p>
