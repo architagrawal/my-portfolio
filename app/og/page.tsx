@@ -9,8 +9,8 @@ export const metadata: Metadata = { title: "Share card", robots: { index: false,
 export default function OgCard() {
   const stats = [
     ["12", "agents in production"],
-    ["290k", "lines of code"],
-    ["4,077", "tests"],
+    ["347k", "lines of code"],
+    ["4,845", "tests"],
   ];
   return (
     <div id="og-card" className="relative h-[630px] w-[1200px] overflow-hidden bg-[#0a0e1a] font-sans text-white">

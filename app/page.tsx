@@ -80,8 +80,8 @@ export default async function Home() {
             className="mt-20"
             items={[
               [<CountUp key="a" value="12" />, "agents in production"],
-              [<CountUp key="b" value="290k" />, "lines of code"],
-              [<CountUp key="c" value="4,077" />, "tests behind them"],
+              [<CountUp key="b" value="347k" />, "lines of code"],
+              [<CountUp key="c" value="4,845" />, "tests behind them"],
               [<CountUp key="d" value="60,000+" />, "students reached"],
             ]}
           />
@@ -90,8 +90,10 @@ export default async function Home() {
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
               <div>
                 <p className="t-body max-w-[34rem] text-muted-foreground">
-                  Upload a survey export, ask it a question in plain English, and get a chart where every number traces back
-                  to the data. Twelve agents in production on AWS.
+                  Ask any dataset a question in plain English and get an answer you can make a decision on. Every
+                  number is computed by code, cited to its rows and checked before you see it: 85% fewer wrong answers
+                  on 164 published figures, and 68% on StatQA, above GPT-4o&apos;s best reported score. Twelve agents in
+                  production on AWS.
                 </p>
                 <TextLink href="/work/survey-agents" className="mt-5">
                   Case study

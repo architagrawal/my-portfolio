@@ -17,18 +17,39 @@ export interface Experiment {
 export const experiments: Experiment[] = [
   {
     project: "Survey Agents",
-    stat: "290k",
-    unit: "lines, 4,077 tests",
+    stat: "347k",
+    unit: "lines, 4,845 tests",
     title: "Twelve production agents",
     body: "Architecture through deployment on AWS: 76 tools, a state machine generated from a declarative graph, parallel fan-out with a failure circuit breaker, and a Nuxt and NestJS app on one shared TypeScript contract.",
   },
   {
     project: "Survey Agents",
-    stat: "4.5×",
+    stat: "4×",
     unit: "more headline findings found",
-    title: "An agent that picks charts",
+    title: "4× the headline findings",
     viz: "findings",
     body: "Instead of charting every question, an agent picks the ones that matter. Headline findings recovered went from 13% to 52–59% on surveys it had never seen, for about $0.05 per 13 surveys.",
+  },
+  {
+    project: "Survey Agents",
+    stat: "85%",
+    unit: "fewer wrong answers. StatQA 68%, GPT-4o's best 64.83%",
+    title: "Answers checked before shown",
+    body: "Answers statistical and causal questions on any table: 25 tests checked against scipy and statsmodels, and causal estimators that match statsmodels. Every answer is read back in words and judged before a reader sees it, which cut wrong answers on 164 published figures by 85%.",
+  },
+  {
+    project: "Survey Agents",
+    stat: "93%",
+    unit: "right on the hardest questions, 0 wrong",
+    title: "Zero wrong on the hardest questions",
+    body: "Accuracy on the hardest benchmark questions rose from 60% to 93%, with zero wrong answers. More reasoning and bigger models were tried first and helped none; giving every component one shared layer of facts about the file did.",
+  },
+  {
+    project: "Survey Agents",
+    stat: "100%",
+    unit: "of charts match a raw-CSV audit",
+    title: "File to chart, audited",
+    body: "IBM's public attrition data traced through every step, from shape detection to the chart: 30.5% of overtime workers left against 10.4%, the published figure, and an audit with none of the engine's code matched 100% of checkable charts.",
   },
   {
     project: "Survey Agents",

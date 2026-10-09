@@ -32,13 +32,13 @@ export const roles: Role[] = [
           "label": "benchmark pipeline",
           "hit": 13,
           "total": 102,
-          "value": "13 of 102, 12.7%"
+          "value": "12.7% of rows"
         },
         {
           "label": "this platform, repeat runs",
           "hit": 0,
           "total": 114,
-          "value": "0 of 114"
+          "value": "0% of rows"
         }
       ]
     },
@@ -49,19 +49,20 @@ export const roles: Role[] = [
     "period": "May 2026 – Present",
     "featured": [
       0,
+      7,
       1,
       2,
       6
     ],
     "achievements": [
       {
-        "text": "Platform ownership: own the architecture, roadmap and delivery of a platform that turns any uploaded dataset into analysis traceable to its source. Twelve agents over 76 registered tools on Step Functions, 290k lines of TypeScript and Vue across 12 workspace packages, 4,077 tests."
+        "text": "Platform ownership: own the architecture, roadmap and delivery of a platform that turns any uploaded dataset into analysis traceable to its source. Twelve agents over 76 registered tools on Step Functions, 347k lines of TypeScript and Vue across 12 workspace packages, 4,845 tests."
       },
       {
-        "text": "Analyst agent: it sees one line per survey question and never a row, and returns typed intents that code compiles into plans. Headlined claims recovered went from 13% to 52-59% on held-out surveys, at about $0.05 per 13 surveys."
+        "text": "Analyst agent: quadrupled the headline findings a page recovers, 13% to 52-59% on surveys it had never seen, at about $0.05 per 13 surveys. It sees one line per question and never a row; code compiles its choices into plans."
       },
       {
-        "text": "Label reliability: schema-constrained decoding, per-response correlation tokens and citation verification took join integrity to 100% and label churn to zero across 114 of 114 rows. The benchmark pipeline destroyed a label on 13 of 102 rows, 12.7%, without flagging one."
+        "text": "Label reliability: schema-constrained decoding, per-response correlation tokens and citation verification took join integrity to 100% and label churn to zero across 100% of rows. The benchmark pipeline destroyed a label on 1 in 8 rows (12.7%) without flagging one."
       },
       {
         "text": "Charts from plain English: a reader asks a question, gets a chart back, then edits it directly with stack, swap, sort, top-N, filters, and undo with redo."
@@ -74,6 +75,9 @@ export const roles: Role[] = [
       },
       {
         "text": "EdSpace: built in two days for the EdPlus hackathon, a live office map with room booking, desk claiming, walking routes and a 3D desk per person. Shown to leadership up to the CEO and chairman, and going live for 500+ people."
+      },
+      {
+        "text": "Answer checking: cut wrong answers 85% on 164 published figures by reading every answer back in words and judging it before it is shown. 68% on StatQA, above GPT-4o's best reported 64.83%."
       }
     ],
     "technologies": [
@@ -95,12 +99,23 @@ export const roles: Role[] = [
     "kind": "industry",
     "more": [
       {
+        "label": "Benchmarks and checking",
+        "items": [
+          "Held the platform against Claude Opus 5.5 working blind on ten survey files and their 28 published charts: judge-free rules cut wrong charts 93% and oversized charts 100%, while Opus still leads on focus.",
+          "Built four benchmarks scored by code, not a judge: published toplines, nvBench 2.0, StatQA and QRData. StatQA test choice went from 40% to 68%, against GPT-4o's best of 64.83%.",
+          "Added 25 statistical tests checked against scipy and statsmodels, causal effect estimators matching statsmodels, and causal discovery that says \"unsettled\" rather than guess a direction.",
+          "Gave every column one meaning in one place: a census found eight facts each decided in several places, and one semantic model per run took disagreements across 411 runs from 30,405 to 263.",
+          "Made every reading of a file a recorded decision, applied where checked and asked of the reader where a guess would move a number. Code labels are read twice, reversed, and applied only where both agree.",
+          "Moved every component onto one semantic layer after more reasoning and bigger models helped none: accuracy on the hardest questions rose from 60% to 93% with zero wrong."
+        ]
+      },
+      {
         "label": "Highlights in full",
         "items": [
-          "Own the architecture, roadmap and delivery of a platform that takes any structured dataset a team uploads and returns analysis traceable to its source: twelve agents over 76 registered tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a failure circuit breaker. 290k lines of TypeScript and Vue across 12 workspace packages, 4,077 tests, and no per-dataset pipeline to maintain.",
+          "Own the architecture, roadmap and delivery of a platform that takes any structured dataset a team uploads and returns analysis traceable to its source: twelve agents over 76 registered tools, orchestrated by a Step Functions machine generated from a declarative graph, with Distributed Map fan-out, a bounded repair loop and a failure circuit breaker. 347k lines of TypeScript and Vue across 12 workspace packages, 4,845 tests, and no per-dataset pipeline to maintain.",
           "Shipped the product surface rather than stopping at a pipeline: a reader asks a question in plain English and gets a chart back, then edits it directly - stack, swap, sort, top-N, a second shape, highlight one category, filters on more than one value, and undo with redo - each of which had previously been reachable only by typing exactly the right sentence.",
           "Found where agency actually pays by moving it from executing analyses to choosing them: an analyst agent that sees one line per survey question and never a row returns typed intents that code compiles into plans, taking headlined claims recovered from a published analysis from 13% to 52-59% on held-out surveys against a rule-built baseline, at about $0.05 per 13 surveys.",
-          "Eliminated a previously unmeasured failure mode with schema-constrained decoding, per-response correlation tokens and citation verification: out-of-codebook labels are rejected, silently overwritten rows are detected, join integrity reached 100% and label churn was zero across 114 of 114 rows on repeat runs. The benchmark pipeline destroyed a label on 13 of 102 rows, 12.7%, without flagging one."
+          "Eliminated a previously unmeasured failure mode with schema-constrained decoding, per-response correlation tokens and citation verification: out-of-codebook labels are rejected, silently overwritten rows are detected, join integrity reached 100% and label churn was zero across 100% of rows on repeat runs. The benchmark pipeline destroyed a label on 1 in 8 rows (12.7%) without flagging one."
         ]
       },
       {
@@ -255,7 +270,7 @@ export const roles: Role[] = [
         "text": "Entity resolution: Gemini-based dedupe before records reach Firestore and Algolia lifted downstream search dataset accuracy by 25%."
       },
       {
-        "text": "Monolith to subgraph: refactored a 1,600-LOC Cloud Run service into a callable subgraph, cutting service dependencies 64% from 14 to 5."
+        "text": "Monolith to subgraph: refactored a 1,600-LOC Cloud Run service into a callable subgraph, cutting service dependencies 64%."
       },
       {
         "text": "Search endpoints: FastAPI and Cloud Functions endpoints fronting Algolia for sub-50ms search latency and Firestore for real-time sync."
@@ -292,7 +307,7 @@ export const roles: Role[] = [
           "Factored out a reusable build_scraping_subgraph() factory compiled without a Firestore checkpointer so parent graphs compose it without nested-checkpoint conflicts; added route_entry bridge letting webhook-sourced scrapes skip URL-fetch and enter at extraction.",
           "Implemented interrupt()/resume pause-for-research contract: subgraph idempotently enqueues a domain-research task on missing domain_metadata/{tld}, calls interrupt(f\"domain_research:{tld}\"), resumes from checkpoint when external pipeline flips parent task to ready.",
           "Designed pure-function routing predicates (route_after_sourcing/extraction/resolution) over typed state for deterministic flow; used Send-based parallel image fan-out with per-Send error isolation via operator.add-reduced state field.",
-          "Refactored a monolithic 1,600-LOC Cloud Run service into a callable subgraph with history preserved, a full import-path rewrite, and dependency relocation - cutting service dependencies 64% from 14 to 5."
+          "Refactored a monolithic 1,600-LOC Cloud Run service into a callable subgraph with history preserved, a full import-path rewrite, and dependency relocation - cutting service dependencies 64%."
         ]
       },
       {

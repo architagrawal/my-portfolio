@@ -7,7 +7,8 @@ relocation: open to relocating anywhere in the US; remote and hybrid welcome
 education: MS Computer Science, Arizona State University
 
 current_work:
-  - agentic survey analysis at EdPlus, Arizona State University
+  - twelve-agent data-analysis platform at EdPlus, Arizona State University: any table, plain-English questions, every number computed by code and checked before it is shown
+  - statistical tests and causal estimation, benchmarked on StatQA, QRData, BLADE and against Claude Opus 5.5
   - LangGraph agent workflows
   - data acquisition and entity resolution
   - retrieval and search systems
