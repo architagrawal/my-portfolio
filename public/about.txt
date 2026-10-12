@@ -1,7 +1,7 @@
 # Archit Agrawal
 
-Archit Agrawal is an AI/ML and software engineer based in the United States
-and open to relocation. He builds reliable production systems across agent
+Archit Agrawal is an AI/ML and software engineer based in the San Francisco
+Bay Area and open to relocation. He builds reliable production systems across agent
 orchestration, evaluation, retrieval, data pipelines, APIs, and product UI.
 
 At EdPlus, Arizona State University, he owns the architecture, roadmap and delivery of a twelve-agent

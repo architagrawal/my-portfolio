@@ -26,7 +26,7 @@ export function SiteFooter({ wide = false, inset = false }: { wide?: boolean; in
           ))}
         </ul>
       </div>
-      <p className="pb-10 text-[13px] text-muted-foreground">© {new Date().getFullYear()} Archit Agrawal, Phoenix, Arizona</p>
+      <p className="pb-10 text-[13px] text-muted-foreground">© {new Date().getFullYear()} Archit Agrawal, San Francisco Bay Area</p>
     </footer>
   );
 }

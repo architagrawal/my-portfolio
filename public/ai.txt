@@ -2,7 +2,7 @@
 
 name: Archit Agrawal
 role: AI/ML Engineer and Software Engineer
-location: United States
+location: San Francisco Bay Area, United States
 relocation: open to relocating anywhere in the US; remote and hybrid welcome
 education: MS Computer Science, Arizona State University
 

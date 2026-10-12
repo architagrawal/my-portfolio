@@ -62,7 +62,7 @@ export default async function Home() {
             />
             <h1 className="t-h1 mt-6 max-w-[40rem]">Hi, I&apos;m Archit. I ship AI agents to production.</h1>
             <p className="t-lead mt-5 max-w-[36rem]">
-              <strong className="font-semibold text-foreground">AI Software Engineer at ASU EdPlus</strong>, Phoenix. I own a
+              <strong className="font-semibold text-foreground">AI Software Engineer at ASU EdPlus</strong>, San Francisco Bay Area. I own a
               12-agent analytics platform on AWS Bedrock, built in TypeScript and Python, with the tests to prove it works.
               Looking for my next AI engineering role, open to relocation.
             </p>
@@ -167,7 +167,7 @@ export default async function Home() {
             <p className="t-meta mb-6">How I got here, what I work with, and a year of GitHub activity.</p>
             <MetaRow
               items={[
-                ["Based in", "Phoenix, AZ"],
+                ["Based in", "SF Bay Area"],
                 ["Degree", "MS CS, 4.0"],
                 ["Works in", "TypeScript, Python"],
                 ["Loves", "LangGraph, AWS"],
