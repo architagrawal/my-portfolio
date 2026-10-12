@@ -1,6 +1,6 @@
 # ARCHIT AGRAWAL
 
-Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
+San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
 
 ## PROFESSIONAL EXPERIENCE
 
@@ -15,7 +15,7 @@ Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal00
 - Raised accuracy on the hardest benchmark questions from 60% to 93% with zero wrong answers, by routing every component through one shared semantic layer after larger models did not help.
 - Eliminated a silent failure mislabeling 1 in 8 rows in the prior pipeline, reaching 100% join integrity with schema-constrained LLM output.
 
-### MyStage Music Inc. | 07/2025 - 05/2026
+### MyStage Music Inc. | 07/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
@@ -56,7 +56,7 @@ Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal00
 
 ### SRP Electric MCP Server | [GitHub](https://github.com/architagrawal/srp-electric-mcp) | 12/2025 - 01/2026
 
-- Reverse-engineered an undocumented utility portal into a read-only TypeScript MCP server with Zod-validated tool schemas, normalized meter data and typed errors an agent can act on.
+- Built a Python MCP server on FastMCP that logs into an undocumented utility portal and gives AI agents 7 tools and 4 analysis prompts for billing, usage, payments and outages, with a one-click setup wizard.
 
 ### AiJockey – AI DJ Pipeline | [GitHub](https://github.com/architagrawal/aiJockey) | 2025 - Present
 

@@ -1,6 +1,6 @@
 # ARCHIT AGRAWAL
 
-Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
+San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
 
 ## PROFESSIONAL EXPERIENCE
 
@@ -15,7 +15,7 @@ Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal00
 - Showed model choice moves accuracy 33x more than pipeline design across models costing $5–$89 per 100k rows, redirecting the team's recommendation from accuracy to reliability.
 - Benchmarked the platform against Claude Opus 5.5 working blind on public survey data, cutting wrong charts 93% with judge-free rule checks and an expert-calibrated LLM judge.
 
-### MyStage Music Inc. | 07/2025 - 05/2026
+### MyStage Music Inc. | 07/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 

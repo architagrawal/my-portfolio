@@ -17,7 +17,7 @@ const FACTS: [string, string][] = [
   ["Now", "AI Software Engineer, ASU EdPlus"],
   ["Education", "MS Computer Science, ASU, 4.0 GPA"],
   ["Focus", "Agents, RAG, evaluation, full-stack"],
-  ["Based in", "Phoenix, Arizona, open to relocation"],
+  ["Based in", "San Francisco Bay Area, open to relocation"],
 ];
 
 export default async function AboutPage() {

@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 
 const EMAIL = "architagrawal000@gmail.com";
 
-/* Local time in Phoenix and a copy-email button */
+/* Local time in the Bay Area and a copy-email button */
 export function FooterLive() {
   const [time, setTime] = useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const fmt = () => new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Phoenix" });
+    const fmt = () => new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" });
     setTime(fmt());
     const t = setInterval(() => setTime(fmt()), 30_000);
     return () => clearInterval(t);
@@ -36,7 +36,7 @@ export function FooterLive() {
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <p className="t-meta mt-2 min-h-[1.5em]">{time && <>{time} in Phoenix right now</>}</p>
+      <p className="t-meta mt-2 min-h-[1.5em]">{time && <>{time} in the Bay Area right now</>}</p>
     </div>
   );
 }

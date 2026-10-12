@@ -33,7 +33,7 @@ export default {
     },
     projects: [0, 1, 2],
     pickProject: {
-      0: ["Reverse-engineered an undocumented", "Kept every tool read-only"],
+      0: ["Built a Python MCP server", "Reverse-engineered the portal"],
       1: ["Built a TypeScript MCP service", "Made the bot idempotent"],
       2: ["Built an end-to-end AI DJ"],
     },
