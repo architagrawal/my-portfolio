@@ -285,22 +285,16 @@ export const projects: Project[] = [
     date: "Dec 2025 – Jan 2026",
     tier: "build",
     description:
-      "A TypeScript MCP server that turns an undocumented utility portal into validated, structured tools for secure energy-data analysis by AI agents.",
+      "A Python MCP server that logs into an undocumented utility portal and gives AI agents tools for billing, usage, payments and outages.",
     highlights: [],
     achievements: [
-      "Built TypeScript MCP server enabling agentic AI interactions with energy consumption systems via standardized tool interfaces.",
-      "Reverse-engineered undocumented authentication flow of a legacy utility portal under highly ambiguous constraints - no docs, no spec.",
-      "Converted unstructured enterprise portal data into structured JSON tools surfaced through MCP for secure, deterministic LLM reasoning.",
-      "Designed tool schemas enforcing argument validation and safe downstream automation against the third-party portal.",
-      "Recovered the session contract by observation, not documentation: the portal issues a short-lived token behind a multi-step form post, so the server re-authenticates on expiry and retries the original call once rather than surfacing a 401 to the agent.",
-      "Made every tool read-only by default. Nothing in the surfaced tool set can change a billing setting or submit a form, because an agent exploring an undocumented portal should not be able to mutate an account.",
-      "Normalized interval meter data into one shape (timestamp, kWh, cost, tier) so 15-minute reads, daily rollups and billing-period totals answer through the same tool instead of three that disagree on units.",
-      "Rate-limited and cached at the server rather than trusting the caller: a portal built for humans clicking does not expect an agent asking for a year of intervals in a loop.",
-      "Returned typed errors an agent can act on, separating authentication expiry, a rate limit, a genuinely absent meter and a portal outage, so the model retries the recoverable case and reports the rest.",
-      "Wrote a fixture-backed test suite over recorded portal responses, so the server is testable without credentials and a portal HTML change fails a test instead of silently returning nothing.",
+      "Built a Python MCP server on FastMCP that gives AI agents 7 tools: billing, payment history, hourly and daily energy usage, outages, account profile, and raw access to any SRP API endpoint.",
+      "Reverse-engineered the portal's login flow and API calls, since the utility publishes no API documentation.",
+      "Added 4 analysis prompts on top of the data tools: usage trends, bill explanations, savings advice and account comparison.",
+      "Shipped a one-click setup wizard that signs in through the browser, with credentials kept in environment variables rather than code.",
+      "Covered the server with a pytest suite and a demo client for checking a live connection.",
     ],
-    technologies: ["TypeScript", "MCP", "Node.js", "REST APIs", "Zod"],
-    githubUrl: "https://github.com/architagrawal/srp-electric-mcp",
+    technologies: ["Python", "MCP", "FastMCP", "Pydantic", "httpx", "pytest"],
   },
   {
     slug: "mcp-based-github-pr-review-automation-agent",
@@ -381,6 +375,21 @@ export const projects: Project[] = [
       "Measured the cold path honestly: end-to-end latency for the first request after a scale-out is dominated by model load, not inference, which is what the instance warm pool exists for.",
     ],
     technologies: ["AWS EC2", "AWS SQS", "AWS Lambda", "Python", "Docker"],
+  },
+  {
+    slug: "serverless-document-processing-pipeline",
+    title: "Serverless Document Pipeline",
+    date: "Mar 2024 – Apr 2024",
+    tier: "build",
+    description:
+      "A serverless system on AWS that ingests, processes and stores documents behind a React front end.",
+    highlights: [],
+    achievements: [
+      "Built a serverless document-processing system on AWS S3, Lambda, API Gateway, DynamoDB and EC2 with a React front end, handling 1,000+ concurrent requests at 99.9% uptime.",
+      "Automated EC2 instance management for the heavier processing jobs, cutting processing time 40%.",
+      "Secured file operations end to end for documents carrying sensitive data.",
+    ],
+    technologies: ["AWS Lambda", "AWS S3", "API Gateway", "DynamoDB", "AWS EC2", "React"],
   },
   {
     slug: "reverse-mode-automatic-differentiation",
@@ -567,6 +576,146 @@ export const projects: Project[] = [
       "Docker",
       "AWS",
     ],
+  },
+  {
+    slug: "jet-engine-remaining-useful-life",
+    title: "Jet Engine Remaining Life",
+    date: "Oct 2024 – Dec 2024",
+    tier: "coursework",
+    description:
+      "Predicts how many operating cycles a jet engine has left from its sensor history, on NASA's CMAPSS turbofan dataset.",
+    highlights: [],
+    achievements: [
+      "Cleaned and processed NASA's CMAPSS turbofan degradation data, then engineered features to find the sensors that carry the most signal about wear.",
+      "Compared machine learning, deep learning and generative AI regressors on the same features to estimate remaining operating cycles.",
+      "Built for an ASU graduate course applying statistical learning theory to big data analysis.",
+    ],
+    technologies: ["Python", "Pandas", "Machine Learning", "Deep Learning"],
+  },
+  {
+    slug: "erc-721-smart-contract",
+    title: "ERC-721 Smart Contract",
+    date: "Oct 2024 – Nov 2024",
+    tier: "coursework",
+    description:
+      "An NFT smart contract written to the ERC-721 token standard and deployed on Polygon's Amoy testnet.",
+    highlights: [],
+    achievements: [
+      "Wrote and deployed an ERC-721 token contract in Solidity to the Polygon Amoy testnet for ASU's CSE 598.",
+      "Developed and tested in Remix IDE, signing transactions through MetaMask.",
+      "Worked through how EVM token standards, NFT ownership and DAO governance work underneath.",
+    ],
+    technologies: ["Solidity", "Ethereum", "Polygon", "Remix IDE", "MetaMask"],
+  },
+  {
+    slug: "handwritten-digit-recognition",
+    title: "Handwritten Digit Recognition",
+    date: "Jan 2024 – Feb 2024",
+    tier: "coursework",
+    description:
+      "A convolutional network that reads handwritten digits from MNIST at 99.2% accuracy.",
+    highlights: [],
+    achievements: [
+      "Trained a convolutional neural network in TensorFlow on MNIST to 99.2% accuracy, improving on a logistic-regression baseline.",
+    ],
+    technologies: ["Python", "TensorFlow", "CNN"],
+  },
+  {
+    slug: "personal-exercise-trainer",
+    title: "Personal Exercise Trainer",
+    date: "Oct 2021 – Dec 2021",
+    tier: "coursework",
+    description:
+      "A computer-vision trainer that watches a live video feed, checks exercise form and counts repetitions.",
+    highlights: [],
+    achievements: [
+      "Built a machine learning model that estimates the user's position and posture from a live video feed.",
+      "Flags when an exercise is performed with poor form, and counts repetitions automatically.",
+      "Built at DA-IICT.",
+    ],
+    technologies: ["Python", "Computer Vision", "Machine Learning"],
+  },
+  {
+    slug: "subjective-answer-checker",
+    title: "Subjective Answer Checker",
+    date: "Aug 2021 – Dec 2021",
+    tier: "coursework",
+    description:
+      "Grades written answers with NLP and machine learning, behind a React and Node.js app.",
+    highlights: [],
+    achievements: [
+      "Applied NLP and machine learning to score free-text answers against a reference.",
+      "Built the front end in React and the back end in Node.js, at DA-IICT.",
+    ],
+    technologies: ["NLP", "Machine Learning", "React", "Node.js"],
+  },
+  {
+    slug: "news-app",
+    title: "News App",
+    date: "Nov 2021 – Dec 2021",
+    tier: "coursework",
+    description:
+      "A news reader that pulls headlines from a news API into a Django web app.",
+    highlights: [],
+    achievements: [
+      "Fetched live news from a public news API.",
+      "Built the web front end in Python with Django, at DA-IICT.",
+    ],
+    technologies: ["Python", "Django", "REST APIs"],
+  },
+  {
+    slug: "music-app",
+    title: "Music App",
+    date: "Undergraduate",
+    tier: "coursework",
+    description:
+      "A music streaming app where users listen to and download songs, deployed on Firebase.",
+    highlights: [],
+    achievements: [
+      "Built song streaming and downloads, deployed on Firebase on Google Cloud.",
+      "Planned shared playlists streamed in sync across devices, and auto-play when a run starts from a phone or watch.",
+    ],
+    technologies: ["Firebase", "Google Cloud", "Mobile"],
+  },
+  {
+    slug: "stock-price-prediction",
+    title: "Stock Price Prediction",
+    date: "Undergraduate",
+    tier: "coursework",
+    description:
+      "Compares machine learning models on ten years of Asian Paints stock prices.",
+    highlights: [],
+    achievements: [
+      "Collected ten years of Asian Paints price data with investpy.",
+      "Trained and compared several scikit-learn models on the same data.",
+    ],
+    technologies: ["Python", "scikit-learn", "investpy"],
+  },
+  {
+    slug: "django-user-blog",
+    title: "User Blog",
+    date: "Dec 2019",
+    tier: "coursework",
+    description:
+      "A user blog built with Django at DA-IICT.",
+    highlights: [],
+    achievements: [
+      "Built a blog web app in Python with Django.",
+    ],
+    technologies: ["Python", "Django"],
+  },
+  {
+    slug: "python-web-scraper",
+    title: "Web Scraper",
+    date: "Dec 2018",
+    tier: "coursework",
+    description:
+      "A web scraper written in Python at DA-IICT.",
+    highlights: [],
+    achievements: [
+      "Wrote a Python web scraper to collect data from web pages.",
+    ],
+    technologies: ["Python", "Web Scraping"],
   },
 ];
 
