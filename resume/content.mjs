@@ -7,7 +7,7 @@
 export const profile = {
   name: "ARCHIT AGRAWAL",
   contact: [
-    "Phoenix, AZ",
+    "San Francisco Bay Area",
     "623-312-0435",
     { text: "architagrawal000@gmail.com", href: "mailto:architagrawal000@gmail.com" },
     { text: "linkedin.com/in/agrawal-archit", label: "LinkedIn", href: "https://linkedin.com/in/agrawal-archit" },
@@ -55,7 +55,7 @@ export const experience = [
     title: "Founding AI/ML Engineer",
     company: "MyStage Music Inc.",
     location: "Remote",
-    period: "Jul 2025 – May 2026",
+    period: "Jul 2025 – Jun 2026",
     core: [
       "Re-architected a 14-Cloud-Function backend into one checkpointed LangGraph agent in Python on GCP Cloud Run, cutting production service dependencies 64%.",
       "Scaled ingestion to 70,000+ records a day from 650+ venues with a Playwright pipeline, transactional locking and Gemini entity resolution that raised search-dataset accuracy 25%.",
@@ -186,10 +186,10 @@ export const projects = [
     name: "SRP Electric MCP Server",
     period: "Dec 2025 – Jan 2026",
     href: "https://github.com/architagrawal/srp-electric-mcp",
-    core: "Reverse-engineered an undocumented utility portal into a read-only TypeScript MCP server with Zod-validated tool schemas, normalized meter data and typed errors an agent can act on.",
+    core: "Built a Python MCP server on FastMCP that logs into an undocumented utility portal and gives AI agents 7 tools and 4 analysis prompts for billing, usage, payments and outages, with a one-click setup wizard.",
     extra: [
-      "Kept every tool read-only, so an agent exploring an undocumented portal cannot change a billing setting.",
-      "Rate-limited and cached server-side, because a portal built for humans clicking does not expect an agent asking for a year of 15-minute intervals in a loop.",
+      "Reverse-engineered the portal's login flow and API calls, since the utility publishes no API documentation.",
+      "Added analysis prompts for usage trends, bill explanations, savings advice and account comparison on top of the raw data tools.",
     ],
   },
   {

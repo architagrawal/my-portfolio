@@ -1,6 +1,6 @@
 # ARCHIT AGRAWAL
 
-Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
+San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
 
 ## PROFESSIONAL EXPERIENCE
 
@@ -20,7 +20,7 @@ Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal00
 - Built a plain-English chart experience in Nuxt where readers stack, sort, filter, take top-N and undo directly, backed by in-process DuckDB that held latency flat as rows grew 200x.
 - Designed a chart recommender over 17 chart types grounded in visualization research, accepting an LLM suggestion only when it outscores the rules.
 
-### MyStage Music Inc. | 07/2025 - 05/2026
+### MyStage Music Inc. | 07/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
@@ -85,8 +85,8 @@ Phoenix, AZ | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal00
 
 ### SRP Electric MCP Server | [GitHub](https://github.com/architagrawal/srp-electric-mcp) | 12/2025 - 01/2026
 
-- Reverse-engineered an undocumented utility portal into a read-only TypeScript MCP server with Zod-validated tool schemas, normalized meter data and typed errors an agent can act on.
-- Kept every tool read-only, so an agent exploring an undocumented portal cannot change a billing setting.
+- Built a Python MCP server on FastMCP that logs into an undocumented utility portal and gives AI agents 7 tools and 4 analysis prompts for billing, usage, payments and outages, with a one-click setup wizard.
+- Reverse-engineered the portal's login flow and API calls, since the utility publishes no API documentation.
 
 ### MCP GitHub PR Review Agent | 07/2025 - 08/2025
 
