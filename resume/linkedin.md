@@ -46,7 +46,7 @@ Case studies: agrawal-archit.vercel.app
 
 ## Experience
 
-### AI Software Engineer, EdPlus at Arizona State University (May 2026 – Present, full-time)
+### AI Software Engineer, EdPlus at Arizona State University (Jun 2026 – Present, contract)
 
 • Platform: own the architecture, roadmap and delivery of a 12-agent AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, verified answers with no per-dataset code.
 • Answer checking: cut wrong answers 85% on 164 published benchmark figures by reading each answer back in plain words and verifying it before display.
@@ -62,7 +62,7 @@ Case studies: agrawal-archit.vercel.app
 • Cost: the analyst agent runs at about $0.03 a survey, and dashboards make zero model calls.
 • Evidence: 200+ measured experiments and 80 logged decisions behind the production architecture.
 
-### Software Engineer, EdPlus at Arizona State University (Sep 2023 – May 2025, part-time)
+### Software Engineer, EdPlus at Arizona State University (Sep 2023 – May 2025, student employment)
 
 • RAG assistant: led a multi-tenant Graph RAG assistant, React front end to retrieval layer, used by 1,000+ faculty to build courses reaching 60,000+ students.
 • Knowledge graph: cut transcript analysis 16x, four hours to 15 minutes, with a Neo4j knowledge graph queried by schema-validated, LLM-written Cypher.

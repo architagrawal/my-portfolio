@@ -1,77 +1,67 @@
 # ARCHIT AGRAWAL
 
-San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
+San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Portfolio](https://agrawal-archit.vercel.app)
 
 ## PROFESSIONAL EXPERIENCE
 
-### EdPlus | 05/2026 - Present
+### EdPlus, Arizona State University | 06/2026 - Present
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own the architecture, roadmap and delivery of a 12-agent AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, verified answers; TypeScript, NestJS, Nuxt.
-- Engineered the storage layer: kilobyte fact tables beside Lance payloads on S3 queried in-process by DuckDB, choosing Lance over Parquet on 114,000 rows for full-text and vector search.
-- Scaled labeling as a distributed Step Functions fan-out across 64 parallel lanes with a 5% failure circuit breaker, after tracing silent row loss in a run that reported success.
-- Detected table shape with 98% accuracy and survey weights in 100% of files that ship one, up from 0%, so crosstabs, long tables and weighted surveys publish with no per-file code.
-- Accelerated publishing of a 51,280-person, 220-column federal survey 10x, 19 minutes to 109 seconds, with an independent audit from raw data matching 100% of figures.
-- Eliminated a silent failure mislabeling 1 in 8 rows in the prior pipeline, reaching 100% join integrity with schema-constrained LLM output.
+- Designed S3 storage with compact fact tables and Lance payloads, queried through DuckDB for full-text and vector search.
+- Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
+- Prevented mislabeled and dropped records with schema-constrained output and row correlation checks in the data-processing pipeline.
+- Reduced publishing time from 19 minutes to 109 seconds for a 51,280-respondent survey; an independent raw-data audit matched all evaluated figures.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
-- Scaled ingestion to 70,000+ records a day from 650+ venues with a Playwright pipeline, transactional locking and Gemini entity resolution that raised search-dataset accuracy 25%.
-- Guaranteed retry safety with deterministic task IDs and create-if-absent writes, so a retried job can never overwrite one already in flight.
-- Re-architected a 14-Cloud-Function backend into one checkpointed LangGraph agent in Python on GCP Cloud Run, cutting production service dependencies 64%.
+- Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.
+- Made ingestion retries safe with deterministic task IDs and atomic create-if-absent writes, preventing duplicate jobs from overwriting in-flight work.
 
-### EdPlus | 09/2023 - 05/2025
+### EdPlus, Arizona State University | 09/2023 - 05/2025
 
 *Software Engineer* | *Phoenix, AZ*
 
-- Cut transcript analysis 16x, four hours to 15 minutes, with a Neo4j knowledge graph queried by validated LLM-written Cypher.
-- Isolated each college's data at the retrieval layer, so no tenant's material can surface in another's and onboarding became a config change, not a deployment.
-- Led a multi-tenant RAG assistant, React to retrieval layer, used by 1,000+ faculty to build courses for 60,000+ students.
+- Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
 *Data Research Aide* | *Phoenix, AZ*
 
-- Built a FastAPI and pgvector recommender reaching 85% top-k precision for collaborator matching, fed by an ETL ingesting 10,000+ profiles a day, plus 20+ REST APIs on .NET 8.
-- Raised dataset accuracy to 95% by enforcing uniqueness, not-null and range checks in PostgreSQL, so bad rows fail at the boundary instead of in a report.
-- Rewrote the ETL to be idempotent on a natural key, so a rerun after partial failure updates rows rather than duplicating them.
+- Built 20+ REST APIs in .NET 8 and an ETL pipeline ingesting 10,000+ researcher profiles daily into PostgreSQL.
+- Made ETL reruns idempotent through natural-key upserts, preventing duplicate records after partial failures.
+- Enforced uniqueness, not-null and range constraints in PostgreSQL to reject invalid records during ingestion.
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer* | *Mumbai, India*
+*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
 
-- Migrated a C# .NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and footprint 35%.
-- Cut deploy time 70% and production incidents 40% by containerizing the CI/CD release pipeline and adding SonarQube gates.
+- Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
 
 ## PROJECTS
 
-### SRP Electric MCP Server | [GitHub](https://github.com/architagrawal/srp-electric-mcp) | 12/2025 - 01/2026
+### Image Recognition as a Service | 01/2024 - 02/2024
 
-- Built a Python MCP server on FastMCP that logs into an undocumented utility portal and gives AI agents 7 tools and 4 analysis prompts for billing, usage, payments and outages, with a one-click setup wizard.
-
-### AiJockey – AI DJ Pipeline | [GitHub](https://github.com/architagrawal/aiJockey) | 2025 - Present
-
-- Built an end-to-end AI DJ in PyTorch and FastAPI: stem separation, an LLM transition planner, 25+ DSP transitions and LUFS mastering, ported off CUDA to an AMD MI300X.
+- Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.
 
 ## TECHNICAL SKILLS
 
-**Languages:** Python, TypeScript, JavaScript, SQL, C#  
-**Frameworks:** FastAPI, NestJS, Node.js, .NET, React, Vue/Nuxt, Next.js, LangGraph, PyTorch  
-**AI & Data:** RAG, LLM evaluation, MCP, AWS Bedrock, PostgreSQL, pgvector, FAISS, Neo4j, Redis, DuckDB, ETL pipelines  
-**Cloud & DevOps:** AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD  
+**Languages & Storage:** Python, SQL, TypeScript, PostgreSQL, DuckDB, S3, Lance, Redis
+
+**Pipelines:** ETL, Step Functions, Lambda, GCP Cloud Run, FastAPI
+
+**Quality & Deployment:** Data validation, idempotent processing, Docker, Kubernetes, CI/CD, pytest
+
 
 ## EDUCATION
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*Master of Science, Computer Science* | *Tempe, AZ, USA*
-
-- GPA: 4.0
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*Bachelor of Technology, Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *India*
 
