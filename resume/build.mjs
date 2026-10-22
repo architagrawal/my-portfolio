@@ -15,6 +15,10 @@ import fullStackConfig from "./roles/full-stack-engineer/config.mjs";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+// Type is fixed at a readable size and the spacing stretches to fill the page.
+// If content overflows at the tightest spacing, trim it; never shrink the type.
+const BODY_PT = 10.5;
+const GAP_MAX = 2.2;
 
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -94,9 +98,9 @@ const entry = (left, right, sub, subRight, bullets, href) => `<div class="role">
   ${bullets.length ? `<ul>${bullets.map((b) => `<li>${b}</li>`).join("")}</ul>` : ""}
 </div>`;
 
-function html({ detailed, roles, projects: projs, skills: selectedSkills }, body = 11) {
-  // Spacing scales with the type, so a larger fit keeps the same proportions.
-  const k = body / 11;
+function html({ detailed, roles, projects: projs, skills: selectedSkills }, gap = 1) {
+  // Type stays at BODY_PT; `gap` stretches the vertical spacing so a page fills.
+  const body = BODY_PT;
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8" />
 <title>Archit Agrawal - ${detailed ? "Detailed Resume" : "Resume"}</title>
@@ -115,17 +119,17 @@ function html({ detailed, roles, projects: projs, skills: selectedSkills }, body
   }
   a { color: #111; text-decoration: underline; text-underline-offset: 1.5px; text-decoration-thickness: 0.5pt; }
 
-  .name { margin: 0; text-align: center; font-size: 15pt; font-weight: 400; line-height: 1.1; letter-spacing: 0; }
-  .contact { margin: 3px 0 0; text-align: center; font-size: 9.5pt; }
+  .name { margin: 0; text-align: center; font-size: 18pt; font-weight: 400; line-height: 1.1; letter-spacing: 0; }
+  .contact { margin: 4px 0 0; text-align: center; font-size: 9.5pt; }
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: ${(9 * k).toFixed(1)}px 0 0; padding-bottom: 2px;
+    margin: ${(8 * gap).toFixed(1)}px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: ${body + 0.6}pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: ${(5 * k).toFixed(1)}px; }
+  .role { margin-top: ${(4 * gap).toFixed(1)}px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -134,11 +138,13 @@ function html({ detailed, roles, projects: projs, skills: selectedSkills }, body
   /* Native markers in normal flow. A positioned li paints after all other text,
      so PDF extraction read every title and Education before any bullet. */
   ul { margin: 1px 0 0; padding: 0 0 0 12px; list-style: "\\2022\\2002" outside; }
-  li { margin: 0 0 0.6px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 ${(1.2 * gap).toFixed(1)}px; padding-left: 1px; break-inside: avoid; }
+  /* Keeps a bullet from ending on a lone word. */
+  li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: ${(3 * k).toFixed(1)}px; }
-  .skills div { margin-bottom: 0.6px; }
+  .skills { margin-top: ${(3 * gap).toFixed(1)}px; }
+  .skills div { margin-bottom: ${(1.2 * gap).toFixed(1)}px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -204,14 +210,17 @@ const run = (text, { sz = 19, bold = false, italic = false, color = "111111", un
   `<w:color w:val="${color}"/></w:rPr><w:t xml:space="preserve">${esc(text)}</w:t></w:r>`;
 };
 
-const para = (runs, { align = "", space = 0, before = 0, indent = 0, hanging = 0, tab = false, border = false, keepNext = false } = {}) =>
+// Body lines use the PDF's exact 1.18 line height; Word's "single" for Lato is 1.2.
+const BODY_LINE = Math.round(BODY_PT * 1.18 * 20);
+
+const para = (runs, { align = "", space = 0, before = 0, indent = 0, hanging = 0, tab = false, border = false, keepNext = false, exact = false } = {}) =>
   `<w:p><w:pPr>` +
   (keepNext ? "<w:keepNext/>" : "") +
   (border
     ? `<w:pBdr><w:bottom w:val="single" w:sz="4" w:space="1" w:color="999999"/></w:pBdr>`
     : "") +
   (tab ? `<w:tabs><w:tab w:val="right" w:pos="${TWIP_RIGHT}"/></w:tabs>` : "") +
-  `<w:spacing w:before="${before}" w:after="${space}" w:line="240" w:lineRule="auto"/>` +
+  `<w:spacing w:before="${before}" w:after="${space}" ${exact ? `w:line="${BODY_LINE}" w:lineRule="exact"` : `w:line="240" w:lineRule="auto"`}/>` +
   (indent || hanging
     ? `<w:ind w:left="${indent}"${hanging ? ` w:hanging="${hanging}"` : ""}/>`
     : "") +
@@ -220,12 +229,13 @@ const para = (runs, { align = "", space = 0, before = 0, indent = 0, hanging = 0
 
 const TAB = `<w:r><w:tab/></w:r>`;
 
-function docxBody({ roles, projects: projs, skills: selectedSkills }, body = 11) {
-  // OOXML uses half-point sizes; never round below the readable PDF minimum.
-  const sz = Math.max(FIT_MIN, Math.floor(body * 2) / 2);
+// Word measures Lato taller than Chrome, so the docx keeps fixed spacing rather
+// than the PDF's stretched gaps; stretched, the one-pagers spilled to two pages.
+function docxBody({ roles, projects: projs, skills: selectedSkills }) {
+  const sz = BODY_PT;
   const out = [];
 
-  out.push(para(run(profile.name, { sz: 15 }), { align: "center", space: 20 }));
+  out.push(para(run(profile.name, { sz: 18 }), { align: "center", space: 20 }));
   out.push(
     para(
       profile.contact
@@ -236,7 +246,7 @@ function docxBody({ roles, projects: projs, skills: selectedSkills }, body = 11)
   );
 
   const heading = (t) =>
-    out.push(para(run(t.toUpperCase(), { sz: sz + 0.6, bold: true }), { before: 140, space: 40, border: true, keepNext: true }));
+    out.push(para(run(t.toUpperCase(), { sz: sz + 0.6, bold: true }), { before: 120, space: 40, border: true, keepNext: true }));
 
   const bullet = (text) =>
     out.push(
@@ -244,13 +254,14 @@ function docxBody({ roles, projects: projs, skills: selectedSkills }, body = 11)
         indent: 200,
         hanging: 200,
         space: 10,
+        exact: true,
       }),
     );
 
   const entry = (left, right, sub, subRight, bullets) => {
-    out.push(para(run(left, { sz, bold: true }) + TAB + run(right, { sz, bold: true }), { before: 80, space: 0, tab: true, keepNext: true }));
+    out.push(para(run(left, { sz, bold: true }) + TAB + run(right, { sz, bold: true }), { before: 60, space: 0, tab: true, keepNext: true, exact: true }));
     if (sub || subRight)
-      out.push(para(run(sub ?? "", { sz, italic: true }) + TAB + run(subRight ?? "", { sz, italic: true }), { space: 10, tab: true, keepNext: bullets.length > 0 }));
+      out.push(para(run(sub ?? "", { sz, italic: true }) + TAB + run(subRight ?? "", { sz, italic: true }), { space: 10, tab: true, keepNext: bullets.length > 0, exact: true }));
     bullets.forEach(bullet);
   };
 
@@ -263,7 +274,7 @@ function docxBody({ roles, projects: projs, skills: selectedSkills }, body = 11)
   }
 
   heading("Technical Skills");
-  for (const k of selectedSkills) out.push(para(run(`${k.label}: `, { sz, bold: true }) + run(k.items, { sz }), { space: 10 }));
+  for (const k of selectedSkills) out.push(para(run(`${k.label}: `, { sz, bold: true }) + run(k.items, { sz }), { space: 10, exact: true }));
 
   heading("Education");
   for (const e of education) {
@@ -274,35 +285,43 @@ function docxBody({ roles, projects: projs, skills: selectedSkills }, body = 11)
   return out.join("");
 }
 
-function writeDocx(v, outPath, body) {
+function writeDocx(v, outPath) {
   const dir = mkdtempSync(join(tmpdir(), "docx-"));
   mkdirSync(join(dir, "_rels"));
-  mkdirSync(join(dir, "word"));
+  mkdirSync(join(dir, "word/_rels"), { recursive: true });
   writeFileSync(
     join(dir, "[Content_Types].xml"),
     `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>`,
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/></Types>`,
   );
   writeFileSync(
     join(dir, "_rels/.rels"),
     `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`,
   );
+  // Declare Lato as a sans (family + PANOSE) so a machine without it substitutes
+  // a sans, not Times. No w:altName: Word then lays Lato out at the alternate's
+  // glyph widths, which squeezed every line.
+  writeFileSync(
+    join(dir, "word/_rels/document.xml.rels"),
+    `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/></Relationships>`,
+  );
+  writeFileSync(
+    join(dir, "word/fontTable.xml"),
+    `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:font w:name="Lato"><w:panose1 w:val="020F0502020204030203"/><w:charset w:val="00"/><w:family w:val="swiss"/><w:pitch w:val="variable"/></w:font></w:fonts>`,
+  );
   writeFileSync(
     join(dir, "word/document.xml"),
     `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${docxBody(v, body)}<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="720" w:right="792" w:bottom="720" w:left="792" w:header="0" w:footer="0" w:gutter="0"/></w:sectPr></w:body></w:document>`,
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${docxBody(v)}<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="720" w:right="792" w:bottom="720" w:left="792" w:header="0" w:footer="0" w:gutter="0"/></w:sectPr></w:body></w:document>`,
   );
   execFileSync("zip", ["-q", "-X", "-r", outPath, "[Content_Types].xml", "_rels", "word"], { cwd: dir });
   rmSync(dir, { recursive: true, force: true });
 }
 
 /* -------------------------------------------------------------------- main */
-
-// Fit within readable type sizes. If content overflows, trim it instead of
-// shrinking the body below 10.5pt.
-const FIT_MIN = 10.5;
-const FIT_MAX = 11.0;
 
 function printPdf(htmlPath, pdfPath) {
   rmSync(pdfPath, { force: true });
@@ -325,23 +344,23 @@ function render(v, dir, stem, { toPublic = false, pages: want = v.detailed ? 2 :
     return printPdf(htmlPath, pdfPath);
   };
 
-  // Page count only grows with size, so binary search in 0.1pt steps.
-  let lo = FIT_MIN * 10, hi = FIT_MAX * 10, best = FIT_MIN;
+  // Page count only grows with spacing, so binary search in 0.05 steps.
+  let lo = 20, hi = GAP_MAX * 20, best = 1;
   while (lo <= hi) {
     const mid = Math.floor((lo + hi) / 2);
-    if (at(mid / 10) <= want) { best = mid / 10; lo = mid + 1; } else hi = mid - 1;
+    if (at(mid / 20) <= want) { best = mid / 20; lo = mid + 1; } else hi = mid - 1;
   }
   const pages = at(best);
   if (pages > want) {
-    throw new Error(`${stem}: ${pages} pages at ${FIT_MIN}pt. Trim content to fit ${want} page(s).`);
+    throw new Error(`${stem}: ${pages} pages at ${BODY_PT}pt. Trim content to fit ${want} page(s).`);
   }
 
   writeFileSync(join(dir, `${stem}.md`), markdown(v));
   rmSync(docxPath, { force: true });
-  writeDocx(v, docxPath, best);
+  writeDocx(v, docxPath);
   if (toPublic) for (const f of [pdfPath, docxPath]) copyFileSync(f, join(ROOT, "public", f.split("/").pop()));
 
-  console.log(`built ${stem}: ${pages} page(s) at ${best}pt, ${v.roles.reduce((a, r) => a + r.bullets.length, 0)} role bullets`);
+  console.log(`built ${stem}: ${pages} page(s), spacing ${best}x, ${v.roles.reduce((a, r) => a + r.bullets.length, 0)} role bullets`);
   return pages;
 }
 
