@@ -721,16 +721,17 @@ html:has(#intro) .cover-mast-wrap { display: block; }
   .cover-mast .mast-line { position: absolute; left: 0; bottom: 0; visibility: hidden; }
   .cover-mast .mast-stack { position: static; visibility: visible; }
 }
-/* Three copies: .is-base is plain and faint (--mast-base), so the name never disappears over dark paint;
-   .is-light is grey and blends with the painting (--mast-blend, color-dodge by default), so the letters
-   carry the painting's own light and texture; .is-tint colours that (below). */
-.cover-mast-wrap.is-light { mix-blend-mode: var(--mast-blend, color-dodge); }
+/* Three copies, so the letters read as glass over the painting rather than paint on top of it:
+   .is-base is plain and faint (--mast-base), only where the paint goes dark enough to swallow the line;
+   .is-light overlays the painting (--mast-blend), lifting it inside the letters while its shapes and
+   texture still show through; .is-tint screens the scene's colours over that (below). */
+.cover-mast-wrap.is-light { mix-blend-mode: var(--mast-blend, overlay); }
 .is-base .cover-mast text { opacity: var(--mast-base, 0); }
-.is-light .cover-mast text { fill: hsl(0 0% var(--mast-light, 72%)); }
+.is-light .cover-mast text { fill: hsl(0 0% var(--mast-light, 100%)); }
 /* colour: "Hi, I'm" in the scene's quiet tone (--mast-c1), "Archit." in its signature colour
-   (--mast-c2). Only the tint copy carries them; it multiplies over the lit letters, so the painting's
-   shading still shows through. */
-.cover-mast-wrap.is-tint { mix-blend-mode: multiply; }
+   (--mast-c2). Only the tint copy carries them; it screens at partial strength, lightening toward the
+   colour, so the painting stays visible through the letters. */
+.cover-mast-wrap.is-tint { mix-blend-mode: screen; opacity: var(--mast-tint, 0.55); }
 .is-base .cover-mast tspan, .is-light .cover-mast tspan { fill: inherit; }
 .is-tint .cover-mast .w1, .is-tint .cover-mast .w2 { fill: var(--mast-c1, #ffffff); }
 .is-tint .cover-mast .w3 { fill: var(--mast-c2, #ffffff); }
@@ -786,17 +787,16 @@ html[data-painted] .cover-mast svg { animation: none; }
 [data-scene="saturn"] { --mast-c1: #f5ecdc; --mast-c2: #f0c070; }
 [data-scene="jellyfish"] { --mast-c1: #def6ff; --mast-c2: #ffb36b; }
 [data-scene="lavender"] { --mast-c1: #fbf3ff; --mast-c2: #d68cff; }
-/* how each scene lights the name: color-dodge, with the plain base only where the paint goes dark
-   enough to swallow it */
+/* the plain base, only where the paint goes dark enough to swallow the line */
 [data-scene="flock"] { --mast-base: 0.2; }
 [data-scene="ocean"] { --mast-base: 0.2; }
 [data-scene="saguaros"] { --mast-base: 0.3; }
 [data-scene="balloon"] { --mast-base: 0.1; }
-/* night and space: a stronger base and a softer light, so the name stays bright over black while
-   the tint copy keeps it coloured rather than flat white */
-[data-scene="volcano"], [data-scene="phoenix"] { --mast-base: 0.35; --mast-light: 68%; }
-[data-scene="nightlake"], [data-scene="balloons"] { --mast-base: 0.45; --mast-light: 64%; }
-[data-scene="blackhole"], [data-scene="saturn"], [data-scene="earthrise"] { --mast-base: 0.5; --mast-light: 64%; }
+[data-scene="volcano"], [data-scene="phoenix"] { --mast-base: 0.2; --mast-tint: 0.7; }
+[data-scene="nightlake"], [data-scene="balloons"] { --mast-base: 0.22; --mast-tint: 0.75; }
+/* over black the overlay has nothing to lift, so the scene's colour carries the line, at a strength
+   that still lets the stars and the disk show through */
+[data-scene="blackhole"], [data-scene="saturn"], [data-scene="earthrise"] { --mast-base: 0.22; --mast-tint: 0.8; }
 
 /* home: the painting alone fills the first screen, fading into the page at its foot */
 .hero-painting { position: relative; }
