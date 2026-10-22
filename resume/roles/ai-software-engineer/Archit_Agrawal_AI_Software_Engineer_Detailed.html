@@ -34,7 +34,8 @@
 
   /* Native markers in normal flow. A positioned li paints after all other text,
      so PDF extraction read every title and Education before any bullet. */
-  ul { margin: 1px 0 0; padding: 0 0 0 12px; list-style: "\2022\2002" outside; }
+  /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
+  ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
   li { margin: 0 0 2.6px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
