@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site/footer";
 import { PushButton } from "@/components/site/push-button";
 import { Replay } from "@/components/site/replay";
 import { ScrollCue } from "@/components/site/scroll-cue";
+import { Plaque } from "@/components/site/plaque";
 import { CopyEmail } from "@/components/site/copy-email";
 import { CountUp } from "@/components/site/lab-viz";
 import { MetaRow, Section, Stats, TextLink } from "@/components/site/ui";
@@ -46,6 +47,7 @@ export default async function Home() {
       <SiteNav hero />
       <div className="hero-painting -mt-16 flex min-h-[100svh] flex-col pt-16">
         <ScrollCue target="intro" />
+        <Plaque />
       </div>
 
       <div className="surface mx-auto max-w-4xl">

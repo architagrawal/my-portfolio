@@ -687,6 +687,117 @@ html:has(#intro) .backdrop::after { height: 9rem; background: linear-gradient(hs
       transparent 100%);
   }
 }
+/* Home cover: the name set across the painting, in front of the paint and behind the scene's
+   hand-drawn foreground, so the ground, water or trees pass in front of the letters. Placed on the
+   foreground's own frame (1600x900, anchored to the bottom, sliced to cover the backdrop): --ground
+   is where the scene's foreground starts, in frame units, and the baseline sits a fifth of the
+   name's height below it, so the foreground takes the foot of the letters at any screen size and
+   never their middle. As wide as --mast-w frame units, never wider than the screen. Rises in
+   while the painting finishes; shown at once if the visitor skips ahead. */
+.backdrop { container-type: size; }
+.cover-mast-wrap { display: none; }
+html:has(#intro) .cover-mast-wrap { display: block; }
+.cover-mast {
+  --s: max(100cqw / 1600, 100cqh / 900);
+  --mw: min(calc(var(--mast-w, 1240) * var(--s)), calc(100cqw - 2.5rem));
+  /* one row's letter height for the line's width (fitMast in scene.tsx measures it per typeface),
+     so a fifth of it is the foot */
+  --mast-line: var(--mast-line-1, 0.13);
+  position: absolute;
+  left: 50%;
+  width: var(--mw);
+  bottom: calc((900 - var(--ground, 702)) * var(--s) - var(--mw) * var(--mast-line) * 0.2);
+  translate: -50% 0;
+}
+/* the variant not in use stays laid out but invisible, so fitMast can still measure it */
+.cover-mast svg { display: block; }
+.cover-mast .mast-stack { position: absolute; left: 0; bottom: 0; visibility: hidden; }
+/* the gallery plaque in the hero's corner (components/site/plaque.tsx) */
+.plaque > span:first-child { font-family: var(--font-fraunces), Georgia, serif; font-size: 0.9375rem; font-variation-settings: "opsz" 24; }
+.plaque { font-size: 0.8125rem; line-height: 1.45; text-wrap: balance; text-shadow: 0 0 6px hsl(var(--background) / 0.8), 0 0 16px hsl(var(--background) / 0.6); }
+/* portrait screens stack the line, so it stays big: two lines, 75.2 tall each for 295.1 wide */
+@container (orientation: portrait) {
+  .cover-mast { --mast-w: 1000; --mast-line: var(--mast-line-2, 0.255); }
+  .cover-mast .mast-line { position: absolute; left: 0; bottom: 0; visibility: hidden; }
+  .cover-mast .mast-stack { position: static; visibility: visible; }
+}
+/* Three copies, so the letters read as glass over the painting rather than paint on top of it:
+   .is-base is plain and faint (--mast-base), only where the paint goes dark enough to swallow the line;
+   .is-light overlays the painting (--mast-blend), lifting it inside the letters while its shapes and
+   texture still show through; .is-tint screens the scene's colours over that (below). */
+.cover-mast-wrap.is-light { mix-blend-mode: var(--mast-blend, overlay); }
+.is-base .cover-mast text { opacity: var(--mast-base, 0); }
+.is-light .cover-mast text { fill: hsl(0 0% var(--mast-light, 100%)); }
+/* colour: "Hi, I'm" in the scene's quiet tone (--mast-c1), "Archit." in its signature colour
+   (--mast-c2). Only the tint copy carries them; it screens at partial strength, lightening toward the
+   colour, so the painting stays visible through the letters. */
+.cover-mast-wrap.is-tint { mix-blend-mode: screen; opacity: var(--mast-tint, 0.55); }
+.is-base .cover-mast tspan, .is-light .cover-mast tspan { fill: inherit; }
+.is-tint .cover-mast .w1, .is-tint .cover-mast .w2 { fill: var(--mast-c1, #ffffff); }
+.is-tint .cover-mast .w3 { fill: var(--mast-c2, #ffffff); }
+.cover-mast svg { width: 100%; height: auto; overflow: visible; animation: mast-rise 1.4s cubic-bezier(0.22, 1, 0.36, 1) 2.4s backwards; }
+.cover-mast text { font-family: var(--mast-font, var(--display-font)), ui-sans-serif, system-ui; font-size: 100px; font-weight: var(--mast-weight, 800); letter-spacing: var(--mast-track, -0.035em); text-transform: var(--mast-case, none); font-variation-settings: var(--mast-axes, normal); fill: hsl(var(--foreground)); }
+@keyframes mast-rise { from { opacity: 0; transform: translateY(5px); } }
+html[data-painted] .cover-mast svg { animation: none; }
+@media (prefers-reduced-motion: reduce) { .cover-mast svg { animation: none; } }
+/* where each scene's foreground starts (components/site/paint-scenes.ts). Canyon is narrower, to stand between its walls. */
+[data-scene="mesas"], [data-scene="saguaros"] { --ground: 650; }
+[data-scene="aurora"] { --ground: 540; }
+[data-scene="ocean"] { --ground: 692; }
+[data-scene="canyon"] { --ground: 738; --mast-w: 940; }
+[data-scene="flock"] { --ground: 732; }
+[data-scene="phoenix"] { --ground: 762; }
+/* each scene's voice: the family and weight that suit it (no hairlines: thin strokes never settle into
+   the paint), from the faces the site already loads. Fraunces is the serif, Figtree and Outfit the
+   geometric sans, Space Grotesk the grotesk. */
+[data-scene="mesas"] { --mast-font: var(--font-fraunces); --mast-weight: 900; --mast-axes: "SOFT" 0, "opsz" 144; --mast-track: -0.02em; }
+[data-scene="saguaros"] { --mast-font: var(--font-fraunces); --mast-weight: 600; --mast-axes: "SOFT" 100, "opsz" 144; --mast-track: -0.015em; --mast-w: 820; }
+[data-scene="aurora"] { --mast-font: var(--font-outfit); --mast-weight: 600; --mast-track: -0.02em; }
+[data-scene="ocean"] { --mast-font: var(--font-fraunces); --mast-weight: 500; --mast-axes: "SOFT" 100, "opsz" 144; --mast-track: -0.015em; --mast-w: 1180; }
+[data-scene="blackhole"] { --mast-font: var(--font-space); --mast-weight: 600; --mast-track: -0.03em; --mast-w: 1120; }
+[data-scene="canyon"] { --mast-weight: 900; --mast-track: -0.05em; }
+[data-scene="flock"] { --mast-font: var(--font-fraunces); --mast-weight: 600; --mast-axes: "SOFT" 100, "opsz" 144; --mast-track: -0.015em; --mast-w: 1120; }
+[data-scene="reef"] { --mast-font: var(--font-outfit); --mast-weight: 700; --mast-track: -0.02em; --mast-w: 1180; }
+[data-scene="balloons"] { --mast-font: var(--font-fraunces); --mast-weight: 800; --mast-axes: "SOFT" 100, "opsz" 144; --mast-track: -0.02em; --mast-w: 1180; }
+[data-scene="volcano"] { --mast-weight: 900; --mast-track: -0.04em; }
+[data-scene="phoenix"] { --mast-font: var(--font-space); --mast-weight: 600; --mast-track: -0.03em; --mast-w: 1180; }
+[data-scene="balloon"] { --mast-font: var(--font-outfit); --mast-weight: 800; --mast-track: -0.025em; --mast-w: 1180; }
+[data-scene="earthrise"] { --mast-font: var(--font-outfit); --mast-weight: 600; --mast-track: -0.02em; --mast-w: 1100; }
+[data-scene="nightlake"] { --mast-font: var(--font-fraunces); --mast-weight: 600; --mast-axes: "SOFT" 100, "opsz" 144; --mast-track: -0.015em; --mast-w: 1060; }
+[data-scene="sedona"] { --mast-font: var(--font-fraunces); --mast-weight: 700; --mast-axes: "SOFT" 50, "opsz" 144; --mast-track: -0.02em; --mast-w: 1180; }
+[data-scene="saturn"] { --mast-font: var(--font-space); --mast-weight: 500; --mast-track: -0.02em; --mast-w: 1100; }
+[data-scene="jellyfish"] { --mast-font: var(--font-outfit); --mast-weight: 600; --mast-track: -0.02em; --mast-w: 1180; }
+[data-scene="lavender"] { --mast-font: var(--font-fraunces); --mast-weight: 500; --mast-axes: "SOFT" 100, "opsz" 144; --mast-track: -0.015em; --mast-w: 1180; }
+/* each scene's two colours, picked from its painting */
+[data-scene="mesas"] { --mast-c1: #fbe7d2; --mast-c2: #ffb547; }
+[data-scene="saguaros"] { --mast-c1: #dfe8f5; --mast-c2: #f2c48d; }
+[data-scene="aurora"] { --mast-c1: #e3fbef; --mast-c2: #6ff0b0; }
+[data-scene="ocean"] { --mast-c1: #eaf6f4; --mast-c2: #ffd38a; }
+[data-scene="blackhole"] { --mast-c1: #ffe2c4; --mast-c2: #ff8a3d; }
+[data-scene="canyon"] { --mast-c1: #f6ead8; --mast-c2: #9fd8c9; }
+[data-scene="flock"] { --mast-c1: #ffeedd; --mast-c2: #ffa55c; }
+[data-scene="reef"] { --mast-c1: #dffaf6; --mast-c2: #ff8f7a; }
+[data-scene="balloons"] { --mast-c1: #f1e6ff; --mast-c2: #ff6b6b; }
+[data-scene="volcano"] { --mast-c1: #ffe9b8; --mast-c2: #ff6a2b; }
+[data-scene="phoenix"] { --mast-c1: #fff3d6; --mast-c2: #ffc93c; }
+[data-scene="balloon"] { --mast-c1: #eef7ff; --mast-c2: #ff7a45; }
+[data-scene="earthrise"] { --mast-c1: #e9ecf5; --mast-c2: #7fa8ff; }
+[data-scene="nightlake"] { --mast-c1: #e6ebff; --mast-c2: #9db7ff; }
+[data-scene="sedona"] { --mast-c1: #fbefe0; --mast-c2: #ff8c5a; }
+[data-scene="saturn"] { --mast-c1: #f5ecdc; --mast-c2: #f0c070; }
+[data-scene="jellyfish"] { --mast-c1: #def6ff; --mast-c2: #ffb36b; }
+[data-scene="lavender"] { --mast-c1: #fbf3ff; --mast-c2: #d68cff; }
+/* the plain base, only where the paint goes dark enough to swallow the line */
+[data-scene="flock"] { --mast-base: 0.2; }
+[data-scene="ocean"] { --mast-base: 0.2; }
+[data-scene="saguaros"] { --mast-base: 0.3; }
+[data-scene="balloon"] { --mast-base: 0.1; }
+[data-scene="volcano"], [data-scene="phoenix"] { --mast-base: 0.2; --mast-tint: 0.7; }
+[data-scene="nightlake"], [data-scene="balloons"] { --mast-base: 0.22; --mast-tint: 0.75; }
+/* over black the overlay has nothing to lift, so the scene's colour carries the line, at a strength
+   that still lets the stars and the disk show through */
+[data-scene="blackhole"], [data-scene="saturn"], [data-scene="earthrise"] { --mast-base: 0.22; --mast-tint: 0.8; }
+
 /* home: the painting alone fills the first screen, fading into the page at its foot */
 .hero-painting { position: relative; }
 .hero-painting::after { content: ""; position: absolute; inset: auto 0 0; height: 22vh; pointer-events: none; background: linear-gradient(transparent, hsl(var(--background) / 0.85)); }

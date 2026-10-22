@@ -70,6 +70,30 @@ const PALETTES: Record<SceneId, Palette> = {
   lavender: { dark: ["#331138", "#5a1d48", "#652a51"], hi: "#dadbeb" },
 };
 
+/* The gallery plaque in the home hero's corner: each painting's title and the photographer whose
+   photo it was painted from (public/paint/SOURCES.md has the sources and their public-domain or
+   CC0 licences). */
+export const PLAQUES: Record<SceneId, { title: string; photo: string }> = {
+  mesas: { title: "Monument Valley", photo: "Jon Sullivan" },
+  saguaros: { title: "Saguaros at Night", photo: "the Bureau of Land Management" },
+  aurora: { title: "Polar Lights", photo: "Vincent Guth" },
+  ocean: { title: "Ocean Rock", photo: "Vashishtha Jogi" },
+  blackhole: { title: "Black Hole", photo: "NASA\u2019s Scientific Visualization Studio" },
+  canyon: { title: "Grand Canyon", photo: "Grand Canyon National Park" },
+  flock: { title: "Birds at Sunset", photo: "the U.S. Fish and Wildlife Service" },
+  reef: { title: "Florida Keys Reef", photo: "NOAA National Marine Sanctuaries" },
+  balloons: { title: "Three Balloons", photo: "John Storr" },
+  volcano: { title: "Halema\u02bbuma\u02bbu", photo: "the National Park Service" },
+  phoenix: { title: "Phoenix at Dusk", photo: "JCordova" },
+  balloon: { title: "Balloon Roundup", photo: "Guywelch2000" },
+  earthrise: { title: "Earthrise", photo: "NASA Goddard and Arizona State University" },
+  nightlake: { title: "Night Lake", photo: "the Bureau of Land Management" },
+  sedona: { title: "Sedona", photo: "Ken Thomas" },
+  saturn: { title: "Backlit Saturn", photo: "NASA, JPL and the Space Science Institute" },
+  jellyfish: { title: "Lion\u2019s Mane Jellyfish", photo: "W. Carter" },
+  lavender: { title: "Lavender Field", photo: "Andyblind" },
+};
+
 /* seeded, so the server and every visit draw the same foreground */
 function rng(seed: number) {
   let s = seed;
