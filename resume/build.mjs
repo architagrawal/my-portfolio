@@ -78,9 +78,6 @@ const fmtDate = (d) => d.trim().replace(/^([A-Z][a-z]{2}) (\d{4})$/, (m, mon, y)
 const fmtPeriod = (p) => String(p).split(/\s+[–-]\s+/).map(fmtDate).join(" - ");
 
 const contactText = (c) => (typeof c === "string" ? c : c.label ?? c.text);
-// Employment arrangements remain in the source for accuracy; the resume leads
-// with the actual title and includes dated progression only where needed.
-const roleSubtitle = (r) => [r.title, r.progression].filter(Boolean).join(" | ");
 
 function contactHtml() {
   return profile.contact
@@ -149,7 +146,7 @@ function html({ detailed, roles, projects: projs, skills: selectedSkills }, body
 <div class="contact">${contactHtml()}</div>
 
 <h2>Professional Experience</h2>
-${roles.map((r) => entry(r.company, fmtPeriod(r.period), roleSubtitle(r), r.location, r.bullets.map(esc))).join("\n")}
+${roles.map((r) => entry(r.company, fmtPeriod(r.period), r.title, r.location, r.bullets.map(esc))).join("\n")}
 
 ${projs.length ? "<h2>Projects</h2>" : ""}
 ${projs.map((p) => entry(p.name, fmtPeriod(p.period), null, null, p.bullets.map(esc), p.href)).join("\n")}
@@ -172,7 +169,7 @@ function markdown({ roles, projects: projs, skills: selectedSkills }) {
   L.push(profile.contact.map((c) => (typeof c === "string" ? c : `[${contactText(c)}](${c.href})`)).join(" | "), "");
   L.push("## PROFESSIONAL EXPERIENCE", "");
   for (const r of roles) {
-    L.push(`### ${r.company} | ${fmtPeriod(r.period)}`, "", `*${roleSubtitle(r)}* | *${r.location}*`, "");
+    L.push(`### ${r.company} | ${fmtPeriod(r.period)}`, "", `*${r.title}* | *${r.location}*`, "");
     r.bullets.forEach((b) => L.push(`- ${b}`));
     L.push("");
   }
@@ -258,7 +255,7 @@ function docxBody({ roles, projects: projs, skills: selectedSkills }, body = 11)
   };
 
   heading("Professional Experience");
-  for (const r of roles) entry(r.company, fmtPeriod(r.period), roleSubtitle(r), r.location, r.bullets.map((b) => run(b, { sz })));
+  for (const r of roles) entry(r.company, fmtPeriod(r.period), r.title, r.location, r.bullets.map((b) => run(b, { sz })));
 
   if (projs.length) {
     heading("Projects");

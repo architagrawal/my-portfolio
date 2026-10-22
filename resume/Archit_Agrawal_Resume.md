@@ -8,8 +8,8 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own the software architecture and delivery of a survey analytics platform on AWS, spanning the web application, APIs and data-processing workflows.
-- Built a survey analytics application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
+- Own the software architecture and delivery of an AWS analytics platform for any structured dataset, spanning the web application, APIs and data pipelines.
+- Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
 - Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
 - Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
 
@@ -38,7 +38,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
+*Software Engineer* | *Mumbai, India*
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.

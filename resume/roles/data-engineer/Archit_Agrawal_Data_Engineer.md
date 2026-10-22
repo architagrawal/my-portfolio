@@ -36,7 +36,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
+*Software Engineer* | *Mumbai, India*
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
 

@@ -8,13 +8,13 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI survey analytics platform on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
-- Built a survey analytics application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
+- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
+- Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
 - Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
-- Cut incorrect answers 85% in an evaluation against 164 published survey figures by adding answer verification before display.
+- Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
 - Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; achieved 68% on StatQA test selection.
 - Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.
-- Increased recovery of reference headline findings from 13% to 52–59% on held-out surveys using LLM-selected analyses and deterministic calculations.
+- Increased recovery of reference headline findings from 13% to 52–59% on held-out datasets using LLM-selected analyses and deterministic calculations.
 - Prevented mislabeled and dropped records with schema-constrained output and row correlation checks in the data-processing pipeline.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
@@ -53,7 +53,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
+*Software Engineer* | *Mumbai, India*
 
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.

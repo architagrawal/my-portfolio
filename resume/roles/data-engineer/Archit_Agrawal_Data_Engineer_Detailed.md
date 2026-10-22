@@ -12,10 +12,10 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
 - Prevented mislabeled and dropped records with schema-constrained output and row correlation checks in the data-processing pipeline.
 - Accelerated publishing of a 51,280-respondent survey from 19 minutes to 109 seconds; an independent raw-data audit matched all evaluated figures.
-- Built dataset intake for crosstabs, long tables and weighted surveys, including UTF-16 files and duplicate-header validation.
-- Blocked double counting across survey runs by detecting shared respondents before joining datasets.
+- Built dataset intake for any table shape, from crosstabs and long tables to weighted surveys, including UTF-16 files and duplicate-header validation.
+- Blocked double counting in cross-dataset joins by detecting runs that share the same people.
 - Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
-- Added access-controlled respondent retrieval, AWS Bedrock Guardrails and per-stage spending limits to the analytics proof of concept.
+- Added access-controlled row-level retrieval, AWS Bedrock Guardrails and per-stage spending limits to the analytics proof of concept.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
 
@@ -47,7 +47,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
+*Software Engineer* | *Mumbai, India*
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.

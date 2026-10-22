@@ -8,10 +8,10 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI survey analytics platform on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
-- Built a survey analytics application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
+- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
+- Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
 - Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
-- Cut incorrect answers 85% in an evaluation against 164 published survey figures by adding answer verification before display.
+- Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
 
@@ -41,7 +41,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
+*Software Engineer* | *Mumbai, India*
 
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
 

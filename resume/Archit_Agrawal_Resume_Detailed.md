@@ -8,13 +8,13 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own end-to-end architecture and delivery of an AWS analytics platform: a 14-page Nuxt frontend, 70 NestJS API routes and shared TypeScript contracts.
+- Own end-to-end architecture and delivery of an AWS analytics platform for any structured dataset: a 14-page Nuxt frontend, 70 NestJS API routes and shared TypeScript contracts.
 - Cut end-to-end AWS pipeline runtime from 500 to 85 seconds by removing managed-agent startup overhead and invoking the underlying tools directly.
 - Accelerated publishing of a 51,280-respondent survey from 19 minutes to 109 seconds; an independent raw-data audit matched all evaluated figures.
 - Engineered 64-way AWS Step Functions processing with a failure circuit breaker after diagnosing silent row loss in runs that reported success.
 - Delivered interactive chart sorting, filtering, top-N and undo in Nuxt; in-process DuckDB kept measured query latency flat as input rows grew 200x.
 - Reached 100% join integrity in repeat pipeline evaluations using schema-constrained output and row correlation tokens; the baseline silently mislabeled 1 in 8 rows.
-- Secured the analytics proof of concept with entitlement-gated respondent access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.
+- Secured the analytics proof of concept with entitlement-gated row-level access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
 
@@ -47,7 +47,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
+*Software Engineer* | *Mumbai, India*
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.

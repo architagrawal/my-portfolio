@@ -4,7 +4,7 @@ export default {
   company: "Role variant", position: "AI Software Engineer", pages: 1, skills: roleSkills.ai,
   roles: [0, 1, 2, 3, 4, 5],
   pick: {
-    0: ["Own architecture and delivery", "Built a survey analytics application", "Reduced AWS pipeline runtime", "Cut incorrect answers"],
+    0: ["Own architecture and delivery", "Built the platform's web application", "Reduced AWS pipeline runtime", "Cut incorrect answers"],
     1: ["Consolidated a 14-Cloud-Function", "Built FastAPI and Algolia"],
     2: ["Built a multi-tenant course assistant", "Established Prompt Flow"],
     3: ["Built a PyTorch and Diffusers"],
@@ -16,7 +16,7 @@ export default {
     publishAs: "Archit_Agrawal_AI_Software_Engineer_Resume",
     roles: [0, 1, 2, 3, 4, 5],
     pick: {
-      0: ["Own architecture and delivery", "Built a survey analytics application", "Reduced AWS pipeline runtime",
+      0: ["Own architecture and delivery", "Built the platform's web application", "Reduced AWS pipeline runtime",
           "Cut incorrect answers", "Validated 25 statistical", "Improved accuracy from",
           "Increased recovery of reference", "Prevented mislabeled"],
       1: ["Consolidated a 14-Cloud-Function", "Built FastAPI and Algolia", "Scaled ingestion",

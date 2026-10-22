@@ -8,11 +8,11 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI survey analytics platform on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
+- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
 - Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; achieved 68% on StatQA test selection.
 - Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.
-- Cut incorrect answers 85% in an evaluation against 164 published survey figures by adding answer verification before display.
-- Increased recovery of reference headline findings from 13% to 52–59% on held-out surveys using LLM-selected analyses and deterministic calculations.
+- Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
+- Increased recovery of reference headline findings from 13% to 52–59% on held-out datasets using LLM-selected analyses and deterministic calculations.
 - Measured labeling F1 changes of 0.230 across models versus 0.007 across pipeline designs, prioritizing reliability improvements over orchestration complexity.
 - Designed a chart recommender covering 17 chart types, retaining deterministic rules when LLM proposals failed to improve evaluation scores.
 
@@ -53,7 +53,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Zeus Learning | 01/2022 - 07/2023
 
-*Software Engineer | Intern Jan–Jun 2022; engineer Jun 2022–Jul 2023* | *Mumbai, India*
+*Software Engineer* | *Mumbai, India*
 
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
 

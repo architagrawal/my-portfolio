@@ -4,7 +4,7 @@ export default {
   company: "Role variant", position: "Full-Stack Software Engineer", pages: 1,
   roles: [0, 1, 2, 4, 5],
   pick: {
-    0: ["Own the software architecture", "Built a survey analytics application", "Reduced AWS pipeline runtime", "Parallelized data labeling"],
+    0: ["Own the software architecture", "Built the platform's web application", "Reduced AWS pipeline runtime", "Parallelized data labeling"],
     1: ["Built FastAPI and Algolia", "Scaled ingestion", "Consolidated a 14-Cloud-Function"],
     2: ["Built a multi-tenant course assistant", "Increased assessment-tool engagement", "Implemented tenant isolation"],
     4: ["Built 20+ REST APIs", "Reduced API latency from"],
