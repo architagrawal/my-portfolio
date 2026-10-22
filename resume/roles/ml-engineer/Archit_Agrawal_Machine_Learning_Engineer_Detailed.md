@@ -1,51 +1,39 @@
 # ARCHIT AGRAWAL
 
-San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Personal Website](https://agrawal-archit.vercel.app)
+San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:architagrawal000@gmail.com) | [LinkedIn](https://linkedin.com/in/agrawal-archit) | [GitHub](https://github.com/architagrawal) | [Portfolio](https://agrawal-archit.vercel.app)
 
 ## PROFESSIONAL EXPERIENCE
 
-### EdPlus | 05/2026 - Present
+### EdPlus, Arizona State University | 06/2026 - Present
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own the architecture, roadmap and delivery of a 12-agent AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, verified answers; TypeScript, NestJS, Nuxt.
-- Cut wrong answers 85% on 164 published benchmark figures by reading every answer back in plain words and verifying it against the question before display.
-- Extended analysis to statistical and causal questions with 25 tests and six causal estimators validated against scipy and statsmodels, scoring 68% on StatQA versus GPT-4o's best reported 64.83%.
-- Quadrupled the insights automated reports surface, 13% to 52–59% on unseen datasets, by having an LLM agent choose the analyses while deterministic code computes every number.
-- Showed model choice moves accuracy 33x more than pipeline design across models costing $5–$89 per 100k rows, redirecting the team's recommendation from accuracy to reliability.
-- Benchmarked the platform against Claude Opus 5.5 working blind on public survey data, cutting wrong charts 93% with judge-free rule checks and an expert-calibrated LLM judge.
-- Raised accuracy on the hardest benchmark questions from 60% to 93% with zero wrong answers, by routing every component through one shared semantic layer after larger models did not help.
-- Reset the team's accuracy baseline after tracing a reported 0.637 F1 to a hand-reviewed spreadsheet; fresh runs reproduce 0.523.
-- Kept deterministic rules wherever an agent failed to beat them: no LLM chart proposal outscored the rule table, and two managed agent runtimes were removed after re-benchmarking.
-- Changed the evaluation from scoring charts to scoring the questions a survey asked, after healthy chart scores hid that only 19% were answered; coverage rose to 78%.
-- Lowered labeling spend by testing codebook fit on a 25-row sample first, separating a workable codebook (0.598 fit) from an unusable one (0.316) for about $0.001.
-- Designed a chart recommender over 17 chart types grounded in visualization research, accepting an LLM suggestion only when it outscores the rules.
-- Eliminated a silent failure mislabeling 1 in 8 rows in the prior pipeline, reaching 100% join integrity with schema-constrained LLM output.
-- Detected table shape with 98% accuracy and survey weights in 100% of files that ship one, up from 0%, so crosstabs, long tables and weighted surveys publish with no per-file code.
-- Scaled labeling as a distributed Step Functions fan-out across 64 parallel lanes with a 5% failure circuit breaker, after tracing silent row loss in a run that reported success.
-- Sped up a full AWS pipeline run 6x, 500 to 85 seconds, by replacing managed agent-runtime stages with direct tool calls once benchmarks showed each made one call and stopped.
-- Authored the target production architecture: 80 logged decisions and 200+ measured experiments, grounded in prior art including SSSOM, DDI, Metabase MBQL, Vega-Lite, Draco and LIDA.
+- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
+- Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; achieved 68% on StatQA test selection.
+- Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.
+- Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
+- Increased recovery of reference headline findings from 13% to 52–59% on held-out datasets using LLM-selected analyses and deterministic calculations.
+- Measured labeling F1 changes of 0.230 across models versus 0.007 across pipeline designs, prioritizing reliability improvements over orchestration complexity.
+- Designed a chart recommender covering 17 chart types, retaining deterministic rules when LLM proposals failed to improve evaluation scores.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
-- Re-architected a 14-Cloud-Function backend into one checkpointed LangGraph agent in Python on GCP Cloud Run, cutting production service dependencies 64%.
-- Scaled ingestion to 70,000+ records a day from 650+ venues with a Playwright pipeline, transactional locking and Gemini entity resolution that raised search-dataset accuracy 25%.
-- Implemented pause-and-resume on LangGraph interrupts, so a record missing context waits at its checkpoint instead of failing the batch.
-- Designed a reusable scraping subgraph that parent graphs compose without checkpoint conflicts, letting webhook-triggered scrapes skip the fetch step.
-- Delivered sub-50 ms search on FastAPI and Algolia with real-time Firestore sync, 200+ pytest tests and Logfire tracing.
+- Consolidated a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run, reducing production service dependencies 64%.
+- Built FastAPI and Algolia search with sub-50 ms latency, real-time Firestore synchronization, 200+ pytest tests and Logfire tracing.
+- Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.
+- Implemented checkpointed pause-and-resume so records missing context wait for additional information without failing the ingestion batch.
 
-### EdPlus | 09/2023 - 05/2025
+### EdPlus, Arizona State University | 09/2023 - 05/2025
 
 *Software Engineer* | *Phoenix, AZ*
 
-- Built a Prompt Flow eval harness scoring groundedness, relevance and coherence to gate every prompt change on results.
-- Led a multi-tenant RAG assistant, React to retrieval layer, used by 1,000+ faculty to build courses for 60,000+ students.
-- Added hybrid keyword and vector search so exact course codes resolve correctly where embeddings alone blur them together.
-- Compared fixed-size against section-aware chunking on real course documents before choosing, because a split policy paragraph answers half a question.
-- Cut transcript analysis 16x, four hours to 15 minutes, with a Neo4j knowledge graph queried by validated LLM-written Cypher.
-- Attached a source citation to every answer, linking document and section, so faculty can verify a claim instead of trusting it.
+- Established Prompt Flow release checks for groundedness, relevance and coherence, evaluating prompt changes against measured results before deployment.
+- Added hybrid keyword and vector retrieval to resolve exact course codes alongside semantic document search.
+- Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.
+- Compared fixed-size and section-aware chunking on course documents to preserve complete policy passages in retrieved results.
+- Reduced transcript-analysis time from four hours to 15 minutes using a Neo4j knowledge graph and validated Cypher queries.
 
 ### Arizona State University | 08/2024 - 05/2025
 
@@ -60,15 +48,14 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *Data Research Aide* | *Phoenix, AZ*
 
-- Cut p95 retrieval latency 60% at 95% recall with a hybrid FAISS and Neo4j search layer.
-- Built a FastAPI and pgvector recommender reaching 85% top-k precision for collaborator matching, fed by an ETL ingesting 10,000+ profiles a day, plus 20+ REST APIs on .NET 8.
-- Lowered API latency 90% with Redis caching and SQL rewrites, and raised dataset accuracy to 95% with PostgreSQL constraints.
+- Reduced p95 retrieval latency 60% at 95% recall using hybrid FAISS and Neo4j search.
+- Built a FastAPI and pgvector collaborator recommender achieving 85% top-k precision in evaluation.
 
 ### Zeus Learning | 01/2022 - 07/2023
 
 *Software Engineer* | *Mumbai, India*
 
-- Built a Redis-backed desk-demand forecasting service used in 300+ Fortune 500 offices, with reported occupancy up 30%.
+- Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
 
 ### DA-IICT | 05/2021 - 08/2021
 
@@ -81,36 +68,26 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### AiJockey – AI DJ Pipeline | [GitHub](https://github.com/architagrawal/aiJockey) | 2025 - Present
 
-- Built an end-to-end AI DJ in PyTorch and FastAPI: stem separation, an LLM transition planner, 25+ DSP transitions and LUFS mastering, ported off CUDA to an AMD MI300X.
-- Trained a MERT-95M reward head predicting four-axis audio aesthetics (final MSE 0.127) so the segment picker scores candidates without running full inference per render.
-- Built DPO/KTO/IPO trainer variants for preference tuning, cutting DPO loss 31% (0.68 to 0.47) on labeled preference pairs.
-
-### SRP Electric MCP Server | [GitHub](https://github.com/architagrawal/srp-electric-mcp) | 12/2025 - 01/2026
-
-- Built a Python MCP server on FastMCP that logs into an undocumented utility portal and gives AI agents 7 tools and 4 analysis prompts for billing, usage, payments and outages, with a one-click setup wizard.
-- Reverse-engineered the portal's login flow and API calls, since the utility publishes no API documentation.
-
-### MCP GitHub PR Review Agent | 07/2025 - 08/2025
-
-- Built a TypeScript MCP service that reviews pull requests from the diff, linked ticket and CI result, returning schema-typed inline findings that gate merges by category.
-- Reviews large PRs file by file with a per-file verdict, because one 8,000-line diff in a single prompt produces a summary, not a review.
+- Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.
+- Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.
+- Implemented DPO, KTO and IPO preference-training variants; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
 
 ## TECHNICAL SKILLS
 
-**Languages:** Python, TypeScript, JavaScript, SQL, C#  
-**Frameworks:** FastAPI, NestJS, Node.js, .NET, React, Vue/Nuxt, Next.js, LangGraph, PyTorch  
-**AI & Data:** RAG, LLM evaluation, MCP, AWS Bedrock, PostgreSQL, pgvector, FAISS, Neo4j, Redis, DuckDB, ETL pipelines  
-**Cloud & DevOps:** AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD  
+**Languages & Models:** Python, SQL, PyTorch, Diffusers, NumPy, SciPy, statsmodels
+
+**Retrieval & Evaluation:** FAISS, pgvector, Neo4j, RAG, LLM evaluation, LangGraph
+
+**Serving & Cloud:** FastAPI, AWS Bedrock, GCP Cloud Run, Docker, pytest
+
 
 ## EDUCATION
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*Master of Science, Computer Science* | *Tempe, AZ, USA*
-
-- GPA: 4.0
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*Bachelor of Technology, Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *India*
 

@@ -46,7 +46,7 @@ export const roles: Role[] = [
     "companyShort": "EdPlus",
     "role": "AI Software Engineer",
     "location": "Phoenix, AZ",
-    "period": "May 2026 – Present",
+    "period": "Jun 2026 – Present",
     "featured": [
       0,
       7,

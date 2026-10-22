@@ -9,15 +9,12 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { profile, experience, education, projects, skills, ONE_PAGE_ROLES, ONE_PAGE_PROJECTS } from "./content.mjs";
+import { profile, experience, education, projects, skills, ONE_PAGE_ROLES } from "./content.mjs";
+import fullStackConfig from "./roles/full-stack-engineer/config.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-// Detailed-variant extras per role, indexed like `experience`. Depth belongs on
-// the recent work, not spread evenly across a 2021 internship. Tuned to two pages.
-const EXTRA_CAP = [5, 2, 2, 1, 1, 1, 1, 1];
-const PROJECT_EXTRA = 1;
 
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -25,17 +22,11 @@ const esc = (s) =>
 /* ---------------------------------------------------------------- variants */
 
 function variant(kind) {
-  const detailed = kind === "detailed";
-  // The detailed variant is capped at two pages, so it takes the best few extras
-  // per role rather than everything. Keep `extra` ordered best-first.
-  const roles = (detailed ? experience.map((_, i) => i) : ONE_PAGE_ROLES).map((i) => {
-    const r = experience[i];
-    return { ...r, bullets: detailed ? [...r.core, ...r.extra.slice(0, EXTRA_CAP[i] ?? 1)] : r.core };
-  });
-  const projs = detailed
-    ? projects.map((p) => ({ ...p, bullets: [p.core, ...p.extra.slice(0, PROJECT_EXTRA)] }))
-    : ONE_PAGE_PROJECTS.map((i) => ({ ...projects[i], bullets: [projects[i].core] }));
-  return { detailed, roles, projects: projs };
+  // The general SWE downloads use the same editorial selection as the
+  // full-stack versions, so one-page and detailed edits stay in sync.
+  return tailored(kind === "detailed"
+    ? { ...fullStackConfig, ...fullStackConfig.detailed, pages: 2 }
+    : fullStackConfig);
 }
 
 /* Resolve one selector against a role's full bullet pool (core then extra).
@@ -76,7 +67,7 @@ function tailored(cfg) {
     const sels = cfg.pickProject?.[i];
     return { ...p, bullets: sels ? sels.map((s, n) => resolveBullet(pool, s, `${p.name} pick[${n}]`)) : [p.core] };
   });
-  return { detailed: (cfg.pages ?? 1) > 1, roles, projects: projs };
+  return { detailed: (cfg.pages ?? 1) > 1, roles, projects: projs, skills: cfg.skills ?? skills };
 }
 
 /* -------------------------------------------------------------------- HTML */
@@ -103,9 +94,9 @@ const entry = (left, right, sub, subRight, bullets, href) => `<div class="role">
   ${bullets.length ? `<ul>${bullets.map((b) => `<li>${b}</li>`).join("")}</ul>` : ""}
 </div>`;
 
-function html({ detailed, roles, projects: projs }, body = detailed ? 9.6 : 9.3) {
+function html({ detailed, roles, projects: projs, skills: selectedSkills }, body = 11) {
   // Spacing scales with the type, so a larger fit keeps the same proportions.
-  const k = body / 9.3;
+  const k = body / 11;
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8" />
 <title>Archit Agrawal - ${detailed ? "Detailed Resume" : "Resume"}</title>
@@ -114,7 +105,7 @@ function html({ detailed, roles, projects: projs }, body = detailed ? 9.6 : 9.3)
   @font-face { font-family: Lato; font-weight: 700; font-style: normal; src: url("${FONT_DIR}/Lato-Bold.ttf"); }
   @font-face { font-family: Lato; font-weight: 400; font-style: italic; src: url("${FONT_DIR}/Lato-Italic.ttf"); }
   @font-face { font-family: Lato; font-weight: 700; font-style: italic; src: url("${FONT_DIR}/Lato-BoldItalic.ttf"); }
-  @page { size: Letter; margin: ${detailed ? "0.45in" : "0.36in"} 0.55in; }
+  @page { size: Letter; margin: 0.5in 0.55in; }
   * { box-sizing: border-box; }
   body {
     margin: 0; color: #111;
@@ -125,16 +116,16 @@ function html({ detailed, roles, projects: projs }, body = detailed ? 9.6 : 9.3)
   a { color: #111; text-decoration: underline; text-underline-offset: 1.5px; text-decoration-thickness: 0.5pt; }
 
   .name { margin: 0; text-align: center; font-size: 15pt; font-weight: 400; line-height: 1.1; letter-spacing: 0; }
-  .contact { margin: 2px 0 0; text-align: center; font-size: ${body - 0.6}pt; }
+  .contact { margin: 3px 0 0; text-align: center; font-size: 9.5pt; }
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: ${((detailed ? 10 : 7) * k).toFixed(1)}px 0 0; padding-bottom: 1px;
+    margin: ${(9 * k).toFixed(1)}px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: ${body + 0.6}pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: ${((detailed ? 5 : 3.5) * k).toFixed(1)}px; }
+  .role { margin-top: ${(5 * k).toFixed(1)}px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -161,19 +152,19 @@ ${projs.length ? "<h2>Projects</h2>" : ""}
 ${projs.map((p) => entry(p.name, fmtPeriod(p.period), null, null, p.bullets.map(esc), p.href)).join("\n")}
 
 <h2>Technical Skills</h2>
-<div class="skills">${skills.map((k) => `<div><b>${esc(k.label)}:</b> ${esc(k.items)}</div>`).join("")}</div>
+<div class="skills">${selectedSkills.map((k) => `<div><b>${esc(k.label)}:</b> ${esc(k.items)}</div>`).join("")}</div>
 
 <h2>Education</h2>
 ${education
   .map((e) => entry(e.school, fmtPeriod(e.period), e.degree, e.location, e.detail ? [`<b>${esc(e.detail.split(":")[0])}:</b>${esc(e.detail.split(":").slice(1).join(":"))}`] : []))
   .join("\n")}
 
-</body></html>`;
+</body></html>`.replace(/[ \t]+$/gm, "");
 }
 
 /* ---------------------------------------------------------------- Markdown */
 
-function markdown({ roles, projects: projs }) {
+function markdown({ roles, projects: projs, skills: selectedSkills }) {
   const L = [`# ${profile.name}`, ""];
   L.push(profile.contact.map((c) => (typeof c === "string" ? c : `[${contactText(c)}](${c.href})`)).join(" | "), "");
   L.push("## PROFESSIONAL EXPERIENCE", "");
@@ -191,7 +182,7 @@ function markdown({ roles, projects: projs }) {
     }
   }
   L.push("## TECHNICAL SKILLS", "");
-  for (const k of skills) L.push(`**${k.label}:** ${k.items}  `);
+  for (const k of selectedSkills) L.push(`**${k.label}:** ${k.items}`, "");
   L.push("");
   L.push("## EDUCATION", "");
   for (const e of education) {
@@ -203,7 +194,7 @@ function markdown({ roles, projects: projs }) {
 
 /* -------------------------------------------------------------------- DOCX */
 
-const TWIP_RIGHT = 10520; // Just inside the right margin (12240 - 2*864 = 10512 usable).
+const TWIP_RIGHT = 10656; // Letter width minus two 0.55-inch margins.
 const FONT = `<w:rFonts w:ascii="Lato" w:hAnsi="Lato" w:cs="Lato"/>`;
 
 const run = (text, { sz = 19, bold = false, italic = false, color = "111111", underline = false } = {}) => {
@@ -213,8 +204,9 @@ const run = (text, { sz = 19, bold = false, italic = false, color = "111111", un
   `<w:color w:val="${color}"/></w:rPr><w:t xml:space="preserve">${esc(text)}</w:t></w:r>`;
 };
 
-const para = (runs, { align = "", space = 0, before = 0, indent = 0, hanging = 0, tab = false, border = false } = {}) =>
+const para = (runs, { align = "", space = 0, before = 0, indent = 0, hanging = 0, tab = false, border = false, keepNext = false } = {}) =>
   `<w:p><w:pPr>` +
+  (keepNext ? "<w:keepNext/>" : "") +
   (border
     ? `<w:pBdr><w:bottom w:val="single" w:sz="4" w:space="1" w:color="999999"/></w:pBdr>`
     : "") +
@@ -228,23 +220,23 @@ const para = (runs, { align = "", space = 0, before = 0, indent = 0, hanging = 0
 
 const TAB = `<w:r><w:tab/></w:r>`;
 
-function docxBody({ detailed, roles, projects: projs }, body = detailed ? 9.6 : 9.3) {
-  // Word sets a shade looser than the print CSS, so the docx runs a touch smaller.
-  const sz = Math.round((body - 0.3) * 10) / 10;
+function docxBody({ roles, projects: projs, skills: selectedSkills }, body = 11) {
+  // OOXML uses half-point sizes; never round below the readable PDF minimum.
+  const sz = Math.max(FIT_MIN, Math.floor(body * 2) / 2);
   const out = [];
 
   out.push(para(run(profile.name, { sz: 15 }), { align: "center", space: 20 }));
   out.push(
     para(
       profile.contact
-        .map((c) => (typeof c === "string" ? run(c, { sz: sz - 0.6 }) : run(contactText(c), { sz: sz - 0.6, underline: true })))
-        .join(run("  |  ", { sz: sz - 0.6 })),
+        .map((c) => (typeof c === "string" ? run(c, { sz: 9.5 }) : run(contactText(c), { sz: 9.5, underline: true })))
+        .join(run("  |  ", { sz: 9.5 })),
       { align: "center", space: 100 },
     ),
   );
 
   const heading = (t) =>
-    out.push(para(run(t.toUpperCase(), { sz: sz + 0.6, bold: true }), { before: 140, space: 40, border: true }));
+    out.push(para(run(t.toUpperCase(), { sz: sz + 0.6, bold: true }), { before: 140, space: 40, border: true, keepNext: true }));
 
   const bullet = (text) =>
     out.push(
@@ -256,9 +248,9 @@ function docxBody({ detailed, roles, projects: projs }, body = detailed ? 9.6 : 
     );
 
   const entry = (left, right, sub, subRight, bullets) => {
-    out.push(para(run(left, { sz, bold: true }) + TAB + run(right, { sz, bold: true }), { before: 80, space: 0, tab: true }));
+    out.push(para(run(left, { sz, bold: true }) + TAB + run(right, { sz, bold: true }), { before: 80, space: 0, tab: true, keepNext: true }));
     if (sub || subRight)
-      out.push(para(run(sub ?? "", { sz, italic: true }) + TAB + run(subRight ?? "", { sz, italic: true }), { space: 10, tab: true }));
+      out.push(para(run(sub ?? "", { sz, italic: true }) + TAB + run(subRight ?? "", { sz, italic: true }), { space: 10, tab: true, keepNext: bullets.length > 0 }));
     bullets.forEach(bullet);
   };
 
@@ -271,7 +263,7 @@ function docxBody({ detailed, roles, projects: projs }, body = detailed ? 9.6 : 
   }
 
   heading("Technical Skills");
-  for (const k of skills) out.push(para(run(`${k.label}: `, { sz, bold: true }) + run(k.items, { sz }), { space: 10 }));
+  for (const k of selectedSkills) out.push(para(run(`${k.label}: `, { sz, bold: true }) + run(k.items, { sz }), { space: 10 }));
 
   heading("Education");
   for (const e of education) {
@@ -299,7 +291,7 @@ function writeDocx(v, outPath, body) {
   writeFileSync(
     join(dir, "word/document.xml"),
     `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${docxBody(v, body)}<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="605" w:right="864" w:bottom="605" w:left="864" w:header="0" w:footer="0" w:gutter="0"/></w:sectPr></w:body></w:document>`,
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${docxBody(v, body)}<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="720" w:right="792" w:bottom="720" w:left="792" w:header="0" w:footer="0" w:gutter="0"/></w:sectPr></w:body></w:document>`,
   );
   execFileSync("zip", ["-q", "-X", "-r", outPath, "[Content_Types].xml", "_rels", "word"], { cwd: dir });
   rmSync(dir, { recursive: true, force: true });
@@ -307,10 +299,10 @@ function writeDocx(v, outPath, body) {
 
 /* -------------------------------------------------------------------- main */
 
-// Largest body size that still lands on exactly `pages` pages, so a lighter
-// variant fills its page instead of leaving a gap at the bottom.
-const FIT_MIN = 9.0;
-const FIT_MAX = 9.8;
+// Fit within readable type sizes. If content overflows, trim it instead of
+// shrinking the body below 10.5pt.
+const FIT_MIN = 10.5;
+const FIT_MAX = 11.0;
 
 function printPdf(htmlPath, pdfPath) {
   rmSync(pdfPath, { force: true });
@@ -340,6 +332,9 @@ function render(v, dir, stem, { toPublic = false, pages: want = v.detailed ? 2 :
     if (at(mid / 10) <= want) { best = mid / 10; lo = mid + 1; } else hi = mid - 1;
   }
   const pages = at(best);
+  if (pages > want) {
+    throw new Error(`${stem}: ${pages} pages at ${FIT_MIN}pt. Trim content to fit ${want} page(s).`);
+  }
 
   writeFileSync(join(dir, `${stem}.md`), markdown(v));
   rmSync(docxPath, { force: true });
