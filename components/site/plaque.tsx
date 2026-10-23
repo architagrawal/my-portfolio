@@ -22,9 +22,9 @@ export function Plaque() {
   if (!scene) return null;
   const { title, photo } = PLAQUES[scene];
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-[4.5rem] z-10 sm:bottom-6">
+    <div className="pointer-events-none absolute inset-x-0 bottom-6 z-10">
       <div className={`mx-auto flex w-full max-w-6xl justify-end px-6 transition-opacity duration-700 md:px-12 ${shown ? "opacity-100" : "opacity-0"}`}>
-        <p className="plaque max-w-[19rem] text-right">
+        <p className="plaque max-w-[22rem] text-right">
           <span className="block font-semibold text-foreground">{title}</span>
           <span className="block text-foreground/70">Based on a photo by {photo}</span>
         </p>

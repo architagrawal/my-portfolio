@@ -697,18 +697,34 @@ html:has(#intro) .backdrop::after { height: 9rem; background: linear-gradient(hs
 .backdrop { container-type: size; }
 .cover-mast-wrap { display: none; }
 html:has(#intro) .cover-mast-wrap { display: block; }
-.cover-mast {
+/* Where the line sits, shared by the line itself (in .backdrop) and the links under it (in
+   .hero-painting). Both measure the screen: .backdrop is a size container, and .hero-painting is a
+   width container whose height falls back to the screen's (it is exactly one screen tall), so the
+   same sums give the same place: --mast-bottom is the baseline's distance from the screen's bottom. */
+.cover-mast, .hero-links {
   --s: max(100cqw / 1600, 100cqh / 900);
   --mw: min(calc(var(--mast-w, 1240) * var(--s)), calc(100cqw - 2.5rem));
   /* one row's letter height for the line's width (fitMast in scene.tsx measures it per typeface),
      so a fifth of it is the foot */
   --mast-line: var(--mast-line-1, 0.13);
+  /* never less than --mast-room above the screen's bottom: the links, the arrow and the plaque need it,
+     so where a scene's ground sits low the line rises off it instead of crowding them */
+  --mast-bottom: max(calc((900 - var(--ground, 702)) * var(--s) - var(--mw) * var(--mast-line) * 0.2), var(--mast-room, 11rem));
+}
+.cover-mast {
   position: absolute;
   left: 50%;
   width: var(--mw);
-  bottom: calc((900 - var(--ground, 702)) * var(--s) - var(--mw) * var(--mast-line) * 0.2);
+  bottom: var(--mast-bottom);
   translate: -50% 0;
 }
+/* the contact links under the line, risen in with it */
+.hero-painting { container-type: inline-size; }
+.hero-links { position: absolute; inset-inline: 0; top: calc(100cqh - var(--mast-bottom) + var(--links-gap, 2.25rem)); z-index: 10; animation: mast-rise 1.4s cubic-bezier(0.22, 1, 0.36, 1) 2.6s backwards; }
+html[data-painted] .hero-links { animation: none; }
+/* the glow is for the text links over the paint; the filled button has its own ground */
+.hero-links .ui-btn { text-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .hero-links { animation: none; } }
 /* the variant not in use stays laid out but invisible, so fitMast can still measure it */
 .cover-mast svg { display: block; }
 .cover-mast .mast-stack { position: absolute; left: 0; bottom: 0; visibility: hidden; }
@@ -716,8 +732,14 @@ html:has(#intro) .cover-mast-wrap { display: block; }
 .plaque > span:first-child { font-family: var(--font-fraunces), Georgia, serif; font-size: 0.9375rem; font-variation-settings: "opsz" 24; }
 .plaque { font-size: 0.8125rem; line-height: 1.45; text-wrap: balance; text-shadow: 0 0 6px hsl(var(--background) / 0.8), 0 0 16px hsl(var(--background) / 0.6); }
 /* portrait screens stack the line, so it stays big: two lines, 75.2 tall each for 295.1 wide */
+/* portrait: the links wrap onto two rows and the plaque drops to the bottom edge, so the scroll
+   arrow gives way and the line keeps more room under it */
+@media (orientation: portrait) {
+  .hero-links { --mast-w: 1000; --mast-line: var(--mast-line-2, 0.255); --mast-room: 13rem; --links-gap: 1.5rem; }
+  .hero-painting .scroll-cue { display: none; }
+}
 @container (orientation: portrait) {
-  .cover-mast { --mast-w: 1000; --mast-line: var(--mast-line-2, 0.255); }
+  .cover-mast { --mast-w: 1000; --mast-line: var(--mast-line-2, 0.255); --mast-room: 13rem; }
   .cover-mast .mast-line { position: absolute; left: 0; bottom: 0; visibility: hidden; }
   .cover-mast .mast-stack { position: static; visibility: visible; }
 }
