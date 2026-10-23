@@ -8,7 +8,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
+- Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.
 - Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
 - Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
 - Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
@@ -64,9 +64,9 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*B.Tech., Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *Gandhinagar, India*
 

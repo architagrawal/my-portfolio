@@ -10,7 +10,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Designed S3 storage with compact fact tables and Lance payloads, queried through DuckDB for full-text and vector search.
 - Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
-- Prevented mislabeled and dropped records with schema-constrained output and row correlation checks in the data-processing pipeline.
+- Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.
 - Reduced publishing time from 19 minutes to 109 seconds for a 51,280-respondent survey; an independent raw-data audit matched all evaluated figures.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
@@ -25,6 +25,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Software Engineer* | *Phoenix, AZ*
 
 - Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.
+- Reduced transcript-analysis time from four hours to 15 minutes using a Neo4j knowledge graph and validated Cypher queries.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
@@ -39,6 +40,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Software Engineer* | *Mumbai, India*
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
+- Improved student-listing performance 30% with pagination and S3 asset delivery; reduced class-detail latency 10% through SQL query rewrites.
 
 ## PROJECTS
 
@@ -59,9 +61,9 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*B.Tech., Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *Gandhinagar, India*
 

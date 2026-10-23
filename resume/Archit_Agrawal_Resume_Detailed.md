@@ -13,7 +13,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Accelerated publishing of a 51,280-respondent survey from 19 minutes to 109 seconds; an independent raw-data audit matched all evaluated figures.
 - Engineered 64-way AWS Step Functions processing with a failure circuit breaker after diagnosing silent row loss in runs that reported success.
 - Delivered interactive chart sorting, filtering, top-N and undo in Nuxt; in-process DuckDB kept measured query latency flat as input rows grew 200x.
-- Reached 100% join integrity in repeat pipeline evaluations using schema-constrained output and row correlation tokens; the baseline silently mislabeled 1 in 8 rows.
+- Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.
 - Secured the analytics proof of concept with entitlement-gated row-level access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
@@ -95,9 +95,9 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*B.Tech., Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *Gandhinagar, India*
 

@@ -8,8 +8,8 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
-- Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; achieved 68% on StatQA test selection.
+- Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.
+- Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.
 - Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
@@ -65,9 +65,9 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*B.Tech., Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *Gandhinagar, India*
 

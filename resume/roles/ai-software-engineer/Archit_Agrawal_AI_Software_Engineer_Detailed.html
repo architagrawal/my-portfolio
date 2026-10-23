@@ -53,7 +53,7 @@
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>06/2026 - Present</span></div>
   <div class="row sub"><span>AI Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.</li><li>Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.</li><li>Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.</li><li>Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.</li><li>Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; achieved 68% on StatQA test selection.</li><li>Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.</li><li>Increased recovery of reference headline findings from 13% to 52–59% on held-out datasets using LLM-selected analyses and deterministic calculations.</li><li>Prevented mislabeled and dropped records with schema-constrained output and row correlation checks in the data-processing pipeline.</li></ul>
+  <ul><li>Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.</li><li>Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.</li><li>Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.</li><li>Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.</li><li>Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.</li><li>Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.</li><li>Quadrupled the headline findings automated reports recover, 13% to 52–59% on held-out datasets, by letting an LLM choose analyses while code computes every number.</li><li>Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.</li><li>Showed model choice moves labeling F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team toward reliability.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>MyStage Music Inc.</span><span>07/2025 - 06/2026</span></div>
@@ -68,17 +68,17 @@
 <div class="role">
   <div class="row head"><span>Arizona State University</span><span>08/2024 - 05/2025</span></div>
   <div class="row sub"><span>Student Researcher</span><span>Phoenix, AZ</span></div>
-  <ul><li>Built a PyTorch and Diffusers benchmark for text-to-video models that scores physical plausibility separately from visual quality, holding seed, resolution and sampler fixed.</li><li>Found visual quality barely predicts physical plausibility: the top model by human preference ranked last on causal consistency.</li></ul>
+  <ul><li>Built a PyTorch and Diffusers benchmark for text-to-video models that scores physical plausibility separately from visual quality, holding seed, resolution and sampler fixed.</li><li>Found visual quality barely predicts physical plausibility: the top model by human preference ranked last on causal consistency.</li><li>Designed a frame-level rubric for rigid-body motion, gravity, momentum and occlusion, and measured inter-rater agreement before trusting any aggregate score.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>Knowledge Exchange for Resilience, Arizona State University</span><span>06/2024 - 08/2024</span></div>
   <div class="row sub"><span>Data Research Aide</span><span>Phoenix, AZ</span></div>
-  <ul><li>Reduced p95 retrieval latency 60% at 95% recall using hybrid FAISS and Neo4j search.</li><li>Built a FastAPI and pgvector collaborator recommender achieving 85% top-k precision in evaluation.</li></ul>
+  <ul><li>Reduced p95 retrieval latency 60% at 95% recall using hybrid FAISS and Neo4j search.</li><li>Built a FastAPI and pgvector collaborator recommender achieving 85% top-k precision in evaluation.</li><li>Cut API latency from 198 to 20 ms with Redis caching and SQL rewrites, verified under simulated peak load with Locust.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>Zeus Learning</span><span>01/2022 - 07/2023</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Mumbai, India</span></div>
-  <ul><li>Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.</li><li>Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.</li></ul>
+  <ul><li>Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.</li><li>Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.</li><li>Built a Redis-backed desk-booking service used across 300+ offices at Fortune 500 companies.</li></ul>
 </div>
 
 <h2>Projects</h2>
@@ -92,19 +92,24 @@
 
   <ul><li>Built a TypeScript PR-review integration combining code diffs, tickets and CI results into schema-validated inline findings.</li><li>Made review comments idempotent across pushes and synchronized ticket context with Asana.</li></ul>
 </div>
+<div class="role">
+  <div class="row head"><span>AiJockey – AI DJ Pipeline<span class="link"> | <a href="https://github.com/architagrawal/aiJockey">GitHub</a></span></span><span>2025 - Present</span></div>
+
+  <ul><li>Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.</li><li>Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.</li></ul>
+</div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages &amp; APIs:</b> Python, TypeScript, SQL, FastAPI, NestJS</div><div><b>AI &amp; Data:</b> LangGraph, RAG, LLM evaluation, MCP, PostgreSQL, pgvector, Neo4j</div><div><b>Cloud &amp; Quality:</b> AWS Bedrock, Step Functions, GCP Cloud Run, Docker, pytest</div></div>
+<div class="skills"><div><b>Languages:</b> Python, TypeScript, JavaScript, SQL, C#</div><div><b>AI &amp; LLM:</b> AWS Bedrock, LangGraph, RAG, LLM evaluation, Prompt Flow, MCP, PyTorch</div><div><b>Retrieval &amp; Data:</b> PostgreSQL, pgvector, FAISS, Neo4j, Redis, Algolia, Firestore</div><div><b>Backend &amp; Web:</b> FastAPI, NestJS, Node.js, .NET, React, Nuxt</div><div><b>Cloud &amp; Quality:</b> AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest</div></div>
 
 <h2>Education</h2>
 <div class="role">
   <div class="row head"><span>Arizona State University (ASU)</span><span>08/2023 - 05/2025</span></div>
-  <div class="row sub"><span>M.S., Computer Science | GPA: 4.0</span><span>Tempe, AZ, USA</span></div>
+  <div class="row sub"><span>M.S., Computer Science | GPA: 4.0</span><span>Tempe, AZ</span></div>
 
 </div>
 <div class="role">
   <div class="row head"><span>Dhirubhai Ambani Institute of Information and Communication Technology</span><span>08/2018 - 05/2022</span></div>
-  <div class="row sub"><span>B.Tech., Information and Communication Technology</span><span>India</span></div>
+  <div class="row sub"><span>B.Tech., Information and Communication Technology</span><span>Gandhinagar, India</span></div>
 
 </div>
 

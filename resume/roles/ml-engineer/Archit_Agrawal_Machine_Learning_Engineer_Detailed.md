@@ -8,12 +8,12 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
-- Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; achieved 68% on StatQA test selection.
+- Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.
+- Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.
 - Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.
 - Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
-- Increased recovery of reference headline findings from 13% to 52–59% on held-out datasets using LLM-selected analyses and deterministic calculations.
-- Measured labeling F1 changes of 0.230 across models versus 0.007 across pipeline designs, prioritizing reliability improvements over orchestration complexity.
+- Quadrupled the headline findings automated reports recover, 13% to 52–59% on held-out datasets, by letting an LLM choose analyses while code computes every number.
+- Showed model choice moves labeling F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team toward reliability.
 - Designed a chart recommender covering 17 chart types, retaining deterministic rules when LLM proposals failed to improve evaluation scores.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
@@ -85,9 +85,9 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*B.Tech., Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *Gandhinagar, India*
 

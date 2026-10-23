@@ -8,14 +8,15 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI analytics platform for any structured dataset on AWS Bedrock and Step Functions, with cited answers and deterministic calculations.
+- Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.
 - Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
 - Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
 - Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
-- Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; achieved 68% on StatQA test selection.
+- Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.
 - Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.
-- Increased recovery of reference headline findings from 13% to 52–59% on held-out datasets using LLM-selected analyses and deterministic calculations.
-- Prevented mislabeled and dropped records with schema-constrained output and row correlation checks in the data-processing pipeline.
+- Quadrupled the headline findings automated reports recover, 13% to 52–59% on held-out datasets, by letting an LLM choose analyses while code computes every number.
+- Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.
+- Showed model choice moves labeling F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team toward reliability.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
 
@@ -43,6 +44,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Built a PyTorch and Diffusers benchmark for text-to-video models that scores physical plausibility separately from visual quality, holding seed, resolution and sampler fixed.
 - Found visual quality barely predicts physical plausibility: the top model by human preference ranked last on causal consistency.
+- Designed a frame-level rubric for rigid-body motion, gravity, momentum and occlusion, and measured inter-rater agreement before trusting any aggregate score.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
@@ -50,6 +52,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Reduced p95 retrieval latency 60% at 95% recall using hybrid FAISS and Neo4j search.
 - Built a FastAPI and pgvector collaborator recommender achieving 85% top-k precision in evaluation.
+- Cut API latency from 198 to 20 ms with Redis caching and SQL rewrites, verified under simulated peak load with Locust.
 
 ### Zeus Learning | 01/2022 - 07/2023
 
@@ -57,6 +60,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
+- Built a Redis-backed desk-booking service used across 300+ offices at Fortune 500 companies.
 
 ## PROJECTS
 
@@ -70,22 +74,31 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Built a TypeScript PR-review integration combining code diffs, tickets and CI results into schema-validated inline findings.
 - Made review comments idempotent across pushes and synchronized ticket context with Asana.
 
+### AiJockey – AI DJ Pipeline | [GitHub](https://github.com/architagrawal/aiJockey) | 2025 - Present
+
+- Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.
+- Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.
+
 ## TECHNICAL SKILLS
 
-**Languages & APIs:** Python, TypeScript, SQL, FastAPI, NestJS
+**Languages:** Python, TypeScript, JavaScript, SQL, C#
 
-**AI & Data:** LangGraph, RAG, LLM evaluation, MCP, PostgreSQL, pgvector, Neo4j
+**AI & LLM:** AWS Bedrock, LangGraph, RAG, LLM evaluation, Prompt Flow, MCP, PyTorch
 
-**Cloud & Quality:** AWS Bedrock, Step Functions, GCP Cloud Run, Docker, pytest
+**Retrieval & Data:** PostgreSQL, pgvector, FAISS, Neo4j, Redis, Algolia, Firestore
+
+**Backend & Web:** FastAPI, NestJS, Node.js, .NET, React, Nuxt
+
+**Cloud & Quality:** AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest
 
 
 ## EDUCATION
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*B.Tech., Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *Gandhinagar, India*
 

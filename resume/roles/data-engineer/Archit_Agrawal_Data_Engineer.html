@@ -21,12 +21,12 @@
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: 17.6px 0 0; padding-bottom: 2px;
+    margin: 13.2px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: 8.8px; }
+  .role { margin-top: 6.6px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -36,13 +36,13 @@
      so PDF extraction read every title and Education before any bullet. */
   /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
   ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
-  li { margin: 0 0 2.6px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 2.0px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: 6.6px; }
-  .skills div { margin-bottom: 2.6px; }
+  .skills { margin-top: 4.9px; }
+  .skills div { margin-bottom: 2.0px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -53,7 +53,7 @@
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>06/2026 - Present</span></div>
   <div class="row sub"><span>AI Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Designed S3 storage with compact fact tables and Lance payloads, queried through DuckDB for full-text and vector search.</li><li>Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.</li><li>Prevented mislabeled and dropped records with schema-constrained output and row correlation checks in the data-processing pipeline.</li><li>Reduced publishing time from 19 minutes to 109 seconds for a 51,280-respondent survey; an independent raw-data audit matched all evaluated figures.</li></ul>
+  <ul><li>Designed S3 storage with compact fact tables and Lance payloads, queried through DuckDB for full-text and vector search.</li><li>Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.</li><li>Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.</li><li>Reduced publishing time from 19 minutes to 109 seconds for a 51,280-respondent survey; an independent raw-data audit matched all evaluated figures.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>MyStage Music Inc.</span><span>07/2025 - 06/2026</span></div>
@@ -63,7 +63,7 @@
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.</li></ul>
+  <ul><li>Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.</li><li>Reduced transcript-analysis time from four hours to 15 minutes using a Neo4j knowledge graph and validated Cypher queries.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>Knowledge Exchange for Resilience, Arizona State University</span><span>06/2024 - 08/2024</span></div>
@@ -73,7 +73,7 @@
 <div class="role">
   <div class="row head"><span>Zeus Learning</span><span>01/2022 - 07/2023</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Mumbai, India</span></div>
-  <ul><li>Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.</li></ul>
+  <ul><li>Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.</li><li>Improved student-listing performance 30% with pagination and S3 asset delivery; reduced class-detail latency 10% through SQL query rewrites.</li></ul>
 </div>
 
 <h2>Projects</h2>
@@ -89,12 +89,12 @@
 <h2>Education</h2>
 <div class="role">
   <div class="row head"><span>Arizona State University (ASU)</span><span>08/2023 - 05/2025</span></div>
-  <div class="row sub"><span>M.S., Computer Science | GPA: 4.0</span><span>Tempe, AZ, USA</span></div>
+  <div class="row sub"><span>M.S., Computer Science | GPA: 4.0</span><span>Tempe, AZ</span></div>
 
 </div>
 <div class="role">
   <div class="row head"><span>Dhirubhai Ambani Institute of Information and Communication Technology</span><span>08/2018 - 05/2022</span></div>
-  <div class="row sub"><span>B.Tech., Information and Communication Technology</span><span>India</span></div>
+  <div class="row sub"><span>B.Tech., Information and Communication Technology</span><span>Gandhinagar, India</span></div>
 
 </div>
 
