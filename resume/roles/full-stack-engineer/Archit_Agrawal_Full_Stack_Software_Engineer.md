@@ -12,6 +12,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
 - Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
 - Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
+- Accelerated publishing of a 51,280-respondent survey from 19 minutes to 109 seconds; an independent raw-data audit matched all evaluated figures.
 
 ### MyStage Music Inc. | 07/2025 - 06/2026
 
@@ -28,6 +29,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.
 - Increased assessment-tool engagement 35% and reduced bounce 20% by building React and Material UI workflows for bulk import, question reuse and revision comparison.
 - Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.
+- Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
@@ -42,6 +44,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
+- Built a Redis-backed desk-booking service used across 300+ offices at Fortune 500 companies.
 
 ## TECHNICAL SKILLS
 
@@ -56,9 +59,9 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ### Arizona State University (ASU) | 08/2023 - 05/2025
 
-*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ, USA*
+*M.S., Computer Science | GPA: 4.0* | *Tempe, AZ*
 
 ### Dhirubhai Ambani Institute of Information and Communication Technology | 08/2018 - 05/2022
 
-*B.Tech., Information and Communication Technology* | *India*
+*B.Tech., Information and Communication Technology* | *Gandhinagar, India*
 

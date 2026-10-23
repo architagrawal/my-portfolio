@@ -17,7 +17,7 @@ export default {
     roles: [0, 1, 2, 3, 4, 5, 7],
     pick: {
       0: ["Own architecture and delivery", "Validated 25 statistical", "Improved accuracy from",
-          "Cut incorrect answers", "Increased recovery of reference", "Measured labeling F1", "Designed a chart recommender"],
+          "Cut incorrect answers", "Quadrupled the headline findings", "Showed model choice", "Designed a chart recommender"],
       1: ["Consolidated a 14-Cloud-Function", "Built FastAPI and Algolia", "Scaled ingestion", "Implemented checkpointed"],
       2: ["Established Prompt Flow", "Added hybrid keyword", "Built a multi-tenant course assistant",
           "Compared fixed-size", "Reduced transcript-analysis"],

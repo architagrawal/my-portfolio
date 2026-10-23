@@ -4,17 +4,17 @@ export default {
   company: "Role variant", position: "Data Engineer", pages: 1, skills: roleSkills.data,
   roles: [0, 1, 2, 4, 5],
   pick: {
-    0: ["Designed S3 storage", "Parallelized data labeling", "Prevented mislabeled", "Reduced publishing time"],
+    0: ["Designed S3 storage", "Parallelized data labeling", "Reached 100% join integrity", "Reduced publishing time"],
     1: ["Scaled ingestion", "Made ingestion retries safe"],
-    2: ["Implemented tenant isolation"],
+    2: ["Implemented tenant isolation", "Reduced transcript-analysis"],
     4: ["Built 20+ REST APIs", "Made ETL reruns", "Enforced uniqueness"],
-    5: ["Migrated a C#/.NET"],
+    5: ["Migrated a C#/.NET", "Improved student-listing"],
   },
   projects: [5],
   detailed: {
     roles: [0, 1, 2, 4, 5, 6],
     pick: {
-      0: ["Designed S3 storage", "Parallelized data labeling", "Prevented mislabeled", "Accelerated publishing",
+      0: ["Designed S3 storage", "Parallelized data labeling", "Reached 100% join integrity", "Accelerated publishing",
           "Built dataset intake", "Blocked double counting", "Reduced AWS pipeline runtime", "Added access-controlled"],
       1: ["Scaled ingestion", "Made ingestion retries safe", "Consolidated a 14-Cloud-Function",
           "Designed reusable scraping", "Implemented checkpointed"],
