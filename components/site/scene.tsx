@@ -34,8 +34,8 @@ function fitMast(root: HTMLElement) {
     const top = boxes[0].y;
     const base = (rows.length - 1) * 100 * lh;
     svg.setAttribute("viewBox", `${x0} ${top} ${x1 - x0} ${base - top + 2}`);
-    const host = svg.parentElement;
-    host?.style.setProperty(svg.classList.contains("mast-stack") ? "--mast-line-2" : "--mast-line-1", String((cap * 100) / (x1 - x0)));
+    // on <html>, so the hero links under the line can place themselves too
+    document.documentElement.style.setProperty(svg.classList.contains("mast-stack") ? "--mast-line-2" : "--mast-line-1", String((cap * 100) / (x1 - x0)));
   });
 }
 

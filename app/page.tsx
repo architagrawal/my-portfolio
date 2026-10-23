@@ -43,9 +43,19 @@ export default async function Home() {
   const featured = projects.filter((p) => p.tier === "featured");
   return (
     <div className="min-h-screen text-foreground">
-      {/* the painting is the hero, with nothing over it but the nav */}
+      {/* the painting is the hero: the cover line, the contact links under it, and the plaque */}
       <SiteNav hero />
       <div className="hero-painting -mt-16 flex min-h-[100svh] flex-col pt-16">
+        {/* the contact links, under the cover line (.hero-links in globals.css follows it per scene) */}
+        <div className="hero-links hero-copy flex flex-wrap items-center justify-center gap-x-7 gap-y-4 px-6">
+          <PushButton href="mailto:architagrawal000@gmail.com">Email me</PushButton>
+          {CONTACT.map(([label, href]) => (
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="ui-link">
+              <span className="ui-link-label">{label}</span>
+            </a>
+          ))}
+          <CopyEmail className="ui-link" />
+        </div>
         <ScrollCue target="intro" />
         <Plaque />
       </div>
@@ -68,15 +78,6 @@ export default async function Home() {
               12-agent analytics platform on AWS Bedrock, built in TypeScript and Python, with the tests to prove it works.
               Looking for my next AI engineering role, open to relocation.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <PushButton href="mailto:architagrawal000@gmail.com">Email me</PushButton>
-              {CONTACT.map(([label, href]) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="ui-link">
-                  <span className="ui-link-label">{label}</span>
-                </a>
-              ))}
-              <CopyEmail className="ui-link" />
-            </div>
           </section>
 
           <Stats
