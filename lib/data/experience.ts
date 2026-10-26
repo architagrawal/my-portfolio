@@ -253,7 +253,7 @@ export const roles: Role[] = [
     "companyShort": "MyStage Music Inc",
     "role": "Founding AI/ML Engineer",
     "location": "Remote",
-    "period": "July 2025 – June 2026",
+    "period": "March 2025 – June 2026",
     "featured": [
       0,
       1,

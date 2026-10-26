@@ -58,7 +58,7 @@ export const experience = [
     company: "MyStage Music Inc.",
     employment: "Full-time",
     location: "Remote",
-    period: "Jul 2025 – Jun 2026",
+    period: "Mar 2025 – Jun 2026",
     core: [
       "Built FastAPI and Algolia search with sub-50 ms latency, real-time Firestore synchronization, 200+ pytest tests and Logfire tracing.",
       "Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.",

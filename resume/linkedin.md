@@ -73,7 +73,7 @@ Case studies: agrawal-archit.vercel.app
 • Assessment platform: React and Material UI tools for question banks lifted engagement 35% and cut bounce 20%.
 • Automation: Google Apps Script that builds Drive folders and documents from Sheets, ending manual course setup.
 
-### Founding AI/ML Engineer, MyStage Music (Jul 2025 – Jun 2026, full-time, remote)
+### Founding AI/ML Engineer, MyStage Music (Mar 2025 – Jun 2026, full-time, remote)
 
 • Agent re-architecture: rebuilt a 14-Cloud-Function event pipeline as one checkpointed LangGraph agent in Python on GCP Cloud Run, cutting production service dependencies 64%.
 • Ingestion at scale: a Playwright scraping service collecting 70,000+ records a day from 650+ venues, with proxy rotation, backoff and transactional locking against duplicate work.
