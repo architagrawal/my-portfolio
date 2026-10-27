@@ -8,10 +8,10 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Designed S3 storage with compact fact tables and Lance payloads, queried through DuckDB for full-text and vector search.
-- Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
-- Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.
-- Reduced publishing time from 19 minutes to 109 seconds for a 51,280-respondent survey; an independent raw-data audit matched all evaluated figures.
+- Designed a serverless data lake on S3: a narrow fact table plus Lance payloads queried in-process by DuckDB, so new datasets union without a migration.
+- Built schema-inferring ingestion for any table shape, from crosstabs to weighted surveys and UTF-16 files, emitting each decision as a JSON recipe that replays exactly.
+- Traced silent row loss in Step Functions runs that reported success and fixed it with partitioned writes and fan-in across 64 parallel lanes.
+- Tracked data lineage with four typed relations (relabel, recode, wave, wave_recoded), so a second labeling pass can never pose as a trend.
 
 ### MyStage Music Inc. | 03/2025 - 06/2026
 
@@ -19,28 +19,26 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.
 - Made ingestion retries safe with deterministic task IDs and atomic create-if-absent writes, preventing duplicate jobs from overwriting in-flight work.
+- Built a Cloud Scheduler reprocessing loop that refreshes the most-stale sources first, tracking reprocess time and count per entity.
 
 ### EdPlus, Arizona State University | 09/2023 - 05/2025
 
 *Software Engineer* | *Phoenix, AZ*
 
-- Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.
 - Reduced transcript-analysis time from four hours to 15 minutes using a Neo4j knowledge graph and validated Cypher queries.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
 *Data Research Aide* | *Phoenix, AZ*
 
-- Built 20+ REST APIs in .NET 8 and an ETL pipeline ingesting 10,000+ researcher profiles daily into PostgreSQL.
-- Made ETL reruns idempotent through natural-key upserts, preventing duplicate records after partial failures.
-- Enforced uniqueness, not-null and range constraints in PostgreSQL to reject invalid records during ingestion.
+- Built an idempotent ETL pipeline for 10,000+ researcher profiles daily, using PostgreSQL natural-key upserts to prevent duplicates after partial failures.
+- Put data-quality gates in PostgreSQL, with uniqueness, not-null and range constraints, so bad rows fail at ingestion; dataset accuracy rose to 95%.
 
 ### Zeus Learning | 01/2022 - 07/2023
 
 *Software Engineer* | *Mumbai, India*
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
-- Improved student-listing performance 30% with pagination and S3 asset delivery; reduced class-detail latency 10% through SQL query rewrites.
 
 ## PROJECTS
 
@@ -50,11 +48,11 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## TECHNICAL SKILLS
 
-**Languages & Storage:** Python, SQL, TypeScript, PostgreSQL, DuckDB, S3, Lance, Redis
+**Languages & Storage:** Python, SQL, TypeScript, S3, PostgreSQL, DuckDB, Lance, Firestore, Redis
 
-**Pipelines:** ETL, Step Functions, Lambda, GCP Cloud Run, FastAPI
+**Pipelines & Orchestration:** ETL, AWS Step Functions (Distributed Map), Lambda, SQS, Cloud Run Jobs, Cloud Scheduler, Playwright
 
-**Quality & Deployment:** Data validation, idempotent processing, Docker, Kubernetes, CI/CD, pytest
+**Data Quality & Ops:** Data validation, data lineage, schema inference, idempotent reprocessing, entity resolution, CI checks, Docker, pytest
 
 
 ## EDUCATION

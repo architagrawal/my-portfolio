@@ -8,12 +8,12 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own end-to-end architecture and delivery of an AWS analytics platform for any structured dataset: a 14-page Nuxt frontend, 70 NestJS API routes and shared TypeScript contracts.
-- Cut end-to-end AWS pipeline runtime from 500 to 85 seconds by removing managed-agent startup overhead and invoking the underlying tools directly.
+- Own a full-stack TypeScript platform end to end: a 14-page Nuxt 4 frontend over a 10-module NestJS API sharing one typed contract, with 4,845 tests across 347k lines in 12 workspace packages.
+- Shipped an AI chart builder: readers ask in plain English, get a Vega-Lite chart, then edit it with sort, stack, top-N, filters and undo/redo; every chart also ships an accessible data table and alt text.
+- Built EdSpace in two days for the EdPlus hackathon: a live office map with room booking, desk claiming, walking routes and 3D desks, shown to leadership up to the CEO and going live for 500+ people.
 - Accelerated publishing of a 51,280-respondent survey from 19 minutes to 109 seconds; an independent raw-data audit matched all evaluated figures.
-- Engineered 64-way AWS Step Functions processing with a failure circuit breaker after diagnosing silent row loss in runs that reported success.
 - Delivered interactive chart sorting, filtering, top-N and undo in Nuxt; in-process DuckDB kept measured query latency flat as input rows grew 200x.
-- Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.
+- Cut end-to-end AWS pipeline runtime from 500 to 85 seconds by removing managed-agent startup overhead and invoking the underlying tools directly.
 - Secured the analytics proof of concept with entitlement-gated row-level access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.
 
 ### MyStage Music Inc. | 03/2025 - 06/2026
@@ -21,9 +21,8 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Founding AI/ML Engineer* | *Remote*
 
 - Delivered sub-50 ms venue search through FastAPI and Algolia, synchronizing Firestore updates into the search index in real time.
-- Expanded Playwright ingestion to 70,000+ records daily from 650+ venues, using proxy rotation, backoff and transactional locking to handle unreliable sources.
 - Reduced production service dependencies 64% by consolidating a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run.
-- Implemented pause-and-resume for incomplete records and retry-safe task processing through deterministic IDs and atomic Firestore claims.
+- Expanded Playwright ingestion to 70,000+ records daily from 650+ venues, using proxy rotation, backoff and transactional locking to handle unreliable sources.
 - Covered routing, transactional claims, retries and checkpoint resumes with 200+ pytest unit and integration tests; traced workflow execution through Logfire.
 
 ### EdPlus, Arizona State University | 09/2023 - 05/2025
@@ -32,9 +31,9 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.
 - Increased assessment-tool engagement 35% and reduced bounce 20% by building React and Material UI workflows for bulk import, question reuse and revision comparison.
+- Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.
 - Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.
 - Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.
-- Established Prompt Flow release checks for groundedness, relevance and coherence, evaluating prompt changes against measured results before deployment.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
@@ -43,15 +42,14 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Delivered 20+ production REST APIs using .NET 8, Dapper and MediatR, with JWT authentication and AWS SQS for queued work.
 - Cut API latency from 198 to 20 ms with Redis caching and SQL rewrites, verified under simulated peak load with Locust.
 - Built an idempotent ETL pipeline for 10,000+ researcher profiles daily, using PostgreSQL natural-key upserts to prevent duplicates after partial failures.
-- Enforced uniqueness, not-null and range constraints in PostgreSQL to reject invalid records during ingestion.
 
 ### Zeus Learning | 01/2022 - 07/2023
 
 *Software Engineer* | *Mumbai, India*
 
+- Built React and Redux apps with normalized client state and typed REST integration, raising measured UX scores 40%.
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
 - Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
-- Built a Redis-backed desk-booking service used across 300+ offices at Fortune 500 companies.
 - Improved student-listing performance 30% with pagination and S3 asset delivery; reduced class-detail latency 10% through SQL query rewrites.
 
 ### EAT.FIT | 09/2021 - 12/2021

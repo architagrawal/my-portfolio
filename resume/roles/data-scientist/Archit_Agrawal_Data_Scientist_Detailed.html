@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>Archit Agrawal - Detailed Resume</title>
+<style>
+  @font-face { font-family: Lato; font-weight: 400; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Regular.ttf"); }
+  @font-face { font-family: Lato; font-weight: 700; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Bold.ttf"); }
+  @font-face { font-family: Lato; font-weight: 400; font-style: italic; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Italic.ttf"); }
+  @font-face { font-family: Lato; font-weight: 700; font-style: italic; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-BoldItalic.ttf"); }
+  @page { size: Letter; margin: 0.5in 0.55in; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: #111;
+    font-family: Lato, Carlito, Calibri, Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.18;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #111; text-decoration: underline; text-underline-offset: 1.5px; text-decoration-thickness: 0.5pt; }
+
+  .name { margin: 0; text-align: center; font-size: 18pt; font-weight: 400; line-height: 1.1; letter-spacing: 0; }
+  .contact { margin: 4px 0 0; text-align: center; font-size: 9.5pt; }
+  .contact .sep { margin: 0 0.55em; }
+
+  h2 {
+    margin: 17.6px 0 0; padding-bottom: 2px;
+    border-bottom: 0.6pt solid #999;
+    font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
+  }
+
+  .role { margin-top: 8.8px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .row span:last-child { flex: none; white-space: nowrap; }
+  .head { font-weight: 700; break-after: avoid; }
+  .sub { font-style: italic; break-after: avoid; }
+
+  /* Native markers in normal flow. A positioned li paints after all other text,
+     so PDF extraction read every title and Education before any bullet. */
+  /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
+  ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
+  li { margin: 0 0 2.6px; padding-left: 1px; break-inside: avoid; }
+  /* Keeps a bullet from ending on a lone word. */
+  li, .skills div { text-wrap: pretty; }
+  li b { font-weight: 700; }
+  .head .link { font-weight: 400; }
+  .skills { margin-top: 6.6px; }
+  .skills div { margin-bottom: 2.6px; }
+  .skills b { font-weight: 700; }
+</style></head><body>
+
+<div class="name">ARCHIT AGRAWAL</div>
+<div class="contact">San Francisco Bay Area<span class="sep">|</span>623-312-0435<span class="sep">|</span><a href="mailto:architagrawal000@gmail.com">architagrawal000@gmail.com</a><span class="sep">|</span><a href="https://linkedin.com/in/agrawal-archit">LinkedIn</a><span class="sep">|</span><a href="https://github.com/architagrawal">GitHub</a><span class="sep">|</span><a href="https://agrawal-archit.vercel.app">Portfolio</a></div>
+
+<h2>Professional Experience</h2>
+<div class="role">
+  <div class="row head"><span>EdPlus, Arizona State University</span><span>06/2026 - Present</span></div>
+  <div class="row sub"><span>AI Software Engineer</span><span>Phoenix, AZ</span></div>
+  <ul><li>Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.</li><li>Designed a controlled experiment showing model choice moves text-classification F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team's roadmap toward reliability.</li><li>Quadrupled the headline findings automated reports recover, 13% to 52–59% on held-out datasets, by letting an LLM choose analyses while code computes every number.</li><li>Designed conformal accept and abstain thresholds that bound the error rate on accepted labels, giving every label a calibrated 0–100 confidence.</li><li>Designed blind random QC audits per run that yield both a quality score and a corrected estimate published with its margin of error.</li><li>Retired a 0.637 baseline the project's claims rested on after fresh runs reproduced it at 0.523, tracing the gap to a human-reviewed delivery file.</li><li>Cut cross-run disagreements from 30,405 to 263 across 411 runs by giving every column one meaning in one semantic model.</li><li>Calibrated codebook fit before labeling: a 25-row sample separated the right codebook at 0.598 with 4% abstention vs 0.316 and 88%, for about $0.001.</li><li>Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.</li><li>Designed a chart recommender covering 17 chart types, retaining deterministic rules when LLM proposals failed to improve evaluation scores.</li><li>Blocked double counting in cross-dataset joins by detecting runs that share the same people.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>MyStage Music Inc.</span><span>03/2025 - 06/2026</span></div>
+  <div class="row sub"><span>Founding AI/ML Engineer</span><span>Remote</span></div>
+  <ul><li>Lifted dataset accuracy 25% with Gemini entity resolution, scored by LLM-as-judge, over 70,000+ records a day.</li><li>Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
+  <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
+  <ul><li>Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.</li><li>Compared fixed-size and section-aware chunking on course documents to preserve complete policy passages in retrieved results.</li><li>Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Arizona State University</span><span>08/2024 - 05/2025</span></div>
+  <div class="row sub"><span>Student Researcher</span><span>Phoenix, AZ</span></div>
+  <ul><li>Built a PyTorch and Diffusers benchmark for text-to-video models that scores physical plausibility separately from visual quality, holding seed, resolution and sampler fixed.</li><li>Found visual quality barely predicts physical plausibility: the top model by human preference ranked last on causal consistency.</li><li>Designed a frame-level rubric for rigid-body motion, gravity, momentum and occlusion, and measured inter-rater agreement before trusting any aggregate score.</li><li>Derived a failure taxonomy from annotated clips: broken object permanence, non-conserved mass, teleporting contact and physics that resets at a scene cut.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Knowledge Exchange for Resilience, Arizona State University</span><span>06/2024 - 08/2024</span></div>
+  <div class="row sub"><span>Data Research Aide</span><span>Phoenix, AZ</span></div>
+  <ul><li>Built a FastAPI and pgvector collaborator recommender achieving 85% top-k precision in evaluation.</li><li>Lifted search relevance 15% over baseline with an n-gram ranking model over cleaned researcher-profile text.</li><li>Reduced p95 retrieval latency 60% at 95% recall using hybrid FAISS and Neo4j search.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Zeus Learning</span><span>01/2022 - 07/2023</span></div>
+  <div class="row sub"><span>Software Engineer</span><span>Mumbai, India</span></div>
+  <ul><li>Built a desk-demand prediction model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>DA-IICT</span><span>05/2021 - 08/2021</span></div>
+  <div class="row sub"><span>Computer Vision Researcher</span><span>Gandhinagar, India</span></div>
+  <ul><li>Engineered an autonomous-driving perception stack in Python: radar and lidar capture, timestamp alignment, extrinsic calibration and point-cloud processing, with a replay harness over recorded drives.</li><li>Compared early and late sensor fusion on identical sequences, showing point-level merging keeps detail but inherits both sensors' noise while object-level merging is robust but discards evidence.</li></ul>
+</div>
+
+<h2>Projects</h2>
+<div class="role">
+  <div class="row head"><span>AiJockey – AI DJ Pipeline<span class="link"> | <a href="https://github.com/architagrawal/aiJockey">GitHub</a></span></span><span>2025 - Present</span></div>
+
+  <ul><li>Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.</li><li>Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.</li><li>Implemented DPO, KTO and IPO preference-training variants; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.</li></ul>
+</div>
+
+<h2>Technical Skills</h2>
+<div class="skills"><div><b>Languages &amp; Tools:</b> Python, SQL, pandas, NumPy, SciPy, statsmodels, DuckDB, PyTorch, Diffusers</div><div><b>Statistics:</b> Hypothesis testing, causal inference, experiment design, survey weighting, sampling, margin of error, conformal prediction</div><div><b>Machine Learning:</b> Text classification, embeddings, recommendation, ranking, entity resolution, preference training (DPO), LLMs</div><div><b>Evaluation:</b> Benchmark design, F1, precision@k, recall, inter-rater agreement, calibration, LLM-as-judge</div><div><b>Data &amp; Visualization:</b> PostgreSQL, pgvector, FAISS, Neo4j, AWS Bedrock, Vega-Lite</div></div>
+
+<h2>Education</h2>
+<div class="role">
+  <div class="row head"><span>Arizona State University (ASU)</span><span>08/2023 - 05/2025</span></div>
+  <div class="row sub"><span>M.S., Computer Science | GPA: 4.0</span><span>Tempe, AZ</span></div>
+
+</div>
+<div class="role">
+  <div class="row head"><span>Dhirubhai Ambani Institute of Information and Communication Technology</span><span>08/2018 - 05/2022</span></div>
+  <div class="row sub"><span>B.Tech., Information and Communication Technology</span><span>Gandhinagar, India</span></div>
+
+</div>
+
+</body></html>
