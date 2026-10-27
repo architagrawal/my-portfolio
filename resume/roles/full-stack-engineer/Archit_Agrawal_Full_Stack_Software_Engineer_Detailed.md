@@ -30,7 +30,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Software Engineer* | *Phoenix, AZ*
 
 - Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.
-- Increased assessment-tool engagement 35% and reduced bounce 20% by building React and Material UI workflows for bulk import, question reuse and revision comparison.
+- Increased assessment-tool engagement 35% and reduced bounce 20% by building responsive React and Material UI workflows for bulk import, question reuse and revision comparison.
 - Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.
 - Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.
 - Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.
@@ -61,32 +61,36 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## PROJECTS
 
+### Clash Royale Analytics | 2025
+
+- Built a serverless analytics platform on Cloudflare Workers and D1 with Drizzle ORM, fronted by Next.js 16 and React 19 on Vercel, with cross-filtered D3 visualizations.
+- Shipped accessibility with skip navigation, focus traps, reduced-motion support and 44-pixel touch targets.
+
 ### PrismSplit | 2025 - Present
 
 - Built a TypeScript/React Native expense app with transactional PostgreSQL billing and settlement, integer-cent accounting and offline write persistence.
 - Added idempotency keys, real-time Supabase subscriptions and versioned persistence to handle retries and cached data across app upgrades.
 - Wrote Jest unit and interaction tests, Maestro end-to-end flows and Android release-build checks.
 
-### No-Code Pipeline Builder | 2025
+### E-Commerce Platform | 09/2024 - 12/2024
 
-- Built a React/ReactFlow workflow editor with typed nodes, undo/redo and autosave, backed by FastAPI graph validation.
-- Tested editor history, persistence and keyboard interactions with Jest, React Testing Library and property-based tests.
+- Built an e-commerce platform with a Django REST API, React frontend, Stripe payments, PostgreSQL with Redis caching, Docker and GitHub Actions CI.
 
 ## TECHNICAL SKILLS
 
-**Languages:** Python, TypeScript, JavaScript, SQL, C#
+**Languages:** TypeScript, JavaScript, Python, Java, SQL, C#, HTML, CSS
 
-**Frontend:** React, Next.js, Vue/Nuxt, React Native, ReactFlow, Zustand, Material UI
+**Frontend:** React, Next.js, Vue/Nuxt, Angular, React Native, Redux, Zustand, TanStack Query, Tailwind CSS, Material UI, D3
 
-**Backend & APIs:** Node.js, NestJS, FastAPI, Express, .NET 8, REST APIs, WebSockets, JWT
+**Backend & APIs:** Node.js, NestJS, Express, FastAPI, Django, Flask, .NET 8, REST APIs, WebSockets, JWT
 
-**Databases & Search:** PostgreSQL, Redis, DuckDB, Firestore, Algolia, Supabase, Neo4j, pgvector
+**Databases & Search:** PostgreSQL, MySQL, Redis, DynamoDB, Firestore, Supabase, DuckDB, Algolia, Neo4j, pgvector
 
-**Cloud & DevOps:** AWS (Lambda, S3, SQS, Step Functions, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD
+**Cloud & DevOps:** AWS (Lambda, API Gateway, S3, SQS, Step Functions, CDK), GCP Cloud Run, Vercel, Cloudflare Workers, Docker, Kubernetes, GitHub Actions
 
-**Testing & Observability:** pytest, Jest, Vitest, React Testing Library, Playwright, Maestro, Locust, SonarQube, Logfire
+**Testing & Observability:** Jest, Vitest, React Testing Library, Maestro, pytest, Locust, SonarQube, Logfire, OpenTelemetry
 
-**AI Applications:** AWS Bedrock, LangGraph, RAG, LLM evaluation, MCP
+**AI Applications:** AWS Bedrock, OpenAI, LangGraph, RAG, LLM evals, MCP
 
 
 ## EDUCATION

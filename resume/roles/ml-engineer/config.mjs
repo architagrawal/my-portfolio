@@ -27,6 +27,6 @@ export default {
       7: ["Engineered an autonomous-driving", "Compared early and late sensor fusion"],
     },
     projects: [2],
-    pickProject: { 2: ["Built a PyTorch/FastAPI", "Trained a MERT-95M", "Implemented DPO"] },
+    pickProject: { 2: ["Built a PyTorch/FastAPI", "Trained a MERT-95M", "Fine-tuned with DPO"] },
   },
 };

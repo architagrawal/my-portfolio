@@ -24,7 +24,6 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Software Engineer* | *Phoenix, AZ*
 
 - Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.
-- Compared fixed-size and section-aware chunking on course documents to preserve complete policy passages in retrieved results.
 
 ### Arizona State University | 08/2024 - 05/2025
 
@@ -44,21 +43,23 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *Software Engineer* | *Mumbai, India*
 
-- Built a desk-demand prediction model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.
+- Built a desk-demand forecasting model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.
 
 ## PROJECTS
 
-### AiJockey – AI DJ Pipeline | [GitHub](https://github.com/architagrawal/aiJockey) | 2025 - Present
+### Soccer Result Prediction | 10/2023 - 12/2023
 
-- Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.
+- Lifted match-outcome accuracy 12% by ensembling LSTM and XGBoost over rolling-window form features, with a time-based split that prevents leakage.
 
 ## TECHNICAL SKILLS
 
-**Languages & Tools:** Python, SQL, pandas, NumPy, SciPy, statsmodels, DuckDB, PyTorch
+**Languages & Libraries:** Python, SQL, pandas, NumPy, scikit-learn, XGBoost, SciPy, statsmodels, PyTorch, TensorFlow
 
-**Statistics & ML:** Hypothesis testing, causal inference, experiment design, conformal prediction, calibration, text classification, recommendation
+**Statistics:** Hypothesis testing, A/B testing, experiment design, causal inference, regression, calibration, conformal prediction
 
-**Evaluation & Visualization:** Benchmark design, F1, precision@k, inter-rater agreement, LLM evals, Vega-Lite
+**Machine Learning:** Classification, NLP, embeddings, clustering, recommendation, time series, forecasting, deep learning
+
+**Evaluation & Visualization:** Model evaluation, log loss, F1, precision@k, inter-rater agreement, LLM evals, Plotly, D3, Vega-Lite
 
 
 ## EDUCATION

@@ -21,12 +21,12 @@
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: 11.2px 0 0; padding-bottom: 2px;
+    margin: 9.6px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: 5.6px; }
+  .role { margin-top: 4.8px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -36,13 +36,13 @@
      so PDF extraction read every title and Education before any bullet. */
   /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
   ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
-  li { margin: 0 0 1.7px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 1.4px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: 4.2px; }
-  .skills div { margin-bottom: 1.7px; }
+  .skills { margin-top: 3.6px; }
+  .skills div { margin-bottom: 1.4px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -63,7 +63,7 @@
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.</li><li>Compared fixed-size and section-aware chunking on course documents to preserve complete policy passages in retrieved results.</li></ul>
+  <ul><li>Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>Arizona State University</span><span>08/2024 - 05/2025</span></div>
@@ -78,18 +78,18 @@
 <div class="role">
   <div class="row head"><span>Zeus Learning</span><span>01/2022 - 07/2023</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Mumbai, India</span></div>
-  <ul><li>Built a desk-demand prediction model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.</li></ul>
+  <ul><li>Built a desk-demand forecasting model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.</li></ul>
 </div>
 
 <h2>Projects</h2>
 <div class="role">
-  <div class="row head"><span>AiJockey – AI DJ Pipeline<span class="link"> | <a href="https://github.com/architagrawal/aiJockey">GitHub</a></span></span><span>2025 - Present</span></div>
+  <div class="row head"><span>Soccer Result Prediction</span><span>10/2023 - 12/2023</span></div>
 
-  <ul><li>Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.</li></ul>
+  <ul><li>Lifted match-outcome accuracy 12% by ensembling LSTM and XGBoost over rolling-window form features, with a time-based split that prevents leakage.</li></ul>
 </div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages &amp; Tools:</b> Python, SQL, pandas, NumPy, SciPy, statsmodels, DuckDB, PyTorch</div><div><b>Statistics &amp; ML:</b> Hypothesis testing, causal inference, experiment design, conformal prediction, calibration, text classification, recommendation</div><div><b>Evaluation &amp; Visualization:</b> Benchmark design, F1, precision@k, inter-rater agreement, LLM evals, Vega-Lite</div></div>
+<div class="skills"><div><b>Languages &amp; Libraries:</b> Python, SQL, pandas, NumPy, scikit-learn, XGBoost, SciPy, statsmodels, PyTorch, TensorFlow</div><div><b>Statistics:</b> Hypothesis testing, A/B testing, experiment design, causal inference, regression, calibration, conformal prediction</div><div><b>Machine Learning:</b> Classification, NLP, embeddings, clustering, recommendation, time series, forecasting, deep learning</div><div><b>Evaluation &amp; Visualization:</b> Model evaluation, log loss, F1, precision@k, inter-rater agreement, LLM evals, Plotly, D3, Vega-Lite</div></div>
 
 <h2>Education</h2>
 <div class="role">

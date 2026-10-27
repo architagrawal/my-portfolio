@@ -33,7 +33,7 @@ export default {
     pickProject: {
       0: ["Built a Python/FastMCP", "Reverse-engineered"],
       1: ["Built a TypeScript PR-review", "Made review comments"],
-      2: ["Built a PyTorch/FastAPI", "Trained a MERT-95M"],
+      2: ["Built a PyTorch/FastAPI", "Trained a MERT-95M", "Fine-tuned with DPO"],
     },
   },
 };

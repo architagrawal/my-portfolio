@@ -70,7 +70,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.
 - Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.
-- Implemented DPO, KTO and IPO preference-training variants; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
+- Fine-tuned with DPO, KTO and IPO preference training; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
 
 ## TECHNICAL SKILLS
 

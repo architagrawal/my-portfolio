@@ -62,29 +62,38 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## PROJECTS
 
+### Serverless Document Pipeline | 03/2024 - 04/2024
+
+- Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.
+- Automated EC2 instance management for heavier processing jobs, cutting processing time 40%.
+
+### E-Commerce Platform | 09/2024 - 12/2024
+
+- Built an e-commerce platform with a Django REST API, React frontend, Stripe payments, PostgreSQL with Redis caching, Docker and GitHub Actions CI.
+
+### Task Management System | 02/2024 - 05/2024
+
+- Built a Flask and SQLAlchemy REST API with JWT auth and a React UI, enforcing permissions at the query layer and sending idempotent deadline notifications.
+- Added optimistic UI with rollback on failure and a composite index on project, status and due date after the first version scanned the whole table.
+
 ### Image Recognition as a Service | 01/2024 - 02/2024
 
 - Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.
 - Capped worker capacity and used scale-in cooldowns to control cost and prevent instance churn during changing demand.
 
-### PrismSplit | 2025 - Present
-
-- Built a TypeScript/React Native expense app with transactional PostgreSQL billing and settlement, integer-cent accounting and offline write persistence.
-- Added idempotency keys, real-time Supabase subscriptions and versioned persistence to handle retries and cached data across app upgrades.
-
 ## TECHNICAL SKILLS
 
-**Languages:** Python, TypeScript, SQL, C#, JavaScript
+**Languages:** Python, TypeScript, Java, C#, SQL, JavaScript
 
-**Backend & APIs:** NestJS, FastAPI, Node.js, Express, .NET 8, Dapper, MediatR, REST, WebSockets, JWT
+**Backend & APIs:** NestJS, FastAPI, Django, Flask, Node.js, Express, .NET 8, Dapper, MediatR, SQLAlchemy, REST APIs, WebSockets, JWT
 
-**Data & Messaging:** PostgreSQL, Redis, DuckDB, Firestore, Algolia, Neo4j, AWS SQS, RabbitMQ, S3
+**Data & Messaging:** PostgreSQL, MySQL, Redis, DynamoDB, Firestore, DuckDB, Algolia, Neo4j, AWS SQS, RabbitMQ, S3
 
-**Systems:** Distributed systems, event-driven design, idempotency, concurrency control, caching, multi-tenancy, circuit breakers
+**Systems:** Microservices, distributed systems, event-driven design, idempotency, concurrency control, caching, multi-tenancy, circuit breakers
 
 **Observability & Testing:** OpenTelemetry, Logfire, CloudWatch, pytest, Vitest, Jest, Locust, SonarQube
 
-**Cloud & Delivery:** AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD
+**Cloud & DevOps:** AWS (Lambda, API Gateway, Step Functions, S3, CDK), GCP Cloud Run, Docker, Kubernetes, Nginx, GitHub Actions, CI/CD
 
 
 ## EDUCATION

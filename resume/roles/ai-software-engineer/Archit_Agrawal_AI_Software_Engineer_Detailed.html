@@ -21,12 +21,12 @@
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: 14.0px 0 0; padding-bottom: 2px;
+    margin: 12.8px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: 7.0px; }
+  .role { margin-top: 6.4px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -36,13 +36,13 @@
      so PDF extraction read every title and Education before any bullet. */
   /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
   ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
-  li { margin: 0 0 2.1px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 1.9px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: 5.3px; }
-  .skills div { margin-bottom: 2.1px; }
+  .skills { margin-top: 4.8px; }
+  .skills div { margin-bottom: 1.9px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -95,11 +95,11 @@
 <div class="role">
   <div class="row head"><span>AiJockey – AI DJ Pipeline<span class="link"> | <a href="https://github.com/architagrawal/aiJockey">GitHub</a></span></span><span>2025 - Present</span></div>
 
-  <ul><li>Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.</li><li>Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.</li></ul>
+  <ul><li>Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.</li><li>Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.</li><li>Fine-tuned with DPO, KTO and IPO preference training; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.</li></ul>
 </div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages:</b> Python, TypeScript, JavaScript, SQL, C#</div><div><b>AI Engineering:</b> Multi-agent systems, tool calling, agentic RAG, GraphRAG, hybrid search, context engineering, structured outputs, guardrails, prompt caching, human-in-the-loop</div><div><b>Evals &amp; Observability:</b> LLM-as-judge, code-scored benchmarks, golden datasets, Prompt Flow, Logfire, OpenTelemetry, distributed tracing, CloudWatch</div><div><b>Models &amp; Frameworks:</b> AWS Bedrock, OpenAI, Gemini, LangGraph, LangChain, Semantic Kernel, MCP, PyTorch</div><div><b>Retrieval &amp; Data:</b> pgvector, FAISS, Lance, Neo4j, DuckDB, PostgreSQL, Redis, Algolia, Firestore</div><div><b>Backend &amp; Web:</b> FastAPI, NestJS, Node.js, .NET, React, Nuxt</div><div><b>Cloud &amp; Quality:</b> AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest</div></div>
+<div class="skills"><div><b>Languages:</b> Python, TypeScript, JavaScript, SQL, C#</div><div><b>AI Engineering:</b> AI agents, multi-agent systems, tool calling, agentic RAG, GraphRAG, hybrid search, context engineering, prompt engineering, structured outputs, guardrails, prompt caching, human-in-the-loop</div><div><b>Evals &amp; Observability:</b> LLM evals, LLM-as-judge, code-scored benchmarks, golden datasets, Prompt Flow, LLMOps, Logfire, OpenTelemetry, CloudWatch</div><div><b>Models &amp; Frameworks:</b> OpenAI, AWS Bedrock, Gemini, LangGraph, LangChain, Semantic Kernel, MCP, Hugging Face, llama.cpp</div><div><b>ML &amp; Training:</b> PyTorch, fine-tuning (DPO, KTO), reward models, embeddings, CUDA, ROCm</div><div><b>Retrieval &amp; Data:</b> Vector databases (pgvector, FAISS, Lance), Neo4j, DuckDB, PostgreSQL, Redis, Algolia, Firestore</div><div><b>Backend &amp; Cloud:</b> FastAPI, NestJS, Node.js, AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, GitHub Actions, pytest</div></div>
 
 <h2>Education</h2>
 <div class="role">

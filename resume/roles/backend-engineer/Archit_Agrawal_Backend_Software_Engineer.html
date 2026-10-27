@@ -21,12 +21,12 @@
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: 8.4px 0 0; padding-bottom: 2px;
+    margin: 10.0px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: 4.2px; }
+  .role { margin-top: 5.0px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -36,13 +36,13 @@
      so PDF extraction read every title and Education before any bullet. */
   /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
   ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
-  li { margin: 0 0 1.3px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 1.5px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: 3.2px; }
-  .skills div { margin-bottom: 1.3px; }
+  .skills { margin-top: 3.8px; }
+  .skills div { margin-bottom: 1.5px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -63,7 +63,7 @@
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.</li><li>Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.</li></ul>
+  <ul><li>Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>Knowledge Exchange for Resilience, Arizona State University</span><span>06/2024 - 08/2024</span></div>
@@ -78,13 +78,13 @@
 
 <h2>Projects</h2>
 <div class="role">
-  <div class="row head"><span>Image Recognition as a Service</span><span>01/2024 - 02/2024</span></div>
+  <div class="row head"><span>Serverless Document Pipeline</span><span>03/2024 - 04/2024</span></div>
 
-  <ul><li>Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.</li></ul>
+  <ul><li>Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.</li></ul>
 </div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages &amp; APIs:</b> Python, TypeScript, SQL, C#, NestJS, FastAPI, Node.js, .NET 8, REST, WebSockets</div><div><b>Data &amp; Messaging:</b> PostgreSQL, Redis, DuckDB, Firestore, AWS SQS, RabbitMQ, S3</div><div><b>Systems:</b> Distributed systems, idempotency, concurrency control, caching, circuit breakers, OpenTelemetry</div><div><b>Cloud &amp; Delivery:</b> AWS (Step Functions, Lambda, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest, Locust</div></div>
+<div class="skills"><div><b>Languages &amp; Frameworks:</b> Python, TypeScript, Java, C#, SQL, Node.js, NestJS, FastAPI, Django, Flask, .NET 8</div><div><b>Data &amp; Messaging:</b> PostgreSQL, MySQL, Redis, DynamoDB, Firestore, AWS SQS, RabbitMQ, S3</div><div><b>Systems:</b> Microservices, REST APIs, distributed systems, event-driven design, idempotency, caching, OpenTelemetry</div><div><b>Cloud &amp; DevOps:</b> AWS (Lambda, API Gateway, Step Functions, CDK), GCP, Docker, Kubernetes, GitHub Actions, CI/CD, Locust</div></div>
 
 <h2>Education</h2>
 <div class="role">

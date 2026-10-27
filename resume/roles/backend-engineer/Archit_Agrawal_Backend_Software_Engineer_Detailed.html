@@ -21,12 +21,12 @@
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: 17.6px 0 0; padding-bottom: 2px;
+    margin: 14.4px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: 8.8px; }
+  .role { margin-top: 7.2px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -36,13 +36,13 @@
      so PDF extraction read every title and Education before any bullet. */
   /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
   ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
-  li { margin: 0 0 2.6px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 2.2px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: 6.6px; }
-  .skills div { margin-bottom: 2.6px; }
+  .skills { margin-top: 5.4px; }
+  .skills div { margin-bottom: 2.2px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -83,18 +83,28 @@
 
 <h2>Projects</h2>
 <div class="role">
+  <div class="row head"><span>Serverless Document Pipeline</span><span>03/2024 - 04/2024</span></div>
+
+  <ul><li>Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.</li><li>Automated EC2 instance management for heavier processing jobs, cutting processing time 40%.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>E-Commerce Platform</span><span>09/2024 - 12/2024</span></div>
+
+  <ul><li>Built an e-commerce platform with a Django REST API, React frontend, Stripe payments, PostgreSQL with Redis caching, Docker and GitHub Actions CI.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Task Management System</span><span>02/2024 - 05/2024</span></div>
+
+  <ul><li>Built a Flask and SQLAlchemy REST API with JWT auth and a React UI, enforcing permissions at the query layer and sending idempotent deadline notifications.</li><li>Added optimistic UI with rollback on failure and a composite index on project, status and due date after the first version scanned the whole table.</li></ul>
+</div>
+<div class="role">
   <div class="row head"><span>Image Recognition as a Service</span><span>01/2024 - 02/2024</span></div>
 
   <ul><li>Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.</li><li>Capped worker capacity and used scale-in cooldowns to control cost and prevent instance churn during changing demand.</li></ul>
 </div>
-<div class="role">
-  <div class="row head"><span>PrismSplit</span><span>2025 - Present</span></div>
-
-  <ul><li>Built a TypeScript/React Native expense app with transactional PostgreSQL billing and settlement, integer-cent accounting and offline write persistence.</li><li>Added idempotency keys, real-time Supabase subscriptions and versioned persistence to handle retries and cached data across app upgrades.</li></ul>
-</div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages:</b> Python, TypeScript, SQL, C#, JavaScript</div><div><b>Backend &amp; APIs:</b> NestJS, FastAPI, Node.js, Express, .NET 8, Dapper, MediatR, REST, WebSockets, JWT</div><div><b>Data &amp; Messaging:</b> PostgreSQL, Redis, DuckDB, Firestore, Algolia, Neo4j, AWS SQS, RabbitMQ, S3</div><div><b>Systems:</b> Distributed systems, event-driven design, idempotency, concurrency control, caching, multi-tenancy, circuit breakers</div><div><b>Observability &amp; Testing:</b> OpenTelemetry, Logfire, CloudWatch, pytest, Vitest, Jest, Locust, SonarQube</div><div><b>Cloud &amp; Delivery:</b> AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD</div></div>
+<div class="skills"><div><b>Languages:</b> Python, TypeScript, Java, C#, SQL, JavaScript</div><div><b>Backend &amp; APIs:</b> NestJS, FastAPI, Django, Flask, Node.js, Express, .NET 8, Dapper, MediatR, SQLAlchemy, REST APIs, WebSockets, JWT</div><div><b>Data &amp; Messaging:</b> PostgreSQL, MySQL, Redis, DynamoDB, Firestore, DuckDB, Algolia, Neo4j, AWS SQS, RabbitMQ, S3</div><div><b>Systems:</b> Microservices, distributed systems, event-driven design, idempotency, concurrency control, caching, multi-tenancy, circuit breakers</div><div><b>Observability &amp; Testing:</b> OpenTelemetry, Logfire, CloudWatch, pytest, Vitest, Jest, Locust, SonarQube</div><div><b>Cloud &amp; DevOps:</b> AWS (Lambda, API Gateway, Step Functions, S3, CDK), GCP Cloud Run, Docker, Kubernetes, Nginx, GitHub Actions, CI/CD</div></div>
 
 <h2>Education</h2>
 <div class="role">

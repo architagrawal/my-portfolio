@@ -62,26 +62,33 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## PROJECTS
 
+### Clash Royale Analytics | 2025
+
+- Built a scheduled ETL pipeline that dedupes battle data, loads incrementally and runs backfills without blocking the live cron, with Vitest coverage per stage.
+- Built a serverless analytics platform on Cloudflare Workers and D1 with Drizzle ORM, fronted by Next.js 16 and React 19 on Vercel, with cross-filtered D3 visualizations.
+
+### Serverless Document Pipeline | 03/2024 - 04/2024
+
+- Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.
+
 ### Image Recognition as a Service | 01/2024 - 02/2024
 
 - Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.
 - Capped worker capacity and used scale-in cooldowns to control cost and prevent instance churn during changing demand.
 
-### No-Code Pipeline Builder | 2025
-
-- Built a React/ReactFlow workflow editor with typed nodes, undo/redo and autosave, backed by FastAPI graph validation.
-
 ## TECHNICAL SKILLS
 
 **Languages:** Python, SQL, TypeScript, C#
 
-**Storage & Query:** S3 data lake, DuckDB, Lance, PostgreSQL, Firestore, Redis, Neo4j, pgvector, Algolia
+**Storage & Query:** S3 data lake, DuckDB, Lance, PostgreSQL, MySQL, DynamoDB, Firestore, SQLite, Redis, Neo4j, pgvector, Algolia
 
-**Pipelines & Orchestration:** ETL, AWS Step Functions (Distributed Map), Lambda, SQS, LangGraph, GCP Cloud Run Jobs, Cloud Scheduler, Playwright
+**Pipelines & Orchestration:** ETL, batch and incremental loads, backfills, AWS Step Functions (Distributed Map), Lambda, SQS, LangGraph, GCP Cloud Run Jobs, Cloud Scheduler, Cloudflare Workers, Playwright
 
-**Data Quality & Governance:** Data validation, constraints, data lineage, schema inference, replayable runs, entity resolution, row-level access control
+**Data Modeling & Quality:** Data modeling, fact tables, data warehousing, data validation, constraints, data lineage, schema inference, replayable runs, deduplication, entity resolution
 
-**Reliability & Delivery:** Idempotent reprocessing, circuit breakers, OpenTelemetry tracing, Docker, Kubernetes, CI/CD, pytest
+**Governance & Reliability:** Row-level access control, idempotent reprocessing, circuit breakers, OpenTelemetry tracing
+
+**DevOps:** Docker, Kubernetes, GitHub Actions, CI/CD, pytest, Vitest
 
 
 ## EDUCATION

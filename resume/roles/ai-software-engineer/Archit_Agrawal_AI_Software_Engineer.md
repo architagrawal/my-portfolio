@@ -54,13 +54,13 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## TECHNICAL SKILLS
 
-**Languages & APIs:** Python, TypeScript, SQL, FastAPI, NestJS
+**Languages & APIs:** Python, TypeScript, SQL, FastAPI, NestJS, REST APIs
 
-**AI Engineering:** Multi-agent systems, tool calling, RAG, GraphRAG, hybrid search, LLM evals, LLM-as-judge, structured outputs, guardrails, prompt caching
+**AI Engineering:** AI agents, multi-agent systems, tool calling, RAG, GraphRAG, prompt engineering, LLM evals, LLM-as-judge, structured outputs, guardrails, fine-tuning (DPO)
 
-**Frameworks & Data:** AWS Bedrock, LangGraph, MCP, PostgreSQL, pgvector, Neo4j, DuckDB
+**Models & Frameworks:** OpenAI, AWS Bedrock, Gemini, LangGraph, LangChain, MCP, PyTorch, Hugging Face
 
-**Cloud & Observability:** AWS Step Functions, GCP Cloud Run, Logfire, OpenTelemetry, Docker, pytest
+**Data & Cloud:** pgvector, FAISS, Neo4j, PostgreSQL, AWS, GCP, Docker, Kubernetes, Logfire, OpenTelemetry
 
 
 ## EDUCATION

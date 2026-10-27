@@ -58,7 +58,7 @@
 <div class="role">
   <div class="row head"><span>MyStage Music Inc.</span><span>03/2025 - 06/2026</span></div>
   <div class="row sub"><span>Founding AI/ML Engineer</span><span>Remote</span></div>
-  <ul><li>Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.</li><li>Made ingestion retries safe with deterministic task IDs and atomic create-if-absent writes, preventing duplicate jobs from overwriting in-flight work.</li><li>Built a Cloud Scheduler reprocessing loop that refreshes the most-stale sources first, tracking reprocess time and count per entity.</li></ul>
+  <ul><li>Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.</li><li>Made ingestion retries safe with deterministic task IDs and atomic create-if-absent writes, preventing duplicate jobs from overwriting in-flight work.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
@@ -78,13 +78,13 @@
 
 <h2>Projects</h2>
 <div class="role">
-  <div class="row head"><span>Image Recognition as a Service</span><span>01/2024 - 02/2024</span></div>
+  <div class="row head"><span>Clash Royale Analytics</span><span>2025</span></div>
 
-  <ul><li>Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.</li></ul>
+  <ul><li>Built a scheduled ETL pipeline that dedupes battle data, loads incrementally and runs backfills without blocking the live cron, with Vitest coverage per stage.</li></ul>
 </div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages &amp; Storage:</b> Python, SQL, TypeScript, S3, PostgreSQL, DuckDB, Lance, Firestore, Redis</div><div><b>Pipelines &amp; Orchestration:</b> ETL, AWS Step Functions (Distributed Map), Lambda, SQS, Cloud Run Jobs, Cloud Scheduler, Playwright</div><div><b>Data Quality &amp; Ops:</b> Data validation, data lineage, schema inference, idempotent reprocessing, entity resolution, CI checks, Docker, pytest</div></div>
+<div class="skills"><div><b>Languages &amp; Storage:</b> Python, SQL, TypeScript, S3, PostgreSQL, MySQL, DuckDB, DynamoDB, Firestore, Redis, SQLite</div><div><b>Pipelines &amp; Orchestration:</b> ETL, incremental loads, backfills, AWS Step Functions, Lambda, SQS, Cloud Run Jobs, Cloud Scheduler, Cloudflare Workers</div><div><b>Data Modeling &amp; Quality:</b> Data modeling, fact tables, data warehousing, data validation, data lineage, schema inference, deduplication, entity resolution</div><div><b>DevOps:</b> Docker, Kubernetes, GitHub Actions, CI/CD, pytest, Vitest</div></div>
 
 <h2>Education</h2>
 <div class="role">

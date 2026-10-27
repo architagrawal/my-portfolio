@@ -5,12 +5,13 @@ export default {
   roles: [0, 1, 2, 4, 5],
   pick: {
     0: ["Designed a serverless data lake", "Built schema-inferring ingestion", "Traced silent row loss", "Tracked data lineage"],
-    1: ["Scaled ingestion", "Made ingestion retries safe", "Built a Cloud Scheduler reprocessing"],
+    1: ["Scaled ingestion", "Made ingestion retries safe"],
     2: ["Reduced transcript-analysis"],
     4: ["Built an idempotent ETL pipeline", "Put data-quality gates in PostgreSQL"],
     5: ["Migrated a C#/.NET"],
   },
-  projects: [5],
+  projects: [6],
+  pickProject: { 6: ["Built a scheduled ETL pipeline"] },
   detailed: {
     skills: roleSkills.dataDetailed,
     roles: [0, 1, 2, 4, 5, 6],
@@ -25,10 +26,10 @@ export default {
       5: ["Migrated a C#/.NET", "Improved student-listing"],
       6: ["Automated competitor-catalog harvesting"],
     },
-    projects: [5, 4],
+    projects: [6, 10, 5],
     pickProject: {
+      6: ["Built a scheduled ETL pipeline", "Built a serverless analytics"],
       5: ["Built an AWS EC2/SQS", "Capped worker capacity"],
-      4: ["Built a React/ReactFlow"],
     },
   },
 };

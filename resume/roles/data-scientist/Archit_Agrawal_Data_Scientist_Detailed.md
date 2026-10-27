@@ -56,7 +56,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *Software Engineer* | *Mumbai, India*
 
-- Built a desk-demand prediction model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.
+- Built a desk-demand forecasting model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.
 
 ### DA-IICT | 05/2021 - 08/2021
 
@@ -67,23 +67,32 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## PROJECTS
 
+### Soccer Result Prediction | 10/2023 - 12/2023
+
+- Lifted match-outcome accuracy 12% by ensembling LSTM and XGBoost over rolling-window form features, with a time-based split that prevents leakage.
+- Scored models on log loss, checked calibration with reliability plots and reported per-class recall for the hard draw class.
+
+### Jet Engine Remaining Useful Life | 10/2024 - 12/2024
+
+- Predicted jet-engine remaining useful life from NASA CMAPSS sensor time series, engineering features and comparing machine learning, deep learning and generative regressors.
+
 ### AiJockey – AI DJ Pipeline | [GitHub](https://github.com/architagrawal/aiJockey) | 2025 - Present
 
 - Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.
 - Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.
-- Implemented DPO, KTO and IPO preference-training variants; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
+- Fine-tuned with DPO, KTO and IPO preference training; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
 
 ## TECHNICAL SKILLS
 
-**Languages & Tools:** Python, SQL, pandas, NumPy, SciPy, statsmodels, DuckDB, PyTorch, Diffusers
+**Languages & Libraries:** Python, SQL, pandas, NumPy, scikit-learn, XGBoost, SciPy, statsmodels, PyTorch, TensorFlow, Diffusers
 
-**Statistics:** Hypothesis testing, causal inference, experiment design, survey weighting, sampling, margin of error, conformal prediction
+**Statistics:** Hypothesis testing, A/B testing, experiment design, causal inference, regression, survey weighting, sampling, margin of error, conformal prediction
 
-**Machine Learning:** Text classification, embeddings, recommendation, ranking, entity resolution, preference training (DPO), LLMs
+**Machine Learning:** Classification, NLP, text classification, embeddings, clustering, recommendation, ranking, time series, forecasting, deep learning (LSTM, CNN), fine-tuning (DPO)
 
-**Evaluation:** Benchmark design, F1, precision@k, recall, inter-rater agreement, calibration, LLM-as-judge
+**Evaluation:** Model evaluation, benchmark design, log loss, F1, precision@k, recall, calibration, inter-rater agreement, LLM-as-judge
 
-**Data & Visualization:** PostgreSQL, pgvector, FAISS, Neo4j, AWS Bedrock, Vega-Lite
+**Data & Visualization:** DuckDB, PostgreSQL, pgvector, FAISS, Neo4j, AWS Bedrock, Plotly, D3, Vega-Lite
 
 
 ## EDUCATION

@@ -25,7 +25,6 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Software Engineer* | *Phoenix, AZ*
 
 - Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.
-- Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
@@ -43,19 +42,19 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## PROJECTS
 
-### Image Recognition as a Service | 01/2024 - 02/2024
+### Serverless Document Pipeline | 03/2024 - 04/2024
 
-- Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.
+- Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.
 
 ## TECHNICAL SKILLS
 
-**Languages & APIs:** Python, TypeScript, SQL, C#, NestJS, FastAPI, Node.js, .NET 8, REST, WebSockets
+**Languages & Frameworks:** Python, TypeScript, Java, C#, SQL, Node.js, NestJS, FastAPI, Django, Flask, .NET 8
 
-**Data & Messaging:** PostgreSQL, Redis, DuckDB, Firestore, AWS SQS, RabbitMQ, S3
+**Data & Messaging:** PostgreSQL, MySQL, Redis, DynamoDB, Firestore, AWS SQS, RabbitMQ, S3
 
-**Systems:** Distributed systems, idempotency, concurrency control, caching, circuit breakers, OpenTelemetry
+**Systems:** Microservices, REST APIs, distributed systems, event-driven design, idempotency, caching, OpenTelemetry
 
-**Cloud & Delivery:** AWS (Step Functions, Lambda, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest, Locust
+**Cloud & DevOps:** AWS (Lambda, API Gateway, Step Functions, CDK), GCP, Docker, Kubernetes, GitHub Actions, CI/CD, Locust
 
 
 ## EDUCATION

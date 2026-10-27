@@ -19,7 +19,6 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.
 - Made ingestion retries safe with deterministic task IDs and atomic create-if-absent writes, preventing duplicate jobs from overwriting in-flight work.
-- Built a Cloud Scheduler reprocessing loop that refreshes the most-stale sources first, tracking reprocess time and count per entity.
 
 ### EdPlus, Arizona State University | 09/2023 - 05/2025
 
@@ -42,17 +41,19 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 ## PROJECTS
 
-### Image Recognition as a Service | 01/2024 - 02/2024
+### Clash Royale Analytics | 2025
 
-- Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.
+- Built a scheduled ETL pipeline that dedupes battle data, loads incrementally and runs backfills without blocking the live cron, with Vitest coverage per stage.
 
 ## TECHNICAL SKILLS
 
-**Languages & Storage:** Python, SQL, TypeScript, S3, PostgreSQL, DuckDB, Lance, Firestore, Redis
+**Languages & Storage:** Python, SQL, TypeScript, S3, PostgreSQL, MySQL, DuckDB, DynamoDB, Firestore, Redis, SQLite
 
-**Pipelines & Orchestration:** ETL, AWS Step Functions (Distributed Map), Lambda, SQS, Cloud Run Jobs, Cloud Scheduler, Playwright
+**Pipelines & Orchestration:** ETL, incremental loads, backfills, AWS Step Functions, Lambda, SQS, Cloud Run Jobs, Cloud Scheduler, Cloudflare Workers
 
-**Data Quality & Ops:** Data validation, data lineage, schema inference, idempotent reprocessing, entity resolution, CI checks, Docker, pytest
+**Data Modeling & Quality:** Data modeling, fact tables, data warehousing, data validation, data lineage, schema inference, deduplication, entity resolution
+
+**DevOps:** Docker, Kubernetes, GitHub Actions, CI/CD, pytest, Vitest
 
 
 ## EDUCATION

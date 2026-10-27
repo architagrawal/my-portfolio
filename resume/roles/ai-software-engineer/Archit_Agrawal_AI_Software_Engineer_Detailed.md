@@ -80,22 +80,23 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.
 - Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.
+- Fine-tuned with DPO, KTO and IPO preference training; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
 
 ## TECHNICAL SKILLS
 
 **Languages:** Python, TypeScript, JavaScript, SQL, C#
 
-**AI Engineering:** Multi-agent systems, tool calling, agentic RAG, GraphRAG, hybrid search, context engineering, structured outputs, guardrails, prompt caching, human-in-the-loop
+**AI Engineering:** AI agents, multi-agent systems, tool calling, agentic RAG, GraphRAG, hybrid search, context engineering, prompt engineering, structured outputs, guardrails, prompt caching, human-in-the-loop
 
-**Evals & Observability:** LLM-as-judge, code-scored benchmarks, golden datasets, Prompt Flow, Logfire, OpenTelemetry, distributed tracing, CloudWatch
+**Evals & Observability:** LLM evals, LLM-as-judge, code-scored benchmarks, golden datasets, Prompt Flow, LLMOps, Logfire, OpenTelemetry, CloudWatch
 
-**Models & Frameworks:** AWS Bedrock, OpenAI, Gemini, LangGraph, LangChain, Semantic Kernel, MCP, PyTorch
+**Models & Frameworks:** OpenAI, AWS Bedrock, Gemini, LangGraph, LangChain, Semantic Kernel, MCP, Hugging Face, llama.cpp
 
-**Retrieval & Data:** pgvector, FAISS, Lance, Neo4j, DuckDB, PostgreSQL, Redis, Algolia, Firestore
+**ML & Training:** PyTorch, fine-tuning (DPO, KTO), reward models, embeddings, CUDA, ROCm
 
-**Backend & Web:** FastAPI, NestJS, Node.js, .NET, React, Nuxt
+**Retrieval & Data:** Vector databases (pgvector, FAISS, Lance), Neo4j, DuckDB, PostgreSQL, Redis, Algolia, Firestore
 
-**Cloud & Quality:** AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest
+**Backend & Cloud:** FastAPI, NestJS, Node.js, AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, GitHub Actions, pytest
 
 
 ## EDUCATION
