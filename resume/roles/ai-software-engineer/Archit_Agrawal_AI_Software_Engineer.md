@@ -8,24 +8,25 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.
-- Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
-- Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
-- Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.
+- Own a multi-agent LLM platform end to end on AWS Bedrock and Step Functions: 12 tool-calling agents over 76 tools answer questions on any structured dataset, each answer cited to its source rows.
+- Built the LLM eval harness: code-scored benchmarks and LLM-as-judge rubrics gate every agent and prompt change; answer verification cut hallucinated figures 85% across 164 published results.
+- Built traceability into every LLM run: per-row correlation IDs, versioned outputs and corrections, lineage and replayable runs; structured outputs reached 100% join integrity where 1 in 8 rows used to be mislabeled.
+- Cut pipeline latency from 500 to 85 seconds with direct tool calls and held a 19-call run to $0.03 with Bedrock prompt caching, bounding failures and spend with a 5% circuit breaker and per-stage caps.
 
 ### MyStage Music Inc. | 03/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
-- Consolidated a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run, reducing production service dependencies 64%.
-- Built FastAPI and Algolia search with sub-50 ms latency, real-time Firestore synchronization, 200+ pytest tests and Logfire tracing.
+- Rebuilt a 14-Cloud-Function backend as one durable LangGraph agent workflow on GCP Cloud Run, with checkpointing and human-in-the-loop interrupt and resume, cutting service dependencies 64%.
+- Instrumented LLM observability via Logfire (OpenTelemetry), tracing each run across pause and resume.
+- Lifted dataset accuracy 25% with Gemini entity resolution, scored by LLM-as-judge, over 70,000+ records a day.
 
 ### EdPlus, Arizona State University | 09/2023 - 05/2025
 
 *Software Engineer* | *Phoenix, AZ*
 
-- Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.
-- Established Prompt Flow release checks for groundedness, relevance and coherence, evaluating prompt changes against measured results before deployment.
+- Shipped a multi-tenant RAG assistant to 1,000+ faculty building courses for 60,000+ students, with hybrid vector and keyword search, section-aware chunking and a source citation on every answer.
+- Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.
 
 ### Arizona State University | 08/2024 - 05/2025
 
@@ -55,9 +56,11 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 **Languages & APIs:** Python, TypeScript, SQL, FastAPI, NestJS
 
-**AI & Data:** LangGraph, RAG, LLM evaluation, MCP, PostgreSQL, pgvector, Neo4j
+**AI Engineering:** Multi-agent systems, tool calling, RAG, GraphRAG, hybrid search, LLM evals, LLM-as-judge, structured outputs, guardrails, prompt caching
 
-**Cloud & Quality:** AWS Bedrock, Step Functions, GCP Cloud Run, Docker, pytest
+**Frameworks & Data:** AWS Bedrock, LangGraph, MCP, PostgreSQL, pgvector, Neo4j, DuckDB
+
+**Cloud & Observability:** AWS Step Functions, GCP Cloud Run, Logfire, OpenTelemetry, Docker, pytest
 
 
 ## EDUCATION

@@ -21,12 +21,12 @@
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: 17.6px 0 0; padding-bottom: 2px;
+    margin: 14.0px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: 8.8px; }
+  .role { margin-top: 7.0px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -36,13 +36,13 @@
      so PDF extraction read every title and Education before any bullet. */
   /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
   ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
-  li { margin: 0 0 2.6px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 2.1px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: 6.6px; }
-  .skills div { margin-bottom: 2.6px; }
+  .skills { margin-top: 5.3px; }
+  .skills div { margin-bottom: 2.1px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -53,17 +53,17 @@
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>06/2026 - Present</span></div>
   <div class="row sub"><span>AI Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.</li><li>Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.</li><li>Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.</li><li>Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.</li><li>Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.</li><li>Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.</li><li>Quadrupled the headline findings automated reports recover, 13% to 52–59% on held-out datasets, by letting an LLM choose analyses while code computes every number.</li><li>Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.</li><li>Showed model choice moves labeling F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team toward reliability.</li></ul>
+  <ul><li>Own a multi-agent LLM platform end to end on AWS Bedrock and Step Functions: 12 tool-calling agents over 76 tools answer questions on any structured dataset, each answer cited to its source rows.</li><li>Built the LLM eval harness: code-scored benchmarks and LLM-as-judge rubrics gate every agent and prompt change; answer verification cut hallucinated figures 85% across 164 published results.</li><li>Built traceability into every LLM run: per-row correlation IDs, versioned outputs and corrections, lineage and replayable runs; structured outputs reached 100% join integrity where 1 in 8 rows used to be mislabeled.</li><li>Cut pipeline latency from 500 to 85 seconds with direct tool calls and held a 19-call run to $0.03 with Bedrock prompt caching, bounding failures and spend with a 5% circuit breaker and per-stage caps.</li><li>Raised accuracy from 60% to 93% on the hardest benchmark questions through context engineering: a shared semantic layer compiles questions into query plans behind 7 validation checks.</li><li>Built hybrid retrieval over S3, Lance vector search plus BM25 through DuckDB, behind entitlement-gated row-level access and Bedrock Guardrails deployed through AWS CDK.</li><li>Traced silent row loss in Step Functions runs that reported success and fixed it with partitioned writes and fan-in across 64 parallel lanes.</li><li>Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.</li><li>Quadrupled the headline findings automated reports recover, 13% to 52–59% on held-out datasets, by letting an LLM choose analyses while code computes every number.</li><li>Showed model choice moves labeling F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team toward reliability.</li><li>Reduced publishing time from 19 minutes to 109 seconds for a 51,280-respondent survey; an independent raw-data audit matched all evaluated figures.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>MyStage Music Inc.</span><span>03/2025 - 06/2026</span></div>
   <div class="row sub"><span>Founding AI/ML Engineer</span><span>Remote</span></div>
-  <ul><li>Consolidated a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run, reducing production service dependencies 64%.</li><li>Built FastAPI and Algolia search with sub-50 ms latency, real-time Firestore synchronization, 200+ pytest tests and Logfire tracing.</li><li>Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.</li><li>Implemented checkpointed pause-and-resume so records missing context wait for additional information without failing the ingestion batch.</li><li>Made ingestion retries safe with deterministic task IDs and atomic create-if-absent writes, preventing duplicate jobs from overwriting in-flight work.</li></ul>
+  <ul><li>Rebuilt a 14-Cloud-Function backend as one durable LangGraph agent workflow on GCP Cloud Run, with checkpointing and human-in-the-loop interrupt and resume, cutting service dependencies 64%.</li><li>Instrumented LLM observability via Logfire (OpenTelemetry), tracing each run across pause and resume.</li><li>Lifted dataset accuracy 25% with Gemini entity resolution, scored by LLM-as-judge, over 70,000+ records a day.</li><li>Made the pipeline fault tolerant with deterministic task IDs, atomic Firestore claims, per-branch error isolation across parallel fan-out and 200+ pytest tests.</li><li>Delivered sub-50 ms venue search through FastAPI and Algolia, synchronizing Firestore updates into the search index in real time.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.</li><li>Established Prompt Flow release checks for groundedness, relevance and coherence, evaluating prompt changes against measured results before deployment.</li><li>Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.</li><li>Added hybrid keyword and vector retrieval to resolve exact course codes alongside semantic document search.</li><li>Reduced transcript-analysis time from four hours to 15 minutes using a Neo4j knowledge graph and validated Cypher queries.</li></ul>
+  <ul><li>Shipped a multi-tenant RAG assistant to 1,000+ faculty building courses for 60,000+ students, with hybrid vector and keyword search, section-aware chunking and a source citation on every answer.</li><li>Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.</li><li>Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.</li><li>Compared fixed-size and section-aware chunking on course documents to preserve complete policy passages in retrieved results.</li><li>Built GraphRAG over a Neo4j knowledge graph with schema-validated, LLM-generated Cypher, cutting transcript analysis from four hours to 15 minutes.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>Arizona State University</span><span>08/2024 - 05/2025</span></div>
@@ -99,7 +99,7 @@
 </div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages:</b> Python, TypeScript, JavaScript, SQL, C#</div><div><b>AI &amp; LLM:</b> AWS Bedrock, LangGraph, RAG, LLM evaluation, Prompt Flow, MCP, PyTorch</div><div><b>Retrieval &amp; Data:</b> PostgreSQL, pgvector, FAISS, Neo4j, Redis, Algolia, Firestore</div><div><b>Backend &amp; Web:</b> FastAPI, NestJS, Node.js, .NET, React, Nuxt</div><div><b>Cloud &amp; Quality:</b> AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest</div></div>
+<div class="skills"><div><b>Languages:</b> Python, TypeScript, JavaScript, SQL, C#</div><div><b>AI Engineering:</b> Multi-agent systems, tool calling, agentic RAG, GraphRAG, hybrid search, context engineering, structured outputs, guardrails, prompt caching, human-in-the-loop</div><div><b>Evals &amp; Observability:</b> LLM-as-judge, code-scored benchmarks, golden datasets, Prompt Flow, Logfire, OpenTelemetry, distributed tracing, CloudWatch</div><div><b>Models &amp; Frameworks:</b> AWS Bedrock, OpenAI, Gemini, LangGraph, LangChain, Semantic Kernel, MCP, PyTorch</div><div><b>Retrieval &amp; Data:</b> pgvector, FAISS, Lance, Neo4j, DuckDB, PostgreSQL, Redis, Algolia, Firestore</div><div><b>Backend &amp; Web:</b> FastAPI, NestJS, Node.js, .NET, React, Nuxt</div><div><b>Cloud &amp; Quality:</b> AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest</div></div>
 
 <h2>Education</h2>
 <div class="role">

@@ -51,6 +51,13 @@ export const experience = [
       "Delivered interactive chart sorting, filtering, top-N and undo in Nuxt; in-process DuckDB kept measured query latency flat as input rows grew 200x.",
       "Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.",
       "Secured the analytics proof of concept with entitlement-gated row-level access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.",
+      "Own a multi-agent LLM platform end to end on AWS Bedrock and Step Functions: 12 tool-calling agents over 76 tools answer questions on any structured dataset, each answer cited to its source rows.",
+      "Built the LLM eval harness: code-scored benchmarks and LLM-as-judge rubrics gate every agent and prompt change; answer verification cut hallucinated figures 85% across 164 published results.",
+      "Built traceability into every LLM run: per-row correlation IDs, versioned outputs and corrections, lineage and replayable runs; structured outputs reached 100% join integrity where 1 in 8 rows used to be mislabeled.",
+      "Cut pipeline latency from 500 to 85 seconds with direct tool calls and held a 19-call run to $0.03 with Bedrock prompt caching, bounding failures and spend with a 5% circuit breaker and per-stage caps.",
+      "Raised accuracy from 60% to 93% on the hardest benchmark questions through context engineering: a shared semantic layer compiles questions into query plans behind 7 validation checks.",
+      "Built hybrid retrieval over S3, Lance vector search plus BM25 through DuckDB, behind entitlement-gated row-level access and Bedrock Guardrails deployed through AWS CDK.",
+      "Traced silent row loss in Step Functions runs that reported success and fixed it with partitioned writes and fan-in across 64 parallel lanes.",
     ],
   },
   {
@@ -73,6 +80,10 @@ export const experience = [
       "Reduced production service dependencies 64% by consolidating a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run.",
       "Implemented pause-and-resume for incomplete records and retry-safe task processing through deterministic IDs and atomic Firestore claims.",
       "Covered routing, transactional claims, retries and checkpoint resumes with 200+ pytest unit and integration tests; traced workflow execution through Logfire.",
+      "Rebuilt a 14-Cloud-Function backend as one durable LangGraph agent workflow on GCP Cloud Run, with checkpointing and human-in-the-loop interrupt and resume, cutting service dependencies 64%.",
+      "Instrumented LLM observability via Logfire (OpenTelemetry), tracing each run across pause and resume.",
+      "Lifted dataset accuracy 25% with Gemini entity resolution, scored by LLM-as-judge, over 70,000+ records a day.",
+      "Made the pipeline fault tolerant with deterministic task IDs, atomic Firestore claims, per-branch error isolation across parallel fan-out and 200+ pytest tests.",
     ],
   },
   {
@@ -96,6 +107,9 @@ export const experience = [
       "Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.",
       "Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.",
       "Established Prompt Flow release checks for groundedness, relevance and coherence, evaluating prompt changes against measured results before deployment.",
+      "Shipped a multi-tenant RAG assistant to 1,000+ faculty building courses for 60,000+ students, with hybrid vector and keyword search, section-aware chunking and a source citation on every answer.",
+      "Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.",
+      "Built GraphRAG over a Neo4j knowledge graph with schema-validated, LLM-generated Cypher, cutting transcript analysis from four hours to 15 minutes.",
     ],
   },
   {
@@ -276,14 +290,17 @@ export const detailedSkills = [
 export const roleSkills = {
   ai: [
     { label: "Languages & APIs", items: "Python, TypeScript, SQL, FastAPI, NestJS" },
-    { label: "AI & Data", items: "LangGraph, RAG, LLM evaluation, MCP, PostgreSQL, pgvector, Neo4j" },
-    { label: "Cloud & Quality", items: "AWS Bedrock, Step Functions, GCP Cloud Run, Docker, pytest" },
+    { label: "AI Engineering", items: "Multi-agent systems, tool calling, RAG, GraphRAG, hybrid search, LLM evals, LLM-as-judge, structured outputs, guardrails, prompt caching" },
+    { label: "Frameworks & Data", items: "AWS Bedrock, LangGraph, MCP, PostgreSQL, pgvector, Neo4j, DuckDB" },
+    { label: "Cloud & Observability", items: "AWS Step Functions, GCP Cloud Run, Logfire, OpenTelemetry, Docker, pytest" },
   ],
   // Two-page AI version, the resume the site links to.
   aiDetailed: [
     { label: "Languages", items: "Python, TypeScript, JavaScript, SQL, C#" },
-    { label: "AI & LLM", items: "AWS Bedrock, LangGraph, RAG, LLM evaluation, Prompt Flow, MCP, PyTorch" },
-    { label: "Retrieval & Data", items: "PostgreSQL, pgvector, FAISS, Neo4j, Redis, Algolia, Firestore" },
+    { label: "AI Engineering", items: "Multi-agent systems, tool calling, agentic RAG, GraphRAG, hybrid search, context engineering, structured outputs, guardrails, prompt caching, human-in-the-loop" },
+    { label: "Evals & Observability", items: "LLM-as-judge, code-scored benchmarks, golden datasets, Prompt Flow, Logfire, OpenTelemetry, distributed tracing, CloudWatch" },
+    { label: "Models & Frameworks", items: "AWS Bedrock, OpenAI, Gemini, LangGraph, LangChain, Semantic Kernel, MCP, PyTorch" },
+    { label: "Retrieval & Data", items: "pgvector, FAISS, Lance, Neo4j, DuckDB, PostgreSQL, Redis, Algolia, Firestore" },
     { label: "Backend & Web", items: "FastAPI, NestJS, Node.js, .NET, React, Nuxt" },
     { label: "Cloud & Quality", items: "AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest" },
   ],
