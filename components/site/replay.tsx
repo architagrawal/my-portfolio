@@ -6,16 +6,47 @@ import { useReduce } from "@/components/site/use-reduce";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-/* A short, looping replay of the platform: ask, chart, cite, check.
-   Real figures from IBM's public HR attrition dataset (1,470 rows), as the platform draws them. */
-const QUESTION = "What share of employees left, by whether they work overtime?";
-const BARS = [
-  { label: "Overtime", value: 30.5 },
-  { label: "Everyone", value: 16.1 },
-  { label: "No overtime", value: 10.4 },
+/* A short, looping replay of the platform: ask, chart, cite, check. Each loop takes the next
+   question, all on well-known public datasets, so every figure can be checked against the data. */
+const EXAMPLES = [
+  {
+    question: "What share of employees left, by whether they work overtime?",
+    bars: [
+      { label: "Overtime", value: 30.5, cite: "127 of 416" },
+      { label: "Everyone", value: 16.1, cite: "237 of 1,470" },
+      { label: "No overtime", value: 10.4, cite: "110 of 1,054" },
+    ],
+    source: "IBM's public HR attrition data, 1,470 rows.",
+  },
+  {
+    question: "Which Titanic passengers survived, by ticket class?",
+    bars: [
+      { label: "First", value: 63.0, cite: "136 of 216" },
+      { label: "Second", value: 47.3, cite: "87 of 184" },
+      { label: "Third", value: 24.2, cite: "119 of 491" },
+    ],
+    source: "The Titanic passenger list, 891 rows.",
+  },
+  {
+    question: "How many customers churned, by contract length?",
+    bars: [
+      { label: "Monthly", value: 42.7, cite: "1,655 of 3,875" },
+      { label: "One year", value: 11.3, cite: "166 of 1,473" },
+      { label: "Two year", value: 2.8, cite: "48 of 1,695" },
+    ],
+    source: "IBM's public telco churn data, 7,043 rows.",
+  },
+  {
+    question: "Who left the company, by department?",
+    bars: [
+      { label: "Sales", value: 20.6, cite: "92 of 446" },
+      { label: "HR", value: 19.0, cite: "12 of 63" },
+      { label: "R&D", value: 13.8, cite: "133 of 961" },
+    ],
+    source: "IBM's public HR attrition data, 1,470 rows.",
+  },
 ];
-const CITES = ["127 of 416", "237 of 1,470", "110 of 1,054"];
-const CHECK = "checked: matches the published 30.5%";
+const CHECK = "each figure recounted from its rows";
 
 type Phase = "typing" | "chart" | "cites" | "hold";
 
@@ -24,6 +55,8 @@ export function Replay() {
   const [typed, setTyped] = useState(0);
   const [phase, setPhase] = useState<Phase>("typing");
   const [loop, setLoop] = useState(0);
+  const { question: QUESTION, bars: BARS, source } = EXAMPLES[loop % EXAMPLES.length];
+  const top = Math.max(...BARS.map((b) => b.value));
 
   useEffect(() => {
     if (reduce) {
@@ -46,13 +79,13 @@ export function Replay() {
       }, 4200);
     }
     return () => clearTimeout(t);
-  }, [phase, typed, reduce]);
+  }, [phase, typed, reduce, QUESTION.length]);
 
   const showChart = phase !== "typing";
   const showCites = phase === "cites" || phase === "hold";
 
   return (
-    <div aria-label="Replay: a question about a public HR dataset, answered with a chart, cited counts and a check">
+    <div aria-label="Replay: a question about a public dataset, answered with a chart, cited counts and a check">
       <p className="t-eyebrow">Ask</p>
       <p className="mt-2 min-h-[3em] text-[15px] font-medium leading-snug text-foreground">
         {QUESTION.slice(0, typed)}
@@ -66,8 +99,8 @@ export function Replay() {
             <div className="h-1.5 overflow-hidden rounded-full bg-foreground/[0.07]">
               <motion.div
                 className={`h-full rounded-full ${i === 0 ? "bg-primary" : "bg-primary/40"}`}
-                initial={{ width: reduce ? `${b.value * 2.4}%` : 0 }}
-                animate={{ width: showChart ? `${b.value * 2.4}%` : 0 }}
+                initial={{ width: reduce ? `${(b.value / top) * 90}%` : 0 }}
+                animate={{ width: showChart ? `${(b.value / top) * 90}%` : 0 }}
                 transition={{ duration: reduce ? 0 : 0.8, ease, delay: showChart ? i * 0.1 : 0 }}
               />
             </div>
@@ -86,7 +119,7 @@ export function Replay() {
       <div className="mt-5 flex min-h-[4rem] flex-wrap content-start gap-1.5">
         <AnimatePresence>
           {showCites &&
-            CITES.map((c, i) => (
+            BARS.map(({ cite: c }, i) => (
               <motion.span
                 key={c + loop}
                 initial={reduce ? false : { opacity: 0, y: 6, scale: 0.95 }}
@@ -112,7 +145,7 @@ export function Replay() {
           )}
         </AnimatePresence>
       </div>
-      <p className="t-meta mt-3 !text-[13px]">IBM&apos;s public HR attrition data, 1,470 rows.</p>
+      <p className="t-meta mt-3 !text-[13px]">{source}</p>
     </div>
   );
 }
