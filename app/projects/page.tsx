@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { projects, type Project } from "@/lib/data/projects";
+import { pageMeta } from "@/app/metadata";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Reveal } from "@/components/site/reveal";
 import { ProjectVisual } from "@/components/site/project-visual";
 import { ProjectFigure } from "@/components/figures";
 import { hasFigure } from "@/components/figures/slugs";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Projects",
-  description:
-    "AI agents, retrieval systems, audio ML and full-stack products built by Archit Agrawal.",
-  alternates: { canonical: "/projects" },
-};
+  description: "AI agents, retrieval systems, audio ML and full-stack products built by Archit Agrawal.",
+  path: "/projects",
+});
 
 function Row({ p }: { p: Project }) {
   const fig = hasFigure(p.slug);

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8" />
-<title>Archit Agrawal - Resume</title>
+<title>Archit Agrawal, AI Software Engineer Resume</title>
 <style>
   @font-face { font-family: Lato; font-weight: 400; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Regular.ttf"); }
   @font-face { font-family: Lato; font-weight: 700; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Bold.ttf"); }
@@ -21,12 +21,12 @@
   .contact .sep { margin: 0 0.55em; }
 
   h2 {
-    margin: 11.6px 0 0; padding-bottom: 2px;
+    margin: 9.6px 0 0; padding-bottom: 2px;
     border-bottom: 0.6pt solid #999;
     font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
   }
 
-  .role { margin-top: 5.8px; }
+  .role { margin-top: 4.8px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .row span:last-child { flex: none; white-space: nowrap; }
   .head { font-weight: 700; break-after: avoid; }
@@ -36,13 +36,13 @@
      so PDF extraction read every title and Education before any bullet. */
   /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
   ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
-  li { margin: 0 0 1.7px; padding-left: 1px; break-inside: avoid; }
+  li { margin: 0 0 1.4px; padding-left: 1px; break-inside: avoid; }
   /* Keeps a bullet from ending on a lone word. */
   li, .skills div { text-wrap: pretty; }
   li b { font-weight: 700; }
   .head .link { font-weight: 400; }
-  .skills { margin-top: 4.3px; }
-  .skills div { margin-bottom: 1.7px; }
+  .skills { margin-top: 3.6px; }
+  .skills div { margin-bottom: 1.4px; }
   .skills b { font-weight: 700; }
 </style></head><body>
 
@@ -53,17 +53,17 @@
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>06/2026 - Present</span></div>
   <div class="row sub"><span>AI Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Own architecture and delivery of an AI analytics platform on AWS Bedrock and Step Functions that turns any structured dataset into cited, code-computed answers.</li><li>Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.</li><li>Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.</li><li>Cut incorrect answers 85% in an evaluation against 164 published benchmark figures by adding answer verification before display.</li></ul>
+  <ul><li>Own a multi-agent LLM platform end to end on AWS Bedrock and Step Functions: 12 tool-calling agents over 76 tools answer questions on any structured dataset, each answer cited to its source rows.</li><li>Built the LLM eval harness: code-scored benchmarks and LLM-as-judge rubrics gate every agent and prompt change; answer verification cut hallucinated figures 85% across 164 published results.</li><li>Built traceability into every LLM run: per-row correlation IDs, versioned outputs and corrections, lineage and replayable runs; structured outputs reached 100% join integrity where 1 in 8 rows used to be mislabeled.</li><li>Cut pipeline latency from 500 to 85 seconds with direct tool calls and held a 19-call run to $0.03 with Bedrock prompt caching, bounding failures and spend with a 5% circuit breaker and per-stage caps.</li></ul>
 </div>
 <div class="role">
-  <div class="row head"><span>MyStage Music Inc.</span><span>07/2025 - 06/2026</span></div>
+  <div class="row head"><span>MyStage Music Inc.</span><span>03/2025 - 06/2026</span></div>
   <div class="row sub"><span>Founding AI/ML Engineer</span><span>Remote</span></div>
-  <ul><li>Consolidated a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run, reducing production service dependencies 64%.</li><li>Built FastAPI and Algolia search with sub-50 ms latency, real-time Firestore synchronization, 200+ pytest tests and Logfire tracing.</li></ul>
+  <ul><li>Rebuilt a 14-Cloud-Function backend as one durable LangGraph agent workflow on GCP Cloud Run, with checkpointing and human-in-the-loop interrupt and resume, cutting service dependencies 64%.</li><li>Instrumented LLM observability via Logfire (OpenTelemetry), tracing each run across pause and resume.</li><li>Lifted dataset accuracy 25% with Gemini entity resolution, scored by LLM-as-judge, over 70,000+ records a day.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
   <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
-  <ul><li>Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.</li><li>Established Prompt Flow release checks for groundedness, relevance and coherence, evaluating prompt changes against measured results before deployment.</li></ul>
+  <ul><li>Shipped a multi-tenant RAG assistant to 1,000+ faculty building courses for 60,000+ students, with hybrid vector and keyword search, section-aware chunking and a source citation on every answer.</li><li>Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.</li></ul>
 </div>
 <div class="role">
   <div class="row head"><span>Arizona State University</span><span>08/2024 - 05/2025</span></div>
@@ -89,7 +89,7 @@
 </div>
 
 <h2>Technical Skills</h2>
-<div class="skills"><div><b>Languages &amp; APIs:</b> Python, TypeScript, SQL, FastAPI, NestJS</div><div><b>AI &amp; Data:</b> LangGraph, RAG, LLM evaluation, MCP, PostgreSQL, pgvector, Neo4j</div><div><b>Cloud &amp; Quality:</b> AWS Bedrock, Step Functions, GCP Cloud Run, Docker, pytest</div></div>
+<div class="skills"><div><b>Languages &amp; APIs:</b> Python, TypeScript, SQL, FastAPI, NestJS, REST APIs</div><div><b>AI Engineering:</b> AI agents, multi-agent systems, tool calling, RAG, GraphRAG, prompt engineering, LLM evals, LLM-as-judge, structured outputs, guardrails, fine-tuning (DPO)</div><div><b>Models &amp; Frameworks:</b> OpenAI, AWS Bedrock, Gemini, LangGraph, LangChain, MCP, PyTorch, Hugging Face</div><div><b>Data &amp; Cloud:</b> pgvector, FAISS, Neo4j, PostgreSQL, AWS, GCP, Docker, Kubernetes, Logfire, OpenTelemetry</div></div>
 
 <h2>Education</h2>
 <div class="role">

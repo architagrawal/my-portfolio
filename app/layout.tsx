@@ -3,7 +3,6 @@ import { SpotlightEffect } from "@/components/site/spotlight";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Outfit, Space_Grotesk, Caveat, Fraunces, Figtree } from "next/font/google";
-import Script from "next/script";
 import {
   personSchema,
   websiteSchema,
@@ -135,17 +134,16 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vercel.live" />
-        <link rel="preload" href="/archit-profile.webp" as="image" type="image/webp" />
         
-        {/* Structured Data for AI and Search Engines */}
-        <Script
+        {/* Structured data as plain tags, so crawlers that never run JavaScript still read it */}
+        <script
           id="person-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(personSchema),
           }}
         />
-        <Script
+        <script
           id="website-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -160,7 +158,6 @@ export default function RootLayout({
           }}
         />
         <meta name="author" content="Archit Agrawal" />
-        <link rel="canonical" href="https://agrawal-archit.vercel.app" />
       </head>
       <body className="antialiased font-sans bg-background text-foreground">
         <Backdrop />

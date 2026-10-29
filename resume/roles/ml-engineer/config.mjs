@@ -14,6 +14,7 @@ export default {
   projects: [2],
   pickProject: { 2: ["Built a PyTorch/FastAPI", "Trained a MERT-95M"] },
   detailed: {
+    publishAs: "Archit_Agrawal_ML_Engineer_Resume",
     roles: [0, 1, 2, 3, 4, 5, 7],
     pick: {
       0: ["Own architecture and delivery", "Validated 25 statistical", "Improved accuracy from",
@@ -27,6 +28,6 @@ export default {
       7: ["Engineered an autonomous-driving", "Compared early and late sensor fusion"],
     },
     projects: [2],
-    pickProject: { 2: ["Built a PyTorch/FastAPI", "Trained a MERT-95M", "Implemented DPO"] },
+    pickProject: { 2: ["Built a PyTorch/FastAPI", "Trained a MERT-95M", "Fine-tuned with DPO"] },
   },
 };

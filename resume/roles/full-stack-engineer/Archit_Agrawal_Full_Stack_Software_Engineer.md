@@ -8,18 +8,15 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Own the software architecture and delivery of an AWS analytics platform for any structured dataset, spanning the web application, APIs and data pipelines.
-- Built the platform's web application with a Nuxt frontend and NestJS backend, sharing TypeScript contracts across 70 API routes.
-- Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
-- Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
-- Accelerated publishing of a 51,280-respondent survey from 19 minutes to 109 seconds; an independent raw-data audit matched all evaluated figures.
+- Own a full-stack TypeScript platform end to end: a 14-page Nuxt 4 frontend over a 10-module NestJS API sharing one typed contract, with 4,845 tests across 347k lines in 12 workspace packages.
+- Shipped an AI chart builder: readers ask in plain English, get a Vega-Lite chart, then edit it with sort, stack, top-N, filters and undo/redo; every chart also ships an accessible data table and alt text.
+- Built EdSpace in two days for the EdPlus hackathon: a live office map with room booking, desk claiming, walking routes and 3D desks, shown to leadership up to the CEO and going live for 500+ people.
 
-### MyStage Music Inc. | 07/2025 - 06/2026
+### MyStage Music Inc. | 03/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
 - Built FastAPI and Algolia search with sub-50 ms latency, real-time Firestore synchronization, 200+ pytest tests and Logfire tracing.
-- Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.
 - Consolidated a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run, reducing production service dependencies 64%.
 
 ### EdPlus, Arizona State University | 09/2023 - 05/2025
@@ -27,9 +24,8 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Software Engineer* | *Phoenix, AZ*
 
 - Built a multi-tenant course assistant from React UI to retrieval services, used by 1,000+ faculty creating courses for 60,000+ students.
-- Increased assessment-tool engagement 35% and reduced bounce 20% by building React and Material UI workflows for bulk import, question reuse and revision comparison.
-- Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.
-- Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.
+- Increased assessment-tool engagement 35% and reduced bounce 20% by building responsive React and Material UI workflows for bulk import, question reuse and revision comparison.
+- Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
@@ -42,17 +38,24 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *Software Engineer* | *Mumbai, India*
 
+- Built React and Redux apps with normalized client state and typed REST integration, raising measured UX scores 40%.
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
-- Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
-- Built a Redis-backed desk-booking service used across 300+ offices at Fortune 500 companies.
+
+## PROJECTS
+
+### Clash Royale Analytics | 2025
+
+- Built a serverless analytics platform on Cloudflare Workers and D1 with Drizzle ORM, fronted by Next.js 16 and React 19 on Vercel, with cross-filtered D3 visualizations.
 
 ## TECHNICAL SKILLS
 
-**Languages:** Python, TypeScript, JavaScript, SQL, C#
+**Languages:** TypeScript, JavaScript, Python, Java, SQL, HTML, CSS
 
-**Web & Data:** React, Nuxt, NestJS, FastAPI, .NET, PostgreSQL, Redis
+**Frontend:** React, Next.js, Vue/Nuxt, Angular, React Native, Redux, TanStack Query, Tailwind CSS, Material UI, D3
 
-**Cloud & Quality:** AWS, GCP, Docker, Kubernetes, CI/CD, pytest, Jest
+**Backend & Data:** Node.js, NestJS, Express, FastAPI, Django, REST APIs, WebSockets, PostgreSQL, Redis, Supabase, Firestore
+
+**Cloud & Testing:** AWS, GCP, Vercel, Docker, GitHub Actions, CI/CD, Jest, Vitest, React Testing Library
 
 
 ## EDUCATION

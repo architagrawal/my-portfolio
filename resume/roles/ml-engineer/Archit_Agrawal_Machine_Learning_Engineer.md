@@ -12,7 +12,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Validated 25 statistical tests and six causal estimators against SciPy and statsmodels; scored 68% on a 100-question StatQA sample, against GPT-4o's best reported 64.83%.
 - Improved accuracy from 60% to 93% on the hardest benchmark questions by consolidating column definitions in a shared semantic layer.
 
-### MyStage Music Inc. | 07/2025 - 06/2026
+### MyStage Music Inc. | 03/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 

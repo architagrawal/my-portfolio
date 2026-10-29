@@ -4,6 +4,7 @@ import { PageHeader, Shell } from "@/components/site/shell";
 import { Chips, NextLink, Points, Section, Stats } from "@/components/site/ui";
 import { projectBySlug } from "@/lib/data/projects";
 import { Film } from "./_film";
+import { OG_IMAGE } from "@/app/metadata";
 
 export const metadata: Metadata = {
   title: "EdSpace - Case Study",
@@ -16,7 +17,9 @@ export const metadata: Metadata = {
       "A live office map with room booking, walking routes and a 3D desk per person. Built in two days, going live for 500+ people at EdPlus.",
     url: "/work/edspace",
     type: "article",
+    images: [OG_IMAGE],
   },
+  twitter: { card: "summary_large_image", title: "EdSpace - Case Study | Archit Agrawal", images: [OG_IMAGE.url] },
 };
 
 const stats: [string, string][] = [

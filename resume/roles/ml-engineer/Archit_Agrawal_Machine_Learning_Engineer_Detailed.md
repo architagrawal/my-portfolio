@@ -16,7 +16,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 - Showed model choice moves labeling F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team toward reliability.
 - Designed a chart recommender covering 17 chart types, retaining deterministic rules when LLM proposals failed to improve evaluation scores.
 
-### MyStage Music Inc. | 07/2025 - 06/2026
+### MyStage Music Inc. | 03/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
@@ -70,7 +70,7 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 - Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.
 - Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.
-- Implemented DPO, KTO and IPO preference-training variants; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
+- Fine-tuned with DPO, KTO and IPO preference training; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.
 
 ## TECHNICAL SKILLS
 

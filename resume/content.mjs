@@ -51,6 +51,30 @@ export const experience = [
       "Delivered interactive chart sorting, filtering, top-N and undo in Nuxt; in-process DuckDB kept measured query latency flat as input rows grew 200x.",
       "Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.",
       "Secured the analytics proof of concept with entitlement-gated row-level access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.",
+      "Own a multi-agent LLM platform end to end on AWS Bedrock and Step Functions: 12 tool-calling agents over 76 tools answer questions on any structured dataset, each answer cited to its source rows.",
+      "Built the LLM eval harness: code-scored benchmarks and LLM-as-judge rubrics gate every agent and prompt change; answer verification cut hallucinated figures 85% across 164 published results.",
+      "Built traceability into every LLM run: per-row correlation IDs, versioned outputs and corrections, lineage and replayable runs; structured outputs reached 100% join integrity where 1 in 8 rows used to be mislabeled.",
+      "Cut pipeline latency from 500 to 85 seconds with direct tool calls and held a 19-call run to $0.03 with Bedrock prompt caching, bounding failures and spend with a 5% circuit breaker and per-stage caps.",
+      "Raised accuracy from 60% to 93% on the hardest benchmark questions through context engineering: a shared semantic layer compiles questions into query plans behind 7 validation checks.",
+      "Built hybrid retrieval over S3, Lance vector search plus BM25 through DuckDB, behind entitlement-gated row-level access and Bedrock Guardrails deployed through AWS CDK.",
+      "Traced silent row loss in Step Functions runs that reported success and fixed it with partitioned writes and fan-in across 64 parallel lanes.",
+      "Own a full-stack TypeScript platform end to end: a 14-page Nuxt 4 frontend over a 10-module NestJS API sharing one typed contract, with 4,845 tests across 347k lines in 12 workspace packages.",
+      "Shipped an AI chart builder: readers ask in plain English, get a Vega-Lite chart, then edit it with sort, stack, top-N, filters and undo/redo; every chart also ships an accessible data table and alt text.",
+      "Built EdSpace in two days for the EdPlus hackathon: a live office map with room booking, desk claiming, walking routes and 3D desks, shown to leadership up to the CEO and going live for 500+ people.",
+      "Own the backend of a TypeScript analytics platform: a 10-module NestJS API and a Step Functions workflow compiled from one declarative graph and validated at load, so a broken edge fails before a run starts.",
+      "Made every answer reproducible: a passport of plan hash, dataset and versions re-executes byte-identically, and shadow re-execution diffs recent answers whenever a definition changes.",
+      "Cached question-to-plan bindings keyed on a plan hash, turning the one non-deterministic step in the read path into a lookup.",
+      "Ran the platform without a database: in-process DuckDB over per-run JSON and Lance on S3 held ask latency flat at 200x rows and queried 216 runs in milliseconds.",
+      "Designed a controlled experiment showing model choice moves text-classification F1 33x more than pipeline design (0.230 vs 0.007), redirecting the team's roadmap toward reliability.",
+      "Designed conformal accept and abstain thresholds that bound the error rate on accepted labels, giving every label a calibrated 0–100 confidence.",
+      "Designed blind random QC audits per run that yield both a quality score and a corrected estimate published with its margin of error.",
+      "Retired a 0.637 baseline the project's claims rested on after fresh runs reproduced it at 0.523, tracing the gap to a human-reviewed delivery file.",
+      "Cut cross-run disagreements from 30,405 to 263 across 411 runs by giving every column one meaning in one semantic model.",
+      "Calibrated codebook fit before labeling: a 25-row sample separated the right codebook at 0.598 with 4% abstention vs 0.316 and 88%, for about $0.001.",
+      "Designed a serverless data lake on S3: a narrow fact table plus Lance payloads queried in-process by DuckDB, so new datasets union without a migration.",
+      "Built schema-inferring ingestion for any table shape, from crosstabs to weighted surveys and UTF-16 files, emitting each decision as a JSON recipe that replays exactly.",
+      "Tracked data lineage with four typed relations (relabel, recode, wave, wave_recoded), so a second labeling pass can never pose as a trend.",
+      "Wired metric lint into CI, so a metric that can no longer be computed against stored runs fails the build instead of rotting.",
     ],
   },
   {
@@ -58,7 +82,7 @@ export const experience = [
     company: "MyStage Music Inc.",
     employment: "Full-time",
     location: "Remote",
-    period: "Jul 2025 – Jun 2026",
+    period: "Mar 2025 – Jun 2026",
     core: [
       "Built FastAPI and Algolia search with sub-50 ms latency, real-time Firestore synchronization, 200+ pytest tests and Logfire tracing.",
       "Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.",
@@ -73,6 +97,12 @@ export const experience = [
       "Reduced production service dependencies 64% by consolidating a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run.",
       "Implemented pause-and-resume for incomplete records and retry-safe task processing through deterministic IDs and atomic Firestore claims.",
       "Covered routing, transactional claims, retries and checkpoint resumes with 200+ pytest unit and integration tests; traced workflow execution through Logfire.",
+      "Rebuilt a 14-Cloud-Function backend as one durable LangGraph agent workflow on GCP Cloud Run, with checkpointing and human-in-the-loop interrupt and resume, cutting service dependencies 64%.",
+      "Instrumented LLM observability via Logfire (OpenTelemetry), tracing each run across pause and resume.",
+      "Lifted dataset accuracy 25% with Gemini entity resolution, scored by LLM-as-judge, over 70,000+ records a day.",
+      "Made the pipeline fault tolerant with deterministic task IDs, atomic Firestore claims, per-branch error isolation across parallel fan-out and 200+ pytest tests.",
+      "Propagated OpenTelemetry trace context through Logfire across queue, claim and resume, so worker spans nest under the producer's trace, with per-tick metrics.",
+      "Built a Cloud Scheduler reprocessing loop that refreshes the most-stale sources first, tracking reprocess time and count per entity.",
     ],
   },
   {
@@ -92,10 +122,14 @@ export const experience = [
       "Added hybrid keyword and vector retrieval to resolve exact course codes alongside semantic document search.",
       "Compared fixed-size and section-aware chunking on course documents to preserve complete policy passages in retrieved results.",
       "Linked generated answers to their source document and section so faculty could verify claims.",
-      "Increased assessment-tool engagement 35% and reduced bounce 20% by building React and Material UI workflows for bulk import, question reuse and revision comparison.",
+      "Increased assessment-tool engagement 35% and reduced bounce 20% by building responsive React and Material UI workflows for bulk import, question reuse and revision comparison.",
       "Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.",
       "Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.",
       "Established Prompt Flow release checks for groundedness, relevance and coherence, evaluating prompt changes against measured results before deployment.",
+      "Shipped a multi-tenant RAG assistant to 1,000+ faculty building courses for 60,000+ students, with hybrid vector and keyword search, section-aware chunking and a source citation on every answer.",
+      "Gated every prompt release on Prompt Flow LLM-as-judge evals for groundedness, relevance and coherence.",
+      "Built GraphRAG over a Neo4j knowledge graph with schema-validated, LLM-generated Cypher, cutting transcript analysis from four hours to 15 minutes.",
+      "Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.",
     ],
   },
   {
@@ -130,6 +164,10 @@ export const experience = [
       "Delivered 20+ production REST APIs using .NET 8, Dapper and MediatR, with JWT authentication and AWS SQS for queued work.",
       "Cut API latency from 198 to 20 ms with Redis caching and SQL rewrites, verified under simulated peak load with Locust.",
       "Built an idempotent ETL pipeline for 10,000+ researcher profiles daily, using PostgreSQL natural-key upserts to prevent duplicates after partial failures.",
+      "Centralized validation, logging and error shaping in MediatR pipeline behaviors so new endpoints inherit them, pushing long work to AWS SQS to keep the API responsive.",
+      "Set throughput and latency SLOs before release with Locust load tests and pytest suites against FastAPI endpoints.",
+      "Lifted search relevance 15% over baseline with an n-gram ranking model over cleaned researcher-profile text.",
+      "Put data-quality gates in PostgreSQL, with uniqueness, not-null and range constraints, so bad rows fail at ingestion; dataset accuracy rose to 95%.",
     ],
   },
   {
@@ -146,6 +184,9 @@ export const experience = [
       "Built a Redis-backed desk-booking service used across 300+ offices at Fortune 500 companies.",
       "Improved student-listing performance 30% with pagination and S3 asset delivery; reduced class-detail latency 10% through SQL query rewrites.",
       "Published an internal npm package wrapping the Slack Web API with pagination, released under semver for the company social platform.",
+      "Split a .NET monolith into Kubernetes microservices as a strangler migration with no big-bang cutover, cutting infrastructure cost 20% and footprint 35% by right-sizing pods.",
+      "Built React and Redux apps with normalized client state and typed REST integration, raising measured UX scores 40%.",
+      "Built a desk-demand forecasting model on historical occupancy by floor, day and team, served from Redis to 300+ offices; reported occupancy improved 30%.",
     ],
   },
   {
@@ -160,6 +201,7 @@ export const experience = [
       "Built a WebSocket and Express notification service with backpressure-aware fan-out and duplicate-safe redelivery; reported CSAT rose 28% and support volume fell 35%.",
       "Shipped live order tracking on the Google Maps API with route polylines and a per-fix ETA, during a quarter of 25% user growth.",
       "Designed a polling fallback for when the socket drops, so customers never lose order updates.",
+      "Automated competitor-catalog harvesting with a Python scraping toolchain that loads catalogs and reviews into the analytics warehouse on a schedule, normalized to one schema.",
     ],
   },
   {
@@ -223,7 +265,7 @@ export const projects = [
     core: "Built a PyTorch/FastAPI audio pipeline with stem separation, LLM transition planning and 25+ DSP transitions; ported inference to AMD MI300X.",
     extra: [
       "Trained a MERT-95M reward head to score audio segments across four aesthetic dimensions for candidate selection.",
-      "Implemented DPO, KTO and IPO preference-training variants; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.",
+      "Fine-tuned with DPO, KTO and IPO preference training; reduced DPO training loss from 0.68 to 0.47 on labeled pairs.",
     ],
   },
   {
@@ -251,6 +293,51 @@ export const projects = [
       "Capped worker capacity and used scale-in cooldowns to control cost and prevent instance churn during changing demand.",
     ],
   },
+  {
+    name: "Clash Royale Analytics",
+    period: "2025",
+    core: "Built a serverless analytics platform on Cloudflare Workers and D1 with Drizzle ORM, fronted by Next.js 16 and React 19 on Vercel, with cross-filtered D3 visualizations.",
+    extra: [
+      "Built a scheduled ETL pipeline that dedupes battle data, loads incrementally and runs backfills without blocking the live cron, with Vitest coverage per stage.",
+      "Shipped accessibility with skip navigation, focus traps, reduced-motion support and 44-pixel touch targets.",
+    ],
+  },
+  {
+    name: "Soccer Result Prediction",
+    period: "Oct 2023 – Dec 2023",
+    core: "Lifted match-outcome accuracy 12% by ensembling LSTM and XGBoost over rolling-window form features, with a time-based split that prevents leakage.",
+    extra: [
+      "Scored models on log loss, checked calibration with reliability plots and reported per-class recall for the hard draw class.",
+    ],
+  },
+  {
+    name: "Jet Engine Remaining Useful Life",
+    period: "Oct 2024 – Dec 2024",
+    core: "Predicted jet-engine remaining useful life from NASA CMAPSS sensor time series, engineering features and comparing machine learning, deep learning and generative regressors.",
+    extra: [],
+  },
+  {
+    name: "E-Commerce Platform",
+    period: "Sep 2024 – Dec 2024",
+    core: "Built an e-commerce platform with a Django REST API, React frontend, Stripe payments, PostgreSQL with Redis caching, Docker and GitHub Actions CI.",
+    extra: [],
+  },
+  {
+    name: "Serverless Document Pipeline",
+    period: "Mar 2024 – Apr 2024",
+    core: "Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.",
+    extra: [
+      "Automated EC2 instance management for heavier processing jobs, cutting processing time 40%.",
+    ],
+  },
+  {
+    name: "Task Management System",
+    period: "Feb 2024 – May 2024",
+    core: "Built a Flask and SQLAlchemy REST API with JWT auth and a React UI, enforcing permissions at the query layer and sending idempotent deadline notifications.",
+    extra: [
+      "Added optimistic UI with rollback on failure and a composite index on project, status and due date after the first version scanned the whole table.",
+    ],
+  },
 ];
 
 // Two to five lines a recruiter and an ATS can scan. Only skills a bullet above
@@ -264,28 +351,31 @@ export const skills = [
 // The detailed SWE version has space for the stack demonstrated in the
 // experience, selected projects and portfolio. Keep the application version concise.
 export const detailedSkills = [
-  { label: "Languages", items: "Python, TypeScript, JavaScript, SQL, C#" },
-  { label: "Frontend", items: "React, Next.js, Vue/Nuxt, React Native, ReactFlow, Zustand, Material UI" },
-  { label: "Backend & APIs", items: "Node.js, NestJS, FastAPI, Express, .NET 8, REST APIs, WebSockets, JWT" },
-  { label: "Databases & Search", items: "PostgreSQL, Redis, DuckDB, Firestore, Algolia, Supabase, Neo4j, pgvector" },
-  { label: "Cloud & DevOps", items: "AWS (Lambda, S3, SQS, Step Functions, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD" },
-  { label: "Testing & Observability", items: "pytest, Jest, Vitest, React Testing Library, Playwright, Maestro, Locust, SonarQube, Logfire" },
-  { label: "AI Applications", items: "AWS Bedrock, LangGraph, RAG, LLM evaluation, MCP" },
+  { label: "Languages", items: "TypeScript, JavaScript, Python, Java, SQL, C#, HTML, CSS" },
+  { label: "Frontend", items: "React, Next.js, Vue/Nuxt, Angular, React Native, Redux, Zustand, TanStack Query, Tailwind CSS, Material UI, D3" },
+  { label: "Backend & APIs", items: "Node.js, NestJS, Express, FastAPI, Django, Flask, .NET 8, REST APIs, WebSockets, JWT" },
+  { label: "Databases & Search", items: "PostgreSQL, MySQL, Redis, DynamoDB, Firestore, Supabase, DuckDB, Algolia, Neo4j, pgvector" },
+  { label: "Cloud & DevOps", items: "AWS (Lambda, API Gateway, S3, SQS, Step Functions, CDK), GCP Cloud Run, Vercel, Cloudflare Workers, Docker, Kubernetes, GitHub Actions" },
+  { label: "Testing & Observability", items: "Jest, Vitest, React Testing Library, Maestro, pytest, Locust, SonarQube, Logfire, OpenTelemetry" },
+  { label: "AI Applications", items: "AWS Bedrock, OpenAI, LangGraph, RAG, LLM evals, MCP" },
 ];
 
 export const roleSkills = {
   ai: [
-    { label: "Languages & APIs", items: "Python, TypeScript, SQL, FastAPI, NestJS" },
-    { label: "AI & Data", items: "LangGraph, RAG, LLM evaluation, MCP, PostgreSQL, pgvector, Neo4j" },
-    { label: "Cloud & Quality", items: "AWS Bedrock, Step Functions, GCP Cloud Run, Docker, pytest" },
+    { label: "Languages & APIs", items: "Python, TypeScript, SQL, FastAPI, NestJS, REST APIs" },
+    { label: "AI Engineering", items: "AI agents, multi-agent systems, tool calling, RAG, GraphRAG, prompt engineering, LLM evals, LLM-as-judge, structured outputs, guardrails, fine-tuning (DPO)" },
+    { label: "Models & Frameworks", items: "OpenAI, AWS Bedrock, Gemini, LangGraph, LangChain, MCP, PyTorch, Hugging Face" },
+    { label: "Data & Cloud", items: "pgvector, FAISS, Neo4j, PostgreSQL, AWS, GCP, Docker, Kubernetes, Logfire, OpenTelemetry" },
   ],
   // Two-page AI version, the resume the site links to.
   aiDetailed: [
     { label: "Languages", items: "Python, TypeScript, JavaScript, SQL, C#" },
-    { label: "AI & LLM", items: "AWS Bedrock, LangGraph, RAG, LLM evaluation, Prompt Flow, MCP, PyTorch" },
-    { label: "Retrieval & Data", items: "PostgreSQL, pgvector, FAISS, Neo4j, Redis, Algolia, Firestore" },
-    { label: "Backend & Web", items: "FastAPI, NestJS, Node.js, .NET, React, Nuxt" },
-    { label: "Cloud & Quality", items: "AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, CI/CD, pytest" },
+    { label: "AI Engineering", items: "AI agents, multi-agent systems, tool calling, agentic RAG, GraphRAG, hybrid search, context engineering, prompt engineering, structured outputs, guardrails, prompt caching, human-in-the-loop" },
+    { label: "Evals & Observability", items: "LLM evals, LLM-as-judge, code-scored benchmarks, golden datasets, Prompt Flow, LLMOps, Logfire, OpenTelemetry, CloudWatch" },
+    { label: "Models & Frameworks", items: "OpenAI, AWS Bedrock, Gemini, LangGraph, LangChain, Semantic Kernel, MCP, Hugging Face, llama.cpp" },
+    { label: "ML & Training", items: "PyTorch, fine-tuning (DPO, KTO), reward models, embeddings, CUDA, ROCm" },
+    { label: "Retrieval & Data", items: "Vector databases (pgvector, FAISS, Lance), Neo4j, DuckDB, PostgreSQL, Redis, Algolia, Firestore" },
+    { label: "Backend & Cloud", items: "FastAPI, NestJS, Node.js, AWS (Step Functions, Lambda, S3, CDK), GCP Cloud Run, Docker, Kubernetes, GitHub Actions, pytest" },
   ],
   ml: [
     { label: "Languages & Models", items: "Python, SQL, PyTorch, Diffusers, NumPy, SciPy, statsmodels" },
@@ -293,8 +383,50 @@ export const roleSkills = {
     { label: "Serving & Cloud", items: "FastAPI, AWS Bedrock, GCP Cloud Run, Docker, pytest" },
   ],
   data: [
-    { label: "Languages & Storage", items: "Python, SQL, TypeScript, PostgreSQL, DuckDB, S3, Lance, Redis" },
-    { label: "Pipelines", items: "ETL, Step Functions, Lambda, GCP Cloud Run, FastAPI" },
-    { label: "Quality & Deployment", items: "Data validation, idempotent processing, Docker, Kubernetes, CI/CD, pytest" },
+    { label: "Languages & Storage", items: "Python, SQL, TypeScript, S3, PostgreSQL, MySQL, DuckDB, DynamoDB, Firestore, Redis, SQLite" },
+    { label: "Pipelines & Orchestration", items: "ETL, incremental loads, backfills, AWS Step Functions, Lambda, SQS, Cloud Run Jobs, Cloud Scheduler, Cloudflare Workers" },
+    { label: "Data Modeling & Quality", items: "Data modeling, fact tables, data warehousing, data validation, data lineage, schema inference, deduplication, entity resolution" },
+    { label: "DevOps", items: "Docker, Kubernetes, GitHub Actions, CI/CD, pytest, Vitest" },
+  ],
+  dataDetailed: [
+    { label: "Languages", items: "Python, SQL, TypeScript, C#" },
+    { label: "Storage & Query", items: "S3 data lake, DuckDB, Lance, PostgreSQL, MySQL, DynamoDB, Firestore, SQLite, Redis, Neo4j, pgvector, Algolia" },
+    { label: "Pipelines & Orchestration", items: "ETL, batch and incremental loads, backfills, AWS Step Functions (Distributed Map), Lambda, SQS, LangGraph, GCP Cloud Run Jobs, Cloud Scheduler, Cloudflare Workers, Playwright" },
+    { label: "Data Modeling & Quality", items: "Data modeling, fact tables, data warehousing, data validation, constraints, data lineage, schema inference, replayable runs, deduplication, entity resolution" },
+    { label: "Governance & Reliability", items: "Row-level access control, idempotent reprocessing, circuit breakers, OpenTelemetry tracing" },
+    { label: "DevOps", items: "Docker, Kubernetes, GitHub Actions, CI/CD, pytest, Vitest" },
+  ],
+  fullStack: [
+    { label: "Languages", items: "TypeScript, JavaScript, Python, Java, SQL, HTML, CSS" },
+    { label: "Frontend", items: "React, Next.js, Vue/Nuxt, Angular, React Native, Redux, TanStack Query, Tailwind CSS, Material UI, D3" },
+    { label: "Backend & Data", items: "Node.js, NestJS, Express, FastAPI, Django, REST APIs, WebSockets, PostgreSQL, Redis, Supabase, Firestore" },
+    { label: "Cloud & Testing", items: "AWS, GCP, Vercel, Docker, GitHub Actions, CI/CD, Jest, Vitest, React Testing Library" },
+  ],
+  backend: [
+    { label: "Languages & Frameworks", items: "Python, TypeScript, Java, C#, SQL, Node.js, NestJS, FastAPI, Django, Flask, .NET 8" },
+    { label: "Data & Messaging", items: "PostgreSQL, MySQL, Redis, DynamoDB, Firestore, AWS SQS, RabbitMQ, S3" },
+    { label: "Systems", items: "Microservices, REST APIs, distributed systems, event-driven design, idempotency, caching, OpenTelemetry" },
+    { label: "Cloud & DevOps", items: "AWS (Lambda, API Gateway, Step Functions, CDK), GCP, Docker, Kubernetes, GitHub Actions, CI/CD, Locust" },
+  ],
+  backendDetailed: [
+    { label: "Languages", items: "Python, TypeScript, Java, C#, SQL, JavaScript" },
+    { label: "Backend & APIs", items: "NestJS, FastAPI, Django, Flask, Node.js, Express, .NET 8, Dapper, MediatR, SQLAlchemy, REST APIs, WebSockets, JWT" },
+    { label: "Data & Messaging", items: "PostgreSQL, MySQL, Redis, DynamoDB, Firestore, DuckDB, Algolia, Neo4j, AWS SQS, RabbitMQ, S3" },
+    { label: "Systems", items: "Microservices, distributed systems, event-driven design, idempotency, concurrency control, caching, multi-tenancy, circuit breakers" },
+    { label: "Observability & Testing", items: "OpenTelemetry, Logfire, CloudWatch, pytest, Vitest, Jest, Locust, SonarQube" },
+    { label: "Cloud & DevOps", items: "AWS (Lambda, API Gateway, Step Functions, S3, CDK), GCP Cloud Run, Docker, Kubernetes, Nginx, GitHub Actions, CI/CD" },
+  ],
+  dataScience: [
+    { label: "Languages & Libraries", items: "Python, SQL, pandas, NumPy, scikit-learn, XGBoost, SciPy, statsmodels, PyTorch, TensorFlow" },
+    { label: "Statistics", items: "Hypothesis testing, A/B testing, experiment design, causal inference, regression, calibration, conformal prediction" },
+    { label: "Machine Learning", items: "Classification, NLP, embeddings, clustering, recommendation, time series, forecasting, deep learning" },
+    { label: "Evaluation & Visualization", items: "Model evaluation, log loss, F1, precision@k, inter-rater agreement, LLM evals, Plotly, D3, Vega-Lite" },
+  ],
+  dataScienceDetailed: [
+    { label: "Languages & Libraries", items: "Python, SQL, pandas, NumPy, scikit-learn, XGBoost, SciPy, statsmodels, PyTorch, TensorFlow, Diffusers" },
+    { label: "Statistics", items: "Hypothesis testing, A/B testing, experiment design, causal inference, regression, survey weighting, sampling, margin of error, conformal prediction" },
+    { label: "Machine Learning", items: "Classification, NLP, text classification, embeddings, clustering, recommendation, ranking, time series, forecasting, deep learning (LSTM, CNN), fine-tuning (DPO)" },
+    { label: "Evaluation", items: "Model evaluation, benchmark design, log loss, F1, precision@k, recall, calibration, inter-rater agreement, LLM-as-judge" },
+    { label: "Data & Visualization", items: "DuckDB, PostgreSQL, pgvector, FAISS, Neo4j, AWS Bedrock, Plotly, D3, Vega-Lite" },
   ],
 };

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>Archit Agrawal, Backend Software Engineer Resume</title>
+<style>
+  @font-face { font-family: Lato; font-weight: 400; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Regular.ttf"); }
+  @font-face { font-family: Lato; font-weight: 700; font-style: normal; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Bold.ttf"); }
+  @font-face { font-family: Lato; font-weight: 400; font-style: italic; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-Italic.ttf"); }
+  @font-face { font-family: Lato; font-weight: 700; font-style: italic; src: url("file:///Users/aagra108/Desktop/archit/github/my-portfolio/resume/fonts/Lato-BoldItalic.ttf"); }
+  @page { size: Letter; margin: 0.5in 0.55in; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: #111;
+    font-family: Lato, Carlito, Calibri, Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.18;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #111; text-decoration: underline; text-underline-offset: 1.5px; text-decoration-thickness: 0.5pt; }
+
+  .name { margin: 0; text-align: center; font-size: 18pt; font-weight: 400; line-height: 1.1; letter-spacing: 0; }
+  .contact { margin: 4px 0 0; text-align: center; font-size: 9.5pt; }
+  .contact .sep { margin: 0 0.55em; }
+
+  h2 {
+    margin: 14.4px 0 0; padding-bottom: 2px;
+    border-bottom: 0.6pt solid #999;
+    font-size: 11.1pt; font-weight: 700; text-transform: uppercase;
+  }
+
+  .role { margin-top: 7.2px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .row span:last-child { flex: none; white-space: nowrap; }
+  .head { font-weight: 700; break-after: avoid; }
+  .sub { font-style: italic; break-after: avoid; }
+
+  /* Native markers in normal flow. A positioned li paints after all other text,
+     so PDF extraction read every title and Education before any bullet. */
+  /* Padding in em so the marker fits at any size; a fixed 12px clipped the bullet's left half. */
+  ul { margin: 1px 0 0; padding: 0 0 0 1.05em; list-style: "\2022\2002" outside; }
+  li { margin: 0 0 2.2px; padding-left: 1px; break-inside: avoid; }
+  /* Keeps a bullet from ending on a lone word. */
+  li, .skills div { text-wrap: pretty; }
+  li b { font-weight: 700; }
+  .head .link { font-weight: 400; }
+  .skills { margin-top: 5.4px; }
+  .skills div { margin-bottom: 2.2px; }
+  .skills b { font-weight: 700; }
+</style></head><body>
+
+<div class="name">ARCHIT AGRAWAL</div>
+<div class="contact">San Francisco Bay Area<span class="sep">|</span>623-312-0435<span class="sep">|</span><a href="mailto:architagrawal000@gmail.com">architagrawal000@gmail.com</a><span class="sep">|</span><a href="https://linkedin.com/in/agrawal-archit">LinkedIn</a><span class="sep">|</span><a href="https://github.com/architagrawal">GitHub</a><span class="sep">|</span><a href="https://agrawal-archit.vercel.app">Portfolio</a></div>
+
+<h2>Professional Experience</h2>
+<div class="role">
+  <div class="row head"><span>EdPlus, Arizona State University</span><span>06/2026 - Present</span></div>
+  <div class="row sub"><span>AI Software Engineer</span><span>Phoenix, AZ</span></div>
+  <ul><li>Own the backend of a TypeScript analytics platform: a 10-module NestJS API and a Step Functions workflow compiled from one declarative graph and validated at load, so a broken edge fails before a run starts.</li><li>Traced silent row loss in Step Functions runs that reported success and fixed it with partitioned writes and fan-in across 64 parallel lanes.</li><li>Ran the platform without a database: in-process DuckDB over per-run JSON and Lance on S3 held ask latency flat at 200x rows and queried 216 runs in milliseconds.</li><li>Cut end-to-end AWS pipeline runtime from 500 to 85 seconds by removing managed-agent startup overhead and invoking the underlying tools directly.</li><li>Made every answer reproducible: a passport of plan hash, dataset and versions re-executes byte-identically, and shadow re-execution diffs recent answers whenever a definition changes.</li><li>Cached question-to-plan bindings keyed on a plan hash, turning the one non-deterministic step in the read path into a lookup.</li><li>Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.</li><li>Secured the analytics proof of concept with entitlement-gated row-level access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>MyStage Music Inc.</span><span>03/2025 - 06/2026</span></div>
+  <div class="row sub"><span>Founding AI/ML Engineer</span><span>Remote</span></div>
+  <ul><li>Consolidated a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run, reducing production service dependencies 64%.</li><li>Made the pipeline fault tolerant with deterministic task IDs, atomic Firestore claims, per-branch error isolation across parallel fan-out and 200+ pytest tests.</li><li>Propagated OpenTelemetry trace context through Logfire across queue, claim and resume, so worker spans nest under the producer's trace, with per-tick metrics.</li><li>Delivered sub-50 ms venue search through FastAPI and Algolia, synchronizing Firestore updates into the search index in real time.</li><li>Built a Cloud Scheduler reprocessing loop that refreshes the most-stale sources first, tracking reprocess time and count per entity.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>EdPlus, Arizona State University</span><span>09/2023 - 05/2025</span></div>
+  <div class="row sub"><span>Software Engineer</span><span>Phoenix, AZ</span></div>
+  <ul><li>Built REST APIs and SQL-backed admin tools for ASU Online quiz platforms and question banks, with schema-level invariants protecting assessment integrity.</li><li>Enabled configuration-based college onboarding through tenant-scoped retrieval, keeping each college's documents within its own search boundary.</li><li>Cut transcript-analysis time from four hours to 15 minutes with a Neo4j knowledge graph and schema-validated, LLM-generated Cypher queries.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Knowledge Exchange for Resilience, Arizona State University</span><span>06/2024 - 08/2024</span></div>
+  <div class="row sub"><span>Data Research Aide</span><span>Phoenix, AZ</span></div>
+  <ul><li>Delivered 20+ production REST APIs using .NET 8, Dapper and MediatR, with JWT authentication and AWS SQS for queued work.</li><li>Cut API latency from 198 to 20 ms with Redis caching and SQL rewrites, verified under simulated peak load with Locust.</li><li>Centralized validation, logging and error shaping in MediatR pipeline behaviors so new endpoints inherit them, pushing long work to AWS SQS to keep the API responsive.</li><li>Set throughput and latency SLOs before release with Locust load tests and pytest suites against FastAPI endpoints.</li><li>Built an idempotent ETL pipeline for 10,000+ researcher profiles daily, using PostgreSQL natural-key upserts to prevent duplicates after partial failures.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Zeus Learning</span><span>01/2022 - 07/2023</span></div>
+  <div class="row sub"><span>Software Engineer</span><span>Mumbai, India</span></div>
+  <ul><li>Split a .NET monolith into Kubernetes microservices as a strangler migration with no big-bang cutover, cutting infrastructure cost 20% and footprint 35% by right-sizing pods.</li><li>Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.</li><li>Built a Redis-backed desk-booking service used across 300+ offices at Fortune 500 companies.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>EAT.FIT</span><span>09/2021 - 12/2021</span></div>
+  <div class="row sub"><span>Product Intern</span><span>Bengaluru, India</span></div>
+  <ul><li>Built a WebSocket and Express notification service with backpressure-aware fan-out and duplicate-safe redelivery; reported CSAT rose 28% and support volume fell 35%.</li><li>Cut driver-tracking server cost 45% with distance-based polling and client-side interpolation that kept map movement smooth.</li></ul>
+</div>
+
+<h2>Projects</h2>
+<div class="role">
+  <div class="row head"><span>Serverless Document Pipeline</span><span>03/2024 - 04/2024</span></div>
+
+  <ul><li>Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.</li><li>Automated EC2 instance management for heavier processing jobs, cutting processing time 40%.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>E-Commerce Platform</span><span>09/2024 - 12/2024</span></div>
+
+  <ul><li>Built an e-commerce platform with a Django REST API, React frontend, Stripe payments, PostgreSQL with Redis caching, Docker and GitHub Actions CI.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Task Management System</span><span>02/2024 - 05/2024</span></div>
+
+  <ul><li>Built a Flask and SQLAlchemy REST API with JWT auth and a React UI, enforcing permissions at the query layer and sending idempotent deadline notifications.</li><li>Added optimistic UI with rollback on failure and a composite index on project, status and due date after the first version scanned the whole table.</li></ul>
+</div>
+<div class="role">
+  <div class="row head"><span>Image Recognition as a Service</span><span>01/2024 - 02/2024</span></div>
+
+  <ul><li>Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.</li><li>Capped worker capacity and used scale-in cooldowns to control cost and prevent instance churn during changing demand.</li></ul>
+</div>
+
+<h2>Technical Skills</h2>
+<div class="skills"><div><b>Languages:</b> Python, TypeScript, Java, C#, SQL, JavaScript</div><div><b>Backend &amp; APIs:</b> NestJS, FastAPI, Django, Flask, Node.js, Express, .NET 8, Dapper, MediatR, SQLAlchemy, REST APIs, WebSockets, JWT</div><div><b>Data &amp; Messaging:</b> PostgreSQL, MySQL, Redis, DynamoDB, Firestore, DuckDB, Algolia, Neo4j, AWS SQS, RabbitMQ, S3</div><div><b>Systems:</b> Microservices, distributed systems, event-driven design, idempotency, concurrency control, caching, multi-tenancy, circuit breakers</div><div><b>Observability &amp; Testing:</b> OpenTelemetry, Logfire, CloudWatch, pytest, Vitest, Jest, Locust, SonarQube</div><div><b>Cloud &amp; DevOps:</b> AWS (Lambda, API Gateway, Step Functions, S3, CDK), GCP Cloud Run, Docker, Kubernetes, Nginx, GitHub Actions, CI/CD</div></div>
+
+<h2>Education</h2>
+<div class="role">
+  <div class="row head"><span>Arizona State University (ASU)</span><span>08/2023 - 05/2025</span></div>
+  <div class="row sub"><span>M.S., Computer Science | GPA: 4.0</span><span>Tempe, AZ</span></div>
+
+</div>
+<div class="role">
+  <div class="row head"><span>Dhirubhai Ambani Institute of Information and Communication Technology</span><span>08/2018 - 05/2022</span></div>
+  <div class="row sub"><span>B.Tech., Information and Communication Technology</span><span>Gandhinagar, India</span></div>
+
+</div>
+
+</body></html>

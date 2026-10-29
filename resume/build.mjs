@@ -71,7 +71,7 @@ function tailored(cfg) {
     const sels = cfg.pickProject?.[i];
     return { ...p, bullets: sels ? sels.map((s, n) => resolveBullet(pool, s, `${p.name} pick[${n}]`)) : [p.core] };
   });
-  return { detailed: (cfg.pages ?? 1) > 1, roles, projects: projs, skills: cfg.skills ?? skills };
+  return { detailed: (cfg.pages ?? 1) > 1, position: cfg.position, roles, projects: projs, skills: cfg.skills ?? skills };
 }
 
 /* -------------------------------------------------------------------- HTML */
@@ -98,12 +98,12 @@ const entry = (left, right, sub, subRight, bullets, href) => `<div class="role">
   ${bullets.length ? `<ul>${bullets.map((b) => `<li>${b}</li>`).join("")}</ul>` : ""}
 </div>`;
 
-function html({ detailed, roles, projects: projs, skills: selectedSkills }, gap = 1) {
+function html({ position, roles, projects: projs, skills: selectedSkills }, gap = 1) {
   // Type stays at BODY_PT; `gap` stretches the vertical spacing so a page fills.
   const body = BODY_PT;
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8" />
-<title>Archit Agrawal - ${detailed ? "Detailed Resume" : "Resume"}</title>
+<title>Archit Agrawal${position ? `, ${position}` : ""} Resume</title>
 <style>
   @font-face { font-family: Lato; font-weight: 400; font-style: normal; src: url("${FONT_DIR}/Lato-Regular.ttf"); }
   @font-face { font-family: Lato; font-weight: 700; font-style: normal; src: url("${FONT_DIR}/Lato-Bold.ttf"); }

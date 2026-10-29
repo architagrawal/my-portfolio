@@ -8,40 +8,42 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 
 *AI Software Engineer* | *Phoenix, AZ*
 
-- Designed S3 storage with compact fact tables and Lance payloads, queried through DuckDB for full-text and vector search.
-- Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
+- Designed a serverless data lake on S3: a narrow fact table plus Lance payloads queried in-process by DuckDB, so new datasets union without a migration.
+- Built schema-inferring ingestion for any table shape, from crosstabs to weighted surveys and UTF-16 files, emitting each decision as a JSON recipe that replays exactly.
+- Traced silent row loss in Step Functions runs that reported success and fixed it with partitioned writes and fan-in across 64 parallel lanes.
 - Reached 100% join integrity on repeat runs with schema-constrained LLM output and per-row IDs; the prior pipeline silently mislabeled 1 in 8 rows.
-- Accelerated publishing of a 51,280-respondent survey from 19 minutes to 109 seconds; an independent raw-data audit matched all evaluated figures.
-- Built dataset intake for any table shape, from crosstabs and long tables to weighted surveys, including UTF-16 files and duplicate-header validation.
+- Tracked data lineage with four typed relations (relabel, recode, wave, wave_recoded), so a second labeling pass can never pose as a trend.
+- Parallelized data labeling across 64 AWS Step Functions lanes, with a failure circuit breaker to detect incomplete runs.
+- Wired metric lint into CI, so a metric that can no longer be computed against stored runs fails the build instead of rotting.
 - Blocked double counting in cross-dataset joins by detecting runs that share the same people.
-- Reduced AWS pipeline runtime from 500 to 85 seconds by replacing two managed-agent stages with direct tool calls.
-- Added access-controlled row-level retrieval, AWS Bedrock Guardrails and per-stage spending limits to the analytics proof of concept.
+- Reduced publishing time from 19 minutes to 109 seconds for a 51,280-respondent survey; an independent raw-data audit matched all evaluated figures.
+- Cut cross-run disagreements from 30,405 to 263 across 411 runs by giving every column one meaning in one semantic model.
+- Secured the analytics proof of concept with entitlement-gated row-level access, Bedrock Guardrails deployed through AWS CDK and enforced per-stage spend limits.
 
-### MyStage Music Inc. | 07/2025 - 06/2026
+### MyStage Music Inc. | 03/2025 - 06/2026
 
 *Founding AI/ML Engineer* | *Remote*
 
 - Scaled ingestion to 70,000+ records daily from 650+ venues using Playwright, transactional locking and entity resolution.
 - Made ingestion retries safe with deterministic task IDs and atomic create-if-absent writes, preventing duplicate jobs from overwriting in-flight work.
+- Built a Cloud Scheduler reprocessing loop that refreshes the most-stale sources first, tracking reprocess time and count per entity.
 - Consolidated a 14-Cloud-Function backend into a checkpointed Python/LangGraph workflow on GCP Cloud Run, reducing production service dependencies 64%.
+- Lifted dataset accuracy 25% with Gemini entity resolution, scored by LLM-as-judge, over 70,000+ records a day.
 - Designed reusable scraping modules so new data sources can be added without changing the orchestration graph.
-- Implemented checkpointed pause-and-resume so records missing context wait for additional information without failing the ingestion batch.
 
 ### EdPlus, Arizona State University | 09/2023 - 05/2025
 
 *Software Engineer* | *Phoenix, AZ*
 
-- Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.
 - Reduced transcript-analysis time from four hours to 15 minutes using a Neo4j knowledge graph and validated Cypher queries.
-- Added hybrid keyword and vector retrieval to resolve exact course codes alongside semantic document search.
+- Implemented tenant isolation in retrieval services and configuration-based onboarding for additional colleges.
 
 ### Knowledge Exchange for Resilience, Arizona State University | 06/2024 - 08/2024
 
 *Data Research Aide* | *Phoenix, AZ*
 
-- Built 20+ REST APIs in .NET 8 and an ETL pipeline ingesting 10,000+ researcher profiles daily into PostgreSQL.
-- Made ETL reruns idempotent through natural-key upserts, preventing duplicate records after partial failures.
-- Enforced uniqueness, not-null and range constraints in PostgreSQL to reject invalid records during ingestion.
+- Built an idempotent ETL pipeline for 10,000+ researcher profiles daily, using PostgreSQL natural-key upserts to prevent duplicates after partial failures.
+- Put data-quality gates in PostgreSQL, with uniqueness, not-null and range constraints, so bad rows fail at ingestion; dataset accuracy rose to 95%.
 - Cut API latency from 198 to 20 ms with Redis caching and SQL rewrites, verified under simulated peak load with Locust.
 - Reduced p95 retrieval latency 60% at 95% recall using hybrid FAISS and Neo4j search.
 
@@ -50,33 +52,43 @@ San Francisco Bay Area | 623-312-0435 | [architagrawal000@gmail.com](mailto:arch
 *Software Engineer* | *Mumbai, India*
 
 - Migrated a C#/.NET monolith to Dockerized Kubernetes microservices, reducing infrastructure cost 20% and resource footprint 35%.
-- Reduced deployment time 70% and production incidents 40% through containerized CI/CD and SonarQube quality gates.
 - Improved student-listing performance 30% with pagination and S3 asset delivery; reduced class-detail latency 10% through SQL query rewrites.
 
 ### EAT.FIT | 09/2021 - 12/2021
 
 *Product Intern* | *Bengaluru, India*
 
-- Built a WebSocket and Express notification service with backpressure-aware fan-out and duplicate-safe redelivery; reported CSAT rose 28% and support volume fell 35%.
+- Automated competitor-catalog harvesting with a Python scraping toolchain that loads catalogs and reviews into the analytics warehouse on a schedule, normalized to one schema.
 
 ## PROJECTS
+
+### Clash Royale Analytics | 2025
+
+- Built a scheduled ETL pipeline that dedupes battle data, loads incrementally and runs backfills without blocking the live cron, with Vitest coverage per stage.
+- Built a serverless analytics platform on Cloudflare Workers and D1 with Drizzle ORM, fronted by Next.js 16 and React 19 on Vercel, with cross-filtered D3 visualizations.
+
+### Serverless Document Pipeline | 03/2024 - 04/2024
+
+- Built a serverless document pipeline on AWS Lambda, API Gateway, S3 and DynamoDB with a React frontend, handling 1,000+ concurrent requests at 99.9% uptime.
 
 ### Image Recognition as a Service | 01/2024 - 02/2024
 
 - Built an AWS EC2/SQS image-processing service with queue-based scaling, asynchronous results and idempotent workers for safe message retries.
 - Capped worker capacity and used scale-in cooldowns to control cost and prevent instance churn during changing demand.
 
-### No-Code Pipeline Builder | 2025
-
-- Built a React/ReactFlow workflow editor with typed nodes, undo/redo and autosave, backed by FastAPI graph validation.
-
 ## TECHNICAL SKILLS
 
-**Languages & Storage:** Python, SQL, TypeScript, PostgreSQL, DuckDB, S3, Lance, Redis
+**Languages:** Python, SQL, TypeScript, C#
 
-**Pipelines:** ETL, Step Functions, Lambda, GCP Cloud Run, FastAPI
+**Storage & Query:** S3 data lake, DuckDB, Lance, PostgreSQL, MySQL, DynamoDB, Firestore, SQLite, Redis, Neo4j, pgvector, Algolia
 
-**Quality & Deployment:** Data validation, idempotent processing, Docker, Kubernetes, CI/CD, pytest
+**Pipelines & Orchestration:** ETL, batch and incremental loads, backfills, AWS Step Functions (Distributed Map), Lambda, SQS, LangGraph, GCP Cloud Run Jobs, Cloud Scheduler, Cloudflare Workers, Playwright
+
+**Data Modeling & Quality:** Data modeling, fact tables, data warehousing, data validation, constraints, data lineage, schema inference, replayable runs, deduplication, entity resolution
+
+**Governance & Reliability:** Row-level access control, idempotent reprocessing, circuit breakers, OpenTelemetry tracing
+
+**DevOps:** Docker, Kubernetes, GitHub Actions, CI/CD, pytest, Vitest
 
 
 ## EDUCATION

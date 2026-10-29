@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { roleBySlug, roles } from "@/lib/data/experience";
+import { pageMeta, snippet } from "@/app/metadata";
 import { PageHeader, Shell } from "@/components/site/shell";
 import { Viz } from "@/components/soft/viz";
 import { Chips, MetaRow, MoreDetail, NextLink, Points, Section } from "@/components/site/ui";
@@ -11,7 +12,9 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const r = roleBySlug(params.slug);
-  return r ? { title: `${r.role}, ${r.companyShort}`, alternates: { canonical: `/work/${r.slug}` } } : {};
+  if (!r) return {};
+  const lead = r.achievements[r.featured[0]]?.text ?? "";
+  return pageMeta({ title: `${r.role}, ${r.companyShort}`, description: snippet(`${r.role} at ${r.company}, ${r.period}. ${lead}`), path: `/work/${r.slug}` });
 }
 
 export default function RolePage({ params }: { params: { slug: string } }) {

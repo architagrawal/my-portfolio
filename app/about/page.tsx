@@ -6,12 +6,13 @@ import { Keycaps } from "@/components/site/keycaps";
 import { MetaRow, Section } from "@/components/site/ui";
 import { GithubActivity } from "@/components/ui/github-activity";
 import { getActivity } from "@/lib/github-activity";
+import { pageMeta } from "@/app/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
   description: "Background, skills and GitHub activity of Archit Agrawal, AI software engineer.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 const FACTS: [string, string][] = [
   ["Now", "AI Software Engineer, ASU EdPlus"],

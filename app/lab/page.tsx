@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { PageHeader, Shell } from "@/components/site/shell";
 import { LabGame } from "@/components/site/lab-game";
+import { pageMeta } from "@/app/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Lab notebook",
   description: "The hardest problems Archit Agrawal has solved across AI agents, audio and mobile, each with a measured result.",
-  alternates: { canonical: "/lab" },
-};
+  path: "/lab",
+});
 
 export default function LabPage() {
   return (
