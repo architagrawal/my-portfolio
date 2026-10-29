@@ -24,13 +24,13 @@ const stats = [
 
 const impact = [
   { value: "85%", label: "fewer wrong answers on 164 published figures" },
-  { value: "93%", label: "right on the hardest benchmark questions, 0 wrong" },
+  { value: "93%", label: "right on 29 hard benchmark questions" },
   { value: "68%", label: "on StatQA, above GPT-4o's best reported 64.83%" },
   { value: "4×", label: "more headline findings, 13% to 52–59%" },
 ];
 
 const highlights = [
-  { name: "Every number from code", changed: "No figure is ever produced by a model. Each carries a fact id back to its rows, and an independent audit from the raw CSV matched 100% of figures." },
+  { name: "Numbers from code", changed: "Figures are computed by code, not written by a model. Each carries a fact id back to its rows, and an independent audit recomputed them from the raw CSV." },
   { name: "Checked before shown", changed: "Every answer is read back in words and judged against the question. Wrong answers fell 85% on 164 published figures; the rest are refused with a reason or asked of the reader." },
   { name: "Statistics and causality", changed: "25 statistical tests checked against scipy and statsmodels, six causal effect estimators, and causal discovery that says \u201cunsettled\u201d rather than guess a direction." },
   { name: "Any table, read right", changed: "Survey weights, missing-value codes, crosstabs and codebooks applied on upload. Weights are found in 100% of files that ship one, up from 0%." },
@@ -1677,7 +1677,7 @@ export default function SurveyAgentsCaseStudy() {
               <Notes items={modelNotes} />
             </Section>
 
-            <Section eyebrow="21  Any table" title="Tests, causes, no wrong numbers">
+            <Section eyebrow="21  Any table" title="Tests, causes, checked numbers">
               <p className="t-body max-w-[40rem] text-muted-foreground">
                 Four more benchmarks, each binding a question with one cached model call and
                 scored by code, no judge. Built, they showed the platform answered survey

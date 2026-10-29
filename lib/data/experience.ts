@@ -62,7 +62,7 @@ export const roles: Role[] = [
         "text": "Analyst agent: quadrupled the headline findings a page recovers, 13% to 52-59% on surveys it had never seen, at about $0.05 per 13 surveys. It sees one line per question and never a row; code compiles its choices into plans."
       },
       {
-        "text": "Label reliability: schema-constrained decoding, per-response correlation tokens and citation verification took join integrity to 100% and label churn to zero across 100% of rows. The benchmark pipeline destroyed a label on 1 in 8 rows (12.7%) without flagging one."
+        "text": "Label reliability: schema-constrained decoding, per-response correlation tokens and citation verification reached 100% join integrity and no label churn on repeat runs. The benchmark pipeline destroyed a label on 1 in 8 rows (12.7%) without flagging one."
       },
       {
         "text": "Charts from plain English: a reader asks a question, gets a chart back, then edits it directly with stack, swap, sort, top-N, filters, and undo with redo."
@@ -106,7 +106,7 @@ export const roles: Role[] = [
           "Added 25 statistical tests checked against scipy and statsmodels, causal effect estimators matching statsmodels, and causal discovery that says \"unsettled\" rather than guess a direction.",
           "Gave every column one meaning in one place: a census found eight facts each decided in several places, and one semantic model per run took disagreements across 411 runs from 30,405 to 263.",
           "Made every reading of a file a recorded decision, applied where checked and asked of the reader where a guess would move a number. Code labels are read twice, reversed, and applied only where both agree.",
-          "Moved every component onto one semantic layer after more reasoning and bigger models helped none: accuracy on the hardest questions rose from 60% to 93% with zero wrong."
+          "Moved every component onto one semantic layer after more reasoning and bigger models helped none: accuracy on the hardest questions rose from 60% to 93% with none of the 29 answered wrong."
         ]
       },
       {

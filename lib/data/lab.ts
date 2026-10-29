@@ -40,9 +40,9 @@ export const experiments: Experiment[] = [
   {
     project: "Survey Agents",
     stat: "93%",
-    unit: "right on the hardest questions, 0 wrong",
-    title: "Zero wrong on the hardest questions",
-    body: "Accuracy on the hardest benchmark questions rose from 60% to 93%, with zero wrong answers. More reasoning and bigger models were tried first and helped none; giving every component one shared layer of facts about the file did.",
+    unit: "right on 29 hard benchmark questions",
+    title: "Hardest questions, 60% to 93%",
+    body: "Accuracy on the hardest benchmark questions rose from 60% to 93%, with none of the 29 answered wrong. More reasoning and bigger models were tried first and helped none; giving every component one shared layer of facts about the file did.",
   },
   {
     project: "Survey Agents",

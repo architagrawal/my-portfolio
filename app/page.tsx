@@ -96,9 +96,9 @@ export default async function Home() {
               <div>
                 <p className="t-body max-w-[34rem] text-muted-foreground">
                   Ask any dataset a question in plain English and get an answer you can make a decision on. Every
-                  number is computed by code, cited to its rows and checked before you see it: 85% fewer wrong answers
-                  on 164 published figures, and 68% on StatQA, above GPT-4o&apos;s best reported score. Twelve agents in
-                  production on AWS.
+                  number is computed by code, cited to its rows and checked before you see it. Its controlled experiments
+                  showed model choice moving accuracy 33 times more than pipeline design, which changed what we built.
+                  Twelve agents in production on AWS.
                 </p>
                 <TextLink href="/work/survey-agents" className="mt-5">
                   Case study

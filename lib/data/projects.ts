@@ -38,7 +38,7 @@ export const projects: Project[] = [
       "Questions compile to MBQL plans, clear seven validation checks, then execute over stored facts with DuckDB on a miss. Metrics bind to column kinds, so an unseen survey is answerable on arrival.",
       "Charts are specs, never images: one constrained Vega-Lite spec emits the chart, an accessible data table, alt text, a CSV and an ASCII rendering, with mark selection deterministic.",
       "Every number in a drafted report resolves to a fact the analytics stage computed, or the sentence is redrafted naming the offending figure and then removed.",
-      "Answers statistical and causal questions on any table, and every answer is read back and checked before it is shown: wrong answers on 164 published figures fell 85%, and StatQA test choice reached 68% against GPT-4o's best of 64.83%.",
+      "Answers statistical and causal questions on any table: 25 tests checked against scipy and statsmodels, and causal discovery that says \"unsettled\" rather than guess a direction.",
     ],
     visual: "agents",
     caseStudyUrl: "/work/survey-agents",
@@ -87,7 +87,7 @@ export const projects: Project[] = [
       "Held against Claude Opus 5.5 working blind on ten survey files: judge-free rules cut wrong charts 93% and oversized charts 100%, while Opus still leads on focus.",
       "One semantic model per run: a census found eight column facts each decided in several places, and moving every reader onto one model took disagreements across 411 runs from 30,405 to 263.",
       "Every reading of a file is a recorded decision: code labels are read twice, the second time reversed, applied only where both agree, and asked of the reader where a guess would move a number.",
-      "One semantic layer for every component raised accuracy on the hardest questions from 60% to 93% with zero wrong, after more reasoning and bigger models helped none.",
+      "One semantic layer for every component raised accuracy on the hardest questions from 60% to 93% with none of the 29 answered wrong, after more reasoning and bigger models helped none.",
     ],
     technologies: [
       "TypeScript",

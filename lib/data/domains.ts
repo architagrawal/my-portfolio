@@ -82,7 +82,7 @@ export const domains: Domain[] = [
       {
         title: "Reliability",
         points: [
-          { role: AI, text: "Structured outputs: schema-constrained decoding and per-response correlation tokens took join integrity to 100%. The benchmark pipeline silently lost a label on 1 in 8 rows." },
+          { role: AI, text: "Structured outputs: schema-constrained decoding and per-response correlation tokens reached 100% join integrity on repeat runs. The benchmark pipeline silently lost a label on 1 in 8 rows." },
           { role: AI, text: "Reproducible answers: each answer carries a passport (plan hash, dataset, registry and skill versions) and re-executes byte for byte." },
           { role: MYSTAGE, text: "Distributed tracing: Logfire trace context carried across queue, claim and resume, so worker spans nest under the producer's trace through a pause." },
           { role: AI, text: "Guardrails and spend: Bedrock Guardrails as their own stack, a 5% failure circuit breaker, and spend caps enforced inside each stage." },
@@ -231,7 +231,7 @@ export const domains: Domain[] = [
       "Every claim treated as an experiment, with a control, a baseline and a stated error. That has meant controlled model comparisons, calibrated thresholds, 25 statistical tests checked against scipy, and benchmarks scored by code rather than taste.",
     stats: [
       ["33×", "model vs pipeline effect on F1"],
-      ["85%", "fewer wrong answers"],
+      ["99%", "fewer cross-run disagreements"],
       ["25", "statistical tests, checked"],
       ["12%", "accuracy lift, match model"],
     ],
@@ -276,7 +276,7 @@ export const domains: Domain[] = [
     caseStudies: [
       study("Model choice mattered more than architecture", "measurement"),
       study("Three decisive control runs", "controls"),
-      study("Tests, causes, no wrong numbers", "any-table"),
+      study("Tests, causes, checked numbers", "any-table"),
       study("Telling a real difference from noise", "relationships"),
       study("Scored by code, not by taste", "benchmarks"),
     ],
@@ -294,7 +294,7 @@ export const domains: Domain[] = [
     stats: [
       ["70,000+", "records scraped a day"],
       ["95%", "dataset accuracy"],
-      ["100%", "join integrity"],
+      ["100%", "join integrity, repeat runs"],
       ["216", "runs queried in milliseconds"],
     ],
     groups: [
@@ -303,7 +303,7 @@ export const domains: Domain[] = [
         points: [
           { role: MYSTAGE, text: "Scraping at scale: a Playwright service indexing 70,000+ records a day from 650+ locations, rotating proxies and backing off when sites push back." },
           { role: AI, text: "Any table shape: five gated intake stages survive UTF-16 null-byte headers and duplicate columns, and found the timestamp hidden in identifiers on about seven in ten exports." },
-          { role: AI, text: "Replayable intake: every decision lands in one JSON recipe, and a run has never diverged from its replay." },
+          { role: AI, text: "Replayable intake: every decision lands in one JSON recipe, and no tested run has diverged from its replay." },
           { role: MYSTAGE, text: "Freshest first: a Cloud Scheduler loop reprocesses the most-stale sources first." },
         ],
       },
