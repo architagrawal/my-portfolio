@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SiteNav } from "@/components/site/nav";
 import { SiteFooter } from "@/components/site/footer";
+import { FACTS } from "@/lib/data/profile";
 import { PushButton } from "@/components/site/push-button";
 import { Replay } from "@/components/site/replay";
 import { ScrollCue } from "@/components/site/scroll-cue";
@@ -168,14 +169,7 @@ export default async function Home() {
 
           <Section title="About">
             <p className="t-meta mb-6">How I got here, what I work with, and a year of GitHub activity.</p>
-            <MetaRow
-              items={[
-                ["Based in", "SF Bay Area"],
-                ["Degree", "MS CS, 4.0"],
-                ["Works in", "TypeScript, Python"],
-                ["Loves", "LangGraph, AWS"],
-              ]}
-            />
+            <MetaRow items={FACTS} />
             <TextLink href="/about" className="mt-7">
               About me
             </TextLink>

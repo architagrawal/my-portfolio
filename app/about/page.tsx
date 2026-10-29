@@ -7,6 +7,7 @@ import { MetaRow, Section } from "@/components/site/ui";
 import { GithubActivity } from "@/components/ui/github-activity";
 import { getActivity } from "@/lib/github-activity";
 import { pageMeta } from "@/app/metadata";
+import { FACTS } from "@/lib/data/profile";
 
 export const metadata: Metadata = pageMeta({
   title: "About",
@@ -14,12 +15,6 @@ export const metadata: Metadata = pageMeta({
   path: "/about",
 });
 
-const FACTS: [string, string][] = [
-  ["Now", "AI Software Engineer, ASU EdPlus"],
-  ["Education", "MS Computer Science, ASU, 4.0 GPA"],
-  ["Focus", "Agents, RAG, evaluation, full-stack"],
-  ["Based in", "San Francisco Bay Area, open to relocation"],
-];
 
 export default async function AboutPage() {
   const activity = await getActivity();
