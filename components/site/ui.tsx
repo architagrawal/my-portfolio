@@ -73,12 +73,15 @@ export function Points({ items }: { items: string[] }) {
 /* A detail-page section: label in the left rail on wide screens, content on the right.
    The rail is the same 9rem column the list pages use for dates, so edges line up site-wide. */
 export function Section({
+  id,
   title,
   count,
   num,
   statement,
   children,
 }: {
+  /* anchor, so other pages can link straight to this section */
+  id?: string;
   title: string;
   count?: number;
   /* an ordinal shown above the label, for long numbered pages */
@@ -88,7 +91,7 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section className="ui-section">
+    <section id={id} className="ui-section">
       <h2 className="t-h3">
         {num && <span className="t-count !ml-0 block pb-1.5 !align-baseline">{num}</span>}
         {title}
@@ -128,12 +131,13 @@ export function NextLink({ href, label, title }: { href: string; label: string; 
   );
 }
 
-/* A row of results: big number in the accent, what it counts underneath */
+/* A row of results: big number in the accent, what it counts underneath. Numbers share a top
+   edge even when one label wraps to two lines. */
 export function Stats({ items, className = "" }: { items: [ReactNode, string][]; className?: string }) {
   return (
     <dl className={`ui-stats ${className}`} style={{ ["--stat-cols" as string]: Math.min(items.length, 4) }}>
       {items.map(([n, label]) => (
-        <div key={label} className="flex flex-col-reverse">
+        <div key={label} className="flex flex-col-reverse justify-end">
           <dt className="t-meta mt-2">{label}</dt>
           <dd className="t-stat">{n}</dd>
         </div>

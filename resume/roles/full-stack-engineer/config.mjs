@@ -12,6 +12,7 @@ export default {
   },
   projects: [6],
   detailed: {
+    publishAs: "Archit_Agrawal_Full_Stack_Engineer_Resume",
     skills: detailedSkills,
     roles: [0, 1, 2, 4, 5, 6],
     pick: {

@@ -6,7 +6,7 @@ import { TextLink } from "./ui";
 /* Page frame shared by every sub-page. The painting (Backdrop, in the root layout) is the
    setting: a tall band shows it with the title over it, then the content sits on a centred
    surface and the painting stays visible in the side margins on wide screens. */
-export function Shell({ header, children }: { header: ReactNode; children: ReactNode }) {
+export function Shell({ header, children, resume }: { header: ReactNode; children: ReactNode; resume?: string }) {
   return (
     <div className="relative min-h-screen text-foreground">
       <SiteNav wide />
@@ -17,7 +17,7 @@ export function Shell({ header, children }: { header: ReactNode; children: React
       </div>
       <div className="surface mx-auto max-w-4xl">
         <main className="relative px-6 pt-2 md:px-12">{children}</main>
-        <SiteFooter inset />
+        <SiteFooter inset resume={resume} />
       </div>
     </div>
   );

@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { roles, type Role } from "@/lib/data/experience";
+import { domains } from "@/lib/data/domains";
+import { pageMeta } from "@/app/metadata";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Viz } from "@/components/soft/viz";
 import { Points, TextLink } from "@/components/site/ui";
 import { ScrollSpine } from "@/components/site/scroll-spine";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Experience",
-  description:
-    "Roles, research and education: what Archit Agrawal built at ASU EdPlus, MyStage, Zeus Learning and more.",
-  alternates: { canonical: "/work" },
-};
+  description: "Roles, research and education: what Archit Agrawal built at ASU EdPlus, MyStage, Zeus Learning and more.",
+  path: "/work",
+});
 
 const EDUCATION = [
   {
@@ -64,6 +65,18 @@ export default function WorkPage() {
         </PageHeader>
       }
     >
+      <nav aria-label="Experience by domain" className="mt-12">
+        <p className="t-eyebrow">By domain</p>
+        <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+          {domains.map((d) => (
+            <li key={d.slug}>
+              <TextLink href={`/for/${d.slug}`} className="text-[15px]">
+                {d.title}
+              </TextLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <ScrollSpine>
         <SectionTitle count={industry.length}>Industry</SectionTitle>

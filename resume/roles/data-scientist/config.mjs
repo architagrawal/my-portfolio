@@ -13,6 +13,7 @@ export default {
   },
   projects: [7],
   detailed: {
+    publishAs: "Archit_Agrawal_Data_Scientist_Resume",
     skills: roleSkills.dataScienceDetailed,
     roles: [0, 1, 2, 3, 4, 5, 7],
     pick: {

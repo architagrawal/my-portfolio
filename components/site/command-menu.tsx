@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { roles } from "@/lib/data/experience";
 import { projects } from "@/lib/data/projects";
+import { domains } from "@/lib/data/domains";
 import { RESUME_URL } from "@/lib/resume";
 
 const EMAIL = "architagrawal000@gmail.com";
@@ -35,6 +36,7 @@ export function CommandMenu() {
       { group: "Pages", label: "About", run: go("/about") },
       { group: "Pages", label: "Survey Agents case study", run: go("/work/survey-agents") },
       { group: "Pages", label: "EdSpace case study", run: go("/work/edspace") },
+      ...domains.map((d) => ({ group: "Domains", label: d.title, run: go(`/for/${d.slug}`) })),
       {
         group: "Contact",
         label: "Copy email address",

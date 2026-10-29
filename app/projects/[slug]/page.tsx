@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type React from "react";
 import { notFound } from "next/navigation";
 import { projectBySlug, projects } from "@/lib/data/projects";
+import { pageMeta, snippet } from "@/app/metadata";
 import { PageHeader, Shell } from "@/components/site/shell";
 import { Chips, MetaRow, NextLink, Points, Section, TextLink } from "@/components/site/ui";
 import { Viz } from "@/components/soft/viz";
@@ -14,7 +15,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const p = projectBySlug(params.slug);
-  return p ? { title: p.title, description: p.description, alternates: { canonical: `/projects/${p.slug}` } } : {};
+  return p ? pageMeta({ title: p.title, description: snippet(p.description), path: `/projects/${p.slug}` }) : {};
 }
 
 const TIER = { featured: "Featured build", build: "Side build", coursework: "Coursework" } as const;

@@ -848,8 +848,9 @@ const appNotes = [
 /* "01  Timeline" -> rail label "Timeline" with its ordinal, the title as the section's statement */
 function Section({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
   const [, num, label] = eyebrow.match(/^(\d+)\s+(.+)$/) ?? [, undefined, eyebrow];
+  const id = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return (
-    <UiSection num={num} title={label} statement={title}>
+    <UiSection id={id} num={num} title={label} statement={title}>
       <div className="space-y-6">{children}</div>
     </UiSection>
   );

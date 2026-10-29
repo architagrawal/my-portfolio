@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { RESUME_URL } from "@/lib/resume";
+import { resumeFor } from "@/lib/resume";
 import { CommandMenu } from "./command-menu";
+import { domains } from "@/lib/data/domains";
 
 const LINKS = [
   { label: "Work", href: "/work" },
@@ -43,7 +44,7 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
               href={href}
               aria-current={active ? "page" : undefined}
               onMouseEnter={() => setHover(href)}
-              className={`relative isolate rounded-full px-2.5 py-1.5 sm:px-3 transition-colors hover:text-foreground ${active ? "text-foreground" : ""}`}
+              className={`relative isolate rounded-full px-2 py-1.5 sm:px-3 transition-colors hover:text-foreground ${active ? "text-foreground" : ""} ${href === "/lab" ? "hidden sm:block" : ""}`}
             >
               {pill === href && (
                 <motion.span
@@ -56,7 +57,8 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
             </Link>
           );
         })}
-        <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="hidden rounded-full px-3 py-1.5 transition-colors hover:text-foreground sm:inline">
+        <Expertise path={path} />
+        <a href={resumeFor(path)} target="_blank" rel="noopener noreferrer" className="hidden rounded-full px-3 py-1.5 transition-colors hover:text-foreground sm:inline">
           Resume
         </a>
         <button
@@ -70,5 +72,58 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
     </div>
       <CommandMenu />
     </nav>
+  );
+}
+
+/* "Expertise": the /for domain pages as a menu. Opens on hover or click, closes on Escape,
+   an outside click, or picking a page. */
+function Expertise({ path }: { path: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const active = path.startsWith("/for/");
+  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: PointerEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("pointerdown", away);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("pointerdown", away);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [open]);
+  return (
+    <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="true"
+        onClick={() => setOpen((o) => !o)}
+        className={`flex items-center gap-1 rounded-full px-2 py-1.5 transition-colors hover:text-foreground sm:px-3 ${active || open ? "bg-foreground/10 text-foreground" : ""}`}
+      >
+        Expertise
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 14 14" fill="none" className={`hidden transition-transform sm:block ${open ? "rotate-180" : ""}`}>
+          <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full pt-2">
+          <ul className="w-56 rounded-2xl bg-background/95 p-2 shadow-lg backdrop-blur-md">
+            {domains.map((d) => (
+              <li key={d.slug}>
+                <Link
+                  href={`/for/${d.slug}`}
+                  aria-current={path === `/for/${d.slug}` ? "page" : undefined}
+                  className="block rounded-xl px-3 py-2 transition-colors hover:bg-foreground/10 hover:text-foreground aria-[current=page]:text-primary"
+                >
+                  {d.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }

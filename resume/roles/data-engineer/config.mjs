@@ -13,6 +13,7 @@ export default {
   projects: [6],
   pickProject: { 6: ["Built a scheduled ETL pipeline"] },
   detailed: {
+    publishAs: "Archit_Agrawal_Data_Engineer_Resume",
     skills: roleSkills.dataDetailed,
     roles: [0, 1, 2, 4, 5, 6],
     pick: {

@@ -12,6 +12,7 @@ export default {
   },
   projects: [10],
   detailed: {
+    publishAs: "Archit_Agrawal_Backend_Engineer_Resume",
     skills: roleSkills.backendDetailed,
     roles: [0, 1, 2, 4, 5, 6],
     pick: {
