@@ -167,7 +167,7 @@ export function Backdrop() {
     fit();
     const sample = el.querySelector(".cover-mast text");
     const face = sample ? getComputedStyle(sample).font : "";
-    if (face) document.fonts.load(face, "Hi, I\u2019m Archit.").then(fit, fit);
+    if (face) document.fonts.load(face, "Hi, I\u2019m Archit").then(fit, fit);
     document.fonts.addEventListener("loadingdone", fit);
     return () => {
       alive = false;
@@ -192,7 +192,7 @@ export function Backdrop() {
                   these viewBoxes are Figtree 800's, for the first frame. */}
               <svg className="mast-line" viewBox="6.8 -74 578.9 75.2">
                 <text x="0" y="0">
-                  <tspan className="w1">Hi,</tspan> <tspan className="w2">I&rsquo;m</tspan> <tspan className="w3">Archit.</tspan>
+                  <tspan className="w1">Hi,</tspan> <tspan className="w2">I&rsquo;m</tspan> <tspan className="w3">Archit</tspan>
                 </text>
               </svg>
               <svg className="mast-stack" viewBox="0 -74 295.1 165.2">
@@ -200,7 +200,7 @@ export function Backdrop() {
                   <tspan className="w1">Hi,</tspan> <tspan className="w2">I&rsquo;m</tspan>
                 </text>
                 <text x="0" y="90">
-                  <tspan className="w3">Archit.</tspan>
+                  <tspan className="w3">Archit</tspan>
                 </text>
               </svg>
             </div>

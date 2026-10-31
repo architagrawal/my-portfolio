@@ -72,7 +72,7 @@ export function Replay() {
               />
             </div>
             <motion.span
-              className="text-right font-bold tabular-nums"
+              className="text-right font-semibold tabular-nums"
               initial={{ opacity: reduce ? 1 : 0 }}
               animate={{ opacity: showChart ? 1 : 0 }}
               transition={{ duration: reduce ? 0 : 0.3, delay: showChart ? 0.35 + i * 0.1 : 0 }}

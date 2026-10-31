@@ -95,12 +95,7 @@ export default function EdSpaceCaseStudy() {
       }
     >
       <div className="pt-10">
-        <p className="t-body max-w-[40rem] text-muted-foreground">
-          Built in two days for Prhacktical, the EdPlus hackathon, for the 500+ people at the
-          SkySong 3 office. Shown to EdPlus leadership, including the CEO, chairman, vice
-          chairman and department head, and now going live for the whole office, with a wider
-          rollout planned.
-        </p>
+        <Chips items={["Built in 2 days, Prhacktical hackathon", "For 500+ people at SkySong 3", "Shown to the CEO and chairman", "Going live office-wide"]} />
 
         <figure className="mt-12">
           <Film />

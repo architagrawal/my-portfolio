@@ -5,7 +5,8 @@ import { animate, motion, useInView } from "framer-motion";
 import { useReduce } from "@/components/site/use-reduce";
 import { Crossfade, FindingsBars } from "@/components/soft/drawings";
 
-const once = { once: true, margin: "-60px" } as const;
+/* vertical inset only: a bare "-60px" also trims the sides, so short numbers near a 24px mobile edge never intersect */
+const once = { once: true, margin: "-60px 0px" } as const;
 const INSTANT = { duration: 0 } as const;
 
 /* Counts the leading number of a stat up from zero when it scrolls into view. "290k", "4.5×", "<1¢" all work. */
@@ -97,7 +98,7 @@ function FlatLatency() {
         transition={reduce ? INSTANT : { duration: 1, delay: 0.6 }}
       />
       <text x="0" y="94" fontSize="13" className="fill-muted-foreground">rows, 1× to 200×</text>
-      <text x="20" y="56" fontSize="13" className="fill-primary font-bold">answer time, flat</text>
+      <text x="20" y="56" fontSize="13" className="fill-primary font-semibold">answer time, flat</text>
     </svg>
   );
 }
@@ -155,7 +156,7 @@ function GraderGauge() {
         x="10"
         y="88"
         fontSize="13"
-        className="fill-primary font-bold"
+        className="fill-primary font-semibold"
         initial={reduce ? false : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={once}
@@ -199,7 +200,7 @@ function SplitBill() {
               x={x0}
               y="64"
               fontSize="13"
-              className="fill-foreground font-bold tabular-nums"
+              className="fill-foreground font-semibold tabular-nums"
               initial={reduce ? false : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={once}

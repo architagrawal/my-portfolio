@@ -40,3 +40,4 @@ next-env.d.ts
 /resume/research-common-swe-requirements.md
 .design-refs/
 .playwright-mcp/
+/.playwright-mcp/

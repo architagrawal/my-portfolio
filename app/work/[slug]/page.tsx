@@ -32,6 +32,7 @@ export default function RolePage({ params }: { params: { slug: string } }) {
         </PageHeader>
       }
     >
+      <Chips items={r.technologies} className="mt-8" />
       <div className="mt-10">
         <MetaRow items={[["When", r.period], ["Where", r.location]]} />
       </div>
@@ -39,7 +40,15 @@ export default function RolePage({ params }: { params: { slug: string } }) {
       {r.visual && <Viz v={r.visual} className="mt-14" />}
 
       <Section title="Highlights" count={r.achievements.length}>
-        <Points items={r.achievements.map((a) => a.text)} />
+        <Points items={r.achievements.slice(0, 3).map((a) => a.text)} />
+        {r.achievements.length > 3 && (
+          <details className="ui-more mt-4">
+            <summary className="ui-link">
+              <span className="ui-link-label">{r.achievements.length - 3} more</span>
+            </summary>
+            <Points items={r.achievements.slice(3).map((a) => a.text)} />
+          </details>
+        )}
       </Section>
 
       {r.more.length > 0 && (
@@ -48,9 +57,6 @@ export default function RolePage({ params }: { params: { slug: string } }) {
         </Section>
       )}
 
-      <Section title="Tools">
-        <Chips items={r.technologies} />
-      </Section>
 
       {next && <NextLink href={`/work/${next.slug}`} label="Next role" title={`${next.role}, ${next.companyShort}`} />}
     </Shell>

@@ -31,7 +31,7 @@ export function SiteNav({ wide = false, hero = false }: { wide?: boolean; hero?:
   return (
     <nav className="site-nav" data-scrolled={scrolled}>
     <div className={`mx-auto flex h-16 w-full items-center justify-between px-6 ${hero ? "max-w-6xl md:px-12" : wide ? "max-w-4xl md:px-12" : "max-w-3xl"}`}>
-      <Link href="/" className="shrink-0 whitespace-nowrap font-display text-base font-extrabold tracking-tight transition-colors hover:text-primary sm:text-lg">
+      <Link href="/" className="shrink-0 whitespace-nowrap font-display text-base font-semibold tracking-tight transition-colors hover:text-primary sm:text-lg">
         <span className="sm:hidden">Archit</span>
         <span className="hidden sm:inline">Archit Agrawal</span>
       </Link>
