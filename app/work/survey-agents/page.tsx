@@ -941,13 +941,18 @@ function Th({ children, accent = false }: { children: React.ReactNode; accent?: 
 }
 
 export default function SurveyAgentsCaseStudy() {
+  /* brief by default: titles, numbers, tables and figures; the reasoning prose shows on request */
+  const [brief, setBrief] = useState(true);
   return (
     <Shell
       header={
         <PageHeader eyebrow="Case study, 2026, internal platform POC" title="Survey Agents" />
       }
     >
-      <div className="pt-10">
+      <div className={`pt-10 ${brief ? "cs-brief" : ""}`}>
+            <button type="button" onClick={() => setBrief((b) => !b)} aria-pressed={!brief} className="cs-toggle ui-link">
+              <span className="ui-link-label">{brief ? "Show the reasoning" : "Hide the reasoning"}</span>
+            </button>
             <p className="t-h3 max-w-[40rem] !font-semibold !leading-snug text-foreground">
               Ask any dataset a question in plain English and get an answer you can make a
               decision on.
@@ -968,7 +973,7 @@ export default function SurveyAgentsCaseStudy() {
               <NamedList items={highlights} />
             </div>
 
-            <p className="t-meta mt-10 max-w-[40rem]">
+            <p className="t-meta cs-prose mt-10 max-w-[40rem]">
               It began as one question, asked honestly rather than flatteringly: does agentic
               architecture beat three direct API calls, and what does the reliability actually
               cost? The answer turned out to depend entirely on what you give the agent to

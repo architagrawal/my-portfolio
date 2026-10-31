@@ -7,6 +7,7 @@ import { Reveal } from "@/components/site/reveal";
 import { ProjectVisual } from "@/components/site/project-visual";
 import { ProjectFigure } from "@/components/figures";
 import { hasFigure } from "@/components/figures/slugs";
+import { Chips } from "@/components/site/ui";
 
 export const metadata: Metadata = pageMeta({
   title: "Projects",
@@ -27,7 +28,7 @@ function Row({ p }: { p: Project }) {
           <span className="ui-link-label">{p.title}</span>
           <span aria-hidden="true" className="ui-arrow text-primary opacity-0 transition-opacity group-hover:opacity-100">&rarr;</span>
         </span>
-        <span className="mt-1.5 block max-w-xl text-[15px] leading-relaxed text-muted-foreground line-clamp-2">{p.description}</span>
+        <Chips items={p.technologies.slice(0, 4)} className="mt-2.5" />
       </span>
       {fig && <ProjectFigure slug={p.slug} title={p.title} small className="hidden w-28 self-center md:block" />}
     </Link>
@@ -41,9 +42,7 @@ export default function ProjectsPage() {
   return (
     <Shell
       header={
-        <PageHeader eyebrow="Projects" title="Stuff I've shipped">
-          Production AI at work, and side projects where I try ideas end to end.
-        </PageHeader>
+<PageHeader eyebrow="Projects" title="Stuff I've shipped" />
       }
     >
 
@@ -63,9 +62,7 @@ export default function ProjectsPage() {
                   <h3 className="t-h2 mt-1.5">
                     <span className="ui-link-label">{p.title}</span>
                   </h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground line-clamp-3">
-                    {p.highlights[0] ?? p.description}
-                  </p>
+                  <Chips items={p.technologies.slice(0, 4)} className="mt-3" />
                 </div>
               </Link>
           </Reveal>

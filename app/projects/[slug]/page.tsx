@@ -35,11 +35,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <Shell
       header={
-        <PageHeader back={{ href: "/projects", label: "All projects" }} eyebrow={p.subtitle || TIER[p.tier]} title={p.title}>
-          {p.description}
-        </PageHeader>
+        <PageHeader back={{ href: "/projects", label: "All projects" }} eyebrow={p.subtitle || TIER[p.tier]} title={p.title} />
       }
     >
+      <Chips items={p.technologies} className="mt-8" />
       <div className="mt-10">
         <MetaRow
           items={[
@@ -76,12 +75,26 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       )}
       {extra.length > 0 && (
         <Section title={p.highlights.length ? "Build notes" : "What I built"} count={extra.length}>
-          <Points items={extra} />
+          {p.highlights.length ? (
+            <details className="ui-more">
+              <summary className="ui-link">
+                <span className="ui-link-label">All {extra.length} notes</span>
+              </summary>
+              <Points items={extra} />
+            </details>
+          ) : (
+            <Points items={extra} />
+          )}
         </Section>
       )}
 
-      <Section title="Tools">
-        <Chips items={p.technologies} />
+      <Section title="Overview">
+        <details className="ui-more">
+          <summary className="ui-link">
+            <span className="ui-link-label">Read the overview</span>
+          </summary>
+          <p className="t-body mt-4 max-w-[40rem] text-muted-foreground">{p.description}</p>
+        </details>
       </Section>
 
       <NextLink href={`/projects/${next.slug}`} label="Next project" title={next.title} />

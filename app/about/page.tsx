@@ -16,12 +16,35 @@ export const metadata: Metadata = pageMeta({
 });
 
 
+const JOURNEY = [
+  ["2018", "B.Tech, DA-IICT"],
+  ["2021", "Radar and lidar vision research"],
+  ["2022", "Software engineer, Zeus Learning"],
+  ["2023", "MS CS at ASU, 4.0"],
+  ["2023", "RAG for 60,000+ students"],
+  ["2025", "Founding AI/ML, MyStage"],
+  ["2026", "12 agents in production"],
+] as const;
+
 export default async function AboutPage() {
   const activity = await getActivity();
   return (
     <Shell header={<PageHeader eyebrow="About" title="Hi, I'm Archit" />}>
       <div className="mt-12 grid gap-10 md:grid-cols-[minmax(0,1fr)_11rem] md:gap-12">
-        <Reveal className="t-lead max-w-[36rem] space-y-6">
+        <Reveal>
+          <ol className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
+            {JOURNEY.map(([y, what], n) => (
+              <li key={what}>
+                <span className={`t-h2 block tabular-nums ${n === JOURNEY.length - 1 ? "text-primary" : "text-muted-foreground"}`}>{y}</span>
+                <span className="mt-1.5 block text-[15px] font-medium">{what}</span>
+              </li>
+            ))}
+          </ol>
+          <details className="ui-more mt-10">
+            <summary className="ui-link">
+              <span className="ui-link-label">The long version</span>
+            </summary>
+            <div className="t-lead mt-6 max-w-[36rem] space-y-6">
           <p>
             I finished my MS in Computer Science at Arizona State with a 4.0 and stayed on at EdPlus, where I own an
             analytics platform end to end. You upload any table, ask a question in plain English, and it answers with
@@ -35,6 +58,8 @@ export default async function AboutPage() {
             research on radar and lidar.
           </p>
           <p>Outside work I build AiJockey, an AI DJ, and tune its transitions until they sound human.</p>
+            </div>
+          </details>
         </Reveal>
         <Reveal delay={0.1} className="order-first md:order-none">
           <Image

@@ -5,7 +5,8 @@ import { domainBySlug, domains, sourceOf, type DomainPoint } from "@/lib/data/do
 import { DOMAIN_RESUMES } from "@/lib/resume";
 import { SITE, pageMeta } from "@/app/metadata";
 import { PageHeader, Shell } from "@/components/site/shell";
-import { Chips, NextLink, Section, Stats, TextLink, splitLead } from "@/components/site/ui";
+import { PushButton } from "@/components/site/push-button";
+import { Chips, NextLink, Section, Stats, splitLead } from "@/components/site/ui";
 
 export function generateStaticParams() {
   return domains.map((d) => ({ slug: d.slug }));
@@ -72,10 +73,9 @@ export default function DomainPage({ params }: { params: { slug: string } }) {
       resume={resume}
       header={
         <PageHeader back={{ href: "/work", label: "All experience" }} eyebrow="Domain" title={d.title}>
-          <p>{d.summary}</p>
-          <TextLink href={resume} className="mt-6 !flex w-fit text-[15px]">
-            {d.title} resume
-          </TextLink>
+          <div className="mt-2">
+            <PushButton href={resume}>{d.title} resume</PushButton>
+          </div>
         </PageHeader>
       }
     >
@@ -84,7 +84,15 @@ export default function DomainPage({ params }: { params: { slug: string } }) {
 
       {d.groups.map((g) => (
         <Section key={g.title} title={g.title} count={g.points.length}>
-          <SourcedPoints items={g.points} />
+          <SourcedPoints items={g.points.slice(0, 2)} />
+          {g.points.length > 2 && (
+            <details className="ui-more mt-4">
+              <summary className="ui-link">
+                <span className="ui-link-label">{g.points.length - 2} more</span>
+              </summary>
+              <SourcedPoints items={g.points.slice(2)} />
+            </details>
+          )}
         </Section>
       ))}
 

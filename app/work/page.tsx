@@ -5,7 +5,8 @@ import { domains } from "@/lib/data/domains";
 import { pageMeta } from "@/app/metadata";
 import { PageHeader, SectionTitle, Shell } from "@/components/site/shell";
 import { Viz } from "@/components/soft/viz";
-import { Points, TextLink } from "@/components/site/ui";
+import { Chips, Points, TextLink } from "@/components/site/ui";
+import { Timeline } from "@/components/site/timeline";
 import { ScrollSpine } from "@/components/site/scroll-spine";
 
 export const metadata: Metadata = pageMeta({
@@ -41,8 +42,9 @@ function RoleEntry({ r }: { r: Role }) {
         <p className="t-meta mt-1">
           {r.company}, {r.location}
         </p>
+        <Chips items={r.technologies.slice(0, 5)} className="mt-4" />
         <div className="mt-6">
-          <Points items={r.featured.map((i) => r.achievements[i]).filter(Boolean).map((a) => a.text)} />
+          <Points items={r.featured.map((i) => r.achievements[i]).filter(Boolean).slice(0, 1).map((a) => a.text)} />
         </div>
         {r.visual && <Viz v={r.visual} className="mt-8" />}
         <TextLink href={`/work/${r.slug}`} className="mt-6 !flex w-fit text-[15px]">
@@ -59,12 +61,13 @@ export default function WorkPage() {
   return (
     <Shell
       header={
-        <PageHeader eyebrow="Experience" title="Where I've shipped">
-          Five years across AI platforms, data pipelines and product engineering,
-          plus research in evaluation and computer vision.
-        </PageHeader>
+<PageHeader eyebrow="Experience" title="Where I've shipped" />
       }
     >
+      <div className="mt-12">
+        <Timeline />
+      </div>
+
       <nav aria-label="Experience by domain" className="mt-12">
         <p className="t-eyebrow">By domain</p>
         <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">

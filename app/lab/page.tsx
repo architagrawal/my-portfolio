@@ -13,9 +13,7 @@ export default function LabPage() {
   return (
     <Shell
       header={
-        <PageHeader eyebrow="Lab notebook" title="The hard parts.">
-          The problems that took the longest to crack, and the number that says they are solved.
-        </PageHeader>
+<PageHeader eyebrow="Lab notebook" title="The hard parts." />
       }
     >
       <div className="mt-8">

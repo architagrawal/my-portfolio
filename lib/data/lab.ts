@@ -26,7 +26,7 @@ export const experiments: Experiment[] = [
     project: "Survey Agents",
     stat: "4×",
     unit: "more headline findings found",
-    title: "4× the headline findings",
+    title: "An agent picks the findings",
     viz: "findings",
     body: "Instead of charting every question, an agent picks the ones that matter. Headline findings recovered went from 13% to 52–59% on surveys it had never seen, for about $0.05 per 13 surveys.",
   },
