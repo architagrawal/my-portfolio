@@ -9,46 +9,58 @@ function toYear(s: string) {
   return Number(y[0]) + Math.max(m, 0) / 12;
 }
 
-/* every role as a bar on one time axis; overlapping roles stack into lanes */
+/* one row per role, newest first: the role and company on the left, its span on a shared year axis */
 export function Timeline() {
-  const spans = roles
-    .map((r) => {
-      const [a, b = "Present"] = r.period.split(/\s+[–-]\s+/);
-      return { r, start: toYear(a), end: toYear(b) };
-    })
-    .sort((x, y) => x.start - y.start);
-  const lo = Math.floor(spans[0].start);
-  const hi = Math.max(...spans.map((x) => x.end));
-  const lanes: number[] = [];
-  const placed = spans.map((x) => {
-    let lane = lanes.findIndex((end) => end <= x.start);
-    if (lane < 0) lane = lanes.length;
-    lanes[lane] = x.end;
-    return { ...x, lane };
+  const spans = roles.map((r) => {
+    const [a, b = "Present"] = r.period.split(/\s+[–-]\s+/);
+    return { r, start: toYear(a), end: toYear(b) };
   });
+  const lo = Math.floor(Math.min(...spans.map((x) => x.start)));
+  const hi = Math.max(...spans.map((x) => x.end));
+  /* total time worked, overlaps counted once, floored to the half year */
+  let total = 0;
+  let reach = -Infinity;
+  for (const { start, end } of [...spans].sort((x, y) => x.start - y.start)) {
+    total += Math.max(0, end - Math.max(start, reach));
+    reach = Math.max(reach, end);
+  }
+  const years = Math.floor(total * 2) / 2;
   const pct = (y: number) => ((y - lo) / (hi - lo)) * 100;
-  const years = Array.from({ length: Math.floor(hi) - lo + 1 }, (_, i) => lo + i);
+  const ticks = Array.from({ length: Math.floor(hi) - lo + 1 }, (_, i) => lo + i);
+  const grid = "grid grid-cols-[minmax(0,1fr)] gap-x-6 sm:grid-cols-[15rem_minmax(0,1fr)]";
   return (
     <div>
-      <div className="relative" style={{ height: `${lanes.length * 2.75}rem` }}>
-        {placed.map(({ r, start, end, lane }) => (
-          <Link
-            key={r.slug}
-            href={`/work/${r.slug}`}
-            title={`${r.role} at ${r.companyShort}`}
-            className="group absolute flex h-9 items-center overflow-hidden rounded-md bg-[hsl(var(--primary)/0.22)] px-2.5 text-[13px] font-medium text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-            style={{ left: `${pct(start)}%`, width: `calc(${pct(end) - pct(start)}% - 3px)`, top: `${lane * 2.75}rem` }}
-          >
-            {pct(end) - pct(start) > 8 && <span className="truncate">{r.companyShort}</span>}
-          </Link>
+      <p className="mb-6 flex items-baseline gap-3">
+        <span className="t-stat text-primary tabular-nums">{years}+</span>
+        <span className="t-meta">years of work, {roles.length} roles</span>
+      </p>
+      <ul>
+        {spans.map(({ r, start, end }) => (
+          <li key={r.slug}>
+            <Link href={`/work/${r.slug}`} className={`group ${grid} items-center py-2`}>
+              <span className="min-w-0 text-[15px] leading-snug">
+                <span className="ui-link-label block truncate font-semibold">{r.companyShort}</span>
+                <span className="block truncate text-muted-foreground">{r.role}</span>
+              </span>
+              <span className="relative mt-1.5 block h-2.5 rounded-full bg-[hsl(var(--foreground)/0.06)] sm:mt-0">
+                <span
+                  className="absolute inset-y-0 rounded-full bg-primary transition-opacity group-hover:opacity-80"
+                  style={{ left: `${pct(start)}%`, width: `max(${pct(end) - pct(start)}%, 6px)` }}
+                />
+              </span>
+            </Link>
+          </li>
         ))}
-      </div>
-      <div className="t-meta relative mt-2 h-5">
-        {years.map((y) => (
-          <span key={y} className="absolute tabular-nums" style={{ left: `${pct(y)}%` }}>
-            {y}
-          </span>
-        ))}
+      </ul>
+      <div className={`${grid} t-meta mt-1`}>
+        <span className="hidden sm:block" />
+        <span className="relative h-5">
+          {ticks.map((y) => (
+            <span key={y} className="absolute -translate-x-1/2 tabular-nums" style={{ left: `${pct(y)}%` }}>
+              {y}
+            </span>
+          ))}
+        </span>
       </div>
     </div>
   );
